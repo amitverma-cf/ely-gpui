@@ -6,6 +6,8 @@ use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
 
+mod build_support;
+
 #[derive(Debug, Deserialize, Default)]
 struct Config {
     paths: Option<PathsConfig>,
@@ -505,4 +507,40 @@ fn main() {
     emit_palette_instance("BAKED_DARK_PALETTE", &dark_palette, &mut code);
 
     fs::write(&dest_path, code).expect("failed to write ely_baked.rs");
+
+    let manifest_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
+    let root_dir = config_path
+        .as_deref()
+        .and_then(|p| p.parent())
+        .unwrap_or(&manifest_dir);
+
+    let icons_dir = config
+        .paths
+        .as_ref()
+        .and_then(|p| p.icons_dir.as_deref())
+        .map(|d| root_dir.join(d))
+        .unwrap_or_else(|| root_dir.join("assets/icons"));
+
+    let scan_sources = config
+        .paths
+        .as_ref()
+        .and_then(|p| p.scan_sources.clone())
+        .unwrap_or_else(|| vec!["src".into(), "examples".into()]);
+
+    let icon_mode = config
+        .icons
+        .as_ref()
+        .and_then(|i| i.mode.as_deref())
+        .unwrap_or("auto");
+
+    let minify_icons = config.icons.as_ref().and_then(|i| i.minify).unwrap_or(true);
+
+    build_support::icons::generate_icons(
+        &icons_dir,
+        &scan_sources,
+        root_dir,
+        Path::new(&out_dir),
+        icon_mode,
+        minify_icons,
+    );
 }

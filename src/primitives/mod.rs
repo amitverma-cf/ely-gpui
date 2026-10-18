@@ -31,7 +31,8 @@ pub(crate) use focus::{
 pub use focus::{FocusNext, FocusPrev, FocusRing, FocusScope};
 pub use ghost::DragGhost;
 pub(crate) use held::hold;
-pub use icon::{Icon, IconName};
+pub(crate) use icon::embedded_icon;
+pub use icon::{HeroIcon, HugeIcon, Icon, IconAsset, IconName, LucideIcon};
 pub use image::Image;
 pub(crate) use image::{checked_ratio, framed};
 pub use layer::{Raised, raise};

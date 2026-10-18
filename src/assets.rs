@@ -11,6 +11,9 @@ pub struct Assets;
 
 impl AssetSource for Assets {
     fn load(&self, path: &str) -> Result<Option<Cow<'static, [u8]>>> {
+        if let Some(bytes) = crate::primitives::embedded_icon(path) {
+            return Ok(Some(Cow::Borrowed(bytes)));
+        }
         Ok(Self::get(path).map(|file| file.data))
     }
 
