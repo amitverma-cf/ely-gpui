@@ -18,6 +18,7 @@ mod tooltip;
 #[cfg(all(test, feature = "test-support"))]
 mod tests;
 
+pub use crate::assets::{ImageAsset, VideoAsset};
 pub use backdrop::{Backdrop, Place};
 pub(crate) use caret::{caret_bar, caret_width};
 pub use disclosure::Disclosure;

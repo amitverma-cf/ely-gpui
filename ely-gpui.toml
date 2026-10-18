@@ -11,7 +11,7 @@ color_blind_safe = false
 density = "standard"
 radius_scale = 1.0
 font_scale = 1.0
-palette = "ely"
+preset = "ely"
 
 [theme.palette.light]
 bg = 0xfcfaf7
@@ -132,9 +132,18 @@ mono = { family = "JetBrains Mono", files = [
     "fonts/JetBrainsMono-Regular.ttf",
     "fonts/JetBrainsMono-Medium.ttf"
 ] }
+fallback = { family = "IBM Plex Sans", files = [
+    "fonts/ibm-plex-sans/IBMPlexSans-Regular.ttf"
+] }
 
 [icons]
 packs = ["lucide"]
 mode = "auto"
 minify = true
 fallback = "image-off"
+
+[media.images]
+logo = { path = "logo.png" }
+
+[media.videos]
+

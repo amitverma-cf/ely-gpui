@@ -1,8 +1,10 @@
 use std::borrow::Cow;
 
-use anyhow::Context as _;
 use gpui::{App, AssetSource, Result, SharedString};
 use rust_embed::RustEmbed;
+
+include!(concat!(env!("OUT_DIR"), "/ely_fonts.rs"));
+include!(concat!(env!("OUT_DIR"), "/ely_media.rs"));
 
 /// Icons and fonts. Pass to `Application::with_assets`, alone or through `Assets::before`.
 #[derive(RustEmbed)]
@@ -12,6 +14,12 @@ pub struct Assets;
 impl AssetSource for Assets {
     fn load(&self, path: &str) -> Result<Option<Cow<'static, [u8]>>> {
         if let Some(bytes) = crate::primitives::embedded_icon(path) {
+            return Ok(Some(Cow::Borrowed(bytes)));
+        }
+        if let Some(bytes) = embedded_font(path) {
+            return Ok(Some(Cow::Borrowed(bytes)));
+        }
+        if let Some(bytes) = embedded_media(path) {
             return Ok(Some(Cow::Borrowed(bytes)));
         }
         Ok(Self::get(path).map(|file| file.data))
@@ -26,14 +34,10 @@ impl AssetSource for Assets {
 }
 
 pub(crate) fn load_fonts(cx: &App) -> Result<()> {
-    let fonts = Assets::iter()
-        .filter(|name| name.ends_with(".ttf"))
-        .map(|name| {
-            Assets::get(&name)
-                .map(|file| file.data)
-                .with_context(|| format!("font {name} vanished from the bundle"))
-        })
-        .collect::<Result<Vec<_>>>()?;
+    let fonts: Vec<Cow<'static, [u8]>> = EMBEDDED_FONTS
+        .iter()
+        .map(|bytes| Cow::Borrowed(*bytes))
+        .collect();
     log::info!("assets: registering {} fonts", fonts.len());
     cx.text_system().add_fonts(fonts)
 }
@@ -137,5 +141,23 @@ mod tests {
             .count();
         assert_eq!(checks, 1);
         assert!(icons.iter().any(|name| name == "icons/kit-only.svg"));
+    }
+
+    #[test]
+    fn embedded_fonts_are_available() {
+        assert!(!super::EMBEDDED_FONTS.is_empty());
+        for font in super::EMBEDDED_FONTS {
+            assert!(!font.is_empty());
+        }
+        assert!(super::embedded_font(PLEX).is_some());
+    }
+
+    #[test]
+    fn type_safe_image_media_asset() {
+        let logo_bytes = super::Image::Logo.bytes();
+        assert!(!logo_bytes.is_empty());
+        assert_eq!(super::Image::Logo.mime_type(), "image/png");
+        assert_eq!(super::Image::Logo.path(), "logo.png");
+        assert_eq!(super::embedded_media("logo.png"), Some(logo_bytes));
     }
 }

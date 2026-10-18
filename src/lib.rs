@@ -1,6 +1,6 @@
 pub mod account;
 pub mod agent;
-mod assets;
+pub mod assets;
 
 pub mod buttons;
 pub mod calendar;
@@ -45,7 +45,7 @@ pub mod theme;
 pub mod tooling;
 pub mod typography;
 
-pub use assets::{Assets, Before};
+pub use assets::{Assets, Before, ImageAsset, VideoAsset};
 
 use anyhow::Context as _;
 use gpui::{App, KeyBinding};
