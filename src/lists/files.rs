@@ -9,7 +9,7 @@ use super::{Tree, TreeNode};
 use crate::{
     data_display::Tone,
     forms::{SearchInput, TextInput},
-    primitives::{IconName, IconTheme, icon_theme},
+    primitives::{IconTheme, LucideIcon, icon_theme},
     theme::ControlSize,
 };
 
@@ -123,7 +123,7 @@ fn nodes(
             }
             changed |= inner_changed;
             let node = TreeNode::new(path, name.clone())
-                .icon(IconName::Folder)
+                .icon(LucideIcon::Folder)
                 .children(children);
             out.push(if inner_changed {
                 node.note("•").tone(Tone::Warning)

@@ -7,7 +7,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton, ToggleButton, ToggleItem},
     forms::{OnFlag, OnNumber, Run, Slider},
     menus::{DropdownMenu, Menu, MenuItem},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::ControlSize,
 };
 
@@ -15,12 +15,12 @@ type OnSpeed = Rc<dyn Fn(f32, &mut Window, &mut App)>;
 type OnRepeat = Rc<dyn Fn(Repeat, &mut Window, &mut App)>;
 
 /// The speaker for a level from 0 to 1: struck through when silent, with more waves as it grows.
-pub(crate) fn speaker(level: f32, muted: bool) -> IconName {
+pub(crate) fn speaker(level: f32, muted: bool) -> LucideIcon {
     match level {
-        _ if muted || level == 0.0 => IconName::VolumeX,
-        level if level < 1.0 / 3.0 => IconName::Volume,
-        level if level < 2.0 / 3.0 => IconName::Volume1,
-        _ => IconName::Volume2,
+        _ if muted || level == 0.0 => LucideIcon::VolumeX,
+        level if level < 1.0 / 3.0 => LucideIcon::Volume,
+        level if level < 2.0 / 3.0 => LucideIcon::Volume1,
+        _ => LucideIcon::Volume2,
     }
 }
 
@@ -140,7 +140,7 @@ impl RenderOnce for PlaybackSpeedControl {
             })
         });
         DropdownMenu::new(self.id, format!("{}×", self.speed), menu)
-            .icon(IconName::Gauge)
+            .icon(LucideIcon::Gauge)
             .variant(ButtonVariant::Ghost)
     }
 }
@@ -235,7 +235,7 @@ impl MediaControls {
 impl RenderOnce for MediaControls {
     fn render(self, _: &mut Window, _: &mut App) -> impl IntoElement {
         let id = self.id.clone();
-        let step = |key: &'static str, icon: IconName, tip: &'static str, run: Option<Run>| {
+        let step = |key: &'static str, icon: LucideIcon, tip: &'static str, run: Option<Run>| {
             run.map(|run| {
                 IconButton::new((id.clone(), key), icon)
                     .variant(ButtonVariant::Ghost)
@@ -249,9 +249,9 @@ impl RenderOnce for MediaControls {
         let playing = self.playing;
         let play = self.on_play.map(|play| {
             let icon = if playing {
-                IconName::Pause
+                LucideIcon::Pause
             } else {
-                IconName::Play
+                LucideIcon::Play
             };
             IconButton::new((id.clone(), "play"), icon)
                 .variant(ButtonVariant::Primary)
@@ -264,7 +264,7 @@ impl RenderOnce for MediaControls {
         });
         let shuffle = self.on_shuffle.map(|set| {
             let item = ToggleItem::new("shuffle")
-                .icon(IconName::Shuffle)
+                .icon(LucideIcon::Shuffle)
                 .tooltip("Shuffle");
             ToggleButton::new((id.clone(), "shuffle"), item, self.shuffle).on_toggle(
                 move |to, window, cx| {
@@ -276,9 +276,9 @@ impl RenderOnce for MediaControls {
         let repeat = self.on_repeat.map(|set| {
             let now = self.repeat;
             let icon = if now == Repeat::One {
-                IconName::Repeat1
+                LucideIcon::Repeat1
             } else {
-                IconName::Repeat
+                LucideIcon::Repeat
             };
             let item = ToggleItem::new("repeat").icon(icon).tooltip("Repeat");
             ToggleButton::new((id.clone(), "repeat"), item, now != Repeat::Off).on_toggle(
@@ -294,11 +294,11 @@ impl RenderOnce for MediaControls {
             .justify_center()
             .gap_2()
             .children(shuffle)
-            .children(step("back", IconName::SkipBack, "Back", self.on_back))
+            .children(step("back", LucideIcon::SkipBack, "Back", self.on_back))
             .children(play)
             .children(step(
                 "forward",
-                IconName::SkipForward,
+                LucideIcon::SkipForward,
                 "Forward",
                 self.on_forward,
             ))
@@ -309,15 +309,15 @@ impl RenderOnce for MediaControls {
 #[cfg(test)]
 mod tests {
     use super::{Repeat, speaker};
-    use crate::primitives::IconName;
+    use crate::primitives::LucideIcon;
 
     #[test]
     fn the_speaker_grows_waves_with_the_level_and_strikes_through_when_silent() {
-        assert_eq!(speaker(0.8, true), IconName::VolumeX);
-        assert_eq!(speaker(0.0, false), IconName::VolumeX);
-        assert_eq!(speaker(0.2, false), IconName::Volume);
-        assert_eq!(speaker(0.5, false), IconName::Volume1);
-        assert_eq!(speaker(0.9, false), IconName::Volume2);
+        assert_eq!(speaker(0.8, true), LucideIcon::VolumeX);
+        assert_eq!(speaker(0.0, false), LucideIcon::VolumeX);
+        assert_eq!(speaker(0.2, false), LucideIcon::Volume);
+        assert_eq!(speaker(0.5, false), LucideIcon::Volume1);
+        assert_eq!(speaker(0.9, false), LucideIcon::Volume2);
     }
 
     #[test]

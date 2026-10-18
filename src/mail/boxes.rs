@@ -10,14 +10,14 @@ use crate::{
     data_display::CountBadge,
     forms::OnValue,
     lists::{ListItem, Sections},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize},
 };
 
 /// What marks a mailbox: an icon, or a label's hue among the theme's chart colors.
 #[derive(Clone, Copy, Debug, PartialEq)]
 enum Mark {
-    Icon(IconName),
+    Icon(LucideIcon),
     Hue(usize),
 }
 
@@ -34,7 +34,7 @@ impl Mailbox {
     pub fn new(
         key: impl Into<SharedString>,
         name: impl Into<SharedString>,
-        icon: IconName,
+        icon: LucideIcon,
     ) -> Self {
         Self {
             key: key.into(),

@@ -11,7 +11,7 @@ use image::{Frame, RgbaImage};
 
 use super::geo::Laid;
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::ActiveTheme,
 };
 
@@ -91,7 +91,7 @@ pub(crate) fn laid_tile(
                 .flex()
                 .items_center()
                 .justify_center()
-                .child(Icon::new(IconName::ImageOff).color(mark))
+                .child(Icon::new(LucideIcon::ImageOff).color(mark))
                 .into_any_element();
         }
         Some(Ok(image)) => image,

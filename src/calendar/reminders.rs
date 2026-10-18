@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::{Choice, Select},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::ControlSize,
 };
 
@@ -106,7 +106,7 @@ impl RenderOnce for ReminderPicker {
                     ),
                 )
                 .child(
-                    IconButton::new((self.id.clone(), format!("remove-{minute}")), IconName::X)
+                    IconButton::new((self.id.clone(), format!("remove-{minute}")), LucideIcon::X)
                         .variant(ButtonVariant::Ghost)
                         .size(ControlSize::Sm)
                         .tooltip("Remove reminder")
@@ -129,7 +129,7 @@ impl RenderOnce for ReminderPicker {
             Button::new((self.id.clone(), "add"), "Add reminder")
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
-                .icon(IconName::Plus)
+                .icon(LucideIcon::Plus)
                 .disabled(spare.is_none())
                 .on_click(move |_, window, cx| {
                     let mut next = minutes.to_vec();

@@ -9,7 +9,7 @@ use web_time::Instant;
 
 use crate::{
     motion,
-    primitives::{FocusRing, Icon, IconName, tab_stop},
+    primitives::{FocusRing, Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Mix},
 };
 
@@ -176,7 +176,7 @@ impl RenderOnce for Carousel {
         let colors = &theme.colors;
         let button = theme.control_height(ControlSize::Lg);
         let dot = theme.status_dot();
-        let arrow = |name: &'static str, icon: IconName, delta: isize| {
+        let arrow = |name: &'static str, icon: LucideIcon, delta: isize| {
             let step = step.clone();
             div()
                 .id((self.id.clone(), name))
@@ -238,8 +238,8 @@ impl RenderOnce for Carousel {
             }))
             .when(count > 1, |viewport| {
                 viewport
-                    .child(arrow("back", IconName::ChevronLeft, -1).left_3())
-                    .child(arrow("next", IconName::ChevronRight, 1).right_3())
+                    .child(arrow("back", LucideIcon::ChevronLeft, -1).left_3())
+                    .child(arrow("next", LucideIcon::ChevronRight, 1).right_3())
             });
         let dots: Vec<_> = (0..count)
             .map(|ix| {

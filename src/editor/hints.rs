@@ -11,7 +11,7 @@ use crate::i18n;
 use crate::{
     buttons::{ButtonVariant, IconButton},
     navigation::{fuzzy, marked},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, Elevation, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -287,7 +287,7 @@ impl RenderOnce for SignatureHelp {
             ));
         }
         let styles = super::layout::stack(styles);
-        let step = |by: usize, icon: IconName, key: &'static str| {
+        let step = |by: usize, icon: LucideIcon, key: &'static str| {
             let on_step = self.on_step.clone();
             let next = (active + by) % count;
             IconButton::new((self.id.clone(), key), icon)
@@ -317,13 +317,13 @@ impl RenderOnce for SignatureHelp {
                     .items_center()
                     .gap_1()
                     .when(count > 1, |row| {
-                        row.child(step(count - 1, IconName::ChevronUp, "previous"))
+                        row.child(step(count - 1, LucideIcon::ChevronUp, "previous"))
                             .child(
                                 div()
                                     .text_color(colors.fg_subtle)
                                     .child(format!("{}/{count}", active + 1)),
                             )
-                            .child(step(1, IconName::ChevronDown, "next"))
+                            .child(step(1, LucideIcon::ChevronDown, "next"))
                     })
                     .child(
                         div()

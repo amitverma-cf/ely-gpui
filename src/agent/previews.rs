@@ -12,7 +12,7 @@ use crate::{
     forms::{Pick, Run, reveal, revealer},
     layout::on_axis,
     motion::{self, Spinner},
-    primitives::{FocusRing, Icon, IconName, Image, checked_ratio, framed, tab_stop},
+    primitives::{FocusRing, Icon, Image, LucideIcon, checked_ratio, framed, tab_stop},
     theme::{ActiveTheme, AvatarSize, ControlSize, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -41,7 +41,7 @@ fn address_bar(
         .text_size(theme.text_size(TextSize::Xs))
         .text_color(colors.fg_muted)
         .child(
-            Icon::new(IconName::Lock)
+            Icon::new(LucideIcon::Lock)
                 .size(IconSize::Xs)
                 .color(colors.fg_subtle),
         )
@@ -342,7 +342,7 @@ impl RenderOnce for ComputerUseViewer {
                     .text_size(theme.text_size(TextSize::Sm))
                     .text_color(colors.fg_muted)
                     .child(
-                        Icon::new(IconName::MousePointer2)
+                        Icon::new(LucideIcon::MousePointer2)
                             .size(IconSize::Sm)
                             .color(colors.fg_subtle),
                     )
@@ -390,7 +390,7 @@ impl LivePreview {
 impl RenderOnce for LivePreview {
     fn render(self, _: &mut Window, cx: &mut App) -> impl IntoElement {
         let reload = self.on_reload.map(|reload| {
-            IconButton::new((self.id.clone(), "reload"), IconName::RotateCw)
+            IconButton::new((self.id.clone(), "reload"), LucideIcon::RotateCw)
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
                 .tooltip("Reload")

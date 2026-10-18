@@ -6,7 +6,7 @@ use gpui::{
 };
 
 use crate::{
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::KbdCombo,
 };
@@ -102,7 +102,7 @@ impl RenderOnce for HotkeyInput {
                 (None, false) => field.child(div().text_color(colors.fg_subtle).child("None")),
             })
             .child(
-                Icon::new(IconName::Keyboard)
+                Icon::new(LucideIcon::Keyboard)
                     .size(IconSize::Sm)
                     .color(colors.fg_subtle),
             )

@@ -8,7 +8,7 @@ use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     data_display::{Badge, Tone},
     lists::{ListItem, SelectableList, row_action},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize},
 };
 
@@ -212,7 +212,7 @@ impl RenderOnce for ConnectionManager {
                     ConnectionState::Failed(why) => why.to_string(),
                     _ => format!("{} · {}", connection.engine.name(), connection.address()),
                 };
-                let action = |icon: IconName, tip: &'static str, handler: &Option<OnKey>| {
+                let action = |icon: LucideIcon, tip: &'static str, handler: &Option<OnKey>| {
                     let (key, handler) = (key.clone(), handler.clone());
                     row_action(
                         IconButton::new((id.clone(), format!("{tip}-{key}")), icon)
@@ -229,7 +229,7 @@ impl RenderOnce for ConnectionManager {
                     ListItem::new((id.clone(), format!("row-{key}")), connection.name.clone())
                         .description(detail)
                         .leading(
-                            Icon::new(IconName::Database)
+                            Icon::new(LucideIcon::Database)
                                 .size(IconSize::Md)
                                 .color(muted),
                         )
@@ -239,8 +239,8 @@ impl RenderOnce for ConnectionManager {
                                 .items_center()
                                 .gap_1()
                                 .child(Badge::new(words).tone(tone).dot())
-                                .child(action(IconName::Pencil, "Edit", &self.on_edit))
-                                .child(action(IconName::Trash2, "Remove", &self.on_remove)),
+                                .child(action(LucideIcon::Pencil, "Edit", &self.on_edit))
+                                .child(action(LucideIcon::Trash2, "Remove", &self.on_remove)),
                         ),
                 )
             },

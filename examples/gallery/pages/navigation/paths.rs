@@ -1,7 +1,7 @@
 use ely_gpui_component::{
     forms::Choice,
     navigation::{Breadcrumb, Crumb, Pagination, Steps, Wizard},
-    primitives::IconName,
+    primitives::LucideIcon,
     typography::Paragraph,
 };
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
@@ -31,7 +31,7 @@ pub fn breadcrumb(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
             Breadcrumb::new(
                 "breadcrumb",
                 [
-                    Crumb::new("home", "Home").icon(IconName::House),
+                    Crumb::new("home", "Home").icon(LucideIcon::House),
                     Crumb::new("projects", "Projects"),
                     Crumb::new(now.clone(), now.clone()).siblings([
                         Choice::new("ely", "ely"),

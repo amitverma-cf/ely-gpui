@@ -10,7 +10,7 @@ use crate::{
     buttons::SegmentedControl,
     forms::OnValue,
     lists::{DirEntry, DirectoryListing, OnClimb, listed, path_bar},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
     typography::Ellipsis,
 };
@@ -27,10 +27,15 @@ pub enum FileView {
 }
 
 /// Each view with its key, label and icon, in the switch's order.
-const VIEWS: [(FileView, &str, &str, IconName); 3] = [
-    (FileView::List, "list", "List", IconName::List),
-    (FileView::Icons, "icons", "Icons", IconName::LayoutGrid),
-    (FileView::Columns, "columns", "Columns", IconName::Columns3),
+const VIEWS: [(FileView, &str, &str, LucideIcon); 3] = [
+    (FileView::List, "list", "List", LucideIcon::List),
+    (FileView::Icons, "icons", "Icons", LucideIcon::LayoutGrid),
+    (
+        FileView::Columns,
+        "columns",
+        "Columns",
+        LucideIcon::Columns3,
+    ),
 ];
 
 /// A folder three ways: a list that sorts by column, tiles, or columns that walk the path. Its name, its count and a switch of views sit above the path, which climbs. Opening a folder goes into it; opening a file hands it to the host, which lists each folder it goes to.

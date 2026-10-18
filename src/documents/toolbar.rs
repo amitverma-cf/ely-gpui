@@ -4,49 +4,49 @@ use super::format::{Format, active, format};
 use crate::{
     buttons::{ToggleButton, ToggleItem, shortcut_text},
     forms::{Run, TextInput},
-    primitives::IconName,
+    primitives::LucideIcon,
     shell::{Toolbar, ToolbarGroup, ToolbarSeparator},
     theme::{ActiveTheme, ControlSize, Platform},
 };
 
 /// A tool: the format it applies, its icon, its name and its key.
-type Tool = (Format, IconName, &'static str, Option<&'static str>);
+type Tool = (Format, LucideIcon, &'static str, Option<&'static str>);
 
 /// The inline styles, which the floating toolbar shows too.
 pub(crate) const INLINE: &[Tool] = &[
-    (Format::Bold, IconName::Bold, "Bold", Some("secondary-b")),
+    (Format::Bold, LucideIcon::Bold, "Bold", Some("secondary-b")),
     (
         Format::Italic,
-        IconName::Italic,
+        LucideIcon::Italic,
         "Italic",
         Some("secondary-i"),
     ),
     (
         Format::Strike,
-        IconName::Strikethrough,
+        LucideIcon::Strikethrough,
         "Strikethrough",
         None,
     ),
-    (Format::Code, IconName::Code, "Code", None),
-    (Format::Link, IconName::Link, "Link", Some("secondary-k")),
+    (Format::Code, LucideIcon::Code, "Code", None),
+    (Format::Link, LucideIcon::Link, "Link", Some("secondary-k")),
 ];
 
 const HEADINGS: &[Tool] = &[
-    (Format::Heading(1), IconName::Heading1, "Heading 1", None),
-    (Format::Heading(2), IconName::Heading2, "Heading 2", None),
-    (Format::Heading(3), IconName::Heading3, "Heading 3", None),
+    (Format::Heading(1), LucideIcon::Heading1, "Heading 1", None),
+    (Format::Heading(2), LucideIcon::Heading2, "Heading 2", None),
+    (Format::Heading(3), LucideIcon::Heading3, "Heading 3", None),
 ];
 
 const BLOCKS: &[Tool] = &[
-    (Format::Quote, IconName::Quote, "Quote", None),
-    (Format::Bullet, IconName::List, "Bulleted list", None),
+    (Format::Quote, LucideIcon::Quote, "Quote", None),
+    (Format::Bullet, LucideIcon::List, "Bulleted list", None),
     (
         Format::Numbered,
-        IconName::ListOrdered,
+        LucideIcon::ListOrdered,
         "Numbered list",
         None,
     ),
-    (Format::Task, IconName::ListTodo, "To-do list", None),
+    (Format::Task, LucideIcon::ListTodo, "To-do list", None),
 ];
 
 /// One tool as a toggle: pressed while `on`; a press applies its format, or opens the link editor.

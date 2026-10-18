@@ -9,7 +9,7 @@ use super::panel::{OnEdit, caption, color_well, editing, heading, pair};
 use crate::{
     buttons::{IconButton, SegmentedControl, ToggleButton, ToggleItem},
     forms::{ColorPalette, ColorPicker, ScrubInput},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Elevation},
     typography::Ellipsis,
 };
@@ -175,9 +175,12 @@ impl RenderOnce for ShadowEditor {
                                 .child(Ellipsis::new(format!("Shadow {}", ix + 1))),
                         )
                         .child(
-                            IconButton::new((id.clone(), format!("remove-{ix}")), IconName::Minus)
-                                .tooltip("Remove the shadow")
-                                .on_click(move |_, window, cx| remove((), window, cx)),
+                            IconButton::new(
+                                (id.clone(), format!("remove-{ix}")),
+                                LucideIcon::Minus,
+                            )
+                            .tooltip("Remove the shadow")
+                            .on_click(move |_, window, cx| remove((), window, cx)),
                         ),
                 )
                 .child(pair(
@@ -195,7 +198,7 @@ impl RenderOnce for ShadowEditor {
             .gap_3()
             .child(heading(
                 "Shadows",
-                IconButton::new((id.clone(), "add"), IconName::Plus)
+                IconButton::new((id.clone(), "add"), LucideIcon::Plus)
                     .tooltip("Add a shadow")
                     .on_click(move |_, window, cx| add((), window, cx)),
                 cx,
@@ -294,7 +297,7 @@ impl RenderOnce for BorderEditor {
         let corners = ToggleButton::new(
             (id.clone(), "corners"),
             ToggleItem::new("corners")
-                .icon(IconName::SquareRoundCorner)
+                .icon(LucideIcon::SquareRoundCorner)
                 .tooltip("Each corner its own"),
             split,
         )

@@ -8,7 +8,7 @@ use regex::Regex;
 
 use super::{Input, TextInput};
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
 };
 
@@ -31,7 +31,7 @@ pub fn is_url(text: &str) -> bool {
 /// A field checked once focus leaves it; a note explains a miss.
 fn checked(
     state: &Entity<TextInput>,
-    icon: IconName,
+    icon: LucideIcon,
     valid: fn(&str) -> bool,
     note: &'static str,
     size: ControlSize,
@@ -88,7 +88,7 @@ impl RenderOnce for EmailInput {
     fn render(self, window: &mut Window, cx: &mut App) -> impl IntoElement {
         checked(
             &self.state,
-            IconName::AtSign,
+            LucideIcon::AtSign,
             is_email,
             "Enter an address like name@example.com",
             self.size,
@@ -123,7 +123,7 @@ impl RenderOnce for UrlInput {
     fn render(self, window: &mut Window, cx: &mut App) -> impl IntoElement {
         checked(
             &self.state,
-            IconName::Link,
+            LucideIcon::Link,
             is_url,
             "Enter a link that starts with https://",
             self.size,

@@ -13,7 +13,7 @@ use crate::{
         reveal, revealer,
     },
     layout::on_axis,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, TextSize},
 };
 
@@ -227,7 +227,7 @@ impl RenderOnce for LabelPicker {
             })
             .collect();
         if fresh {
-            let choice = Choice::new("+create", format!("Create “{query}”")).icon(IconName::Plus);
+            let choice = Choice::new("+create", format!("Create “{query}”")).icon(LucideIcon::Plus);
             rows.push(row(fits.len(), choice, None, false).into_any_element());
         }
         let theme = cx.theme();

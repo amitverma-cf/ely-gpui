@@ -8,7 +8,7 @@ use gpui::{
 use super::ListItem;
 use crate::{
     motion::Reorder,
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, IconSize},
 };
 
@@ -96,7 +96,7 @@ impl RenderOnce for SortableList {
                             })
                         })
                         .child(
-                            Icon::new(IconName::GripVertical)
+                            Icon::new(LucideIcon::GripVertical)
                                 .size(IconSize::Sm)
                                 .color(grip),
                         )

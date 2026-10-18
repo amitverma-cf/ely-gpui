@@ -3,7 +3,7 @@ use std::{path::Path, time::Duration};
 use ely_gpui_component::{
     buttons::{Button, IconButton},
     primitives::{
-        Backdrop, Divider, FocusRing, FocusScope, Icon, IconName, Image, IntersectionObserver,
+        Backdrop, Divider, FocusRing, FocusScope, Icon, Image, IntersectionObserver, LucideIcon,
         Measure, Pressable, Tooltip, TooltipTrigger,
     },
     theme::{ActiveTheme, IconSize, Radius, TextSize},
@@ -49,13 +49,13 @@ pub fn icon(cx: &App) -> impl IntoElement + use<> {
         cx,
     )
     .child(specimens().children(
-        sizes.map(|(size, name)| specimen(name, Icon::new(IconName::Sparkles).size(size), cx)),
+        sizes.map(|(size, name)| specimen(name, Icon::new(LucideIcon::Sparkles).size(size), cx)),
     ))
-    .child(
-        specimens().children(tones.map(|(color, name)| {
-            specimen(name, Icon::new(IconName::CircleCheck).color(color), cx)
-        })),
-    )
+    .child(specimens().children(
+        tones.map(|(color, name)| {
+            specimen(name, Icon::new(LucideIcon::CircleCheck).color(color), cx)
+        }),
+    ))
     .child(
         specimens().child(specimen(
             "custom SVG",
@@ -71,7 +71,7 @@ pub fn icon_set(cx: &App) -> impl IntoElement + use<> {
     let colors = &cx.theme().colors;
     section(
         "IconSet / IconRegistry",
-        "IconName lists every bundled icon. Hover for its name.",
+        "LucideIcon lists every bundled icon. Hover for its name.",
         cx,
     )
     .child(
@@ -79,7 +79,7 @@ pub fn icon_set(cx: &App) -> impl IntoElement + use<> {
             .flex()
             .flex_wrap()
             .gap_1()
-            .children(IconName::ALL.iter().map(|&name| {
+            .children(LucideIcon::ALL.iter().map(|&name| {
                 div()
                     .id(name.name())
                     .size_9()
@@ -425,21 +425,21 @@ pub fn tooltip(cx: &App) -> impl IntoElement + use<> {
                 "tip-plain",
                 div()
                     .id("tip-plain")
-                    .child(IconButton::new("tip-a", IconName::Copy))
+                    .child(IconButton::new("tip-a", LucideIcon::Copy))
                     .tooltip(Tooltip::text("Copy")),
             ))
             .child(probe(
                 "tip-meta",
                 div()
                     .id("tip-meta")
-                    .child(IconButton::new("tip-b", IconName::Search))
+                    .child(IconButton::new("tip-b", LucideIcon::Search))
                     .tooltip(Tooltip::with_meta("Search", "⌘K")),
             ))
             .child(probe(
                 "tip-rich",
                 div()
                     .id("tip-rich")
-                    .child(IconButton::new("tip-c", IconName::Info))
+                    .child(IconButton::new("tip-c", LucideIcon::Info))
                     .tooltip(Tooltip::rich(move |_, _| {
                         div()
                             .flex()

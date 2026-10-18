@@ -9,7 +9,7 @@ use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     feedback::InlineMessage,
     forms::{Enter, Input, TextInput},
-    primitives::{FocusRing, Icon, IconName, Image, Severity, checked_ratio, framed, tab_stop},
+    primitives::{FocusRing, Icon, Image, LucideIcon, Severity, checked_ratio, framed, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius},
 };
 
@@ -127,7 +127,7 @@ impl RenderOnce for Captcha {
                 .focus_ring(cx)
                 .text_color(colors.success)
                 .child(
-                    Icon::new(IconName::Check)
+                    Icon::new(LucideIcon::Check)
                         .size(IconSize::Sm)
                         .color(colors.success),
                 )
@@ -144,7 +144,7 @@ impl RenderOnce for Captcha {
             }
         };
         let refresh = self.on_refresh.map(|on_refresh| {
-            IconButton::new((id.clone(), "refresh"), IconName::RefreshCw)
+            IconButton::new((id.clone(), "refresh"), LucideIcon::RefreshCw)
                 .tooltip("New picture")
                 .on_click(move |_, window, cx| {
                     log::info!("captcha: asked for a new picture");

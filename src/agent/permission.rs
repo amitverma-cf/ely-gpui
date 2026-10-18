@@ -10,7 +10,7 @@ use crate::{
     chat::CodeBlock,
     forms::OnFlag,
     overlays::Dialog,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
 };
 
@@ -152,7 +152,7 @@ impl RenderOnce for PermissionPrompt {
                     .items_center()
                     .gap_2()
                     .child(
-                        Icon::new(IconName::Shield)
+                        Icon::new(LucideIcon::Shield)
                             .size(IconSize::Sm)
                             .color(colors.fg_muted),
                     )

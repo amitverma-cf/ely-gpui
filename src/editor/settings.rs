@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{ButtonVariant, IconButton, SegmentedControl},
     forms::{Choice, JsonInput, NumberInput, Select, Switch, TextInput},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
     typography::format::decimals,
 };
@@ -289,7 +289,7 @@ impl RenderOnce for SettingsEditor {
                     let (tell, default) = (tell.clone(), setting.default.clone());
                     IconButton::new(
                         (self.id.clone(), format!("reset-{section}-{ix}")),
-                        IconName::RotateCcw,
+                        LucideIcon::RotateCcw,
                     )
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)

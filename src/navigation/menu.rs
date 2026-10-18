@@ -8,7 +8,7 @@ use gpui::{
 
 use crate::{
     forms::{Choice, OnValue, float, step, surface},
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -159,7 +159,7 @@ impl RenderOnce for NavigationMenu {
                 })
                 .child(label.clone())
                 .child(
-                    Icon::new(IconName::ChevronDown)
+                    Icon::new(LucideIcon::ChevronDown)
                         .size(IconSize::Xs)
                         .color(colors.fg_subtle),
                 )

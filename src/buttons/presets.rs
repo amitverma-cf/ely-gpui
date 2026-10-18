@@ -1,19 +1,19 @@
 use gpui::ElementId;
 
 use super::IconButton;
-use crate::primitives::IconName;
+use crate::primitives::LucideIcon;
 
 /// Closes a panel, dialog or tab.
 pub fn close_button(id: impl Into<ElementId>) -> IconButton {
-    IconButton::new(id, IconName::X).tooltip("Close")
+    IconButton::new(id, LucideIcon::X).tooltip("Close")
 }
 
 /// Returns to the previous view.
 pub fn back_button(id: impl Into<ElementId>) -> IconButton {
-    IconButton::new(id, IconName::ArrowLeft).tooltip("Back")
+    IconButton::new(id, LucideIcon::ArrowLeft).tooltip("Back")
 }
 
 /// Opens more actions.
 pub fn more_button(id: impl Into<ElementId>) -> IconButton {
-    IconButton::new(id, IconName::Ellipsis).tooltip("More")
+    IconButton::new(id, LucideIcon::Ellipsis).tooltip("More")
 }

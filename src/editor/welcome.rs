@@ -11,7 +11,7 @@ use crate::{
     forms::Checkbox,
     i18n,
     navigation::{Group, Palette, Row, fuzzy, marked, query_field},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{Ellipsis, KbdCombo},
 };
@@ -83,7 +83,7 @@ impl RenderOnce for RecentProjects {
                 self.on_remove.clone(),
             );
             let button = |key: &'static str,
-                          icon: IconName,
+                          icon: LucideIcon,
                           words: SharedString,
                           action: Option<OnIndex>| {
                 IconButton::new((self.id.clone(), format!("{key}-{ix}")), icon)
@@ -99,11 +99,11 @@ impl RenderOnce for RecentProjects {
             };
             let (pin_icon, pin_tip) = if project.pinned {
                 (
-                    IconName::PinOff,
+                    LucideIcon::PinOff,
                     i18n::text(cx, "palette.project.unpin", &[]),
                 )
             } else {
-                (IconName::Pin, i18n::text(cx, "palette.project.pin", &[]))
+                (LucideIcon::Pin, i18n::text(cx, "palette.project.pin", &[]))
             };
             let remove_tip = i18n::text(cx, "palette.project.remove", &[]);
             div()
@@ -124,7 +124,7 @@ impl RenderOnce for RecentProjects {
                         })
                 })
                 .child(
-                    Icon::new(IconName::Folder)
+                    Icon::new(LucideIcon::Folder)
                         .size(IconSize::Md)
                         .color(colors.fg_muted),
                 )
@@ -155,7 +155,7 @@ impl RenderOnce for RecentProjects {
                         .text_size(theme.text_size(TextSize::Xs))
                         .text_color(colors.fg_muted)
                         .child(
-                            Icon::new(IconName::GitBranch)
+                            Icon::new(LucideIcon::GitBranch)
                                 .size(IconSize::Xs)
                                 .color(colors.fg_subtle),
                         )
@@ -168,7 +168,7 @@ impl RenderOnce for RecentProjects {
                         .child(project.opened.clone()),
                 )
                 .child(button("pin", pin_icon, pin_tip, pin))
-                .child(button("remove", IconName::X, remove_tip, remove))
+                .child(button("remove", LucideIcon::X, remove_tip, remove))
         });
         div()
             .flex()
@@ -235,9 +235,9 @@ impl RenderOnce for ProjectSwitcher {
                         value: ix.to_string().into(),
                         name: project.name.clone(),
                         icon: Some(if project.pinned {
-                            IconName::Pin
+                            LucideIcon::Pin
                         } else {
-                            IconName::Folder
+                            LucideIcon::Folder
                         }),
                         label: marked(project.name.clone(), hits, cx),
                         detail: Some(
@@ -297,7 +297,7 @@ fn fit(query: &str, project: &Project) -> Option<(i32, Vec<std::ops::Range<usize
 /// A way to start from the welcome page: its icon, words and keys.
 #[derive(Clone, Debug, PartialEq)]
 pub struct StartAction {
-    pub icon: IconName,
+    pub icon: LucideIcon,
     pub label: SharedString,
     pub keys: Option<SharedString>,
 }
@@ -337,7 +337,7 @@ impl WelcomePage {
 
     pub fn action(
         mut self,
-        icon: IconName,
+        icon: LucideIcon,
         label: impl Into<SharedString>,
         keys: Option<&str>,
     ) -> Self {

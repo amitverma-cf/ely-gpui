@@ -9,7 +9,7 @@ use smallvec::SmallVec;
 use super::{options::Run, text::Submit};
 use crate::{
     motion,
-    primitives::{HelpTooltip, Icon, IconName},
+    primitives::{HelpTooltip, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
     typography::{Caption, Heading, Label},
 };
@@ -188,7 +188,7 @@ impl RenderOnce for FormError {
             .text_size(theme.text_size(TextSize::Sm))
             .text_color(danger)
             .child(
-                Icon::new(IconName::CircleAlert)
+                Icon::new(LucideIcon::CircleAlert)
                     .size(IconSize::Xs)
                     .color(danger),
             )

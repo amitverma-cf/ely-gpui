@@ -14,7 +14,7 @@ use super::{
     SwipeableListItem, VirtualList,
 };
 use crate::{
-    primitives::{IconName, Measure},
+    primitives::{LucideIcon, Measure},
     theme::Theme,
 };
 
@@ -172,12 +172,14 @@ impl Render for Swiped {
             )
             .action(SwipeAction::new(
                 "Archive",
-                IconName::Archive,
+                LucideIcon::Archive,
                 move |_, _| archive.borrow_mut().push("archive"),
             ))
-            .action(SwipeAction::new("Delete", IconName::Trash2, move |_, _| {
-                delete.borrow_mut().push("delete")
-            })),
+            .action(SwipeAction::new(
+                "Delete",
+                LucideIcon::Trash2,
+                move |_, _| delete.borrow_mut().push("delete"),
+            )),
         )
     }
 }

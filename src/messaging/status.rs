@@ -12,7 +12,7 @@ use crate::{
         float_height, picker_field, surface,
     },
     lists::{ListItem, SelectableList},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
 };
 
@@ -173,7 +173,7 @@ impl RenderOnce for StatusSetter {
         let emoji = picker_field(
             emoji_id,
             Face {
-                icon: IconName::Smile,
+                icon: LucideIcon::Smile,
                 shown: now.emoji.clone(),
                 placeholder: "".into(),
                 size: ControlSize::Md,

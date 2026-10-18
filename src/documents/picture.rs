@@ -12,7 +12,7 @@ use gpui::{
 
 use crate::{
     i18n,
-    primitives::{Icon, IconName, hold},
+    primitives::{Icon, LucideIcon, hold},
     theme::{ActiveTheme, IconSize, Radius},
 };
 
@@ -221,7 +221,7 @@ fn note(alt: &str, said: SharedString, tone: Hsla, cx: &App) -> AnyElement {
         .border_color(colors.border)
         .text_color(colors.fg_muted)
         .child(
-            Icon::new(IconName::Image)
+            Icon::new(LucideIcon::Image)
                 .size(IconSize::Sm)
                 .color(colors.fg_subtle),
         )

@@ -9,7 +9,7 @@ use regex::Regex;
 
 use super::OnIndex;
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
@@ -208,7 +208,7 @@ impl RenderOnce for Disassembly {
                                         .map(|gutter| {
                                             if is_current {
                                                 gutter.child(
-                                                    Icon::new(IconName::ArrowRight)
+                                                    Icon::new(LucideIcon::ArrowRight)
                                                         .size(IconSize::Xs)
                                                         .color(colors.warning),
                                                 )

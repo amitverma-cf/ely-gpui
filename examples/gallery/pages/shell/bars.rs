@@ -1,6 +1,6 @@
 use ely_gpui_component::{
     buttons::{Button, IconButton},
-    primitives::IconName,
+    primitives::LucideIcon,
     shell::{
         ActivityBar, ActivityItem, StatusBar, StatusBarItem, TabBar, Toolbar, ToolbarGroup,
         ToolbarSeparator, WindowTab,
@@ -13,7 +13,7 @@ use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, p
 use super::chrome::window_frame;
 use crate::{probe::probe, ui::section};
 
-fn tool(id: &'static str, icon: IconName) -> IconButton {
+fn tool(id: &'static str, icon: LucideIcon) -> IconButton {
     IconButton::new(id, icon).size(ControlSize::Sm)
 }
 
@@ -32,28 +32,28 @@ pub fn toolbar(cx: &App) -> impl IntoElement + use<> {
                     .w_full()
                     .child(
                         ToolbarGroup::new()
-                            .child(tool("tb-undo", IconName::Undo2))
-                            .child(tool("tb-redo", IconName::Redo2)),
+                            .child(tool("tb-undo", LucideIcon::Undo2))
+                            .child(tool("tb-redo", LucideIcon::Redo2)),
                     )
                     .child(ToolbarSeparator)
                     .child(
                         ToolbarGroup::new()
-                            .child(tool("tb-bold", IconName::Bold))
-                            .child(tool("tb-italic", IconName::Italic))
-                            .child(tool("tb-underline", IconName::Underline)),
+                            .child(tool("tb-bold", LucideIcon::Bold))
+                            .child(tool("tb-italic", LucideIcon::Italic))
+                            .child(tool("tb-underline", LucideIcon::Underline)),
                     )
                     .child(ToolbarSeparator)
                     .child(
                         ToolbarGroup::new()
-                            .child(tool("tb-left", IconName::AlignLeft))
-                            .child(tool("tb-center", IconName::AlignCenter))
-                            .child(tool("tb-right", IconName::AlignRight)),
+                            .child(tool("tb-left", LucideIcon::AlignLeft))
+                            .child(tool("tb-center", LucideIcon::AlignCenter))
+                            .child(tool("tb-right", LucideIcon::AlignRight)),
                     )
                     .child(div().flex_1())
                     .child(
                         Button::new("tb-share", "Share")
                             .size(ControlSize::Sm)
-                            .icon(IconName::Share2),
+                            .icon(LucideIcon::Share2),
                     ),
             ),
     )
@@ -70,21 +70,21 @@ pub fn status_bar(cx: &App) -> impl IntoElement + use<> {
             StatusBar::new()
                 .left(
                     StatusBarItem::new("sb-branch")
-                        .icon(IconName::GitBranch)
+                        .icon(LucideIcon::GitBranch)
                         .label("main")
                         .tooltip("Switch branch")
                         .on_click(|_, _, _| log::info!("gallery: branch")),
                 )
                 .left(
                     StatusBarItem::new("sb-sync")
-                        .icon(IconName::RefreshCw)
+                        .icon(LucideIcon::RefreshCw)
                         .label("Synced"),
                 )
                 .right(StatusBarItem::new("sb-cursor").label("Ln 12, Col 4"))
                 .right(StatusBarItem::new("sb-encoding").label("UTF-8"))
                 .right(
                     StatusBarItem::new("sb-bell")
-                        .icon(IconName::Bell)
+                        .icon(LucideIcon::Bell)
                         .tooltip("No notifications")
                         .on_click(|_, _, _| log::info!("gallery: notifications")),
                 ),
@@ -108,19 +108,21 @@ pub fn activity_bar(window: &mut Window, cx: &mut App) -> impl IntoElement + use
             .child(probe(
                 "activity",
                 ActivityBar::new("activity-bar")
-                    .item(ActivityItem::new("files", IconName::Folder, "Explorer"))
-                    .item(ActivityItem::new("search", IconName::Search, "Search"))
-                    .item(ActivityItem::new("git", IconName::GitBranch, "Source Control").badge(3))
-                    .item(ActivityItem::new("debug", IconName::Bug, "Run and Debug"))
+                    .item(ActivityItem::new("files", LucideIcon::Folder, "Explorer"))
+                    .item(ActivityItem::new("search", LucideIcon::Search, "Search"))
+                    .item(
+                        ActivityItem::new("git", LucideIcon::GitBranch, "Source Control").badge(3),
+                    )
+                    .item(ActivityItem::new("debug", LucideIcon::Bug, "Run and Debug"))
                     .item(ActivityItem::new(
                         "extensions",
-                        IconName::Puzzle,
+                        LucideIcon::Puzzle,
                         "Extensions",
                     ))
-                    .footer(ActivityItem::new("account", IconName::User, "Account"))
+                    .footer(ActivityItem::new("account", LucideIcon::User, "Account"))
                     .footer(ActivityItem::new(
                         "settings",
-                        IconName::Settings,
+                        LucideIcon::Settings,
                         "Settings",
                     ))
                     .selected(current.clone())
@@ -147,7 +149,7 @@ pub fn activity_bar(window: &mut Window, cx: &mut App) -> impl IntoElement + use
 
 #[derive(Clone)]
 struct Tabs {
-    open: Vec<(SharedString, SharedString, IconName)>,
+    open: Vec<(SharedString, SharedString, LucideIcon)>,
     selected: SharedString,
     next: u32,
 }
@@ -155,12 +157,12 @@ struct Tabs {
 pub fn tab_bar(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let state = window.use_keyed_state("window-tabs", cx, |_, _| Tabs {
         open: vec![
-            ("inbox".into(), "Inbox".into(), IconName::Inbox),
-            ("roadmap".into(), "Roadmap".into(), IconName::Map),
+            ("inbox".into(), "Inbox".into(), LucideIcon::Inbox),
+            ("roadmap".into(), "Roadmap".into(), LucideIcon::Map),
             (
                 "notes".into(),
                 "Meeting notes".into(),
-                IconName::NotebookPen,
+                LucideIcon::NotebookPen,
             ),
         ],
         selected: "roadmap".into(),
@@ -197,7 +199,7 @@ pub fn tab_bar(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 tabs.open.push((
                     id.clone(),
                     format!("Draft {}", tabs.next).into(),
-                    IconName::FileText,
+                    LucideIcon::FileText,
                 ));
                 tabs.next += 1;
                 tabs.selected = id;

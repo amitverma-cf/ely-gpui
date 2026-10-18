@@ -15,7 +15,7 @@ use crate::{
     forms::{Run, surface},
     i18n,
     navigation::marked,
-    primitives::{Icon, IconName, Tooltip},
+    primitives::{Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::KbdCombo,
 };
@@ -29,8 +29,8 @@ fn row(item: &MenuItem, ix: usize, current: bool, cx: &App) -> Stateful<Div> {
         colors.fg
     };
     let (lead, lead_color) = match &item.kind {
-        Kind::Check(true) => (Some(IconName::Check), fg),
-        Kind::Radio(true) => (Some(IconName::Dot), fg),
+        Kind::Check(true) => (Some(LucideIcon::Check), fg),
+        Kind::Radio(true) => (Some(LucideIcon::Dot), fg),
         _ => (item.icon, if item.disabled { fg } else { colors.fg_muted }),
     };
     div()
@@ -80,7 +80,7 @@ fn row(item: &MenuItem, ix: usize, current: bool, cx: &App) -> Stateful<Div> {
         })
         .when(matches!(item.kind, Kind::Sub(_)), |row| {
             row.child(
-                Icon::new(IconName::ChevronRight)
+                Icon::new(LucideIcon::ChevronRight)
                     .size(IconSize::Xs)
                     .color(colors.fg_subtle),
             )

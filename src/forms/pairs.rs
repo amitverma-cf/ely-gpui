@@ -8,7 +8,7 @@ use gpui::{
 use super::{Input, InputEvent, TextInput, options::Run};
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::ControlSize,
 };
 
@@ -141,7 +141,7 @@ impl RenderOnce for FieldArray {
                 .gap_2()
                 .child(div().flex_1().min_w_0().child(row))
                 .child(
-                    IconButton::new(("remove-row", ix), IconName::Minus)
+                    IconButton::new(("remove-row", ix), LucideIcon::Minus)
                         .size(ControlSize::Sm)
                         .tooltip("Remove")
                         .on_click(move |_, window, cx| {
@@ -164,7 +164,7 @@ impl RenderOnce for FieldArray {
                     Button::new(("add-row", 0usize), self.add_label)
                         .size(ControlSize::Sm)
                         .variant(ButtonVariant::Ghost)
-                        .icon(IconName::Plus)
+                        .icon(LucideIcon::Plus)
                         .on_click(move |_, window, cx| {
                             log::info!("field array {id:?}: added a row");
                             if let Some(add) = &add {

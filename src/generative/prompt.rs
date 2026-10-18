@@ -10,7 +10,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::{Input, OnFlag, TextInput},
     motion::{Entrance, Transition},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -115,7 +115,7 @@ impl RenderOnce for PromptEnhancer {
             Button::new((self.id.clone(), "enhance"), "Enhance")
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
-                .icon(IconName::Sparkles)
+                .icon(LucideIcon::Sparkles)
                 .loading(self.enhancing)
                 .disabled(prompt.is_empty() || self.enhancing)
                 .on_click(move |_, window, cx| {
@@ -163,7 +163,7 @@ impl RenderOnce for PromptEnhancer {
                     .font_weight(FontWeight::MEDIUM)
                     .text_color(colors.fg_muted)
                     .child(
-                        Icon::new(IconName::Sparkles)
+                        Icon::new(LucideIcon::Sparkles)
                             .size(IconSize::Xs)
                             .color(colors.fg_muted),
                     )

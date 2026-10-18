@@ -1,6 +1,6 @@
 use ely_gpui_component::{
     buttons::{SegmentedControl, ToggleButton, ToggleGroup, ToggleItem},
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
@@ -18,7 +18,7 @@ pub fn toggle_button(window: &mut Window, cx: &mut App) -> impl IntoElement + us
             .child(
                 ToggleButton::new(
                     "toggle-pin",
-                    ToggleItem::new("pin").label("Pinned").icon(IconName::Pin),
+                    ToggleItem::new("pin").label("Pinned").icon(LucideIcon::Pin),
                     pin_on,
                 )
                 .on_toggle(move |on, _, cx| {
@@ -32,7 +32,7 @@ pub fn toggle_button(window: &mut Window, cx: &mut App) -> impl IntoElement + us
                 ToggleButton::new(
                     "toggle-mute",
                     ToggleItem::new("mute")
-                        .icon(IconName::VolumeX)
+                        .icon(LucideIcon::VolumeX)
                         .tooltip("Mute"),
                     mute_on,
                 )
@@ -81,15 +81,19 @@ pub fn toggle_group(window: &mut Window, cx: &mut App) -> impl IntoElement + use
                 "multiple",
                 ToggleGroup::new("marks")
                     .multiple()
-                    .item(ToggleItem::new("bold").icon(IconName::Bold).tooltip("Bold"))
+                    .item(
+                        ToggleItem::new("bold")
+                            .icon(LucideIcon::Bold)
+                            .tooltip("Bold"),
+                    )
                     .item(
                         ToggleItem::new("italic")
-                            .icon(IconName::Italic)
+                            .icon(LucideIcon::Italic)
                             .tooltip("Italic"),
                     )
                     .item(
                         ToggleItem::new("underline")
-                            .icon(IconName::Underline)
+                            .icon(LucideIcon::Underline)
                             .tooltip("Underline"),
                     )
                     .selected(marks_now)
@@ -102,17 +106,17 @@ pub fn toggle_group(window: &mut Window, cx: &mut App) -> impl IntoElement + use
                     .item(
                         ToggleItem::new("left")
                             .label("Left")
-                            .icon(IconName::AlignLeft),
+                            .icon(LucideIcon::AlignLeft),
                     )
                     .item(
                         ToggleItem::new("center")
                             .label("Center")
-                            .icon(IconName::AlignCenter),
+                            .icon(LucideIcon::AlignCenter),
                     )
                     .item(
                         ToggleItem::new("right")
                             .label("Right")
-                            .icon(IconName::AlignRight),
+                            .icon(LucideIcon::AlignRight),
                     )
                     .selected(align_now)
                     .on_change(store(align)),
@@ -158,8 +162,8 @@ pub fn segmented(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
             .child(specimen(
                 "with icons",
                 SegmentedControl::new("view", view_now)
-                    .segment("list", "List", Some(IconName::List))
-                    .segment("grid", "Grid", Some(IconName::LayoutGrid))
+                    .segment("list", "List", Some(LucideIcon::List))
+                    .segment("grid", "Grid", Some(LucideIcon::LayoutGrid))
                     .on_change(store(view)),
                 cx,
             )),

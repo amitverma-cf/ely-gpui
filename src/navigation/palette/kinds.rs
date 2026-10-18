@@ -6,7 +6,7 @@ use super::{Fit, Group, Palette, Row, fuzzy, marked, query_field};
 use crate::{
     forms::{Choice, OnValue, Run},
     i18n,
-    primitives::IconName,
+    primitives::LucideIcon,
     typography::{Highlight, KbdCombo},
 };
 
@@ -33,7 +33,7 @@ fn ranked<T>(
 pub struct Command {
     pub value: SharedString,
     pub label: SharedString,
-    pub icon: Option<IconName>,
+    pub icon: Option<LucideIcon>,
     pub keys: Option<SharedString>,
 }
 
@@ -47,7 +47,7 @@ impl Command {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
@@ -254,7 +254,7 @@ fn file_row(path: &SharedString, hits: &[Range<usize>], cx: &App) -> Row {
     Row {
         value: path.clone(),
         name: path[name_at..].to_string().into(),
-        icon: Some(IconName::File),
+        icon: Some(LucideIcon::File),
         label: marked(
             path[name_at..].to_string().into(),
             within(name_at, path.len()),

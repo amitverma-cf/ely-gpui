@@ -9,7 +9,7 @@ use gpui::{
 use super::IconButton;
 use crate::{
     motion,
-    primitives::{Icon, IconName, Tooltip},
+    primitives::{Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, ControlSize, IconSize},
 };
 
@@ -45,7 +45,7 @@ impl RenderOnce for CopyButton {
         let theme = cx.theme();
         let success = theme.colors.success;
         let text = self.text;
-        let button = IconButton::new("copy", IconName::Copy)
+        let button = IconButton::new("copy", LucideIcon::Copy)
             .size(ControlSize::Sm)
             .on_click(move |_, window, cx| {
                 cx.write_to_clipboard(ClipboardItem::new_string(text.to_string()));
@@ -69,7 +69,7 @@ impl RenderOnce for CopyButton {
                     cx.notify();
                 });
             });
-        let check = Icon::new(IconName::Check)
+        let check = Icon::new(LucideIcon::Check)
             .size(IconSize::Sm)
             .color(success)
             .with_animation(

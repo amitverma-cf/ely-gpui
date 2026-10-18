@@ -8,7 +8,7 @@ use crate::{
     buttons::{Button, ButtonVariant, ConfirmButton, ConfirmMode, IconButton},
     data_display::UsageBar,
     forms::DropZone,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, TextSize},
     typography::{Ellipsis, format},
 };
@@ -193,7 +193,7 @@ impl RenderOnce for ResetToDefault {
                 .child(
                     IconButton::new(
                         (self.id.clone(), format!("reset-{}", changed.key)),
-                        IconName::RotateCcw,
+                        LucideIcon::RotateCcw,
                     )
                     .tooltip("Back to the default")
                     .on_click(move |_, window, cx| {

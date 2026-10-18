@@ -5,7 +5,7 @@ use gpui::{App, ElementId, IntoElement, ParentElement, RenderOnce, Window};
 use super::view::Frame;
 use crate::{
     buttons::IconButton,
-    primitives::IconName,
+    primitives::LucideIcon,
     shell::{Toolbar, ToolbarGroup, ToolbarSeparator},
 };
 
@@ -49,16 +49,16 @@ impl Align {
         }
     }
 
-    fn icon(self) -> IconName {
+    fn icon(self) -> LucideIcon {
         match self {
-            Align::Left => IconName::AlignStartVertical,
-            Align::Center => IconName::AlignCenterVertical,
-            Align::Right => IconName::AlignEndVertical,
-            Align::Top => IconName::AlignStartHorizontal,
-            Align::Middle => IconName::AlignCenterHorizontal,
-            Align::Bottom => IconName::AlignEndHorizontal,
-            Align::SpreadAcross => IconName::AlignHorizontalDistributeCenter,
-            Align::SpreadDown => IconName::AlignVerticalDistributeCenter,
+            Align::Left => LucideIcon::AlignStartVertical,
+            Align::Center => LucideIcon::AlignCenterVertical,
+            Align::Right => LucideIcon::AlignEndVertical,
+            Align::Top => LucideIcon::AlignStartHorizontal,
+            Align::Middle => LucideIcon::AlignCenterHorizontal,
+            Align::Bottom => LucideIcon::AlignEndHorizontal,
+            Align::SpreadAcross => LucideIcon::AlignHorizontalDistributeCenter,
+            Align::SpreadDown => LucideIcon::AlignVerticalDistributeCenter,
         }
     }
 

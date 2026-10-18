@@ -1,7 +1,7 @@
 use ely_gpui_component::{
     buttons::{Button, ButtonVariant},
     layout::{Dock, DockPanel, DockSide, FloatingPanel, PaneGroup, Transform, Viewport, Workspace},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Radius, TextSize},
     typography::{Caption, Paragraph},
 };
@@ -43,14 +43,17 @@ fn demo_dock(cx: &mut App) -> Dock {
         },
         cx,
     );
-    dock.add(panel("files", "Files", IconName::Folder), DockSide::Left);
+    dock.add(panel("files", "Files", LucideIcon::Folder), DockSide::Left);
     dock.add(
-        panel("outline", "Outline", IconName::Layers),
+        panel("outline", "Outline", LucideIcon::Layers),
         DockSide::Left,
     );
-    dock.add(panel("search", "Search", IconName::Search), DockSide::Right);
     dock.add(
-        panel("terminal", "Terminal", IconName::Terminal),
+        panel("search", "Search", LucideIcon::Search),
+        DockSide::Right,
+    );
+    dock.add(
+        panel("terminal", "Terminal", LucideIcon::Terminal),
         DockSide::Bottom,
     );
     dock
@@ -159,7 +162,7 @@ pub fn workspace(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
             .child(probe(
                 "workspace-save",
                 Button::new("workspace-save", "Save layout")
-                    .icon(IconName::Save)
+                    .icon(LucideIcon::Save)
                     .on_click(move |_, _, cx| {
                         let json =
                             Workspace::capture(save_dock.read(cx), save_panes.read(cx)).to_json();
@@ -173,7 +176,7 @@ pub fn workspace(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
                 "workspace-restore",
                 Button::new("workspace-restore", "Restore")
                     .variant(ButtonVariant::Ghost)
-                    .icon(IconName::RotateCcw)
+                    .icon(LucideIcon::RotateCcw)
                     .disabled(preview.is_none())
                     .on_click(move |_, _, cx| {
                         let json = load_from

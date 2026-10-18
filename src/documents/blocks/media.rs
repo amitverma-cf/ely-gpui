@@ -10,7 +10,7 @@ use regex::Regex;
 use super::{Align, Block, BlockEditor, BlockKind, Media, view::Look};
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
-    primitives::{Icon, IconName, Measure},
+    primitives::{Icon, LucideIcon, Measure},
     theme::{ControlSize, IconSize},
 };
 
@@ -101,8 +101,8 @@ pub(super) fn media(
         .child(editor.field_view(block, 0, window, cx));
     let (media, icon) = match &block.kind {
         BlockKind::Image(media) => (media.clone(), None),
-        BlockKind::Video(media) => (media.clone(), Some(IconName::Video)),
-        BlockKind::Embed(media) => (media.clone(), Some(IconName::Globe)),
+        BlockKind::Video(media) => (media.clone(), Some(LucideIcon::Video)),
+        BlockKind::Embed(media) => (media.clone(), Some(LucideIcon::Globe)),
         other => unreachable!("{} is no media", other.label()),
     };
     if let Some(icon) = icon {
@@ -166,7 +166,7 @@ pub(super) fn media(
                 cx.new(|_| EmptyView)
             })
     };
-    let aligned = |align_to: Align, icon: IconName, cx: &mut Context<BlockEditor>| {
+    let aligned = |align_to: Align, icon: LucideIcon, cx: &mut Context<BlockEditor>| {
         IconButton::new((id.clone(), format!("align-{key}-{align_to:?}")), icon)
             .variant(ButtonVariant::Ghost)
             .size(ControlSize::Sm)
@@ -184,9 +184,9 @@ pub(super) fn media(
         .bg(colors.overlay)
         .opacity(0.0)
         .group_hover(format!("picture-{key}"), |tools| tools.opacity(1.0))
-        .child(aligned(Align::Left, IconName::AlignLeft, cx))
-        .child(aligned(Align::Center, IconName::AlignCenter, cx))
-        .child(aligned(Align::Right, IconName::AlignRight, cx));
+        .child(aligned(Align::Left, LucideIcon::AlignLeft, cx))
+        .child(aligned(Align::Center, LucideIcon::AlignCenter, cx))
+        .child(aligned(Align::Right, LucideIcon::AlignRight, cx));
     let picture = div()
         .id((id.clone(), format!("picture-{key}")))
         .group(format!("picture-{key}"))

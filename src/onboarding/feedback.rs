@@ -9,7 +9,7 @@ use crate::{
     buttons::{Button, ButtonVariant, ToggleGroup, ToggleItem},
     forms::{Input, TextInput},
     overlays::Popover,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
 };
 
@@ -34,12 +34,12 @@ impl Sentiment {
         }
     }
 
-    fn icon(self) -> IconName {
+    fn icon(self) -> LucideIcon {
         match self {
-            Self::Bad => IconName::Frown,
-            Self::Okay => IconName::Meh,
-            Self::Good => IconName::Smile,
-            Self::Great => IconName::Laugh,
+            Self::Bad => LucideIcon::Frown,
+            Self::Okay => LucideIcon::Meh,
+            Self::Good => LucideIcon::Smile,
+            Self::Great => LucideIcon::Laugh,
         }
     }
 
@@ -95,7 +95,7 @@ impl RenderOnce for FeedbackWidget {
         Popover::new(id.clone(), "Feedback", move |window, cx| {
             form(id, on_send, window, cx)
         })
-        .icon(IconName::MessageSquare)
+        .icon(LucideIcon::MessageSquare)
         .variant(ButtonVariant::Ghost)
     }
 }
@@ -124,7 +124,7 @@ fn form(
             .gap_2()
             .text_size(theme.text_size(TextSize::Sm))
             .child(
-                Icon::new(IconName::CircleCheck)
+                Icon::new(LucideIcon::CircleCheck)
                     .size(IconSize::Sm)
                     .color(theme.colors.success),
             )

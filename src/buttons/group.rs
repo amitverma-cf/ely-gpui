@@ -11,7 +11,7 @@ use super::{
 };
 use crate::{
     i18n,
-    primitives::{FocusRing, Icon, IconName, Tooltip},
+    primitives::{FocusRing, Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, ControlSize, Radius},
 };
 
@@ -57,7 +57,7 @@ impl RenderOnce for ButtonGroup {
 pub struct ToggleItem {
     value: SharedString,
     label: Option<SharedString>,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     tooltip: Option<SharedString>,
 }
 
@@ -76,7 +76,7 @@ impl ToggleItem {
         self
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }

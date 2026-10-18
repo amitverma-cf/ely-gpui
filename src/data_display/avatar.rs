@@ -4,7 +4,7 @@ use gpui::{
 };
 
 use crate::{
-    primitives::{Icon, IconName, Image},
+    primitives::{Icon, Image, LucideIcon},
     theme::{ActiveTheme, AvatarSize, IconSize, Palette, Radius, TextSize},
 };
 
@@ -62,7 +62,7 @@ pub struct Avatar {
     id: ElementId,
     name: SharedString,
     image: Option<ImageSource>,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     size: AvatarSize,
     square: bool,
     ring: bool,
@@ -93,7 +93,7 @@ impl Avatar {
     }
 
     /// Shown instead of initials, for a bot or a place.
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }

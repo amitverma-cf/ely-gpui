@@ -5,14 +5,14 @@ use smallvec::SmallVec;
 
 use super::Tone;
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
 };
 
 /// What marks an event on the rail.
 enum Marker {
     Dot,
-    Icon(IconName),
+    Icon(LucideIcon),
     Element(AnyElement),
 }
 
@@ -52,7 +52,7 @@ impl TimelineItem {
     }
 
     /// An icon in a ring in place of the dot.
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.marker = Marker::Icon(icon);
         self
     }

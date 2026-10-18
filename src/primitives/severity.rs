@@ -1,6 +1,6 @@
 use gpui::Hsla;
 
-use super::IconName;
+use super::LucideIcon;
 use crate::theme::Palette;
 
 /// How much a message matters, with the color and icon that say so.
@@ -32,12 +32,12 @@ impl Severity {
         }
     }
 
-    pub fn icon(self) -> IconName {
+    pub fn icon(self) -> LucideIcon {
         match self {
-            Self::Info => IconName::Info,
-            Self::Success => IconName::CircleCheck,
-            Self::Warning => IconName::TriangleAlert,
-            Self::Danger => IconName::CircleAlert,
+            Self::Info => LucideIcon::Info,
+            Self::Success => LucideIcon::CircleCheck,
+            Self::Warning => LucideIcon::TriangleAlert,
+            Self::Danger => LucideIcon::CircleAlert,
         }
     }
 }

@@ -11,7 +11,7 @@ use super::{
 };
 use crate::{
     forms::{self, Choice, TextInput},
-    primitives::{FocusNext, IconName},
+    primitives::{FocusNext, LucideIcon},
     theme::Theme,
 };
 
@@ -296,8 +296,8 @@ fn layout(_: &mut Window, _: &mut App, owner: Entity<Desk>) -> AnyElement {
     SettingsLayout::new(
         "layout",
         [
-            ("a", "Appearance", IconName::Palette),
-            ("b", "Network", IconName::Globe),
+            ("a", "Appearance", LucideIcon::Palette),
+            ("b", "Network", LucideIcon::Globe),
         ],
         "a",
         move |key, _, cx| say(&owner, format!("open {key}"), cx),

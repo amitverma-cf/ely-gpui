@@ -8,7 +8,7 @@ use gpui::{
 
 use crate::{
     lists::{ListItem, SelectableList},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
@@ -18,7 +18,7 @@ type OnKey = Rc<dyn Fn(&SharedString, &mut Window, &mut App)>;
 #[derive(IntoElement)]
 pub struct SettingsLayout {
     id: ElementId,
-    sections: Vec<(SharedString, SharedString, IconName)>,
+    sections: Vec<(SharedString, SharedString, LucideIcon)>,
     selected: SharedString,
     page: Option<AnyElement>,
     on_select: OnKey,
@@ -28,7 +28,9 @@ impl SettingsLayout {
     /// `sections` are each a key, a name and an icon; `selected` names the one open.
     pub fn new(
         id: impl Into<ElementId>,
-        sections: impl IntoIterator<Item = (impl Into<SharedString>, impl Into<SharedString>, IconName)>,
+        sections: impl IntoIterator<
+            Item = (impl Into<SharedString>, impl Into<SharedString>, LucideIcon),
+        >,
         selected: impl Into<SharedString>,
         on_select: impl Fn(&SharedString, &mut Window, &mut App) + 'static,
     ) -> Self {

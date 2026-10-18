@@ -12,7 +12,7 @@ use crate::{
     buttons::{ButtonVariant, ToggleGroup, ToggleItem},
     charts::{Rect, at, finish, place, ring, tint},
     menus::{DropdownMenu, Menu, MenuItem},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::ControlSize,
 };
 
@@ -59,21 +59,21 @@ impl Drawing {
 }
 
 /// Each tool with its key, words and icon; the pointer draws nothing.
-const TOOLS: [(Option<Tool>, &str, &str, IconName); 5] = [
-    (None, "pointer", "Point", IconName::MousePointer2),
+const TOOLS: [(Option<Tool>, &str, &str, LucideIcon); 5] = [
+    (None, "pointer", "Point", LucideIcon::MousePointer2),
     (
         Some(Tool::Trend),
         "trend",
         "Trend line",
-        IconName::TrendingUp,
+        LucideIcon::TrendingUp,
     ),
-    (Some(Tool::Level), "level", "Level", IconName::Minus),
-    (Some(Tool::Box), "box", "Box", IconName::Square),
+    (Some(Tool::Level), "level", "Level", LucideIcon::Minus),
+    (Some(Tool::Box), "box", "Box", LucideIcon::Square),
     (
         Some(Tool::Fib),
         "fib",
         "Fibonacci retracement",
-        IconName::AlignJustify,
+        LucideIcon::AlignJustify,
     ),
 ];
 
@@ -223,7 +223,7 @@ impl RenderOnce for IndicatorSelector {
             format!("Indicators · {shown}").into()
         };
         DropdownMenu::new(self.id, label, menu)
-            .icon(IconName::Activity)
+            .icon(LucideIcon::Activity)
             .variant(ButtonVariant::Ghost)
     }
 }

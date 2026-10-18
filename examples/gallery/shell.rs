@@ -2,7 +2,7 @@ use ely_gpui_component::{
     buttons::{ButtonVariant, IconButton},
     feedback::Alert,
     layout::on_axis,
-    primitives::{FocusScope, IconName, Severity},
+    primitives::{FocusScope, LucideIcon, Severity},
     theme::{ActiveTheme, ControlSize, Mode, Radius, TextSize, Theme},
 };
 use gpui::{
@@ -180,9 +180,9 @@ impl Gallery {
 
     fn switcher(&self, cx: &mut Context<Self>) -> impl IntoElement + use<> {
         let options = [
-            (Choice::Light, IconName::Sun, "theme-light"),
-            (Choice::Dark, IconName::Moon, "theme-dark"),
-            (Choice::System, IconName::Monitor, "theme-system"),
+            (Choice::Light, LucideIcon::Sun, "theme-light"),
+            (Choice::Dark, LucideIcon::Moon, "theme-dark"),
+            (Choice::System, LucideIcon::Monitor, "theme-system"),
         ];
         let colors = &cx.theme().colors;
         div()

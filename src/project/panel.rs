@@ -14,7 +14,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton},
     documents::Checklist,
     forms::{Choice, DatePicker, InlineEdit, OnValue, Run, Select},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
 };
 
@@ -158,7 +158,7 @@ impl RenderOnce for TaskDetailPanel {
                     .children(task.issue.clone().map(IssueIdBadge::new)),
             )
             .children(self.on_close.map(|close| {
-                IconButton::new((id.clone(), "close"), IconName::X)
+                IconButton::new((id.clone(), "close"), LucideIcon::X)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .tooltip("Close")

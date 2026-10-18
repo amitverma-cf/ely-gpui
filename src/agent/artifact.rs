@@ -9,7 +9,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton, SegmentedControl},
     chat::BranchNavigator,
     forms::{Pick, Run},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -19,7 +19,7 @@ use crate::{
 pub struct ArtifactPanel {
     id: ElementId,
     title: SharedString,
-    icon: IconName,
+    icon: LucideIcon,
     preview: Option<AnyElement>,
     source: Option<AnyElement>,
     version: Option<(usize, usize, Pick)>,
@@ -28,7 +28,7 @@ pub struct ArtifactPanel {
 }
 
 impl ArtifactPanel {
-    pub fn new(id: impl Into<ElementId>, title: impl Into<SharedString>, icon: IconName) -> Self {
+    pub fn new(id: impl Into<ElementId>, title: impl Into<SharedString>, icon: LucideIcon) -> Self {
         Self {
             id: id.into(),
             title: title.into(),
@@ -87,7 +87,7 @@ impl RenderOnce for ArtifactPanel {
         let showing_source = self.preview.is_none() || (both && *reading.read(cx));
         let theme = cx.theme();
         let colors = theme.colors.clone();
-        let action = |key: &'static str, icon: IconName, tip: &'static str, run: Run| {
+        let action = |key: &'static str, icon: LucideIcon, tip: &'static str, run: Run| {
             IconButton::new((self.id.clone(), key), icon)
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
@@ -103,8 +103,8 @@ impl RenderOnce for ArtifactPanel {
                 if showing_source { "source" } else { "preview" },
             )
             .size(ControlSize::Sm)
-            .segment("preview", "Preview", Some(IconName::Eye))
-            .segment("source", "Source", Some(IconName::Code))
+            .segment("preview", "Preview", Some(LucideIcon::Eye))
+            .segment("source", "Source", Some(LucideIcon::Code))
             .on_change(move |key, _, cx| {
                 let source = key.as_ref() == "source";
                 log::info!("artifact: shows {key}");
@@ -124,9 +124,9 @@ impl RenderOnce for ArtifactPanel {
             .into_any_element()
         });
         let copy = (self.on_copy)
-            .map(|copy| action("copy", IconName::Copy, "Copy", copy).into_any_element());
+            .map(|copy| action("copy", LucideIcon::Copy, "Copy", copy).into_any_element());
         let save = (self.on_download).map(|save| {
-            action("download", IconName::Download, "Download", save).into_any_element()
+            action("download", LucideIcon::Download, "Download", save).into_any_element()
         });
         let controls: Vec<AnyElement> =
             [version, view.map(IntoElement::into_any_element), copy, save]

@@ -11,7 +11,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton},
     forms::Choice,
     i18n,
-    primitives::{DragGhost, Icon, IconName},
+    primitives::{DragGhost, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
 };
 
@@ -20,7 +20,7 @@ use crate::{
 pub struct EditorTab {
     id: SharedString,
     title: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     dirty: bool,
     pinned: bool,
     preview: bool,
@@ -38,7 +38,7 @@ impl EditorTab {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
@@ -192,7 +192,7 @@ impl RenderOnce for EditorTabs {
                 let slot_id = tab.id.clone();
                 let slot: AnyElement = if tab.pinned {
                     let pin = self.on_pin.clone();
-                    IconButton::new(("pin", ix), IconName::Pin)
+                    IconButton::new(("pin", ix), LucideIcon::Pin)
                         .size(ControlSize::Sm)
                         .variant(ButtonVariant::Ghost)
                         .tooltip(i18n::text(cx, "tabs.unpin", &[]))
@@ -204,7 +204,7 @@ impl RenderOnce for EditorTabs {
                 } else {
                     let close_button = {
                         let close = self.on_close.clone();
-                        IconButton::new(("close", ix), IconName::X)
+                        IconButton::new(("close", ix), LucideIcon::X)
                             .size(ControlSize::Sm)
                             .variant(ButtonVariant::Ghost)
                             .tooltip(i18n::text(cx, "dialog.close", &[]))

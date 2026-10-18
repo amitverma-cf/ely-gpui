@@ -11,7 +11,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::OnValue,
     menus::{Menu, MenuItem, OverflowMenu},
-    primitives::{FocusRing, Icon, IconName, tab_stop},
+    primitives::{FocusRing, Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{Ellipsis, format::system_zone},
 };
@@ -80,7 +80,7 @@ pub(crate) fn grouped(
 pub fn new_chat_button(id: impl Into<ElementId>) -> Button {
     Button::new(id, "New chat")
         .variant(ButtonVariant::Secondary)
-        .icon(IconName::SquarePen)
+        .icon(LucideIcon::SquarePen)
         .shortcut("secondary-n")
 }
 
@@ -149,20 +149,20 @@ impl RenderOnce for ConversationItem {
                     Menu::new()
                         .item(
                             MenuItem::new("Rename")
-                                .icon(IconName::Pencil)
+                                .icon(LucideIcon::Pencil)
                                 .on_click(move |window, cx| rename(&a, window, cx)),
                         )
                         .item(
                             match self.conversation.pinned {
-                                true => MenuItem::new("Unpin").icon(IconName::PinOff),
-                                false => MenuItem::new("Pin").icon(IconName::Pin),
+                                true => MenuItem::new("Unpin").icon(LucideIcon::PinOff),
+                                false => MenuItem::new("Pin").icon(LucideIcon::Pin),
                             }
                             .on_click(move |window, cx| pin(&b, window, cx)),
                         )
                         .separator()
                         .item(
                             MenuItem::new("Delete")
-                                .icon(IconName::Trash2)
+                                .icon(LucideIcon::Trash2)
                                 .on_click(move |window, cx| delete(&c, window, cx)),
                         ),
                 )
@@ -208,7 +208,7 @@ impl RenderOnce for ConversationItem {
             })
             .when(self.conversation.pinned, |row| {
                 row.child(
-                    Icon::new(IconName::Pin)
+                    Icon::new(LucideIcon::Pin)
                         .size(IconSize::Xs)
                         .color(colors.fg_subtle),
                 )

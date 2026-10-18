@@ -9,7 +9,7 @@ use super::ansi::{AnsiText, printed};
 use crate::{
     buttons::{ButtonVariant, IconButton},
     motion::Spinner,
-    primitives::{Disclosure, Icon, IconName},
+    primitives::{Disclosure, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{DurationStyle, format},
 };
@@ -86,14 +86,14 @@ impl RenderOnce for CommandBlock {
                 "Running".into(),
             ),
             CommandState::Done { code: 0, took } => (
-                Icon::new(IconName::CircleCheck)
+                Icon::new(LucideIcon::CircleCheck)
                     .size(IconSize::Sm)
                     .color(colors.success)
                     .into_any_element(),
                 format::duration(took.as_secs().max(1), DurationStyle::Compact).into(),
             ),
             CommandState::Done { code, took } => (
-                Icon::new(IconName::CircleX)
+                Icon::new(LucideIcon::CircleX)
                     .size(IconSize::Sm)
                     .color(colors.danger)
                     .into_any_element(),
@@ -155,18 +155,18 @@ impl RenderOnce for CommandBlock {
                     .child(div().text_color(colors.fg_muted).child(outcome))
                     .child(copy(
                         "copy-command",
-                        IconName::Copy,
+                        LucideIcon::Copy,
                         "Copy command",
                         self.command.to_string(),
                     ))
                     .child(copy(
                         "copy-output",
-                        IconName::FileText,
+                        LucideIcon::FileText,
                         "Copy output",
                         plain,
                     ))
                     .children(self.on_rerun.map(|rerun| {
-                        IconButton::new((self.id.clone(), "rerun"), IconName::RotateCcw)
+                        IconButton::new((self.id.clone(), "rerun"), LucideIcon::RotateCcw)
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
                             .tooltip("Run again")

@@ -10,7 +10,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::Run,
     motion::ProgressBar,
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{DurationStyle, Ellipsis, MiddleEllipsis, format},
 };
@@ -160,8 +160,8 @@ impl RenderOnce for FileOperationProgress {
         let icon = match (&self.state, self.operation) {
             (TransferState::Failed(_), _) => Severity::Danger.icon(),
             (TransferState::Done, _) => Severity::Success.icon(),
-            (_, FileOperation::Copy) => IconName::Copy,
-            (_, FileOperation::Move) => IconName::FolderOpen,
+            (_, FileOperation::Copy) => LucideIcon::Copy,
+            (_, FileOperation::Move) => LucideIcon::FolderOpen,
         };
         let tone = match &self.state {
             TransferState::Failed(_) => Severity::Danger.color(colors),

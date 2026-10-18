@@ -7,12 +7,12 @@ use gpui::{
 use super::{Hosted, open_hosted};
 use crate::{
     motion::{self, ProgressBar},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{Caption, CopyableText, ExternalLink, Paragraph, Title},
 };
 
-fn mark(name: &SharedString, icon: Option<IconName>, cx: &App) -> impl IntoElement + use<> {
+fn mark(name: &SharedString, icon: Option<LucideIcon>, cx: &App) -> impl IntoElement + use<> {
     let theme = cx.theme();
     let initial: SharedString = name.chars().take(1).collect::<String>().into();
     div()
@@ -37,7 +37,7 @@ fn mark(name: &SharedString, icon: Option<IconName>, cx: &App) -> impl IntoEleme
 pub struct AboutDialog {
     name: SharedString,
     version: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     description: Option<SharedString>,
     links: Vec<(SharedString, SharedString)>,
     copyright: Option<SharedString>,
@@ -56,7 +56,7 @@ impl AboutDialog {
     }
 
     /// App glyph; the name's initial stands in without one.
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
@@ -128,7 +128,7 @@ impl RenderOnce for AboutDialog {
 #[derive(IntoElement, Clone)]
 pub struct SplashScreen {
     name: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     tagline: Option<SharedString>,
     status: Option<SharedString>,
     progress: Option<f32>,
@@ -145,7 +145,7 @@ impl SplashScreen {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }

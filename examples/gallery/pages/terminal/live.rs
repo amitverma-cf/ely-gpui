@@ -5,7 +5,7 @@ use ely_gpui_component::{
     forms::TextInput,
     layout::{PaneGroup, PaneId},
     navigation::{EditorTab, EditorTabs},
-    primitives::IconName,
+    primitives::LucideIcon,
     terminal::{Launch, ShellChoice, ShellSelector, Terminal, TerminalToolbar},
     theme::{ActiveTheme, Radius},
 };
@@ -169,8 +169,8 @@ pub fn shell(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                     EditorTabs::new(
                         "terminal-tabs",
                         [
-                            EditorTab::new("shell", SHELLS[now_shell].0).icon(IconName::Terminal),
-                            EditorTab::new("build", "cargo run").icon(IconName::FileText),
+                            EditorTab::new("shell", SHELLS[now_shell].0).icon(LucideIcon::Terminal),
+                            EditorTab::new("build", "cargo run").icon(LucideIcon::FileText),
                         ],
                     )
                     .selected(now_tab.clone())

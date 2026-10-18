@@ -11,7 +11,7 @@ use super::{
     text::{Down, Enter},
 };
 use crate::{
-    primitives::{Icon, IconName, Tooltip, tab_stop},
+    primitives::{Icon, LucideIcon, Tooltip, tab_stop},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
 };
 
@@ -161,7 +161,7 @@ pub(crate) fn grid(
         })
         .child(
             Input::new(&search).prefix(
-                Icon::new(IconName::Search)
+                Icon::new(LucideIcon::Search)
                     .size(IconSize::Sm)
                     .color(colors.fg_subtle),
             ),

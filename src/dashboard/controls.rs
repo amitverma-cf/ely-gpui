@@ -8,7 +8,7 @@ use jiff::Timestamp;
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::{Choice, Select},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, TextSize},
     typography::format,
 };
@@ -85,7 +85,7 @@ impl RenderOnce for RefreshIntervalSelector {
             .items_center()
             .gap_2()
             .child(
-                IconButton::new((id.clone(), "now"), IconName::RefreshCw)
+                IconButton::new((id.clone(), "now"), LucideIcon::RefreshCw)
                     .tooltip("Refresh now")
                     .on_click(move |_, window, cx| {
                         log::info!("refresh: now");

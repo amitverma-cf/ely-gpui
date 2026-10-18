@@ -6,11 +6,11 @@ use gpui::{
 use super::setup;
 use crate::{
     forms::{Checkbox, Choice, IconPicker, InlineEdit, RadioGroup, SignaturePad, Stroke, Switch},
-    primitives::{FocusNext, IconName},
+    primitives::{FocusNext, LucideIcon},
 };
 
 struct Icons {
-    picked: Option<IconName>,
+    picked: Option<LucideIcon>,
 }
 
 impl Render for Icons {
@@ -32,7 +32,7 @@ fn an_icon_is_searched_walked_and_picked_from_the_keyboard(cx: &mut TestAppConte
     cx.update(|window, cx| window.focus_next(cx));
     cx.simulate_input("arrow down");
     cx.simulate_keystrokes("down right enter");
-    let wanted: Vec<IconName> = IconName::ALL
+    let wanted: Vec<LucideIcon> = LucideIcon::ALL
         .iter()
         .copied()
         .filter(|icon| icon.name().replace('-', " ").contains("arrow down"))

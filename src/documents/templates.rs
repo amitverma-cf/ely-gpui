@@ -11,7 +11,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::{Choice, ChoiceChips, Input, Pick, TextInput},
     i18n,
-    primitives::{FocusRing as _, Icon, IconName, tab_stop},
+    primitives::{FocusRing as _, Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -289,7 +289,7 @@ impl RenderOnce for TemplatePicker {
                     .border_color(colors.border)
                     .child(
                         Input::new(&search).size(ControlSize::Sm).prefix(
-                            Icon::new(IconName::Search)
+                            Icon::new(LucideIcon::Search)
                                 .size(IconSize::Sm)
                                 .color(colors.fg_subtle),
                         ),

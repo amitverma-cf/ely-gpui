@@ -133,7 +133,7 @@ fn a_label_mail_or_box_that_left_draws_unmarked(cx: &mut TestAppContext) {
         |_| {
             let mail = crate::mail::Mail::new("m1", "Ada", "Plans", Timestamp::UNIX_EPOCH);
             let inbox =
-                crate::mail::Mailbox::new("inbox", "Inbox", crate::primitives::IconName::Inbox);
+                crate::mail::Mailbox::new("inbox", "Inbox", crate::primitives::LucideIcon::Inbox);
             div()
                 .w(px(480.0))
                 .child(LabelPicker::new("labels", [Label::new("a", "A", 0)]).selected(["ghost"]))

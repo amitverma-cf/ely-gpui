@@ -12,7 +12,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton},
     layout::seeded::use_seeded,
     motion,
-    primitives::{IconName, tab_stop},
+    primitives::{LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
 };
 
@@ -218,7 +218,7 @@ impl RenderOnce for Calendar {
                     .gap_0p5()
                     .child({
                         let (turn, cursor) = (turn.clone(), cursor.clone());
-                        IconButton::new((self.id.clone(), "prev"), IconName::ChevronLeft)
+                        IconButton::new((self.id.clone(), "prev"), LucideIcon::ChevronLeft)
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
                             .tooltip("Previous month")
@@ -230,7 +230,7 @@ impl RenderOnce for Calendar {
                     })
                     .child({
                         let (turn, cursor) = (turn.clone(), cursor.clone());
-                        IconButton::new((self.id.clone(), "next"), IconName::ChevronRight)
+                        IconButton::new((self.id.clone(), "next"), LucideIcon::ChevronRight)
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
                             .tooltip("Next month")

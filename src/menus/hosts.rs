@@ -14,7 +14,7 @@ use super::{
 use crate::{
     buttons::{Button, ButtonGroup, ButtonVariant, IconButton},
     forms::TextInput,
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 
 pub(crate) type Click = Rc<dyn Fn(&ClickEvent, &mut Window, &mut App)>;
@@ -72,7 +72,7 @@ pub(crate) fn menu_under(
 pub struct DropdownMenu {
     id: ElementId,
     label: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     variant: ButtonVariant,
     menu: Menu,
 }
@@ -88,7 +88,7 @@ impl DropdownMenu {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
@@ -105,7 +105,7 @@ impl RenderOnce for DropdownMenu {
         let click = toggle(&state, &self.menu, cx);
         let button = Button::new((self.id.clone(), "button"), self.label)
             .variant(self.variant)
-            .trailing_icon(IconName::ChevronDown)
+            .trailing_icon(LucideIcon::ChevronDown)
             .when_some(self.icon, |button, icon| button.icon(icon))
             .on_click(move |event, window, cx| click(event, window, cx));
         host(self.id, button, &self.menu, &state, None, window, cx)
@@ -117,7 +117,7 @@ impl RenderOnce for DropdownMenu {
 pub struct OverflowMenu {
     id: ElementId,
     menu: Menu,
-    icon: IconName,
+    icon: LucideIcon,
     tooltip: SharedString,
 }
 
@@ -126,12 +126,12 @@ impl OverflowMenu {
         Self {
             id: id.into(),
             menu,
-            icon: IconName::Ellipsis,
+            icon: LucideIcon::Ellipsis,
             tooltip: "More".into(),
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = icon;
         self
     }
@@ -207,7 +207,7 @@ impl RenderOnce for SplitButton {
             });
         let more = Button::new((self.id.clone(), "more"), "")
             .variant(self.variant)
-            .icon(IconName::ChevronDown)
+            .icon(LucideIcon::ChevronDown)
             .on_click(move |event, window, cx| click(event, window, cx));
         host(
             self.id,
@@ -300,7 +300,7 @@ impl RenderOnce for ContextMenu {
 pub struct SearchableMenu {
     id: ElementId,
     label: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     placeholder: SharedString,
     menu: Menu,
 }
@@ -316,7 +316,7 @@ impl SearchableMenu {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
@@ -357,7 +357,7 @@ impl RenderOnce for SearchableMenu {
         }
         let click = toggle(&state, &shown, cx);
         let button = Button::new((self.id.clone(), "button"), self.label)
-            .trailing_icon(IconName::ChevronDown)
+            .trailing_icon(LucideIcon::ChevronDown)
             .when_some(self.icon, |button, icon| button.icon(icon))
             .on_click(move |event, window, cx| click(event, window, cx));
         host(self.id, button, &shown, &state, field.as_ref(), window, cx)

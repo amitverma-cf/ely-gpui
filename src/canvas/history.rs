@@ -4,7 +4,7 @@ use gpui::{App, ElementId, IntoElement, ParentElement, RenderOnce, SharedString,
 
 use crate::{
     lists::{ListItem, SelectableList},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize},
 };
 
@@ -57,9 +57,9 @@ impl RenderOnce for HistoryPanel {
             |list, (ix, step)| {
                 let done = ix < at;
                 let mark = Icon::new(if done {
-                    IconName::Check
+                    LucideIcon::Check
                 } else {
-                    IconName::RotateCcw
+                    LucideIcon::RotateCcw
                 })
                 .size(IconSize::Sm)
                 .color(if done {

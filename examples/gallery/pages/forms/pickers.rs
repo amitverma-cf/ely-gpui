@@ -1,6 +1,6 @@
 use ely_gpui_component::{
     forms::{Cascade, Cascader, Choice, Combobox, ListBox, MultiSelect, Select, TransferList},
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
@@ -44,11 +44,11 @@ pub fn select(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                         Select::new(
                             "select-view",
                             [
-                                Choice::new("list", "List").icon(IconName::List),
-                                Choice::new("board", "Board").icon(IconName::Kanban),
-                                Choice::new("calendar", "Calendar").icon(IconName::Calendar),
+                                Choice::new("list", "List").icon(LucideIcon::List),
+                                Choice::new("board", "Board").icon(LucideIcon::Kanban),
+                                Choice::new("calendar", "Calendar").icon(LucideIcon::Calendar),
                                 Choice::new("gallery", "Gallery")
-                                    .icon(IconName::LayoutGrid)
+                                    .icon(LucideIcon::LayoutGrid)
                                     .disabled(),
                             ],
                         )

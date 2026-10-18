@@ -10,7 +10,7 @@ use gpui::{
 use crate::{
     data_display::Avatar,
     motion,
-    primitives::{Icon, IconName, raise},
+    primitives::{Icon, LucideIcon, raise},
     theme::{ActiveTheme, AvatarSize, ControlSize, Elevation, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -20,7 +20,7 @@ use crate::{
 pub struct Choice {
     pub value: SharedString,
     pub label: SharedString,
-    pub icon: Option<IconName>,
+    pub icon: Option<LucideIcon>,
     pub avatar: Option<SharedString>,
     pub note: Option<SharedString>,
     pub disabled: bool,
@@ -46,7 +46,7 @@ impl Choice {
         self
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
@@ -136,7 +136,7 @@ pub(crate) fn marked_row(
                     .flex_none()
                     .size(theme.icon_size(IconSize::Sm))
                     .when(on, |mark| {
-                        mark.child(Icon::new(IconName::Check).size(IconSize::Sm).color(fg))
+                        mark.child(Icon::new(LucideIcon::Check).size(IconSize::Sm).color(fg))
                     }),
             )
         })

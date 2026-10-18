@@ -6,7 +6,7 @@ use gpui::{
 use crate::{
     buttons::IconButton,
     motion,
-    primitives::{FocusRing, IconName, tab_stop},
+    primitives::{FocusRing, LucideIcon, tab_stop},
     theme::{ActiveTheme, Radius, TextSize},
     typography::tabular,
 };
@@ -152,7 +152,7 @@ impl RenderOnce for Flashcards {
                     .justify_between()
                     .gap_2()
                     .child(
-                        IconButton::new((id.clone(), "previous"), IconName::ChevronLeft)
+                        IconButton::new((id.clone(), "previous"), LucideIcon::ChevronLeft)
                             .tooltip("Previous card")
                             .on_click(go(-1)),
                     )
@@ -163,7 +163,7 @@ impl RenderOnce for Flashcards {
                             .child(format!("{} of {count}", at + 1)),
                     )
                     .child(
-                        IconButton::new((id, "next"), IconName::ChevronRight)
+                        IconButton::new((id, "next"), LucideIcon::ChevronRight)
                             .tooltip("Next card")
                             .on_click(go(1)),
                     ),

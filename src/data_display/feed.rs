@@ -9,7 +9,7 @@ use jiff::Timestamp;
 use super::{Avatar, TimelineItem};
 use crate::{
     motion::AnimatePresence,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, AvatarSize},
     typography::RelativeTime,
 };
@@ -22,7 +22,7 @@ pub struct Activity {
     object: Option<SharedString>,
     at: Timestamp,
     avatar: Option<Avatar>,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     body: Option<AnyElement>,
 }
 
@@ -59,7 +59,7 @@ impl Activity {
     }
 
     /// An icon in place of an avatar, for what a system did.
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }

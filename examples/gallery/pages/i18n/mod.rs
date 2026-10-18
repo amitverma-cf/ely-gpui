@@ -1,7 +1,7 @@
 use ely_gpui_component::{
     forms::{Choice, Select},
     i18n::{I18n, LOCALES},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, Radius},
     typography::Ellipsis,
 };
@@ -215,7 +215,7 @@ fn mirrored(cx: &App) -> impl IntoElement + use<> {
             .gap_2()
             .px_3()
             .py_2()
-            .child(Icon::new(IconName::File).color(theme.colors.fg_muted))
+            .child(Icon::new(LucideIcon::File).color(theme.colors.fg_muted))
             .child(direction.align(div().flex_1().min_w_0().child(Ellipsis::new(name))))
             .child(
                 div()

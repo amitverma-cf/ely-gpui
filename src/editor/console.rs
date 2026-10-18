@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{ButtonVariant, IconButton, ToggleButton, ToggleItem},
     forms::{Choice, Enter, Input, Select, TextInput},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Palette, Radius, TextSize},
 };
 
@@ -120,7 +120,7 @@ impl RenderOnce for OutputPanel {
         let follow = ToggleButton::new(
             (self.id.clone(), "follow"),
             ToggleItem::new("follow")
-                .icon(IconName::ArrowDownWideNarrow)
+                .icon(LucideIcon::ArrowDownWideNarrow)
                 .tooltip("Keep the newest line in view"),
             self.follow,
         )
@@ -147,7 +147,7 @@ impl RenderOnce for OutputPanel {
                     .child(div().flex_1())
                     .child(follow)
                     .children(self.on_clear.map(|clear| {
-                        IconButton::new((self.id.clone(), "clear"), IconName::Eraser)
+                        IconButton::new((self.id.clone(), "clear"), LucideIcon::Eraser)
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
                             .tooltip("Clear")
@@ -246,7 +246,7 @@ impl RenderOnce for DebugConsole {
                 }
                 ConsoleEntry::Error(text) => row
                     .child(
-                        Icon::new(IconName::CircleX)
+                        Icon::new(LucideIcon::CircleX)
                             .size(IconSize::Xs)
                             .color(colors.danger),
                     )

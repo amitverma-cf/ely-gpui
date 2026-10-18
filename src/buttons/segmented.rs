@@ -10,7 +10,7 @@ use super::button::label_size;
 use crate::{
     layout::{measure_width, on_axis, reveal_when_focused, text_width},
     motion::{self, Axis, Marker, glide, measure_item, measure_origin, slide},
-    primitives::{FocusRing, Icon, IconName, Tooltip, tab_stop},
+    primitives::{FocusRing, Icon, LucideIcon, Tooltip, tab_stop},
     theme::{ActiveTheme, ControlSize, Elevation, Radius},
     typography::Ellipsis,
 };
@@ -21,7 +21,7 @@ type OnChange = Rc<dyn Fn(&SharedString, &mut Window, &mut App)>;
 #[derive(IntoElement)]
 pub struct SegmentedControl {
     id: ElementId,
-    segments: Vec<(SharedString, SharedString, Option<IconName>)>,
+    segments: Vec<(SharedString, SharedString, Option<LucideIcon>)>,
     selected: SharedString,
     size: ControlSize,
     on_change: Option<OnChange>,
@@ -42,7 +42,7 @@ impl SegmentedControl {
         mut self,
         value: impl Into<SharedString>,
         label: impl Into<SharedString>,
-        icon: Option<IconName>,
+        icon: Option<LucideIcon>,
     ) -> Self {
         self.segments.push((value.into(), label.into(), icon));
         self
@@ -240,7 +240,7 @@ impl RenderOnce for SegmentedControl {
 
 /// Every label and icon in full, with padding: the width that cuts none.
 fn natural(
-    segments: &[(SharedString, SharedString, Option<IconName>)],
+    segments: &[(SharedString, SharedString, Option<LucideIcon>)],
     size: ControlSize,
     window: &Window,
     cx: &App,

@@ -5,7 +5,7 @@ use ely_gpui_component::{
         StatusMessage, Toast, ToastViewport, Toaster,
     },
     layout::Collapsible,
-    primitives::{IconName, Severity},
+    primitives::{LucideIcon, Severity},
     theme::{ActiveTheme, Radius},
     typography::Caption,
 };
@@ -84,13 +84,16 @@ pub fn center(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let now = inbox.read(cx).clone();
     let (read, clear, reset) = (inbox.clone(), inbox.clone(), inbox.clone());
     let theme = cx.theme();
-    let item =
-        |ix: usize, icon: IconName, title: &'static str, body: &'static str, time: &'static str| {
-            Notification::new(("note", ix), icon, title)
-                .body(body)
-                .time(time)
-                .unread(now.unread[ix])
-        };
+    let item = |ix: usize,
+                icon: LucideIcon,
+                title: &'static str,
+                body: &'static str,
+                time: &'static str| {
+        Notification::new(("note", ix), icon, title)
+            .body(body)
+            .time(time)
+            .unread(now.unread[ix])
+    };
     let (today, earlier) = if now.cleared {
         (Vec::new(), Vec::new())
     } else {
@@ -98,14 +101,14 @@ pub fn center(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             vec![
                 item(
                     0,
-                    IconName::MessageSquare,
+                    LucideIcon::MessageSquare,
                     "Mia Chen replied",
                     "“Looks right. Ship it after the copy pass.”",
                     "2m",
                 ),
                 item(
                     1,
-                    IconName::GitPullRequest,
+                    LucideIcon::GitPullRequest,
                     "Review requested",
                     "Hana asked you to review #482, toast motion.",
                     "18m",
@@ -114,7 +117,7 @@ pub fn center(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 .action(Button::new("note-later", "Later").variant(ButtonVariant::Ghost)),
                 item(
                     2,
-                    IconName::CalendarDays,
+                    LucideIcon::CalendarDays,
                     "Design review moved",
                     "Now Thursday, 14:00 CET.",
                     "1h",
@@ -123,14 +126,14 @@ pub fn center(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             vec![
                 item(
                     3,
-                    IconName::Download,
+                    LucideIcon::Download,
                     "Export ready",
                     "quarterly-report.pdf · 2.4 MB",
                     "Yesterday",
                 ),
                 item(
                     4,
-                    IconName::Users,
+                    LucideIcon::Users,
                     "Léa Martin joined",
                     "Say hello in #studio.",
                     "Mon",
@@ -346,7 +349,7 @@ pub fn lines(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 Button::new("status-step", "Next status")
                     .on_click(move |_, _, cx| set(&step, (now + 1) % STEPS.len(), cx)),
             ))
-            .child(StatusMessage::new("status", STEPS[now]).icon(IconName::Upload)),
+            .child(StatusMessage::new("status", STEPS[now]).icon(LucideIcon::Upload)),
     )
 }
 
@@ -375,7 +378,7 @@ pub fn empties(cx: &mut App) -> impl IntoElement + use<> {
             .gap_3()
             .child(
                 frame().child(
-                    EmptyState::new("empty-inbox", IconName::Inbox, "No messages yet")
+                    EmptyState::new("empty-inbox", LucideIcon::Inbox, "No messages yet")
                         .body("When someone writes to you, it lands here, newest first, until you archive it.")
                         .action(Button::new("empty-compose", "Write a message")),
                 ),
@@ -384,7 +387,7 @@ pub fn empties(cx: &mut App) -> impl IntoElement + use<> {
                 frame().child(
                     EmptyState::new(
                         "empty-search",
-                        IconName::SearchX,
+                        LucideIcon::SearchX,
                         "No results for “quarterly”",
                     )
                     .body("Try fewer words, or check the spelling.")
@@ -395,7 +398,7 @@ pub fn empties(cx: &mut App) -> impl IntoElement + use<> {
                 frame().child(
                     EmptyState::new(
                         "empty-first",
-                        IconName::Sparkles,
+                        LucideIcon::Sparkles,
                         "Start your first project",
                     )
                     .body("Projects keep files, people and tasks together.")

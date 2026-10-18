@@ -8,7 +8,7 @@ use crate::{
     buttons::{IconButton, SegmentedControl},
     feedback::InlineMessage,
     forms::{Input, TextInput},
-    primitives::{IconName, Severity},
+    primitives::{LucideIcon, Severity},
     theme::{ActiveTheme, Radius, TextSize},
     typography::literal,
 };
@@ -218,7 +218,7 @@ impl RenderOnce for Encoder {
                             .child(text),
                     )
                     .child(
-                        IconButton::new((self.id.clone(), "copy"), IconName::Copy)
+                        IconButton::new((self.id.clone(), "copy"), LucideIcon::Copy)
                             .tooltip("Copy the result")
                             .on_click(move |_, _, cx| {
                                 log::info!("encoder: copied");

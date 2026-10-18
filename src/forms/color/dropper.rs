@@ -4,7 +4,7 @@ use gpui::{AnyWindowHandle, App, AsyncApp, ElementId, Hsla, IntoElement, RenderO
 
 use crate::{
     buttons::{ButtonVariant, IconButton},
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 
 type OnColor = Rc<dyn Fn(Hsla, &mut Window, &mut App)>;
@@ -34,7 +34,7 @@ impl RenderOnce for EyeDropper {
     fn render(self, _: &mut Window, _: &mut App) -> impl IntoElement {
         let on_pick = self.on_pick;
         let available = cfg!(target_os = "macos");
-        IconButton::new(self.id, IconName::Pipette)
+        IconButton::new(self.id, LucideIcon::Pipette)
             .variant(ButtonVariant::Ghost)
             .tooltip(if available {
                 "Pick a color from the screen"

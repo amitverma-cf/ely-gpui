@@ -2,7 +2,7 @@ use ely_gpui_component::{
     forms::{
         CheckState, Checkbox, CheckboxCard, CheckboxGroup, Choice, RadioCard, RadioGroup, Switch,
     },
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
@@ -141,7 +141,7 @@ pub fn cards(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 div().flex_1().child(
                     RadioCard::new("card-personal", space_now == "personal", "Personal")
                         .description("Just you. Notes stay on this Mac.")
-                        .icon(IconName::User)
+                        .icon(LucideIcon::User)
                         .on_select(move |_, cx| set(&personal, "personal".into(), cx)),
                 ),
             )
@@ -149,7 +149,7 @@ pub fn cards(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 div().flex_1().child(
                     RadioCard::new("card-team", space_now == "team", "Team")
                         .description("Shared with everyone you invite.")
-                        .icon(IconName::Users)
+                        .icon(LucideIcon::Users)
                         .on_select(move |_, cx| set(&team, "team".into(), cx)),
                 ),
             ),
@@ -158,7 +158,7 @@ pub fn cards(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         div().w(px(640.0)).child(
             CheckboxCard::new("card-backup", backup_now, "Back up nightly")
                 .description("Copies change sets to the cloud at 2 AM.")
-                .icon(IconName::Cloud)
+                .icon(LucideIcon::Cloud)
                 .on_change(move |on, _, cx| set(&backup, on, cx)),
         ),
     )

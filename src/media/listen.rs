@@ -12,7 +12,7 @@ use super::{
 use crate::{
     forms::OnValue,
     lists::{ListItem, SelectableList},
-    primitives::{Icon, IconName, Image},
+    primitives::{Icon, Image, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{Ellipsis, tabular},
 };
@@ -235,7 +235,7 @@ impl RenderOnce for AudioPlayer {
                 .items_center()
                 .justify_center()
                 .child(
-                    Icon::new(IconName::Music)
+                    Icon::new(LucideIcon::Music)
                         .size(IconSize::Lg)
                         .color(colors.fg_subtle),
                 )

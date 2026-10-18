@@ -11,7 +11,7 @@ use crate::{
     buttons::{Button, ButtonVariant, IconButton, SegmentedControl},
     forms::{Choice, Input, InputEvent, Select, TextInput},
     motion::Reorder,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize},
 };
 
@@ -203,7 +203,7 @@ impl RenderOnce for FilterBuilder {
                         slot.child(Input::new(&entities[ix]).size(ControlSize::Sm))
                     }))
                     .child(
-                        IconButton::new((id.clone(), format!("remove-{ix}")), IconName::X)
+                        IconButton::new((id.clone(), format!("remove-{ix}")), LucideIcon::X)
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
                             .tooltip(i18n::text(cx, "builder.remove", &[]))
@@ -228,7 +228,7 @@ impl RenderOnce for FilterBuilder {
                         (self.id.clone(), "add"),
                         i18n::text(cx, "builder.add_rule", &[]),
                     )
-                    .icon(IconName::Plus)
+                    .icon(LucideIcon::Plus)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .on_click(move |_, window, cx| {
@@ -342,7 +342,7 @@ impl RenderOnce for SortBuilder {
                         .gap_2()
                         .py_1()
                         .child(
-                            Icon::new(IconName::GripVertical)
+                            Icon::new(LucideIcon::GripVertical)
                                 .size(IconSize::Sm)
                                 .color(grip),
                         )
@@ -371,12 +371,12 @@ impl RenderOnce for SortBuilder {
                             .segment(
                                 "up",
                                 i18n::text(cx, "builder.up", &[]),
-                                Some(IconName::ArrowUp),
+                                Some(LucideIcon::ArrowUp),
                             )
                             .segment(
                                 "down",
                                 i18n::text(cx, "builder.down", &[]),
-                                Some(IconName::ArrowDown),
+                                Some(LucideIcon::ArrowDown),
                             )
                             .size(ControlSize::Sm)
                             .on_change(move |way, window, cx| {
@@ -386,15 +386,18 @@ impl RenderOnce for SortBuilder {
                             }),
                         )
                         .child(
-                            IconButton::new((id.clone(), format!("sort-remove-{ix}")), IconName::X)
-                                .variant(ButtonVariant::Ghost)
-                                .size(ControlSize::Sm)
-                                .tooltip(i18n::text(cx, "builder.remove", &[]))
-                                .on_click(move |_, window, cx| {
-                                    let mut next = for_remove.clone();
-                                    next.remove(ix);
-                                    remove(&next, window, cx)
-                                }),
+                            IconButton::new(
+                                (id.clone(), format!("sort-remove-{ix}")),
+                                LucideIcon::X,
+                            )
+                            .variant(ButtonVariant::Ghost)
+                            .size(ControlSize::Sm)
+                            .tooltip(i18n::text(cx, "builder.remove", &[]))
+                            .on_click(move |_, window, cx| {
+                                let mut next = for_remove.clone();
+                                next.remove(ix);
+                                remove(&next, window, cx)
+                            }),
                         ),
                 )
             },
@@ -410,7 +413,7 @@ impl RenderOnce for SortBuilder {
                     (self.id.clone(), "add"),
                     i18n::text(cx, "builder.add_sort", &[]),
                 )
-                .icon(IconName::Plus)
+                .icon(LucideIcon::Plus)
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
                 .on_click(move |_, window, cx| {

@@ -12,7 +12,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     feedback::{Alert, Countdown},
     forms::{Choice, ChoiceChips, Input, OnValues, Run, TextInput},
-    primitives::{Disclosure, FocusRing, Icon, IconName, Severity},
+    primitives::{Disclosure, FocusRing, Icon, LucideIcon, Severity},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::ShimmerText,
 };
@@ -58,7 +58,7 @@ impl RenderOnce for ErrorMessage {
             Some(retry) => alert.action(
                 Button::new((self.id.clone(), "retry"), "Try again")
                     .size(ControlSize::Sm)
-                    .icon(IconName::RefreshCw)
+                    .icon(LucideIcon::RefreshCw)
                     .on_click(move |_, window, cx| {
                         log::info!("error message: retry");
                         retry(window, cx)
@@ -121,7 +121,7 @@ impl RenderOnce for RateLimitNotice {
             .bg(colors.surface)
             .text_size(theme.text_size(TextSize::Sm))
             .child(
-                Icon::new(IconName::Clock)
+                Icon::new(LucideIcon::Clock)
                     .size(IconSize::Sm)
                     .color(colors.warning),
             )
@@ -306,7 +306,7 @@ impl RenderOnce for ThinkingIndicator {
             .items_center()
             .gap_1p5()
             .child(
-                Icon::new(IconName::Sparkles)
+                Icon::new(LucideIcon::Sparkles)
                     .size(IconSize::Sm)
                     .color(colors.fg_subtle),
             )

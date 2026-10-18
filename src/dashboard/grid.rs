@@ -8,7 +8,7 @@ use gpui::{
 
 use super::tiles::{Tile, arranged, stepped};
 use crate::{
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, IconSize, Radius},
 };
 
@@ -293,7 +293,7 @@ impl RenderOnce for DashboardGrid {
                                 .on_mouse_down(MouseButton::Left, start(Grip::Size))
                                 .on_drag(Pull { owner }, |_, _, _, cx| cx.new(|_| EmptyView))
                                 .child(
-                                    Icon::new(IconName::GripHorizontal)
+                                    Icon::new(LucideIcon::GripHorizontal)
                                         .size(IconSize::Xs)
                                         .color(colors.fg_subtle),
                                 ),

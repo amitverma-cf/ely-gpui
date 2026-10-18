@@ -10,7 +10,7 @@ use crate::{
     feedback::EmptyState,
     forms::{Input, TextInput},
     lists::{ListItem, SelectableList},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     tables::Table,
     theme::{ActiveTheme, IconSize, TextSize},
     typography::{Ellipsis, format},
@@ -186,7 +186,7 @@ impl RenderOnce for RedisKeyBrowser {
                     key.key.clone(),
                     ListItem::new((id.clone(), format!("key-{}", key.key)), key.key.clone())
                         .description(ttl)
-                        .leading(Icon::new(IconName::Key).size(IconSize::Sm).color(muted))
+                        .leading(Icon::new(LucideIcon::Key).size(IconSize::Sm).color(muted))
                         .trailing(Badge::new(key.value.kind()).tone(key.value.tone())),
                 )
             },
@@ -226,7 +226,7 @@ impl RenderOnce for RedisKeyBrowser {
                 )
                 .child(value(key, cx))
                 .into_any_element(),
-            None => EmptyState::new((id.clone(), "none"), IconName::Key, "No key selected")
+            None => EmptyState::new((id.clone(), "none"), LucideIcon::Key, "No key selected")
                 .body("Pick a key to see what it holds.")
                 .into_any_element(),
         };
@@ -243,7 +243,7 @@ impl RenderOnce for RedisKeyBrowser {
                     .gap_2()
                     .child(
                         Input::new(&self.pattern)
-                            .prefix(Icon::new(IconName::Search).size(IconSize::Sm)),
+                            .prefix(Icon::new(LucideIcon::Search).size(IconSize::Sm)),
                     )
                     .child(format!("{} of {} keys", found.len(), self.keys.len()))
                     .child(list),

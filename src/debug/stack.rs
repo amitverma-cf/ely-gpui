@@ -8,7 +8,7 @@ use gpui::{
 use super::OnIndex;
 use crate::{
     forms::OnFlag,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Palette, Radius, TextSize},
     typography::{Ellipsis, format},
 };
@@ -129,7 +129,7 @@ impl RenderOnce for CallStack {
                             row.on_click(move |_, window, cx| pick(ix, window, cx))
                         })
                         .child(div().flex_none().w_4().children(current.then(|| {
-                            Icon::new(IconName::ArrowRight)
+                            Icon::new(LucideIcon::ArrowRight)
                                 .size(IconSize::Sm)
                                 .color(colors.warning)
                         })))
@@ -197,11 +197,11 @@ pub enum ThreadState {
 }
 
 impl ThreadState {
-    fn look(self, colors: &Palette) -> (IconName, Hsla, &'static str) {
+    fn look(self, colors: &Palette) -> (LucideIcon, Hsla, &'static str) {
         match self {
-            Self::Running => (IconName::Play, colors.success, "running"),
-            Self::Paused => (IconName::Pause, colors.fg_muted, "paused"),
-            Self::Stopped => (IconName::CircleDot, colors.danger, "on a breakpoint"),
+            Self::Running => (LucideIcon::Play, colors.success, "running"),
+            Self::Paused => (LucideIcon::Pause, colors.fg_muted, "paused"),
+            Self::Stopped => (LucideIcon::CircleDot, colors.danger, "on a breakpoint"),
         }
     }
 }

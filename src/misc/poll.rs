@@ -9,7 +9,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::{Choice, RadioGroup},
     motion::ProgressBar,
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, IconSize, TextSize},
     typography::{Ellipsis, format, tabular},
 };
@@ -141,7 +141,7 @@ impl RenderOnce for Poll {
                                         )
                                         .when(marked, |row| {
                                             row.child(
-                                                Icon::new(IconName::CircleCheck)
+                                                Icon::new(LucideIcon::CircleCheck)
                                                     .size(IconSize::Sm)
                                                     .color(colors.accent),
                                             )

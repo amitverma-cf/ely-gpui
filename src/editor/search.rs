@@ -7,7 +7,7 @@ use gpui::{
 };
 
 use crate::{
-    primitives::{Disclosure, Icon, IconName},
+    primitives::{Disclosure, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::format,
 };
@@ -237,7 +237,7 @@ fn results(
                     open,
                 ))
                 .child(
-                    Icon::new(IconName::FileText)
+                    Icon::new(LucideIcon::FileText)
                         .size(IconSize::Sm)
                         .color(colors.fg_muted),
                 )

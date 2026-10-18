@@ -8,7 +8,7 @@ use gpui::{
 use super::{files::hovering, path::choose};
 use crate::{
     data_display::Avatar,
-    primitives::{FocusRing, Icon, IconName, tab_stop},
+    primitives::{FocusRing, Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, IconSize, Radius},
 };
 
@@ -108,7 +108,7 @@ impl RenderOnce for AvatarUpload {
                     .opacity(0.0)
                     .group_hover(group, |style| style.opacity(1.0))
                     .child(
-                        Icon::new(IconName::Camera)
+                        Icon::new(LucideIcon::Camera)
                             .size(IconSize::Md)
                             .color(theme.colors.on_media),
                     ),

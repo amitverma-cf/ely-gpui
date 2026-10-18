@@ -10,7 +10,7 @@ use crate::{
     documents::source,
     forms::OnValue,
     motion::{AnimatePresence, ProgressRing},
-    primitives::{Icon, IconName, Image},
+    primitives::{Icon, Image, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{
         Ellipsis,
@@ -148,9 +148,9 @@ impl RenderOnce for GenerationQueue {
                     .into_any_element(),
                 (state, _) => {
                     let (icon, ink) = match state {
-                        JobState::Queued(_) => (IconName::Clock, colors.fg_subtle),
-                        JobState::Failed(_) => (IconName::CircleAlert, colors.danger),
-                        _ => (IconName::Check, colors.success),
+                        JobState::Queued(_) => (LucideIcon::Clock, colors.fg_subtle),
+                        JobState::Failed(_) => (LucideIcon::CircleAlert, colors.danger),
+                        _ => (LucideIcon::Check, colors.success),
                     };
                     div()
                         .size(side)
@@ -182,7 +182,7 @@ impl RenderOnce for GenerationQueue {
                     true => action("remove", &job.key, &self.on_remove).map(|remove| {
                         IconButton::new(
                             (self.id.clone(), format!("remove-{}", job.key)),
-                            IconName::X,
+                            LucideIcon::X,
                         )
                         .size(ControlSize::Sm)
                         .tooltip("Remove")
@@ -191,7 +191,7 @@ impl RenderOnce for GenerationQueue {
                     false => action("cancel", &job.key, &self.on_cancel).map(|cancel| {
                         IconButton::new(
                             (self.id.clone(), format!("cancel-{}", job.key)),
-                            IconName::X,
+                            LucideIcon::X,
                         )
                         .size(ControlSize::Sm)
                         .tooltip("Cancel")

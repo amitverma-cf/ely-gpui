@@ -9,7 +9,7 @@ use super::login::Run;
 use crate::{
     buttons::{Button, ButtonVariant},
     layout::Card,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
@@ -95,7 +95,7 @@ impl RenderOnce for UpgradePrompt {
                 .items_center()
                 .gap_2()
                 .child(
-                    Icon::new(IconName::Check)
+                    Icon::new(LucideIcon::Check)
                         .size(IconSize::Sm)
                         .color(theme.colors.success),
                 )
@@ -112,7 +112,7 @@ impl RenderOnce for UpgradePrompt {
                         .items_start()
                         .gap_3()
                         .child(
-                            Icon::new(IconName::Lock)
+                            Icon::new(LucideIcon::Lock)
                                 .size(IconSize::Md)
                                 .color(theme.colors.fg_muted),
                         )

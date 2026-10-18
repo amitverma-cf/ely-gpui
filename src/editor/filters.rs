@@ -5,7 +5,7 @@ use gpui::{App, ElementId, Entity, IntoElement, ParentElement, RenderOnce, Style
 use crate::{
     buttons::{ToggleButton, ToggleItem},
     forms::{Input, TextInput},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
 };
 
@@ -102,7 +102,7 @@ impl RenderOnce for SearchFilters {
         let ignore = ToggleButton::new(
             (self.id.clone(), "ignore"),
             ToggleItem::new("ignore")
-                .icon(IconName::EyeOff)
+                .icon(LucideIcon::EyeOff)
                 .tooltip("Leave out ignored files"),
             self.ignore,
         )

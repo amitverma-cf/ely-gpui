@@ -6,7 +6,7 @@ use super::view::Viewport;
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::Run,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::ControlSize,
 };
 
@@ -103,8 +103,8 @@ impl RenderOnce for ZoomControls {
             let next = stepped(zoom, inward);
             let on_zoom = self.on_zoom.clone();
             let (icon, words) = match inward {
-                true => (IconName::ZoomIn, "Zoom in"),
-                false => (IconName::ZoomOut, "Zoom out"),
+                true => (LucideIcon::ZoomIn, "Zoom in"),
+                false => (LucideIcon::ZoomOut, "Zoom out"),
             };
             IconButton::new((id.clone(), words), icon)
                 .variant(ButtonVariant::Ghost)
@@ -128,7 +128,7 @@ impl RenderOnce for ZoomControls {
             })
         };
         let fit = self.on_fit.map(|on_fit| {
-            IconButton::new((id.clone(), "fit"), IconName::Maximize2)
+            IconButton::new((id.clone(), "fit"), LucideIcon::Maximize2)
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
                 .tooltip("Fit to screen")

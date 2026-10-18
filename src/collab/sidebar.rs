@@ -11,7 +11,7 @@ use crate::{
     feedback::EmptyState,
     forms::{OnValue, Run, TextInput},
     i18n,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Radius},
 };
 
@@ -136,7 +136,7 @@ impl RenderOnce for CommentSidebar {
         let empty = shown.is_empty().then(|| {
             EmptyState::new(
                 (self.id.clone(), "empty"),
-                IconName::MessageSquare,
+                LucideIcon::MessageSquare,
                 i18n::text(cx, none, &[]),
             )
         });

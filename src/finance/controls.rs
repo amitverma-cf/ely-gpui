@@ -9,7 +9,7 @@ use super::market::ChartKind;
 use crate::{
     buttons::SegmentedControl,
     forms::{Choice, Select},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize},
 };
 
@@ -124,22 +124,22 @@ impl RenderOnce for IntervalSelector {
 }
 
 /// Each chart kind with its key, words and icon.
-const KINDS: [(ChartKind, &str, &str, IconName); 5] = [
+const KINDS: [(ChartKind, &str, &str, LucideIcon); 5] = [
     (
         ChartKind::Candles,
         "candles",
         "Candles",
-        IconName::ChartCandlestick,
+        LucideIcon::ChartCandlestick,
     ),
-    (ChartKind::Bars, "bars", "Bars", IconName::ChartColumn),
+    (ChartKind::Bars, "bars", "Bars", LucideIcon::ChartColumn),
     (
         ChartKind::HeikinAshi,
         "heikin-ashi",
         "Heikin-Ashi",
-        IconName::ChartCandlestick,
+        LucideIcon::ChartCandlestick,
     ),
-    (ChartKind::Line, "line", "Line", IconName::ChartLine),
-    (ChartKind::Area, "area", "Area", IconName::ChartArea),
+    (ChartKind::Line, "line", "Line", LucideIcon::ChartLine),
+    (ChartKind::Area, "area", "Area", LucideIcon::ChartArea),
 ];
 
 type OnKind = Rc<dyn Fn(ChartKind, &mut Window, &mut App)>;
@@ -209,11 +209,11 @@ pub enum Arrangement {
 }
 
 impl Arrangement {
-    const ALL: [(Arrangement, &'static str, IconName); 4] = [
-        (Arrangement::One, "one", IconName::Square),
-        (Arrangement::Across, "across", IconName::Columns2),
-        (Arrangement::Down, "down", IconName::Rows2),
-        (Arrangement::Four, "four", IconName::LayoutGrid),
+    const ALL: [(Arrangement, &'static str, LucideIcon); 4] = [
+        (Arrangement::One, "one", LucideIcon::Square),
+        (Arrangement::Across, "across", LucideIcon::Columns2),
+        (Arrangement::Down, "down", LucideIcon::Rows2),
+        (Arrangement::Four, "four", LucideIcon::LayoutGrid),
     ];
 
     /// How many charts it holds.

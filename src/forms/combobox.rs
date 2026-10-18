@@ -12,7 +12,7 @@ use super::{
     text::{Down, Enter, Up},
 };
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize},
 };
 
@@ -251,7 +251,7 @@ impl RenderOnce for Combobox {
             })
             .child(
                 Input::new(&self.state).size(self.size).suffix(
-                    Icon::new(IconName::ChevronsUpDown)
+                    Icon::new(LucideIcon::ChevronsUpDown)
                         .size(IconSize::Xs)
                         .color(subtle),
                 ),

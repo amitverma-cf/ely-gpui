@@ -10,7 +10,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::{Choice, Run},
     motion,
-    primitives::{FocusRing, Icon, IconName, tab_stop},
+    primitives::{FocusRing, Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
 };
 
@@ -113,7 +113,7 @@ impl RenderOnce for Steps {
                 .map(|circle| {
                     if done {
                         circle.bg(colors.accent).child(
-                            Icon::new(IconName::Check)
+                            Icon::new(LucideIcon::Check)
                                 .size(IconSize::Xs)
                                 .color(colors.on_accent),
                         )

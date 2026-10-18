@@ -10,7 +10,7 @@ use crate::{
     forms::{OnValue, reveal, revealer},
     layout::on_axis,
     lists::{DirEntry, ListItem, SelectableList},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius},
 };
 
@@ -54,7 +54,7 @@ pub(super) fn columns(
                     .leading(FileIcon::entry(entry))
                     .when(entry.is_folder(), |row| {
                         row.trailing(
-                            Icon::new(IconName::ChevronRight)
+                            Icon::new(LucideIcon::ChevronRight)
                                 .size(IconSize::Xs)
                                 .color(colors.fg_subtle),
                         )

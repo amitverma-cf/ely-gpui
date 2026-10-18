@@ -3,7 +3,7 @@ use std::{borrow::Cow, f32::consts::FRAC_PI_4};
 use ely_gpui_component::{
     Assets,
     files::FileIcon,
-    primitives::{FocusScope, Icon, IconName, IconTheme},
+    primitives::{FocusScope, Icon, IconTheme, LucideIcon},
     theme::{ActiveTheme, IconSize},
 };
 use gpui::{
@@ -61,10 +61,10 @@ impl Render for Icons {
                     .flex()
                     .items_center()
                     .gap_4()
-                    .child(Icon::new(IconName::Check))
-                    .child(Icon::new(IconName::Rocket).size(IconSize::Xl))
-                    .child(Icon::new(IconName::CircleCheck).color(theme.colors.success))
-                    .child(Icon::new(IconName::Package).rotate(Radians(FRAC_PI_4)))
+                    .child(Icon::new(LucideIcon::Check))
+                    .child(Icon::new(LucideIcon::Rocket).size(IconSize::Xl))
+                    .child(Icon::new(LucideIcon::CircleCheck).color(theme.colors.success))
+                    .child(Icon::new(LucideIcon::Package).rotate(Radians(FRAC_PI_4)))
                     .child(
                         Icon::from_path(CUSTOM_ICON)
                             .size(IconSize::Xl)
@@ -89,7 +89,7 @@ fn main() {
         .run(|cx: &mut App| {
             ely_gpui_component::init(cx).expect("Ely failed to start");
             IconTheme::default()
-                .name("Cargo.toml", IconName::Package)
+                .name("Cargo.toml", LucideIcon::Package)
                 .apply(cx);
             cx.open_window(WindowOptions::default(), |window, cx| {
                 cx.new(|cx| {

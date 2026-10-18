@@ -11,7 +11,7 @@ use crate::{
     buttons::{Button, IconButton},
     forms::{Input, TextInput},
     overlays::{FloatingToolbar, Lightbox, Peek, Slide, Spotlight, Tour, TourStep},
-    primitives::{FocusNext, FocusScope, IconName},
+    primitives::{FocusNext, FocusScope, LucideIcon},
     theme::Theme,
 };
 
@@ -106,7 +106,7 @@ impl Render for Guides {
             .child(
                 div().w(px(300.0)).child(Input::new(&self.field)).child(
                     FloatingToolbar::new("tools", &self.field).child(
-                        IconButton::new("bold", IconName::Bold)
+                        IconButton::new("bold", LucideIcon::Bold)
                             .on_click(move |_, window, cx| bold(window, cx)),
                     ),
                 ),

@@ -3,7 +3,7 @@ use ely_gpui_component::{
         CodeInput, Combobox, EmojiPicker, FontPicker, IconPicker, JsonInput, NumberInput,
         SignaturePad, Stroke, code_highlights, json_highlights,
     },
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::ActiveTheme,
 };
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
@@ -93,7 +93,7 @@ pub fn font(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
 }
 
 pub fn glyphs(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
-    let icon = keep("icon-picked", || IconName::Sparkles, window, cx);
+    let icon = keep("icon-picked", || LucideIcon::Sparkles, window, cx);
     let emoji = keep("emoji-picked", || SharedString::from("✨"), window, cx);
     let (icon_now, emoji_now) = (*icon.read(cx), emoji.read(cx).clone());
     section(

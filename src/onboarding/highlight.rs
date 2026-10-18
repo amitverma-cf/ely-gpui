@@ -11,7 +11,7 @@ use crate::{
     forms::Run,
     layout::Card,
     motion,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -19,7 +19,7 @@ use crate::{
 #[derive(IntoElement)]
 pub struct FeatureHighlight {
     id: ElementId,
-    icon: IconName,
+    icon: LucideIcon,
     title: SharedString,
     body: SharedString,
     on_try: Run,
@@ -29,7 +29,7 @@ pub struct FeatureHighlight {
 impl FeatureHighlight {
     pub fn new(
         id: impl Into<ElementId>,
-        icon: IconName,
+        icon: LucideIcon,
         title: impl Into<SharedString>,
         body: impl Into<SharedString>,
         on_try: impl Fn(&mut Window, &mut App) + 'static,

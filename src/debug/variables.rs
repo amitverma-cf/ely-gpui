@@ -10,7 +10,7 @@ use super::OnIndex;
 use crate::{
     buttons::{ButtonVariant, IconButton},
     forms::{Input, TextInput},
-    primitives::{Disclosure, IconName},
+    primitives::{Disclosure, LucideIcon},
     theme::{ActiveTheme, ControlSize, Palette, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -285,7 +285,7 @@ impl RenderOnce for WatchPanel {
                             .child(
                                 IconButton::new(
                                     (self.id.clone(), format!("remove-{ix}")),
-                                    IconName::X,
+                                    LucideIcon::X,
                                 )
                                 .variant(ButtonVariant::Ghost)
                                 .size(ControlSize::Sm)

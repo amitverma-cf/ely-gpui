@@ -10,7 +10,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton},
     documents::source,
     forms::{Pick, Run},
-    primitives::{Icon, IconName, Image, file_icon},
+    primitives::{Icon, Image, LucideIcon, file_icon},
     theme::{ActiveTheme, AvatarSize, ContainerSize, IconSize, Radius, TextSize},
     typography::{Ellipsis, format::file_size},
 };
@@ -281,7 +281,7 @@ impl RenderOnce for FileMessage {
                     ),
             )
             .children(self.on_download.map(|download| {
-                IconButton::new((self.id.clone(), "download"), IconName::Download)
+                IconButton::new((self.id.clone(), "download"), LucideIcon::Download)
                     .variant(ButtonVariant::Ghost)
                     .tooltip("Download")
                     .on_click(move |_, window, cx| download(window, cx))
@@ -368,7 +368,7 @@ impl RenderOnce for LinkPreviewCard {
                             .text_size(theme.text_size(TextSize::Xs))
                             .text_color(colors.fg_subtle)
                             .child(
-                                Icon::new(IconName::Globe)
+                                Icon::new(LucideIcon::Globe)
                                     .size(IconSize::Xs)
                                     .color(colors.fg_subtle),
                             )

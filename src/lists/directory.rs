@@ -11,7 +11,7 @@ use crate::{
     forms::OnValue,
     layout::{on_axis, seeded::use_seeded},
     navigation::{Breadcrumb, Crumb},
-    primitives::{Icon, IconName, file_icon},
+    primitives::{Icon, LucideIcon, file_icon},
     theme::{ActiveTheme, IconSize, TextSize},
     typography::{format, tabular},
 };
@@ -84,7 +84,7 @@ pub(crate) fn path_bar(
     let crumbs = path.iter().enumerate().map(|(ix, name)| {
         let crumb = Crumb::new(SharedString::from(ix.to_string()), name.clone());
         if ix == 0 {
-            crumb.icon(IconName::HardDrive)
+            crumb.icon(LucideIcon::HardDrive)
         } else {
             crumb
         }
@@ -228,9 +228,9 @@ impl RenderOnce for DirectoryListing {
                 .when(column == this, |header| {
                     header.child(
                         Icon::new(if ascending {
-                            IconName::ArrowUpNarrowWide
+                            LucideIcon::ArrowUpNarrowWide
                         } else {
-                            IconName::ArrowDownWideNarrow
+                            LucideIcon::ArrowDownWideNarrow
                         })
                         .size(IconSize::Xs)
                         .color(colors.fg_muted),
@@ -296,7 +296,7 @@ impl RenderOnce for DirectoryListing {
                     ListItem::new((self.id.clone(), format!("entry-{ix}")), entry.name.clone())
                         .leading(
                             Icon::new(if entry.is_folder() {
-                                IconName::Folder
+                                LucideIcon::Folder
                             } else {
                                 file_icon(&entry.name, cx)
                             })

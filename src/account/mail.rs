@@ -9,7 +9,7 @@ use super::login::{Run, field};
 use crate::{
     buttons::{Button, ButtonVariant},
     forms::{EmailInput, Enter, FormField, is_email},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
     typography::Link,
 };
@@ -91,7 +91,7 @@ fn email_step(step: Step, window: &mut Window, cx: &mut App) -> AnyElement {
                     .items_start()
                     .gap_3()
                     .child(
-                        Icon::new(IconName::CircleCheck)
+                        Icon::new(LucideIcon::CircleCheck)
                             .size(IconSize::Md)
                             .color(theme.colors.success),
                     )

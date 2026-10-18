@@ -10,7 +10,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::{Input, TextInput},
     motion::Spinner,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{
         Ellipsis,
@@ -139,7 +139,7 @@ impl RenderOnce for PromptPlayground {
             Button::new((self.id.clone(), "run"), "Run")
                 .variant(ButtonVariant::Primary)
                 .size(ControlSize::Sm)
-                .icon(IconName::Play)
+                .icon(LucideIcon::Play)
                 .disabled(!ready)
                 .on_click(move |_, window, cx| {
                     log::info!("prompt playground: ran {} characters", sent.len());

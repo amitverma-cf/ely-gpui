@@ -9,7 +9,7 @@ use crate::{
     chat::{StepState, step_mark},
     data_display::{Timeline, TimelineItem},
     motion::{ProgressBar, Spinner},
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, IconSize, TextSize},
     typography::{Ellipsis, format::took, tabular},
 };
@@ -216,15 +216,15 @@ impl RenderOnce for AgentStatus {
                 .size(IconSize::Xs)
                 .color(ink)
                 .into_any_element(),
-            AgentState::Waiting => Icon::new(IconName::Hand)
+            AgentState::Waiting => Icon::new(LucideIcon::Hand)
                 .size(IconSize::Xs)
                 .color(ink)
                 .into_any_element(),
-            AgentState::Done => Icon::new(IconName::Check)
+            AgentState::Done => Icon::new(LucideIcon::Check)
                 .size(IconSize::Xs)
                 .color(ink)
                 .into_any_element(),
-            AgentState::Failed => Icon::new(IconName::X)
+            AgentState::Failed => Icon::new(LucideIcon::X)
                 .size(IconSize::Xs)
                 .color(ink)
                 .into_any_element(),

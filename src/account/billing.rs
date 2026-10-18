@@ -10,7 +10,7 @@ use crate::{
     buttons::{Button, ButtonVariant, ConfirmButton, ConfirmMode, IconButton},
     data_display::{Badge, Meter, Tone},
     layout::Card,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
     typography::{
         Ellipsis,
@@ -330,7 +330,7 @@ impl RenderOnce for BillingHistory {
                 div().flex_none().child(
                     IconButton::new(
                         (id.clone(), format!("download-{}", invoice.key)),
-                        IconName::Download,
+                        LucideIcon::Download,
                     )
                     .size(ControlSize::Sm)
                     .tooltip("Download")

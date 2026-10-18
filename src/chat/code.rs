@@ -11,7 +11,7 @@ use crate::{
     editor::code_colors,
     forms::Run,
     layout::on_axis,
-    primitives::{Disclosure, IconName},
+    primitives::{Disclosure, LucideIcon},
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
 };
 
@@ -82,7 +82,7 @@ impl RenderOnce for CodeBlock {
         let hidden = fold.map(|at| code[at..].lines().count() - 1);
         let shown = fold.map_or(code.as_str(), |at| &code[..at]).to_string();
         let styles: Vec<(Range<usize>, HighlightStyle)> = code_colors(&shown, cx);
-        let action = |key: &str, icon: IconName, tip: &'static str, run: Option<Run>| {
+        let action = |key: &str, icon: LucideIcon, tip: &'static str, run: Option<Run>| {
             run.map(|run| {
                 IconButton::new((self.id.clone(), key.to_string()), icon)
                     .variant(ButtonVariant::Ghost)
@@ -117,11 +117,11 @@ impl RenderOnce for CodeBlock {
                             .text_color(colors.fg_subtle)
                             .child(self.language.clone().unwrap_or_else(|| "code".into())),
                     )
-                    .children(action("run", IconName::Play, "Run", self.on_run))
-                    .children(action("apply", IconName::Check, "Apply", self.on_apply))
+                    .children(action("run", LucideIcon::Play, "Run", self.on_run))
+                    .children(action("apply", LucideIcon::Check, "Apply", self.on_apply))
                     .children(action(
                         "download",
-                        IconName::Download,
+                        LucideIcon::Download,
                         "Download",
                         self.on_download,
                     ))

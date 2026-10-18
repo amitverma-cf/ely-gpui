@@ -9,7 +9,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::{Run, SearchInput, TextInput},
     menus::{DropdownMenu, Menu, MenuItem},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Density},
 };
 
@@ -114,7 +114,7 @@ impl RenderOnce for TableToolbar {
                 )
             });
             DropdownMenu::new((id.clone(), "columns"), "Columns", menu)
-                .icon(IconName::Table)
+                .icon(LucideIcon::Table)
                 .variant(ButtonVariant::Ghost)
         });
         let density = self.density.map(|(now, on_density)| {
@@ -132,7 +132,7 @@ impl RenderOnce for TableToolbar {
                 )
             });
             DropdownMenu::new((id.clone(), "density"), "Density", menu)
-                .icon(IconName::List)
+                .icon(LucideIcon::List)
                 .variant(ButtonVariant::Ghost)
         });
         div()
@@ -151,7 +151,7 @@ impl RenderOnce for TableToolbar {
                     format!("Filter · {rules}").into()
                 };
                 Button::new((id.clone(), "filter"), label)
-                    .icon(IconName::Filter)
+                    .icon(LucideIcon::Filter)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .on_click(move |_, window, cx| on_press(window, cx))
@@ -161,7 +161,7 @@ impl RenderOnce for TableToolbar {
             .children(density)
             .children(self.on_export.map(|on_export| {
                 Button::new((id.clone(), "export"), "Export")
-                    .icon(IconName::Download)
+                    .icon(LucideIcon::Download)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .on_click(move |_, window, cx| on_export(window, cx))

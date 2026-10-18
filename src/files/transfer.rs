@@ -9,7 +9,7 @@ use super::FileIcon;
 use crate::{
     buttons::{ButtonVariant, IconButton},
     motion::ProgressBar,
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{DurationStyle, Ellipsis, MiddleEllipsis, format},
 };
@@ -81,7 +81,7 @@ pub(super) fn row(id: ElementId, transfer: &Transfer, asks: &Asks, cx: &App) -> 
     let theme = cx.theme();
     let colors = &theme.colors;
     let key = transfer.key.clone();
-    let action = |name: &'static str, icon: IconName, tip: &'static str, ask: &Option<OnKey>| {
+    let action = |name: &'static str, icon: LucideIcon, tip: &'static str, ask: &Option<OnKey>| {
         ask.clone().map(|ask| {
             let key = key.clone();
             IconButton::new((id.clone(), name), icon)
@@ -96,21 +96,21 @@ pub(super) fn row(id: ElementId, transfer: &Transfer, asks: &Asks, cx: &App) -> 
     };
     let actions: Vec<_> = match transfer.state {
         TransferState::Moving { .. } => vec![
-            action("pause", IconName::Pause, "Pause", &asks.pause),
-            action("cancel", IconName::X, "Cancel", &asks.cancel),
+            action("pause", LucideIcon::Pause, "Pause", &asks.pause),
+            action("cancel", LucideIcon::X, "Cancel", &asks.cancel),
         ],
         TransferState::Paused => vec![
-            action("resume", IconName::Play, "Resume", &asks.resume),
-            action("cancel", IconName::X, "Cancel", &asks.cancel),
+            action("resume", LucideIcon::Play, "Resume", &asks.resume),
+            action("cancel", LucideIcon::X, "Cancel", &asks.cancel),
         ],
-        TransferState::Queued => vec![action("cancel", IconName::X, "Cancel", &asks.cancel)],
+        TransferState::Queued => vec![action("cancel", LucideIcon::X, "Cancel", &asks.cancel)],
         TransferState::Failed(_) => vec![
-            action("retry", IconName::RotateCw, "Retry", &asks.retry),
-            action("cancel", IconName::X, "Remove", &asks.cancel),
+            action("retry", LucideIcon::RotateCw, "Retry", &asks.retry),
+            action("cancel", LucideIcon::X, "Remove", &asks.cancel),
         ],
         TransferState::Done => vec![action(
             "show",
-            IconName::FolderOpen,
+            LucideIcon::FolderOpen,
             "Show in folder",
             &asks.show,
         )],
@@ -129,9 +129,9 @@ pub(super) fn row(id: ElementId, transfer: &Transfer, asks: &Asks, cx: &App) -> 
     });
     let failed = matches!(transfer.state, TransferState::Failed(_));
     let way = if transfer.upload {
-        IconName::Upload
+        LucideIcon::Upload
     } else {
-        IconName::Download
+        LucideIcon::Download
     };
     let opens = asks
         .open

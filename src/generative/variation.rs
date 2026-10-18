@@ -11,7 +11,7 @@ use crate::{
     documents::source,
     forms::{OnFlag, Pick, Run},
     motion,
-    primitives::{IconName, Image, checked_ratio, framed, tab_stop},
+    primitives::{Image, LucideIcon, checked_ratio, framed, tab_stop},
     theme::{ActiveTheme, AvatarSize, ControlSize, Radius},
 };
 
@@ -119,7 +119,7 @@ impl RenderOnce for VariationPicker {
                     Button::new((self.id.clone(), label), label)
                         .variant(ButtonVariant::Secondary)
                         .size(ControlSize::Sm)
-                        .icon(IconName::Shuffle)
+                        .icon(LucideIcon::Shuffle)
                         .on_click(move |_, window, cx| {
                             log::info!("variation picker: vary, strong {strong}");
                             vary(strong, window, cx)
@@ -191,7 +191,7 @@ impl RenderOnce for VariationPicker {
                                 Button::new((self.id.clone(), "upscale"), "Upscale")
                                     .variant(ButtonVariant::Secondary)
                                     .size(ControlSize::Sm)
-                                    .icon(IconName::Maximize2)
+                                    .icon(LucideIcon::Maximize2)
                                     .on_click(move |_, window, cx| {
                                         log::info!("variation picker: upscale");
                                         upscale(window, cx)

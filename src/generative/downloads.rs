@@ -8,7 +8,7 @@ use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::OnValue,
     motion::ProgressBar,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
     typography::{
         Ellipsis,
@@ -152,7 +152,7 @@ impl RenderOnce for ModelDownloadManager {
         let colors = theme.colors.clone();
         let icon = |key: &SharedString,
                     what: &'static str,
-                    glyph: IconName,
+                    glyph: LucideIcon,
                     tip: &'static str,
                     handler: &Option<OnValue>| {
             handler.clone().map(|handler| {
@@ -171,15 +171,21 @@ impl RenderOnce for ModelDownloadManager {
             let key = &download.key;
             let actions: Vec<_> = match &download.state {
                 DownloadState::Fetching(..) => vec![
-                    icon(key, "pause", IconName::Pause, "Pause", &self.on_pause),
-                    icon(key, "cancel", IconName::X, "Cancel", &self.on_cancel),
+                    icon(key, "pause", LucideIcon::Pause, "Pause", &self.on_pause),
+                    icon(key, "cancel", LucideIcon::X, "Cancel", &self.on_cancel),
                 ],
                 DownloadState::Paused(_) => vec![
-                    icon(key, "resume", IconName::Play, "Resume", &self.on_resume),
-                    icon(key, "cancel", IconName::X, "Cancel", &self.on_cancel),
+                    icon(key, "resume", LucideIcon::Play, "Resume", &self.on_resume),
+                    icon(key, "cancel", LucideIcon::X, "Cancel", &self.on_cancel),
                 ],
                 DownloadState::Queued => {
-                    vec![icon(key, "cancel", IconName::X, "Cancel", &self.on_cancel)]
+                    vec![icon(
+                        key,
+                        "cancel",
+                        LucideIcon::X,
+                        "Cancel",
+                        &self.on_cancel,
+                    )]
                 }
                 DownloadState::Failed(_) => vec![
                     self.on_retry.clone().map(|retry| {
@@ -193,12 +199,12 @@ impl RenderOnce for ModelDownloadManager {
                             })
                             .into_any_element()
                     }),
-                    icon(key, "delete", IconName::X, "Remove", &self.on_delete),
+                    icon(key, "delete", LucideIcon::X, "Remove", &self.on_delete),
                 ],
                 DownloadState::Done => vec![icon(
                     key,
                     "delete",
-                    IconName::Trash2,
+                    LucideIcon::Trash2,
                     "Delete from this machine",
                     &self.on_delete,
                 )],

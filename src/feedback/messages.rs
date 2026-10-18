@@ -10,14 +10,14 @@ use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::Run,
     motion,
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
 /// A ghost close button that keeps its row's height.
 fn dismiss(id: ElementId, run: Run) -> impl IntoElement {
     div().my_neg_1().child(
-        IconButton::new(id, IconName::X)
+        IconButton::new(id, LucideIcon::X)
             .variant(ButtonVariant::Ghost)
             .size(ControlSize::Sm)
             .on_click(move |_, window, cx| run(window, cx)),
@@ -335,7 +335,7 @@ impl RenderOnce for InlineMessage {
 pub struct StatusMessage {
     id: ElementId,
     text: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
 }
 
 impl StatusMessage {
@@ -347,7 +347,7 @@ impl StatusMessage {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }

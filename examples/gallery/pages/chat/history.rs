@@ -8,7 +8,7 @@ use ely_gpui_component::{
     feedback::{Toast, Toaster},
     forms::{SearchInput, TextInput},
     overlays::PromptDialog,
-    primitives::{IconName, Severity},
+    primitives::{LucideIcon, Severity},
     theme::{ActiveTheme, Radius},
 };
 use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
@@ -325,7 +325,7 @@ pub fn shared_section(
         "chat-export-open",
         Button::new("chat-export", "Export…")
             .variant(ButtonVariant::Secondary)
-            .icon(IconName::Download)
+            .icon(LucideIcon::Download)
             .on_click(move |_, _, cx| set(&opener, true, cx)),
     ))
     .children(open.then(|| {

@@ -11,7 +11,7 @@ use crate::{
     canvas::{OnEdit, caption, editing},
     data_display::{Badge, Tone},
     forms::{Checkbox, Choice, InlineEdit, Input, MultiSelect, Select, Switch, TextInput},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -214,7 +214,7 @@ impl RenderOnce for TableStructureEditor {
                 .placeholder("None")
                 .on_commit(move |value, window, cx| defaulted(value.clone(), window, cx))
                 .into_any_element(),
-                IconButton::new((id.clone(), format!("remove-{ix}")), IconName::Minus)
+                IconButton::new((id.clone(), format!("remove-{ix}")), LucideIcon::Minus)
                     .tooltip("Remove the field")
                     .on_click(move |_, window, cx| remove((), window, cx))
                     .into_any_element(),
@@ -374,7 +374,7 @@ impl RenderOnce for IndexManager {
                         .child(
                             IconButton::new(
                                 (id.clone(), format!("drop-{}", index.name)),
-                                IconName::Trash2,
+                                LucideIcon::Trash2,
                             )
                             .tooltip("Drop the index")
                             .on_click(move |_, window, cx| {

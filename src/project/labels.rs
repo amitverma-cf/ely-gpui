@@ -11,7 +11,7 @@ use crate::{
     forms::{ColorPalette, Enter, FormError, InlineEdit, Input, OnValue, Run, TextInput},
     mail::Label,
     overlays::Popover,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, HUE_NAMES, IconSize, Radius},
 };
 
@@ -212,7 +212,7 @@ impl RenderOnce for LabelManager {
             };
             let delete = {
                 let (key, on_delete) = (key.clone(), self.on_delete.clone());
-                IconButton::new((id.clone(), format!("delete-{key}")), IconName::X)
+                IconButton::new((id.clone(), format!("delete-{key}")), LucideIcon::X)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .tooltip("Delete label")
@@ -259,7 +259,7 @@ impl RenderOnce for LabelManager {
                 }
             }
         };
-        let plus = Icon::new(IconName::Plus)
+        let plus = Icon::new(LucideIcon::Plus)
             .size(IconSize::Sm)
             .color(theme.colors.fg_subtle);
         div()

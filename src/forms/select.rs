@@ -14,7 +14,7 @@ use super::{
 use crate::{
     data_display::Avatar,
     i18n,
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, AvatarSize, ControlSize, IconSize, Radius},
     typography::Ellipsis,
 };
@@ -368,7 +368,7 @@ impl RenderOnce for Select {
             cx,
         ))
         .child(
-            Icon::new(IconName::ChevronsUpDown)
+            Icon::new(LucideIcon::ChevronsUpDown)
                 .size(IconSize::Xs)
                 .color(colors.fg_subtle),
         );

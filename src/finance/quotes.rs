@@ -6,7 +6,7 @@ use gpui::{
 use crate::{
     data_display::{Badge, Sparkline, Tone},
     motion::{Flash, Marquee},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{format, tabular},
 };
@@ -94,9 +94,9 @@ impl RenderOnce for PriceText {
         };
         let arrow = way.filter(|way| way.is_ne()).map(|way| {
             let icon = if way.is_gt() {
-                IconName::ArrowUp
+                LucideIcon::ArrowUp
             } else {
-                IconName::ArrowDown
+                LucideIcon::ArrowDown
             };
             Icon::new(icon).size(IconSize::Xs).color(ink)
         });
@@ -350,9 +350,9 @@ impl RenderOnce for TickerTape {
                 .children(quotes.iter().map(|(symbol, now, share)| {
                     let ink = if *share >= 0.0 { rise } else { fall };
                     let icon = if *share >= 0.0 {
-                        IconName::TrendingUp
+                        LucideIcon::TrendingUp
                     } else {
-                        IconName::TrendingDown
+                        LucideIcon::TrendingDown
                     };
                     div()
                         .flex()

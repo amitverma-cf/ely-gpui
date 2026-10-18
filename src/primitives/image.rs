@@ -7,7 +7,7 @@ use gpui::{
 };
 
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize},
 };
 
@@ -98,7 +98,7 @@ impl RenderOnce for Image {
                 .child(Icon::new(name).size(IconSize::Lg).color(subtle))
         };
         let Some(source) = self.source else {
-            return self.base.overflow_hidden().child(mark(IconName::Image));
+            return self.base.overflow_hidden().child(mark(LucideIcon::Image));
         };
         let mut picture = img(source)
             .id(self.id)
@@ -120,7 +120,7 @@ impl RenderOnce for Image {
                     )
                     .into_any_element()
             })
-            .with_fallback(move || mark(IconName::ImageOff).into_any_element());
+            .with_fallback(move || mark(LucideIcon::ImageOff).into_any_element());
         picture.style().corner_radii = radii;
         self.base.relative().overflow_hidden().child(picture)
     }

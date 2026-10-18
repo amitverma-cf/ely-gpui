@@ -18,7 +18,7 @@ use crate::{
     layout::{ScrollArea, bring_into_view},
     menus::{Menu, MenuItem, OverflowMenu},
     motion::Reorder,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Palette, Radius, TextSize},
 };
 
@@ -201,10 +201,10 @@ impl BlockEditor {
             });
         let (copy, gone) = (entity.clone(), entity);
         Menu::new()
-            .item(MenuItem::submenu("Turn into", turn).icon(IconName::RefreshCw))
+            .item(MenuItem::submenu("Turn into", turn).icon(LucideIcon::RefreshCw))
             .item(
                 MenuItem::new("Duplicate")
-                    .icon(IconName::Copy)
+                    .icon(LucideIcon::Copy)
                     .on_click(move |window, cx| {
                         copy.update(cx, |editor, cx| editor.duplicate(key, window, cx));
                     }),
@@ -212,7 +212,7 @@ impl BlockEditor {
             .separator()
             .item(
                 MenuItem::new("Delete")
-                    .icon(IconName::Trash2)
+                    .icon(LucideIcon::Trash2)
                     .on_click(move |window, cx| {
                         gone.update(cx, |editor, cx| editor.remove(key, window, cx));
                     }),
@@ -239,7 +239,7 @@ impl Render for BlockEditor {
             let key = block.key;
             let group = SharedString::from(format!("block-{key}"));
             let entity = cx.entity();
-            let plus = IconButton::new((id.clone(), format!("plus-{key}")), IconName::Plus)
+            let plus = IconButton::new((id.clone(), format!("plus-{key}")), LucideIcon::Plus)
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
                 .tooltip("Add a block below")
@@ -255,7 +255,7 @@ impl Render for BlockEditor {
                 });
             let handle =
                 OverflowMenu::new((id.clone(), format!("handle-{key}")), self.menu(key, cx))
-                    .icon(IconName::GripVertical)
+                    .icon(LucideIcon::GripVertical)
                     .tooltip("Drag to move, press for more");
             let content = self.content(&self.blocks[ix], number, &look, window, cx);
             let row = div()

@@ -16,7 +16,7 @@ use super::{
 use crate::{
     buttons::{ButtonVariant, IconButton},
     layout::seeded::use_seeded,
-    primitives::{FocusRing, IconName, Takeover, give_back, tab_stop, take_focus},
+    primitives::{FocusRing, LucideIcon, Takeover, give_back, tab_stop, take_focus},
     theme::{ActiveTheme, Radius, TextSize},
 };
 
@@ -235,7 +235,7 @@ impl RenderOnce for MapView {
             let (local, stage) = (local.clone(), stage.clone());
             Rc::new(move |cx| (local.read(cx).value, sized(stage.read(cx).bounds)))
         };
-        let zoom = |levels: f64, key: &'static str, icon: IconName, words: &'static str| {
+        let zoom = |levels: f64, key: &'static str, icon: LucideIcon, words: &'static str| {
             let (now, set) = (now.clone(), set.clone());
             let (least, most) = MapViewport::ZOOMS;
             let spent = if levels > 0.0 {
@@ -264,8 +264,8 @@ impl RenderOnce for MapView {
             .flex()
             .flex_col()
             .gap_1()
-            .child(zoom(1.0, "zoom-in", IconName::Plus, "Zoom in"))
-            .child(zoom(-1.0, "zoom-out", IconName::Minus, "Zoom out"));
+            .child(zoom(1.0, "zoom-in", LucideIcon::Plus, "Zoom in"))
+            .child(zoom(-1.0, "zoom-out", LucideIcon::Minus, "Zoom out"));
         let attribution = self.attribution.map(|text| {
             div()
                 .absolute()

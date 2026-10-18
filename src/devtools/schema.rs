@@ -5,7 +5,7 @@ use gpui::{App, ElementId, IntoElement, RenderOnce, SharedString, Styled, Window
 use crate::{
     canvas::{Edge, Node, NodeGraph, Port, Viewport},
     lists::{Tree, TreeNode},
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 
 /// The key a field takes part in: its table's own, or one that points at another table's field.
@@ -154,20 +154,20 @@ impl RenderOnce for SchemaTree {
     fn render(self, _: &mut Window, _: &mut App) -> impl IntoElement {
         let nodes = self.schemas.iter().map(|schema| {
             TreeNode::new(schema.name.clone(), schema.name.clone())
-                .icon(IconName::Database)
+                .icon(LucideIcon::Database)
                 .children(schema.tables.iter().map(|table| {
                     let path = format!("{}.{}", schema.name, table.name);
                     TreeNode::new(path.clone(), table.name.clone())
                         .icon(if table.view {
-                            IconName::Eye
+                            LucideIcon::Eye
                         } else {
-                            IconName::Table
+                            LucideIcon::Table
                         })
                         .children(table.fields.iter().map(|field| {
                             let icon = match field.key {
-                                Some(FieldKey::Primary) => IconName::Key,
-                                Some(FieldKey::Foreign { .. }) => IconName::Link,
-                                None => IconName::Columns2,
+                                Some(FieldKey::Primary) => LucideIcon::Key,
+                                Some(FieldKey::Foreign { .. }) => LucideIcon::Link,
+                                None => LucideIcon::Columns2,
                             };
                             TreeNode::new(format!("{path}.{}", field.name), field.name.clone())
                                 .icon(icon)

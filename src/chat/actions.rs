@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{Button, ButtonVariant, CopyButton, IconButton, ToggleButton, ToggleItem},
     forms::{Input, Pick, Run, Submit, TextInput},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
     typography::{Ellipsis, tabular},
 };
@@ -20,7 +20,7 @@ pub fn regenerate_button(id: impl Into<ElementId>) -> Button {
     Button::new(id, "Regenerate")
         .variant(ButtonVariant::Ghost)
         .size(ControlSize::Sm)
-        .icon(IconName::RefreshCw)
+        .icon(LucideIcon::RefreshCw)
 }
 
 /// Stops an answer while it streams.
@@ -28,7 +28,7 @@ pub fn stop_button(id: impl Into<ElementId>) -> Button {
     Button::new(id, "Stop")
         .variant(ButtonVariant::Secondary)
         .size(ControlSize::Sm)
-        .icon(IconName::CircleStop)
+        .icon(LucideIcon::CircleStop)
 }
 
 /// Picks an answer up where it was cut off.
@@ -36,7 +36,7 @@ pub fn continue_button(id: impl Into<ElementId>) -> Button {
     Button::new(id, "Continue")
         .variant(ButtonVariant::Secondary)
         .size(ControlSize::Sm)
-        .icon(IconName::StepForward)
+        .icon(LucideIcon::StepForward)
 }
 
 /// A message quoted in a reply: a rule, who wrote it and the start of what they said; in the composer, a way to take it off.
@@ -102,7 +102,7 @@ impl RenderOnce for QuoteReply {
                     ),
             )
             .children(self.on_remove.map(|remove| {
-                IconButton::new((self.id.clone(), "remove"), IconName::X)
+                IconButton::new((self.id.clone(), "remove"), LucideIcon::X)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .tooltip("Remove quote")
@@ -159,7 +159,7 @@ impl MessageActions {
 
 impl RenderOnce for MessageActions {
     fn render(self, _: &mut Window, _: &mut App) -> impl IntoElement {
-        let button = |key: &str, icon: IconName, tip: &'static str, run: Option<Run>| {
+        let button = |key: &str, icon: LucideIcon, tip: &'static str, run: Option<Run>| {
             run.map(|run| {
                 IconButton::new((self.id.clone(), key.to_string()), icon)
                     .variant(ButtonVariant::Ghost)
@@ -172,9 +172,9 @@ impl RenderOnce for MessageActions {
             self.on_rate.clone().map(|rate| {
                 let on = self.rating == Some(good);
                 let (key, icon, tip) = if good {
-                    ("good", IconName::ThumbsUp, "Good answer")
+                    ("good", LucideIcon::ThumbsUp, "Good answer")
                 } else {
-                    ("bad", IconName::ThumbsDown, "Bad answer")
+                    ("bad", LucideIcon::ThumbsDown, "Bad answer")
                 };
                 ToggleButton::new(
                     (self.id.clone(), key),
@@ -199,13 +199,13 @@ impl RenderOnce for MessageActions {
             ))
             .children(button(
                 "edit",
-                IconName::Pencil,
+                LucideIcon::Pencil,
                 "Edit",
                 self.on_edit.clone(),
             ))
             .children(button(
                 "regenerate",
-                IconName::RefreshCw,
+                LucideIcon::RefreshCw,
                 "Regenerate",
                 self.on_regenerate.clone(),
             ))
@@ -336,7 +336,7 @@ impl RenderOnce for BranchNavigator {
     fn render(self, _: &mut Window, cx: &mut App) -> impl IntoElement {
         let theme = cx.theme();
         let (current, total) = (self.current, self.total);
-        let step = |key: &str, icon: IconName, tip: &'static str, to: Option<usize>| {
+        let step = |key: &str, icon: LucideIcon, tip: &'static str, to: Option<usize>| {
             let change = self.on_change.clone();
             IconButton::new((self.id.clone(), key.to_string()), icon)
                 .variant(ButtonVariant::Ghost)
@@ -355,7 +355,7 @@ impl RenderOnce for BranchNavigator {
             .items_center()
             .child(step(
                 "back",
-                IconName::ChevronLeft,
+                LucideIcon::ChevronLeft,
                 "Previous version",
                 current.and_then(|current| current.checked_sub(1)),
             ))
@@ -372,7 +372,7 @@ impl RenderOnce for BranchNavigator {
             )
             .child(step(
                 "forward",
-                IconName::ChevronRight,
+                LucideIcon::ChevronRight,
                 "Next version",
                 current.and_then(|current| (current + 1 < total).then_some(current + 1)),
             ))

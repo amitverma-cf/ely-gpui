@@ -7,7 +7,7 @@ use gpui::{
 
 use super::button::{keystroke_of, shortcut_text};
 use crate::{
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -16,7 +16,7 @@ type Run = Rc<dyn Fn(&mut Window, &mut App)>;
 /// One quick action: what it is, and its shortcut.
 #[derive(Clone)]
 pub struct QuickAction {
-    icon: IconName,
+    icon: LucideIcon,
     label: SharedString,
     note: Option<SharedString>,
     shortcut: Option<SharedString>,
@@ -25,7 +25,7 @@ pub struct QuickAction {
 
 impl QuickAction {
     pub fn new(
-        icon: IconName,
+        icon: LucideIcon,
         label: impl Into<SharedString>,
         run: impl Fn(&mut Window, &mut App) + 'static,
     ) -> Self {

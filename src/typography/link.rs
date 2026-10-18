@@ -5,7 +5,7 @@ use gpui::{
 };
 
 use crate::{
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius},
 };
 
@@ -58,7 +58,7 @@ impl RenderOnce for Link {
             .child(self.label)
             .when(self.external, |link| {
                 link.child(
-                    Icon::new(IconName::ArrowUpRight)
+                    Icon::new(LucideIcon::ArrowUpRight)
                         .size(IconSize::Xs)
                         .color(color),
                 )

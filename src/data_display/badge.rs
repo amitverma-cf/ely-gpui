@@ -7,7 +7,7 @@ use gpui::{
 };
 
 use crate::{
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, ControlSize, IconSize, Palette, Radius, TextSize},
     typography::{AnimatedNumber, Ellipsis},
 };
@@ -263,7 +263,7 @@ type OnRemove = Rc<dyn Fn(&mut Window, &mut App)>;
 pub struct Tag {
     id: ElementId,
     label: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     tone: Tone,
     on_remove: Option<OnRemove>,
 }
@@ -279,7 +279,7 @@ impl Tag {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
@@ -342,7 +342,7 @@ impl RenderOnce for Tag {
                             remove_it(window, cx)
                         })
                         .child(
-                            Icon::new(IconName::X)
+                            Icon::new(LucideIcon::X)
                                 .size(IconSize::Xs)
                                 .color(colors.fg_muted),
                         ),

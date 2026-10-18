@@ -6,7 +6,7 @@ use gpui::{
 use crate::{
     buttons::IconButton,
     forms::{Choice, Input, Select, TextInput, parse_number},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Radius},
     typography::{
         format::{MINUS, Separators, significant},
@@ -252,7 +252,7 @@ impl RenderOnce for UnitConverter {
                         ),
                     )
                     .child(
-                        IconButton::new((id.clone(), "swap"), IconName::ArrowDownUp)
+                        IconButton::new((id.clone(), "swap"), LucideIcon::ArrowDownUp)
                             .tooltip("Swap units")
                             .on_click(move |_, _, cx| {
                                 swap.update(cx, |desk, cx| {

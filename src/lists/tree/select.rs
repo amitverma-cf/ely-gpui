@@ -7,7 +7,7 @@ use gpui::{
 use super::{Shown, TreeNode, rows};
 use crate::{
     forms::{Choice, Listing, field_button, field_text, listing},
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize},
 };
 
@@ -104,7 +104,7 @@ impl RenderOnce for TreeSelect {
                 cx,
             ))
             .child(
-                Icon::new(IconName::ChevronsUpDown)
+                Icon::new(LucideIcon::ChevronsUpDown)
                     .size(IconSize::Xs)
                     .color(colors.fg_subtle),
             );

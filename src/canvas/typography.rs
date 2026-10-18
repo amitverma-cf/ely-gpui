@@ -9,7 +9,7 @@ use super::panel::{OnEdit, editing, pair};
 use crate::{
     buttons::SegmentedControl,
     forms::{Choice, FontPicker, ScrubInput, Select, TextInput},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
 };
 
@@ -36,10 +36,10 @@ const WEIGHTS: [(f32, &str); 9] = [
     (900.0, "Black"),
 ];
 
-const ALIGNS: [(TextAlign, &str, IconName); 3] = [
-    (TextAlign::Left, "Left", IconName::AlignLeft),
-    (TextAlign::Center, "Center", IconName::AlignCenter),
-    (TextAlign::Right, "Right", IconName::AlignRight),
+const ALIGNS: [(TextAlign, &str, LucideIcon); 3] = [
+    (TextAlign::Left, "Left", LucideIcon::AlignLeft),
+    (TextAlign::Center, "Center", LucideIcon::AlignCenter),
+    (TextAlign::Right, "Right", LucideIcon::AlignRight),
 ];
 
 /// A text style's family, weight, size, line height, tracking and alignment, over a line set in it. The line shows all but the tracking, which gpui does not set.

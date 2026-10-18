@@ -7,7 +7,7 @@ use gpui::{
 use super::{press, settle};
 use crate::{
     menus::{MenuBar, PieItem, PieMenu},
-    primitives::{FocusScope, IconName},
+    primitives::{FocusScope, LucideIcon},
     theme::Theme,
 };
 
@@ -121,10 +121,10 @@ impl Render for Wheel {
                 .on_click(move |_, cx| view.update(cx, |wheel, _| wheel.ran.push(name)))
         };
         let mut items = vec![
-            slice(IconName::Copy, "copy"),
-            slice(IconName::Scissors, "cut"),
-            slice(IconName::Clipboard, "paste"),
-            slice(IconName::Share2, "share"),
+            slice(LucideIcon::Copy, "copy"),
+            slice(LucideIcon::Scissors, "cut"),
+            slice(LucideIcon::Clipboard, "paste"),
+            slice(LucideIcon::Share2, "share"),
         ];
         items.truncate(self.count);
         let above = cx.entity();

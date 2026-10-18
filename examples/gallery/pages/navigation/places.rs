@@ -6,7 +6,7 @@ use ely_gpui_component::{
         Anchor, BackForwardNavigation, GoToLine, NavGroup, NavItem, NavigationMenu, Sections,
         TableOfContents,
     },
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
     typography::{Heading, Paragraph},
 };
@@ -25,7 +25,7 @@ pub fn sidebar(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let folded = keep("nav-folded", || false, window, cx);
     let open = keep("nav-open", || true, window, cx);
     let (now, fold, shown) = (here.read(cx).clone(), *folded.read(cx), *open.read(cx));
-    let item = |id: &'static str, icon: IconName, label: &'static str| {
+    let item = |id: &'static str, icon: LucideIcon, label: &'static str| {
         let here = here.clone();
         NavItem::new(id, icon, label)
             .active(now.as_ref() == id)
@@ -56,21 +56,21 @@ pub fn sidebar(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                         .flex_col()
                         .gap_3()
                         .p_2()
-                        .child(item("inbox", IconName::Inbox, "Inbox").count("12"))
-                        .child(item("drafts", IconName::FileText, "Drafts"))
+                        .child(item("inbox", LucideIcon::Inbox, "Inbox").count("12"))
+                        .child(item("drafts", LucideIcon::FileText, "Drafts"))
                         .child(
                             NavGroup::new("nav-projects", "Projects", shown)
                                 .folded(fold)
                                 .on_toggle(move |next, _, cx| set(&groups, next, cx))
-                                .child(item("ely", IconName::Box, "Ely"))
-                                .child(item("website", IconName::Globe, "Website"))
-                                .child(item("research", IconName::BookOpen, "Research")),
+                                .child(item("ely", LucideIcon::Box, "Ely"))
+                                .child(item("website", LucideIcon::Globe, "Website"))
+                                .child(item("research", LucideIcon::BookOpen, "Research")),
                         ),
                 ),
             )
             .child(
                 div().p_3().child(
-                    IconButton::new("nav-fold", IconName::PanelLeft)
+                    IconButton::new("nav-fold", LucideIcon::PanelLeft)
                         .variant(ButtonVariant::Ghost)
                         .tooltip(if fold { "Unfold" } else { "Fold" })
                         .on_click(move |_, _, cx| set(&toggle, !fold, cx)),
@@ -100,19 +100,19 @@ pub fn menu(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 .entry(
                     "Product",
                     [
-                        Choice::new("tour", "Tour").icon(IconName::Compass).note("What it does, in five minutes"),
-                        Choice::new("pricing", "Pricing").icon(IconName::CreditCard).note("Plans for one to a thousand"),
-                        Choice::new("changes", "Changelog").icon(IconName::History).note("Every release, dated"),
-                        Choice::new("status", "Status").icon(IconName::Activity).note("Uptime, live"),
+                        Choice::new("tour", "Tour").icon(LucideIcon::Compass).note("What it does, in five minutes"),
+                        Choice::new("pricing", "Pricing").icon(LucideIcon::CreditCard).note("Plans for one to a thousand"),
+                        Choice::new("changes", "Changelog").icon(LucideIcon::History).note("Every release, dated"),
+                        Choice::new("status", "Status").icon(LucideIcon::Activity).note("Uptime, live"),
                     ],
                 )
                 .entry(
                     "Docs",
                     [
-                        Choice::new("guide", "Guide").icon(IconName::BookOpen).note("From install to ship"),
-                        Choice::new("api", "API").icon(IconName::Code).note("Every type and call"),
-                        Choice::new("examples", "Examples").icon(IconName::Layers).note("Small apps to copy"),
-                        Choice::new("faq", "Questions").icon(IconName::CircleHelp).note("Asked and answered"),
+                        Choice::new("guide", "Guide").icon(LucideIcon::BookOpen).note("From install to ship"),
+                        Choice::new("api", "API").icon(LucideIcon::Code).note("Every type and call"),
+                        Choice::new("examples", "Examples").icon(LucideIcon::Layers).note("Small apps to copy"),
+                        Choice::new("faq", "Questions").icon(LucideIcon::CircleHelp).note("Asked and answered"),
                     ],
                 )
                 .on_select(move |value, _, cx| set(&went, Some(value.clone()), cx)),
@@ -125,10 +125,10 @@ pub fn history(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let at = keep("history-at", || 3usize, window, cx);
     let now = *at.read(cx);
     let places = [
-        ("home", "Home", IconName::House),
-        ("search", "Search: gpui", IconName::Search),
-        ("repo", "zed-industries/zed", IconName::GitBranch),
-        ("file", "crates/gpui/src/window.rs", IconName::FileText),
+        ("home", "Home", LucideIcon::House),
+        ("search", "Search: gpui", LucideIcon::Search),
+        ("repo", "zed-industries/zed", LucideIcon::GitBranch),
+        ("file", "crates/gpui/src/window.rs", LucideIcon::FileText),
     ];
     let label = places[now].1;
     section(

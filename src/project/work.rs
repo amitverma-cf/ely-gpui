@@ -3,7 +3,7 @@ use std::fmt;
 use gpui::SharedString;
 use jiff::civil::Date;
 
-use crate::{mail::Label, primitives::IconName};
+use crate::{mail::Label, primitives::LucideIcon};
 
 /// Where a task stands in its workflow.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -37,14 +37,14 @@ impl Status {
         }
     }
 
-    pub fn icon(self) -> IconName {
+    pub fn icon(self) -> LucideIcon {
         match self {
-            Status::Backlog => IconName::CircleDashed,
-            Status::Todo => IconName::Circle,
-            Status::InProgress => IconName::CircleDot,
-            Status::InReview => IconName::CircleDotDashed,
-            Status::Done => IconName::CircleCheck,
-            Status::Canceled => IconName::CircleX,
+            Status::Backlog => LucideIcon::CircleDashed,
+            Status::Todo => LucideIcon::Circle,
+            Status::InProgress => LucideIcon::CircleDot,
+            Status::InReview => LucideIcon::CircleDotDashed,
+            Status::Done => LucideIcon::CircleCheck,
+            Status::Canceled => LucideIcon::CircleX,
         }
     }
 

@@ -3,7 +3,7 @@ use ely_gpui_component::{
     forms::{DropZone, InlineEdit},
     lists::{DirEntry, SelectableList},
     menus::{ContextMenu, Menu, MenuItem},
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 use jiff::Timestamp;
@@ -14,17 +14,17 @@ use crate::{
 };
 
 pub fn context_menu(cx: &mut App) -> impl IntoElement + use<> {
-    let item = |label: &'static str, icon: IconName| {
+    let item = |label: &'static str, icon: LucideIcon| {
         MenuItem::new(label)
             .icon(icon)
             .on_click(move |_, _| log::info!("gallery: {label}"))
     };
     let menu = Menu::new()
-        .item(item("Open", IconName::FolderOpen))
-        .item(item("Rename", IconName::PenLine))
-        .item(item("Duplicate", IconName::Copy))
+        .item(item("Open", LucideIcon::FolderOpen))
+        .item(item("Rename", LucideIcon::PenLine))
+        .item(item("Duplicate", LucideIcon::Copy))
         .separator()
-        .item(item("Move to Trash", IconName::Trash2));
+        .item(item("Move to Trash", LucideIcon::Trash2));
     section(
         "FileContextMenu",
         "What a right press on files offers, as menus::ContextMenu draws it: open, rename, duplicate, and the trash apart.",

@@ -10,7 +10,7 @@ use crate::{
     data_display::Tag,
     documents::source,
     forms::{Pick, Run},
-    primitives::{Icon, IconName, Image, file_icon},
+    primitives::{Icon, Image, LucideIcon, file_icon},
     theme::{ActiveTheme, AvatarSize, ControlSize, IconSize, Radius, TextSize},
     typography::{Ellipsis, format::file_size},
 };
@@ -133,7 +133,7 @@ impl RenderOnce for AttachmentChip {
                     .child(detail),
             )
             .children(self.on_remove.map(|remove| {
-                IconButton::new((self.id.clone(), "remove"), IconName::X)
+                IconButton::new((self.id.clone(), "remove"), LucideIcon::X)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .tooltip("Remove")
@@ -149,14 +149,14 @@ impl RenderOnce for AttachmentChip {
 #[derive(IntoElement)]
 pub struct ContextChips {
     id: ElementId,
-    items: Vec<(SharedString, IconName)>,
+    items: Vec<(SharedString, LucideIcon)>,
     on_remove: Option<Pick>,
 }
 
 impl ContextChips {
     pub fn new(
         id: impl Into<ElementId>,
-        items: impl IntoIterator<Item = (impl Into<SharedString>, IconName)>,
+        items: impl IntoIterator<Item = (impl Into<SharedString>, LucideIcon)>,
     ) -> Self {
         Self {
             id: id.into(),

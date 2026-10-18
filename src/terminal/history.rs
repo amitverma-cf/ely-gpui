@@ -7,7 +7,7 @@ use gpui::{
 use crate::{
     i18n,
     navigation::{Group, Palette, Row, fuzzy, marked, query_field},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::ActiveTheme,
 };
 
@@ -77,9 +77,9 @@ impl RenderOnce for CommandHistory {
                     (fit.score, fit.hits)
                 };
                 let icon = match past.code {
-                    Some(0) => IconName::CircleCheck,
-                    Some(_) => IconName::CircleX,
-                    None => IconName::History,
+                    Some(0) => LucideIcon::CircleCheck,
+                    Some(_) => LucideIcon::CircleX,
+                    None => LucideIcon::History,
                 };
                 Some((
                     score,

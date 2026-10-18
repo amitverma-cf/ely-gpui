@@ -10,7 +10,7 @@ use crate::{
     buttons::label_size,
     forms::Run,
     motion,
-    primitives::{FocusRing, FocusScope, Icon, IconName, Image, give_back, raise, take_focus},
+    primitives::{FocusRing, FocusScope, Icon, Image, LucideIcon, give_back, raise, take_focus},
     theme::{ActiveTheme, ControlSize, TextSize},
 };
 
@@ -35,7 +35,7 @@ type OnStep = Rc<dyn Fn(usize, &mut Window, &mut App)>;
 /// A round button drawn for a dark layer over pictures: light icon, a faint fill on hover, dim when it has nowhere to go.
 pub(crate) fn media_button(
     id: (ElementId, &'static str),
-    icon: IconName,
+    icon: LucideIcon,
     size: ControlSize,
     enabled: bool,
     run: impl Fn(&mut Window, &mut App) + 'static,
@@ -152,7 +152,7 @@ impl RenderOnce for Lightbox {
             })
         };
         let (back, next) = (at.checked_sub(1), (at + 1 < count).then_some(at + 1));
-        let side = |name: &'static str, icon: IconName, to: Option<usize>, cx: &App| {
+        let side = |name: &'static str, icon: LucideIcon, to: Option<usize>, cx: &App| {
             let step = step.clone();
             media_button(
                 (self.id.clone(), name),
@@ -216,7 +216,7 @@ impl RenderOnce for Lightbox {
                     .flex_col()
                     .child(div().flex().justify_end().p_3().child(media_button(
                         (self.id.clone(), "close"),
-                        IconName::X,
+                        LucideIcon::X,
                         ControlSize::Lg,
                         true,
                         move |window, cx| button(window, cx),
@@ -265,7 +265,7 @@ impl RenderOnce for Lightbox {
                                     .left_3()
                                     .flex()
                                     .items_center()
-                                    .child(side("back", IconName::ChevronLeft, back, cx)),
+                                    .child(side("back", LucideIcon::ChevronLeft, back, cx)),
                             )
                             .child(
                                 div()
@@ -275,7 +275,7 @@ impl RenderOnce for Lightbox {
                                     .right_3()
                                     .flex()
                                     .items_center()
-                                    .child(side("next", IconName::ChevronRight, next, cx)),
+                                    .child(side("next", LucideIcon::ChevronRight, next, cx)),
                             ),
                     )
                     .child(

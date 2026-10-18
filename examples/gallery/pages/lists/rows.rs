@@ -1,7 +1,7 @@
 use ely_gpui_component::{
     data_display::{Avatar, Badge, CountBadge, Tone},
     lists::{List, ListItem, SelectableList, SortableList, SwipeAction, SwipeableListItem},
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, AvatarSize, IconSize, Radius},
     typography::Caption,
 };
@@ -37,20 +37,20 @@ pub fn items(cx: &mut App) -> impl IntoElement + use<> {
                 )
                 .child(
                     ListItem::new("item-inbox", "Inbox")
-                        .leading(folder(IconName::Inbox))
+                        .leading(folder(LucideIcon::Inbox))
                         .trailing(CountBadge::new("item-inbox-count", 12))
                         .on_click(|_, _, _| log::info!("gallery: opened the inbox")),
                 )
                 .child(
                     ListItem::new("item-drafts", "Drafts")
                         .description("Two unsent")
-                        .leading(folder(IconName::FileText))
+                        .leading(folder(LucideIcon::FileText))
                         .trailing(Badge::new("Synced").tone(Severity::Success).dot()),
                 )
                 .child(
                     ListItem::new("item-archive", "Archive")
                         .description("Moving to cold storage")
-                        .leading(folder(IconName::Archive))
+                        .leading(folder(LucideIcon::Archive))
                         .disabled(true),
                 ),
         ),
@@ -79,7 +79,7 @@ pub fn selectable(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
         |list, (ix, (key, name, size))| {
             let row = ListItem::new(("pick-item", ix), *name)
                 .leading(
-                    Icon::new(IconName::File)
+                    Icon::new(LucideIcon::File)
                         .size(IconSize::Md)
                         .color(theme.colors.fg_muted),
                 )
@@ -144,11 +144,11 @@ pub fn swipeable(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
         )
         .action(SwipeAction::new(
             "Archive",
-            IconName::Archive,
+            LucideIcon::Archive,
             move |_, cx| set(&archive, Some("Archived"), cx),
         ))
         .action(
-            SwipeAction::new("Delete", IconName::Trash2, move |_, cx| {
+            SwipeAction::new("Delete", LucideIcon::Trash2, move |_, cx| {
                 set(&delete, Some("Deleted"), cx)
             })
             .tone(Tone::Danger),

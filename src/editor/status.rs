@@ -6,7 +6,7 @@ use gpui::{
 
 use crate::{
     motion::Spinner,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     shell::StatusBarItem,
     theme::{ActiveTheme, IconSize, TextSize},
 };
@@ -250,7 +250,7 @@ impl RenderOnce for BranchIndicator {
         if self.ahead > 0 || self.behind > 0 {
             label.push_str(&format!("  ↑{} ↓{}", self.ahead, self.behind));
         }
-        item(self.id, label, "Checkout a branch", self.press).icon(IconName::GitBranch)
+        item(self.id, label, "Checkout a branch", self.press).icon(LucideIcon::GitBranch)
     }
 }
 
@@ -305,7 +305,7 @@ impl RenderOnce for LspStatus {
                 "Working",
             ),
             LspState::Ready => (
-                Icon::new(IconName::CircleCheck)
+                Icon::new(LucideIcon::CircleCheck)
                     .size(IconSize::Xs)
                     .color(colors.fg_muted)
                     .into_any_element(),
@@ -313,7 +313,7 @@ impl RenderOnce for LspStatus {
                 "Ready",
             ),
             LspState::Failed(why) => (
-                Icon::new(IconName::CircleAlert)
+                Icon::new(LucideIcon::CircleAlert)
                     .size(IconSize::Xs)
                     .color(colors.danger)
                     .into_any_element(),
@@ -352,7 +352,7 @@ impl RenderOnce for NotificationBell {
         let bell = div()
             .relative()
             .child(
-                Icon::new(IconName::Bell)
+                Icon::new(LucideIcon::Bell)
                     .size(IconSize::Xs)
                     .color(colors.fg_muted),
             )

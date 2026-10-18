@@ -2,14 +2,14 @@ use gpui::{App, IntoElement, RenderOnce, SharedString, Window};
 
 use crate::{
     lists::DirEntry,
-    primitives::{Icon, IconName, file_icon},
+    primitives::{Icon, LucideIcon, file_icon},
     theme::{ActiveTheme, IconSize},
 };
 
 /// A file's name, its icon found under the icon theme at render, or an icon itself.
 enum Shown {
     File(SharedString),
-    Icon(IconName),
+    Icon(LucideIcon),
 }
 
 /// A file's icon by its name under the owner's icon theme, or a folder's, open or shut.
@@ -30,9 +30,9 @@ impl FileIcon {
     pub fn folder(open: bool) -> Self {
         Self {
             shown: Shown::Icon(if open {
-                IconName::FolderOpen
+                LucideIcon::FolderOpen
             } else {
-                IconName::Folder
+                LucideIcon::Folder
             }),
             size: IconSize::Md,
         }

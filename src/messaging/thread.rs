@@ -12,7 +12,7 @@ use crate::{
     data_display::{Avatar, AvatarGroup},
     forms::Run,
     layout::on_axis,
-    primitives::{Divider, FocusRing, IconName},
+    primitives::{Divider, FocusRing, LucideIcon},
     theme::{ActiveTheme, AvatarSize, ControlSize, Radius, TextSize},
     typography::{Ellipsis, format},
 };
@@ -164,7 +164,7 @@ impl RenderOnce for ThreadPanel {
         let count = self.replies.len();
         let close = self.on_close.map(|close| {
             let id = self.id.clone();
-            IconButton::new((self.id.clone(), "close"), IconName::X)
+            IconButton::new((self.id.clone(), "close"), LucideIcon::X)
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
                 .tooltip("Close thread")

@@ -7,7 +7,7 @@ use gpui::{
     point, prelude::*,
 };
 
-use super::{Icon, IconName, raise};
+use super::{Icon, LucideIcon, raise};
 use crate::{
     motion,
     theme::{ActiveTheme, Elevation, IconSize, Radius, TextSize},
@@ -217,7 +217,7 @@ impl RenderOnce for HelpTooltip {
             .id(self.id)
             .flex_none()
             .child(
-                Icon::new(IconName::CircleHelp)
+                Icon::new(LucideIcon::CircleHelp)
                     .size(IconSize::Xs)
                     .color(cx.theme().colors.fg_subtle),
             )

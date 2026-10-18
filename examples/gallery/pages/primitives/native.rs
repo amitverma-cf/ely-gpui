@@ -2,7 +2,7 @@ use std::f32::consts::TAU;
 
 use ely_gpui_component::{
     buttons::{Button, ButtonVariant},
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, Radius, TextSize},
 };
 use gpui::{
@@ -65,13 +65,13 @@ pub fn svg_demo(cx: &App) -> impl IntoElement + use<> {
             .gap_6()
             .child(
                 svg()
-                    .path(IconName::Compass.path())
+                    .path(LucideIcon::Compass.path())
                     .size_12()
                     .text_color(color),
             )
             .child(
                 svg()
-                    .path(IconName::Compass.path())
+                    .path(LucideIcon::Compass.path())
                     .size_12()
                     .text_color(color)
                     .with_transformation(Transformation::rotate(radians(0.6))),
@@ -129,11 +129,11 @@ pub fn spacer(cx: &App) -> impl IntoElement + use<> {
             .rounded(cx.theme().radius(Radius::Md))
             .border_1()
             .border_color(colors.border)
-            .child(Icon::new(IconName::Menu).color(colors.fg_muted))
+            .child(Icon::new(LucideIcon::Menu).color(colors.fg_muted))
             .child(div().flex_1())
             .child(code("div().flex_1()", cx))
             .child(div().flex_1())
-            .child(Icon::new(IconName::Settings).color(colors.fg_muted)),
+            .child(Icon::new(LucideIcon::Settings).color(colors.fg_muted)),
     )
 }
 
@@ -222,7 +222,7 @@ pub fn slot(cx: &App) -> impl IntoElement + use<> {
     .child(
         row()
             .gap_4()
-            .child(framed("slot: icon", Icon::new(IconName::Sparkles), cx))
+            .child(framed("slot: icon", Icon::new(LucideIcon::Sparkles), cx))
             .child(framed(
                 "slot: button",
                 Button::new("slot-button", "Save").primary(),
@@ -288,7 +288,9 @@ pub fn each(cx: &App) -> impl IntoElement + use<> {
 fn pair(cx: &App) -> [AnyElement; 2] {
     let muted = cx.theme().colors.fg_muted;
     [
-        Icon::new(IconName::Layers).color(muted).into_any_element(),
+        Icon::new(LucideIcon::Layers)
+            .color(muted)
+            .into_any_element(),
         div()
             .text_color(muted)
             .child("two siblings, no wrapper")
@@ -450,7 +452,7 @@ pub fn clipboard(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
             .gap_3()
             .child(
                 Button::new("clip-copy", "Copy “Ely”")
-                    .icon(IconName::Copy)
+                    .icon(LucideIcon::Copy)
                     .on_click(|_, _, cx| {
                         cx.write_to_clipboard(ClipboardItem::new_string("Ely".into()))
                     }),
@@ -458,7 +460,7 @@ pub fn clipboard(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
             .child(
                 Button::new("clip-paste", "Paste")
                     .variant(ButtonVariant::Ghost)
-                    .icon(IconName::Clipboard)
+                    .icon(LucideIcon::Clipboard)
                     .on_click(move |_, _, cx| {
                         let (read, pasted) = (cx.read_from_clipboard_async(), pasted.clone());
                         cx.spawn(async move |cx| {

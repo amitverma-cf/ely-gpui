@@ -10,7 +10,7 @@ use web_time::Instant;
 
 use super::{BASE, FAST, NUDGE, Skeleton, Spinner, changes, duration, ease_out_cubic};
 use crate::{
-    primitives::{Icon, IconName, IntersectionObserver},
+    primitives::{Icon, IntersectionObserver, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
@@ -190,7 +190,7 @@ impl RenderOnce for RefreshIndicator {
         let muted = theme.colors.fg_muted;
         let mark = match self.state {
             Refresh::Idle => return div().id(self.id).into_any_element(),
-            Refresh::Pulling(pull) => Icon::new(IconName::RefreshCw)
+            Refresh::Pulling(pull) => Icon::new(LucideIcon::RefreshCw)
                 .size(IconSize::Md)
                 .color(muted.opacity(0.35 + 0.65 * pull))
                 .rotate(radians(PI * 1.5 * pull))
@@ -202,7 +202,7 @@ impl RenderOnce for RefreshIndicator {
                 .gap_1p5()
                 .text_size(theme.text_size(TextSize::Sm))
                 .text_color(muted)
-                .child(Icon::new(IconName::Check).size(IconSize::Sm).color(muted))
+                .child(Icon::new(LucideIcon::Check).size(IconSize::Sm).color(muted))
                 .child("Up to date")
                 .into_any_element(),
         };

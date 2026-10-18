@@ -8,7 +8,7 @@ use gpui::{
 use smallvec::SmallVec;
 
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Platform, TextSize},
     typography::Ellipsis,
 };
@@ -167,14 +167,14 @@ fn caption_buttons(
     let theme = cx.theme();
     let colors = &theme.colors;
     let maximize = if window.is_maximized() {
-        IconName::Copy
+        LucideIcon::Copy
     } else {
-        IconName::Square
+        LucideIcon::Square
     };
     let buttons = [
-        (Control::Minimize, IconName::Minus, WindowControlArea::Min),
+        (Control::Minimize, LucideIcon::Minus, WindowControlArea::Min),
         (Control::Maximize, maximize, WindowControlArea::Max),
-        (Control::Close, IconName::X, WindowControlArea::Close),
+        (Control::Close, LucideIcon::X, WindowControlArea::Close),
     ];
     let height = theme.caption_button_height(window.rem_size());
     div()
@@ -220,9 +220,9 @@ fn round_buttons(
     let colors = &theme.colors;
     let offered = window.window_controls();
     let buttons = [
-        (Control::Minimize, IconName::Minus, offered.minimize),
-        (Control::Maximize, IconName::Square, offered.maximize),
-        (Control::Close, IconName::X, true),
+        (Control::Minimize, LucideIcon::Minus, offered.minimize),
+        (Control::Maximize, LucideIcon::Square, offered.maximize),
+        (Control::Close, LucideIcon::X, true),
     ];
     div().id(id).flex().items_center().gap_2().children(
         buttons

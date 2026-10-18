@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{Button, ButtonVariant},
     forms::{CheckboxGroup, Choice, Input, RadioGroup, TextInput},
-    primitives::{FocusRing, Icon, IconName, tab_stop},
+    primitives::{FocusRing, Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
 };
 
@@ -158,7 +158,7 @@ impl RenderOnce for Survey {
                 .bg(colors.surface)
                 .focus_ring(cx)
                 .child(
-                    Icon::new(IconName::CircleCheck)
+                    Icon::new(LucideIcon::CircleCheck)
                         .size(IconSize::Sm)
                         .color(colors.success),
                 )

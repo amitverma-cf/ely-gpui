@@ -9,7 +9,7 @@ use super::{Hosted, open_hosted};
 use crate::{
     buttons::{Button, ButtonVariant},
     layout::{Collapsible, ScrollArea},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{Paragraph, Title},
 };
@@ -84,7 +84,7 @@ impl RenderOnce for CrashReporter {
             .px_8()
             .pb_6()
             .child(
-                Icon::new(IconName::TriangleAlert)
+                Icon::new(LucideIcon::TriangleAlert)
                     .size(IconSize::Xl)
                     .color(colors.fg_muted),
             )
@@ -102,9 +102,9 @@ impl RenderOnce for CrashReporter {
                         )
                         .variant(ButtonVariant::Link)
                         .trailing_icon(if open {
-                            IconName::ChevronUp
+                            LucideIcon::ChevronUp
                         } else {
-                            IconName::ChevronDown
+                            LucideIcon::ChevronDown
                         })
                         .on_click(move |_, _, cx| {
                             shown.update(cx, |open, cx| {
@@ -117,7 +117,7 @@ impl RenderOnce for CrashReporter {
                         let report = self.report.clone();
                         Button::new("crash-copy", "Copy report")
                             .variant(ButtonVariant::Ghost)
-                            .icon(IconName::Copy)
+                            .icon(LucideIcon::Copy)
                             .on_click(move |_, _, cx| {
                                 log::info!("crash reporter: report copied");
                                 cx.write_to_clipboard(ClipboardItem::new_string(

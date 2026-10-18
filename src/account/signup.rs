@@ -10,7 +10,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     feedback::InlineMessage,
     forms::{Checkbox, EmailInput, Enter, FormField, Input, PasswordInput, is_email},
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
@@ -124,9 +124,9 @@ impl RenderOnce for SignupForm {
                 .text_color(color)
                 .child(
                     Icon::new(if kept {
-                        IconName::CircleCheck
+                        LucideIcon::CircleCheck
                     } else {
-                        IconName::Circle
+                        LucideIcon::Circle
                     })
                     .size(IconSize::Sm)
                     .color(color),

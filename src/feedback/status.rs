@@ -9,7 +9,7 @@ use super::messages::rise;
 use crate::{
     buttons::{Button, ButtonVariant},
     forms::Run,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     shell::{Connectivity, connectivity_dot},
     theme::{ActiveTheme, IconSize, TextSize},
     typography::format::plural,
@@ -54,9 +54,9 @@ impl RenderOnce for SavingIndicator {
         let theme = cx.theme();
         let colors = &theme.colors;
         let (icon, text, tone) = match self.state {
-            SaveState::Saving => (IconName::CloudUpload, "Saving…", colors.fg_muted),
-            SaveState::Saved => (IconName::CloudCheck, "Saved", colors.fg_muted),
-            SaveState::Failed => (IconName::CloudAlert, "Couldn't save", colors.danger),
+            SaveState::Saving => (LucideIcon::CloudUpload, "Saving…", colors.fg_muted),
+            SaveState::Saved => (LucideIcon::CloudCheck, "Saved", colors.fg_muted),
+            SaveState::Failed => (LucideIcon::CloudAlert, "Couldn't save", colors.danger),
         };
         let retry = (self.id.clone(), "retry");
         let line = div()
@@ -113,22 +113,22 @@ impl RenderOnce for SyncStatus {
         let still = theme.reduced_motion;
         let (icon, text, tone) = match self.state {
             SyncState::Synced => (
-                IconName::CloudCheck,
+                LucideIcon::CloudCheck,
                 "Up to date".to_string(),
                 colors.fg_muted,
             ),
             SyncState::Syncing(left) => (
-                IconName::RefreshCw,
+                LucideIcon::RefreshCw,
                 format!("Syncing {}", plural(left as u64, "item", "items")),
                 colors.fg_muted,
             ),
             SyncState::Paused => (
-                IconName::CirclePause,
+                LucideIcon::CirclePause,
                 "Sync paused".to_string(),
                 colors.fg_muted,
             ),
             SyncState::Failed => (
-                IconName::CloudAlert,
+                LucideIcon::CloudAlert,
                 "Sync failed".to_string(),
                 colors.danger,
             ),

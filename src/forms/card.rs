@@ -14,7 +14,7 @@ use super::{
 };
 use crate::{
     motion,
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
 };
 
@@ -23,7 +23,7 @@ struct Face {
     title: SharedString,
     description: Option<SharedString>,
     preview: Option<AnyElement>,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     disabled: bool,
     on: bool,
 }
@@ -138,7 +138,7 @@ impl CheckboxCard {
         self
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.face.icon = Some(icon);
         self
     }
@@ -211,7 +211,7 @@ impl RadioCard {
         self
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.face.icon = Some(icon);
         self
     }

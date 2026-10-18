@@ -8,7 +8,7 @@ use gpui::{
 use super::refs::{Entry, OnName, Pick, Run, action, listed};
 use crate::{
     i18n,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, TextSize},
 };
 
@@ -71,7 +71,7 @@ impl RenderOnce for TagList {
                 listed(
                     (self.id.clone(), format!("tag-{}", tag.name)).into(),
                     Entry {
-                        icon: IconName::Tag,
+                        icon: LucideIcon::Tag,
                         name: div()
                             .text_color(colors.fg)
                             .child(tag.name.clone())
@@ -172,9 +172,9 @@ impl RenderOnce for StashList {
                 let name = SharedString::from(format!("stash@{{{ix}}}"));
                 // Only actions the owner handles are drawn.
                 let actions: Vec<AnyElement> = [
-                    ("apply", IconName::Download, StashAction::Apply),
-                    ("pop", IconName::ArrowUp, StashAction::Pop),
-                    ("drop", IconName::Trash2, StashAction::Drop),
+                    ("apply", LucideIcon::Download, StashAction::Apply),
+                    ("pop", LucideIcon::ArrowUp, StashAction::Pop),
+                    ("drop", LucideIcon::Trash2, StashAction::Drop),
                 ]
                 .into_iter()
                 .filter_map(|(key, icon, what)| {
@@ -200,7 +200,7 @@ impl RenderOnce for StashList {
                 listed(
                     (self.id.clone(), format!("stash-{ix}")).into(),
                     Entry {
-                        icon: IconName::Archive,
+                        icon: LucideIcon::Archive,
                         name: div()
                             .font_family(theme.mono_family.clone())
                             .text_color(colors.fg)

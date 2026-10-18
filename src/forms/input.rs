@@ -7,7 +7,7 @@ use super::TextInput;
 use crate::i18n;
 use crate::{
     buttons::IconButton,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -147,7 +147,7 @@ impl RenderOnce for Input {
             )
             .when(self.clearable && !empty && !disabled, |frame| {
                 frame.child(
-                    IconButton::new(("input-clear", clear_id), IconName::CircleX)
+                    IconButton::new(("input-clear", clear_id), LucideIcon::CircleX)
                         .size(ControlSize::Sm)
                         .tooltip(i18n::text(cx, "input.clear", &[]))
                         .on_click(move |_, window, cx| {
@@ -188,14 +188,14 @@ impl RenderOnce for PasswordInput {
         let (toggle, subtle) = (self.state.clone(), cx.theme().colors.fg_subtle);
         Input::new(&self.state)
             .size(self.size)
-            .prefix(Icon::new(IconName::Lock).size(IconSize::Sm).color(subtle))
+            .prefix(Icon::new(LucideIcon::Lock).size(IconSize::Sm).color(subtle))
             .suffix(
                 IconButton::new(
                     ("password-eye", self.state.entity_id()),
                     if masked {
-                        IconName::Eye
+                        LucideIcon::Eye
                     } else {
-                        IconName::EyeOff
+                        LucideIcon::EyeOff
                     },
                 )
                 .size(ControlSize::Sm)

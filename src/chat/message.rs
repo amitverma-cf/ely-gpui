@@ -8,7 +8,7 @@ use smallvec::SmallVec;
 use crate::{
     data_display::Avatar,
     documents::source,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, ContainerSize, IconSize, Radius, TextSize},
     typography::RelativeTime,
 };
@@ -63,9 +63,9 @@ impl RenderOnce for MessageAvatar {
             }
             Role::Assistant | Role::Error => {
                 let (icon, tint) = if self.role == Role::Error {
-                    (IconName::TriangleAlert, colors.danger)
+                    (LucideIcon::TriangleAlert, colors.danger)
                 } else {
-                    (IconName::Sparkles, colors.accent)
+                    (LucideIcon::Sparkles, colors.accent)
                 };
                 div()
                     .flex_none()

@@ -12,7 +12,7 @@ use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::Run,
     motion,
-    primitives::{Icon, IconName, Severity, raise},
+    primitives::{Icon, LucideIcon, Severity, raise},
     theme::{ActiveTheme, ControlSize, Elevation, IconSize, Radius, TextSize},
 };
 
@@ -343,7 +343,7 @@ fn card(
             )
         })
         .child(
-            IconButton::new((key.clone(), "close"), IconName::X)
+            IconButton::new((key.clone(), "close"), LucideIcon::X)
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
                 .on_click(send(None)),

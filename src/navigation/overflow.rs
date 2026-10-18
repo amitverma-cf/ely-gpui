@@ -7,14 +7,14 @@ use gpui::{
 
 use crate::{
     forms::{Choice, Listing, OnValue, listing},
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius},
 };
 
 /// A small icon button that lists `rows`; picking one runs `on_pick`.
 pub(crate) fn list_button(
     id: &ElementId,
-    icon: IconName,
+    icon: LucideIcon,
     rows: Rc<Vec<Choice>>,
     selected: Option<&SharedString>,
     on_pick: impl Fn(&SharedString, &mut Window, &mut App) + 'static,
@@ -96,7 +96,7 @@ impl RenderOnce for TabOverflowMenu {
         let (id, on_select) = (self.id.clone(), self.on_select);
         list_button(
             &self.id,
-            IconName::ChevronDown,
+            LucideIcon::ChevronDown,
             Rc::new(self.tabs),
             self.selected.as_ref(),
             move |value, window, cx| {

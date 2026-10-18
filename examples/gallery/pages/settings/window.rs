@@ -1,6 +1,6 @@
 use ely_gpui_component::{
     forms::TextInput,
-    primitives::IconName,
+    primitives::LucideIcon,
     settings::{
         Appearance, Flag, Notices, Privacy, Proxy, SettingEntry, SettingsLayout, SettingsSearch,
         Stage, Startup, Store,
@@ -15,15 +15,15 @@ use crate::{
     ui::{change, keep, section},
 };
 
-pub(super) const SECTIONS: [(&str, &str, IconName); 8] = [
-    ("appearance", "Appearance", IconName::Palette),
-    ("keyboard", "Keyboard", IconName::Keyboard),
-    ("network", "Network", IconName::Globe),
-    ("privacy", "Privacy", IconName::Shield),
-    ("notifications", "Notifications", IconName::Bell),
-    ("startup", "Startup", IconName::Power),
-    ("storage", "Storage", IconName::HardDrive),
-    ("advanced", "Advanced", IconName::Wrench),
+pub(super) const SECTIONS: [(&str, &str, LucideIcon); 8] = [
+    ("appearance", "Appearance", LucideIcon::Palette),
+    ("keyboard", "Keyboard", LucideIcon::Keyboard),
+    ("network", "Network", LucideIcon::Globe),
+    ("privacy", "Privacy", LucideIcon::Shield),
+    ("notifications", "Notifications", LucideIcon::Bell),
+    ("startup", "Startup", LucideIcon::Power),
+    ("storage", "Storage", LucideIcon::HardDrive),
+    ("advanced", "Advanced", LucideIcon::Wrench),
 ];
 
 /// Everything the settings window holds.

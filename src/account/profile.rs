@@ -10,7 +10,7 @@ use crate::{
     data_display::{Avatar, Presence},
     forms::{AvatarUpload, EmailInput, FormField, Input, TextInput, is_email},
     layout::Card,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, IconSize, TextSize},
     typography::Ellipsis,
 };
@@ -24,7 +24,7 @@ pub struct ProfileCard {
     image: Option<ImageSource>,
     presence: Option<Presence>,
     bio: Option<SharedString>,
-    details: Vec<(IconName, SharedString)>,
+    details: Vec<(LucideIcon, SharedString)>,
     actions: Vec<AnyElement>,
 }
 
@@ -63,7 +63,7 @@ impl ProfileCard {
     }
 
     /// A line such as an email or a place, after its icon.
-    pub fn detail(mut self, icon: IconName, text: impl Into<SharedString>) -> Self {
+    pub fn detail(mut self, icon: LucideIcon, text: impl Into<SharedString>) -> Self {
         self.details.push((icon, text.into()));
         self
     }

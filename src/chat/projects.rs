@@ -12,7 +12,7 @@ use crate::{
     data_display::Meter,
     forms::{CheckState, Checkbox, Choice, OnFlag, OnValue, Pick, RadioGroup, Run},
     overlays::Dialog,
-    primitives::{FocusRing, Icon, IconName, file_icon},
+    primitives::{FocusRing, Icon, LucideIcon, file_icon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{Ellipsis, RelativeTime, format::file_size, tabular},
 };
@@ -95,7 +95,7 @@ impl RenderOnce for ProjectList {
                             })
                     })
                     .child(
-                        Icon::new(IconName::Folder)
+                        Icon::new(LucideIcon::Folder)
                             .size(IconSize::Sm)
                             .color(colors.fg_muted),
                     )
@@ -180,7 +180,7 @@ impl RenderOnce for ProjectKnowledgePanel {
                         Button::new((self.id.clone(), "add"), "Add files")
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
-                            .icon(IconName::Plus)
+                            .icon(LucideIcon::Plus)
                             .on_click(move |_, window, cx| add(window, cx))
                     })),
             )
@@ -226,7 +226,7 @@ impl RenderOnce for ProjectKnowledgePanel {
                                     .children(remove.map(|remove| {
                                         IconButton::new(
                                             (self.id.clone(), format!("remove-{ix}")),
-                                            IconName::X,
+                                            LucideIcon::X,
                                         )
                                         .variant(ButtonVariant::Ghost)
                                         .size(ControlSize::Sm)
@@ -299,7 +299,7 @@ impl RenderOnce for SharedConversationView {
                     .text_size(theme.text_size(TextSize::Sm))
                     .text_color(colors.fg_muted)
                     .child(
-                        Icon::new(IconName::Link)
+                        Icon::new(LucideIcon::Link)
                             .size(IconSize::Sm)
                             .color(colors.fg_subtle),
                     )

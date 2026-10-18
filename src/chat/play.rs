@@ -11,7 +11,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton},
     documents::source,
     forms::OnFlag,
-    primitives::{FocusRing, Icon, IconName, Image, tab_stop},
+    primitives::{FocusRing, Icon, Image, LucideIcon, tab_stop},
     theme::{ActiveTheme, ContainerSize, ControlSize, IconSize, Radius, TextSize},
     typography::{DurationStyle, format::duration, tabular},
 };
@@ -111,9 +111,9 @@ impl RenderOnce for AudioMessage {
                 IconButton::new(
                     (self.id.clone(), "toggle"),
                     if playing {
-                        IconName::Pause
+                        LucideIcon::Pause
                     } else {
-                        IconName::Play
+                        LucideIcon::Play
                     },
                 )
                 .variant(ButtonVariant::Ghost)
@@ -281,7 +281,7 @@ impl RenderOnce for VideoMessage {
                                 .rounded_full()
                                 .bg(colors.media_backdrop.opacity(0.6))
                                 .child(
-                                    Icon::new(IconName::Play)
+                                    Icon::new(LucideIcon::Play)
                                         .size(IconSize::Lg)
                                         .color(colors.on_media),
                                 ),

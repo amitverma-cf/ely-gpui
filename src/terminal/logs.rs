@@ -9,7 +9,7 @@ use gpui::{
 use super::ansi::{AnsiText, printed};
 use crate::{
     buttons::{SegmentedControl, ToggleButton, ToggleItem},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Palette, TextSize},
     typography::format,
 };
@@ -165,7 +165,7 @@ impl RenderOnce for LogViewer {
         let follow = ToggleButton::new(
             (self.id.clone(), "follow"),
             ToggleItem::new("follow")
-                .icon(IconName::ArrowDownToLine)
+                .icon(LucideIcon::ArrowDownToLine)
                 .tooltip("Follow new lines"),
             self.follow,
         )

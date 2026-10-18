@@ -8,7 +8,7 @@ use gpui::{
 use super::settle;
 use crate::{
     menus::{ContextMenu, Menu, MenuItem, aim},
-    primitives::{FocusScope, IconName},
+    primitives::{FocusScope, LucideIcon},
     theme::Theme,
 };
 
@@ -37,9 +37,9 @@ fn tools() -> Menu {
     Menu::new()
         .item(MenuItem::submenu("Insert", insert))
         .buttons([
-            MenuItem::new("Cut").icon(IconName::Scissors),
-            MenuItem::new("Copy").icon(IconName::Copy),
-            MenuItem::new("Paste").icon(IconName::Clipboard),
+            MenuItem::new("Cut").icon(LucideIcon::Scissors),
+            MenuItem::new("Copy").icon(LucideIcon::Copy),
+            MenuItem::new("Paste").icon(LucideIcon::Clipboard),
         ])
         .item(MenuItem::new("Gone").disabled(true))
         .item(MenuItem::new("Plain"))

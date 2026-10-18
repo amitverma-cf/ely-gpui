@@ -3,7 +3,7 @@ use ely_gpui_component::{
     collab::{AccessList, InviteInput, LinkAccess, Member, Role, ShareDialog},
     data_display::{Activity, ActivityFeed},
     forms::is_email,
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 use jiff::{Timestamp, ToSpan};
@@ -121,7 +121,7 @@ pub fn sharing(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         div().flex().child(
             Button::new("collab-share-open", "Share")
                 .variant(ButtonVariant::Primary)
-                .icon(IconName::UserPlus)
+                .icon(LucideIcon::UserPlus)
                 .on_click(move |_, _, cx| set(&open, true, cx)),
         ),
     ))

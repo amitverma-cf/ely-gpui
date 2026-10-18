@@ -9,7 +9,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     charts::compact,
     data_display::Avatar,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, ControlSize, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -176,7 +176,7 @@ impl RenderOnce for ExtensionsPanel {
                                         .items_center()
                                         .gap_1()
                                         .child(
-                                            Icon::new(IconName::Download)
+                                            Icon::new(LucideIcon::Download)
                                                 .size(IconSize::Xs)
                                                 .color(colors.fg_subtle),
                                         )
@@ -188,7 +188,7 @@ impl RenderOnce for ExtensionsPanel {
                                         .items_center()
                                         .gap_1()
                                         .child(
-                                            Icon::new(IconName::Star)
+                                            Icon::new(LucideIcon::Star)
                                                 .size(IconSize::Xs)
                                                 .color(colors.warning),
                                         )

@@ -12,7 +12,7 @@ use crate::{
     forms::Run,
     layout::columns_for,
     media::name_chip,
-    primitives::{Icon, IconName, checked_ratio, framed},
+    primitives::{Icon, LucideIcon, checked_ratio, framed},
     theme::{ActiveTheme, AvatarSize, ControlSize, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -101,7 +101,7 @@ impl RenderOnce for ParticipantTile {
                 .debug_selector(move || format!("tile-muted {muted_id}"))
                 .flex_none()
                 .child(
-                    Icon::new(IconName::MicOff)
+                    Icon::new(LucideIcon::MicOff)
                         .size(IconSize::Xs)
                         .color(colors.on_media),
                 )
@@ -276,7 +276,7 @@ impl RenderOnce for ScreenShareView {
         };
         let stop = self.on_stop.map(|run| {
             Button::new((self.id.clone(), "stop"), "Stop presenting")
-                .icon(IconName::ScreenShareOff)
+                .icon(LucideIcon::ScreenShareOff)
                 .variant(ButtonVariant::Danger)
                 .size(ControlSize::Sm)
                 .on_click(move |_, window, cx| {
@@ -302,7 +302,7 @@ impl RenderOnce for ScreenShareView {
                 .px_4()
                 .text_color(colors.fg_muted)
                 .child(
-                    Icon::new(IconName::ScreenShare)
+                    Icon::new(LucideIcon::ScreenShare)
                         .size(IconSize::Lg)
                         .color(colors.fg_subtle),
                 )
@@ -339,7 +339,7 @@ impl RenderOnce for ScreenShareView {
                             .items_center()
                             .gap_2()
                             .child(
-                                Icon::new(IconName::ScreenShare)
+                                Icon::new(LucideIcon::ScreenShare)
                                     .size(IconSize::Sm)
                                     .color(colors.fg_muted),
                             )

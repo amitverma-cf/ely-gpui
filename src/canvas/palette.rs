@@ -8,7 +8,7 @@ use super::{edit::Tool, gesture::Brush};
 use crate::{
     buttons::{ToggleGroup, ToggleItem},
     forms::{ColorPalette, Slider},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, HUE_NAMES, TextSize},
     typography::tabular,
 };
@@ -16,20 +16,20 @@ use crate::{
 type OnTool = Rc<dyn Fn(Tool, &mut Window, &mut App)>;
 type OnBrush = Rc<dyn Fn(Brush, &mut Window, &mut App)>;
 
-fn icon(tool: Tool) -> IconName {
+fn icon(tool: Tool) -> LucideIcon {
     match tool {
-        Tool::Select => IconName::MousePointer2,
-        Tool::Hand => IconName::Hand,
-        Tool::Rect => IconName::Square,
-        Tool::Ellipse => IconName::Circle,
-        Tool::Polygon => IconName::Hexagon,
-        Tool::Line => IconName::Slash,
-        Tool::Arrow => IconName::MoveUpRight,
-        Tool::Pen => IconName::PenTool,
-        Tool::Text => IconName::Type,
-        Tool::Brush => IconName::Brush,
-        Tool::Note => IconName::StickyNote,
-        Tool::Connector => IconName::Spline,
+        Tool::Select => LucideIcon::MousePointer2,
+        Tool::Hand => LucideIcon::Hand,
+        Tool::Rect => LucideIcon::Square,
+        Tool::Ellipse => LucideIcon::Circle,
+        Tool::Polygon => LucideIcon::Hexagon,
+        Tool::Line => LucideIcon::Slash,
+        Tool::Arrow => LucideIcon::MoveUpRight,
+        Tool::Pen => LucideIcon::PenTool,
+        Tool::Text => LucideIcon::Type,
+        Tool::Brush => LucideIcon::Brush,
+        Tool::Note => LucideIcon::StickyNote,
+        Tool::Connector => LucideIcon::Spline,
     }
 }
 

@@ -8,7 +8,7 @@ use gpui::{
 use super::LatLon;
 use crate::{
     buttons::{ButtonVariant, IconButton},
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, Elevation, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -67,7 +67,7 @@ impl MapMarker {
             .rounded(theme.radius(Radius::Sm))
             .border_1()
             .border_color(gpui::transparent_black())
-            .child(Icon::new(IconName::MapPin).size(IconSize::Xl).color(ink))
+            .child(Icon::new(LucideIcon::MapPin).size(IconSize::Xl).color(ink))
             .when_some(press, |pin, (focus, on_marker)| {
                 let key = self.key.clone();
                 pin.track_focus(&focus).focus_ring(cx).when(seen, |pin| {
@@ -181,7 +181,7 @@ impl MapPopup {
             )
             .when_some(self.on_close, |head, on_close| {
                 head.child(
-                    IconButton::new((owner.clone(), "popup-close"), IconName::X)
+                    IconButton::new((owner.clone(), "popup-close"), LucideIcon::X)
                         .variant(ButtonVariant::Ghost)
                         .tooltip("Close")
                         .on_click(move |_, window, cx| on_close(window, cx)),

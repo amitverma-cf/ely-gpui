@@ -3,17 +3,17 @@ use gpui::{
     Window, div, prelude::*,
 };
 
-use super::{Icon, IconName};
+use super::{Icon, LucideIcon};
 use crate::theme::{ActiveTheme, Elevation, IconSize, Radius, TextSize};
 
 /// What follows the pointer while a tab or panel drags.
 pub struct DragGhost {
     title: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
 }
 
 impl DragGhost {
-    pub fn new(title: SharedString, icon: Option<IconName>, cx: &mut App) -> Entity<Self> {
+    pub fn new(title: SharedString, icon: Option<LucideIcon>, cx: &mut App) -> Entity<Self> {
         cx.new(|_| Self { title, icon })
     }
 }

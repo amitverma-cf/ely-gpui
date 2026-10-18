@@ -6,7 +6,7 @@ use ely_gpui_component::{
     documents::{Template, TemplatePicker},
     feedback::{Toast, Toaster},
     forms::TextInput,
-    primitives::{IconName, Severity},
+    primitives::{LucideIcon, Severity},
     theme::{ActiveTheme, Radius},
 };
 use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, px};
@@ -37,9 +37,9 @@ pub fn welcome_section(
     let (filled, typed, sent, toaster) =
         (draft.clone(), draft.clone(), draft.clone(), toaster.clone());
     let starters = [
-        ("Explain a lift", IconName::Sparkles),
-        ("Review my palette", IconName::Palette),
-        ("Draft release notes", IconName::FileText),
+        ("Explain a lift", LucideIcon::Sparkles),
+        ("Review my palette", LucideIcon::Palette),
+        ("Draft release notes", LucideIcon::FileText),
     ];
     let theme = cx.theme();
     section(
@@ -70,9 +70,9 @@ pub fn welcome_section(
                     .child(CapabilityCards::new(
                         "chat-capabilities",
                         [
-                            (IconName::Globe, "Search the web", "Answers with sources you can open."),
-                            (IconName::Code, "Write and run code", "Tries an idea before you use it."),
-                            (IconName::FileText, "Read your files", "Pages and notes you attach."),
+                            (LucideIcon::Globe, "Search the web", "Answers with sources you can open."),
+                            (LucideIcon::Code, "Write and run code", "Tries an idea before you use it."),
+                            (LucideIcon::FileText, "Read your files", "Pages and notes you attach."),
                         ],
                         move |ix, _, cx| {
                             let text = ["Search the web for ", "Write code that ", "Read my file and "][ix];

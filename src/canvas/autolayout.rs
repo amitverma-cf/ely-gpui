@@ -12,7 +12,7 @@ use super::{
 use crate::{
     buttons::SegmentedControl,
     forms::ScrubInput,
-    primitives::{IconName, tab_stop},
+    primitives::{LucideIcon, tab_stop},
     theme::{ActiveTheme, Radius},
 };
 
@@ -221,8 +221,8 @@ impl RenderOnce for AutoLayoutControls {
                         "column"
                     },
                 )
-                .segment("row", "Row", Some(IconName::ArrowRight))
-                .segment("column", "Column", Some(IconName::ArrowDown))
+                .segment("row", "Row", Some(LucideIcon::ArrowRight))
+                .segment("column", "Column", Some(LucideIcon::ArrowDown))
                 .on_change(move |value: &SharedString, window, cx| {
                     let chosen = if value.as_ref() == "row" {
                         Flow::Row

@@ -1,7 +1,7 @@
 use ely_gpui_component::{
     buttons::{Button, ButtonVariant, IconButton},
     motion::{AnimatePresence, Entrance, Flip, Reorder, Stagger, Transition},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius},
     typography::Caption,
 };
@@ -129,7 +129,7 @@ pub fn presence(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 line(*name, cx).justify_between().child(
                     IconButton::new(
                         SharedString::from(format!("presence-remove-{number}")),
-                        IconName::X,
+                        LucideIcon::X,
                     )
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
@@ -232,7 +232,7 @@ pub fn reorder(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             list.row(
                 *task,
                 line(*task, cx).child(div().flex_1()).child(
-                    Icon::new(IconName::GripVertical)
+                    Icon::new(LucideIcon::GripVertical)
                         .size(IconSize::Sm)
                         .color(muted),
                 ),

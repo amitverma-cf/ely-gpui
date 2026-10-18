@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     forms::{Enter, Input, TextInput},
     menus::{Menu, MenuItem, OverflowMenu},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Elevation, Radius, TextSize},
 };
 
@@ -91,7 +91,7 @@ impl RenderOnce for CodeActionMenu {
                 let pick = self.on_pick.clone();
                 let item = MenuItem::new(action.title.clone());
                 let item = if action.preferred {
-                    item.icon(IconName::Sparkles)
+                    item.icon(LucideIcon::Sparkles)
                 } else {
                     item
                 };
@@ -105,7 +105,7 @@ impl RenderOnce for CodeActionMenu {
             menu.group(title, items)
         });
         OverflowMenu::new(self.id, menu)
-            .icon(IconName::Lightbulb)
+            .icon(LucideIcon::Lightbulb)
             .tooltip("Show code actions")
     }
 }

@@ -6,7 +6,7 @@ use jiff::{Timestamp, civil::date, tz::TimeZone};
 
 use super::{Mail, MailList, Mailbox, MailboxList};
 use crate::{
-    primitives::{FocusNext, IconName},
+    primitives::{FocusNext, LucideIcon},
     theme::Theme,
 };
 
@@ -92,9 +92,9 @@ fn boxes(owner: Entity<Mailing>) -> gpui::AnyElement {
         .section(
             "Mailboxes",
             [
-                Mailbox::new("inbox", "Inbox", IconName::Inbox).unread(3),
-                Mailbox::new("starred", "Starred", IconName::Star),
-                Mailbox::new("sent", "Sent", IconName::Send),
+                Mailbox::new("inbox", "Inbox", LucideIcon::Inbox).unread(3),
+                Mailbox::new("starred", "Starred", LucideIcon::Star),
+                Mailbox::new("sent", "Sent", LucideIcon::Send),
             ],
         )
         .section(
@@ -123,7 +123,7 @@ fn an_arrow_or_enter_opens_a_box(cx: &mut TestAppContext) {
 #[should_panic(expected = "mailbox inbox twice")]
 fn a_box_is_listed_once() {
     let _ = MailboxList::new("boxes")
-        .section("A", [Mailbox::new("inbox", "Inbox", IconName::Inbox)])
+        .section("A", [Mailbox::new("inbox", "Inbox", LucideIcon::Inbox)])
         .section("B", [Mailbox::label("inbox", "Inbox again", 1)]);
 }
 

@@ -2,7 +2,7 @@ use ely_gpui_component::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::{Input, TextInput},
     overlays::{FloatingToolbar, Lightbox, Peek, Slide, Spotlight, Tour, TourStep},
-    primitives::{IconName, Image, Measure},
+    primitives::{Image, LucideIcon, Measure},
     theme::ActiveTheme,
 };
 use gpui::{
@@ -116,9 +116,9 @@ pub fn tour(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     )
     .child(
         row()
-            .child(target(&boxes, 0, Button::new("tour-search", "Search").icon(IconName::Search)))
-            .child(target(&boxes, 1, Button::new("tour-invite", "Invite").icon(IconName::Users)))
-            .child(target(&boxes, 2, IconButton::new("tour-settings", IconName::Settings)))
+            .child(target(&boxes, 0, Button::new("tour-search", "Search").icon(LucideIcon::Search)))
+            .child(target(&boxes, 1, Button::new("tour-invite", "Invite").icon(LucideIcon::Users)))
+            .child(target(&boxes, 2, IconButton::new("tour-settings", LucideIcon::Settings)))
             .child(div().w_8())
             .child(probe(
                 "tour",
@@ -150,7 +150,7 @@ pub fn toolbar(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         .map_or("select text in the field".to_string(), |tool| {
             format!("applied {tool}")
         });
-    let tool = |name: &'static str, icon: IconName| {
+    let tool = |name: &'static str, icon: LucideIcon| {
         let used = used.clone();
         IconButton::new(SharedString::from(format!("tool-{name}")), icon)
             .tooltip(name)
@@ -167,9 +167,9 @@ pub fn toolbar(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             "toolbar",
             div().w_96().child(Input::new(&field)).child(
                 FloatingToolbar::new("toolbar", &field)
-                    .child(tool("bold", IconName::Bold))
-                    .child(tool("italic", IconName::Italic))
-                    .child(tool("link", IconName::Link)),
+                    .child(tool("bold", LucideIcon::Bold))
+                    .child(tool("italic", LucideIcon::Italic))
+                    .child(tool("link", LucideIcon::Link)),
             ),
         ),
         cx,

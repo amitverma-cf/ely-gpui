@@ -10,7 +10,7 @@ use smallvec::SmallVec;
 use crate::{
     buttons::{Button, ButtonVariant},
     forms::Pick,
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, ContainerSize, IconSize, Radius, TextSize},
 };
 
@@ -89,7 +89,7 @@ impl RenderOnce for WelcomeScreen {
                             .justify_center()
                             .gap_3()
                             .child(
-                                Icon::new(IconName::Sparkles)
+                                Icon::new(LucideIcon::Sparkles)
                                     .size(IconSize::Lg)
                                     .color(colors.accent),
                             )
@@ -112,14 +112,14 @@ impl RenderOnce for WelcomeScreen {
 #[derive(IntoElement)]
 pub struct SuggestionChips {
     id: ElementId,
-    prompts: Vec<(SharedString, IconName)>,
+    prompts: Vec<(SharedString, LucideIcon)>,
     on_pick: Pick,
 }
 
 impl SuggestionChips {
     pub fn new(
         id: impl Into<ElementId>,
-        prompts: impl IntoIterator<Item = (impl Into<SharedString>, IconName)>,
+        prompts: impl IntoIterator<Item = (impl Into<SharedString>, LucideIcon)>,
         on_pick: impl Fn(usize, &mut Window, &mut App) + 'static,
     ) -> Self {
         Self {
@@ -212,7 +212,7 @@ impl RenderOnce for FollowUpSuggestions {
                                 pick(ix, window, cx)
                             })
                             .child(
-                                Icon::new(IconName::CornerDownRight)
+                                Icon::new(LucideIcon::CornerDownRight)
                                     .size(IconSize::Sm)
                                     .color(colors.fg_subtle),
                             )
@@ -226,14 +226,14 @@ impl RenderOnce for FollowUpSuggestions {
 #[derive(IntoElement)]
 pub struct CapabilityCards {
     id: ElementId,
-    cards: Vec<(IconName, SharedString, SharedString)>,
+    cards: Vec<(LucideIcon, SharedString, SharedString)>,
     on_pick: Pick,
 }
 
 impl CapabilityCards {
     pub fn new(
         id: impl Into<ElementId>,
-        cards: impl IntoIterator<Item = (IconName, impl Into<SharedString>, impl Into<SharedString>)>,
+        cards: impl IntoIterator<Item = (LucideIcon, impl Into<SharedString>, impl Into<SharedString>)>,
         on_pick: impl Fn(usize, &mut Window, &mut App) + 'static,
     ) -> Self {
         Self {

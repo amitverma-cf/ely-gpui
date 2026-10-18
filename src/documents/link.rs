@@ -9,7 +9,7 @@ use super::markdown::link_at;
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::{Enter, Input, Run, TextInput, float, is_url, surface},
-    primitives::{FocusScope, IconName, give_back, take_focus},
+    primitives::{FocusScope, LucideIcon, give_back, take_focus},
     theme::{ActiveTheme, ControlSize},
 };
 
@@ -182,15 +182,18 @@ impl RenderOnce for LinkEditor {
                         )
                         .when_some(opened, |row, url| {
                             row.child(
-                                IconButton::new((self.id.clone(), "open"), IconName::ExternalLink)
-                                    .size(ControlSize::Sm)
-                                    .tooltip("Open link")
-                                    .on_click(move |_, _, cx| cx.open_url(&url)),
+                                IconButton::new(
+                                    (self.id.clone(), "open"),
+                                    LucideIcon::ExternalLink,
+                                )
+                                .size(ControlSize::Sm)
+                                .tooltip("Open link")
+                                .on_click(move |_, _, cx| cx.open_url(&url)),
                             )
                         })
                         .when_some(remove, |row, remove| {
                             row.child(
-                                IconButton::new((self.id.clone(), "remove"), IconName::Trash2)
+                                IconButton::new((self.id.clone(), "remove"), LucideIcon::Trash2)
                                     .size(ControlSize::Sm)
                                     .tooltip("Remove link")
                                     .on_click(move |_, window, cx| remove(window, cx)),

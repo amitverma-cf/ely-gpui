@@ -8,7 +8,7 @@ use gpui::{
 
 use super::{Input, InputEvent, TextInput};
 use crate::{
-    primitives::{FocusRing, Icon, IconName, tab_stop},
+    primitives::{FocusRing, Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius},
     typography::Ellipsis,
 };
@@ -193,7 +193,7 @@ impl RenderOnce for InlineEdit {
                     .invisible()
                     .group_hover(group, |style| style.visible())
                     .child(
-                        Icon::new(IconName::Pencil)
+                        Icon::new(LucideIcon::Pencil)
                             .size(IconSize::Xs)
                             .color(colors.fg_subtle),
                     ),

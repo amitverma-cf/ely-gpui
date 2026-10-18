@@ -9,7 +9,7 @@ use crate::{
     i18n,
     lists::{Tree, TreeNode},
     navigation::{Group, Palette, Row, fuzzy, marked, query_field},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Palette as Colors},
 };
 
@@ -30,18 +30,18 @@ pub enum SymbolKind {
 }
 
 impl SymbolKind {
-    pub fn icon(self) -> IconName {
+    pub fn icon(self) -> LucideIcon {
         match self {
-            SymbolKind::Module => IconName::Package,
-            SymbolKind::Struct => IconName::Braces,
-            SymbolKind::Enum => IconName::ListOrdered,
-            SymbolKind::Trait => IconName::Shapes,
-            SymbolKind::Function | SymbolKind::Method => IconName::SquareFunction,
-            SymbolKind::Field => IconName::Tag,
-            SymbolKind::Variable => IconName::Variable,
-            SymbolKind::Constant => IconName::Hash,
-            SymbolKind::Keyword => IconName::Key,
-            SymbolKind::Snippet => IconName::Code,
+            SymbolKind::Module => LucideIcon::Package,
+            SymbolKind::Struct => LucideIcon::Braces,
+            SymbolKind::Enum => LucideIcon::ListOrdered,
+            SymbolKind::Trait => LucideIcon::Shapes,
+            SymbolKind::Function | SymbolKind::Method => LucideIcon::SquareFunction,
+            SymbolKind::Field => LucideIcon::Tag,
+            SymbolKind::Variable => LucideIcon::Variable,
+            SymbolKind::Constant => LucideIcon::Hash,
+            SymbolKind::Keyword => LucideIcon::Key,
+            SymbolKind::Snippet => LucideIcon::Code,
         }
     }
 

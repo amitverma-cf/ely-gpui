@@ -2,7 +2,7 @@ use std::{ops::Range, rc::Rc};
 
 use gpui::{App, SharedString, Window};
 
-use crate::{forms::Run, navigation::fuzzy, primitives::IconName};
+use crate::{forms::Run, navigation::fuzzy, primitives::LucideIcon};
 
 /// What a row does when chosen.
 #[derive(Clone)]
@@ -17,7 +17,7 @@ pub(super) enum Kind {
 #[derive(Clone)]
 pub struct MenuItem {
     pub(super) label: SharedString,
-    pub(super) icon: Option<IconName>,
+    pub(super) icon: Option<LucideIcon>,
     pub(super) keys: Option<SharedString>,
     pub(super) kind: Kind,
     pub(super) disabled: bool,
@@ -57,7 +57,7 @@ impl MenuItem {
         Self::with(label, Kind::Sub(menu))
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }

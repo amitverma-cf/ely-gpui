@@ -11,7 +11,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton},
     data_display::{Badge, QrCode, Tone},
     forms::{Combobox, NumberInput, TextInput},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{
         Ellipsis,
@@ -121,7 +121,7 @@ impl RenderOnce for CurrencyConverter {
                         ),
                     )
                     .child(
-                        IconButton::new((self.id.clone(), "swap"), IconName::ChevronsLeftRight)
+                        IconButton::new((self.id.clone(), "swap"), LucideIcon::ChevronsLeftRight)
                             .variant(ButtonVariant::Ghost)
                             .tooltip("Swap")
                             .on_click({
@@ -283,7 +283,7 @@ impl RenderOnce for CryptoWalletCard {
                                     .child(shortened(&self.address)),
                             )
                             .child(
-                                IconButton::new((self.id.clone(), "copy"), IconName::Copy)
+                                IconButton::new((self.id.clone(), "copy"), LucideIcon::Copy)
                                     .variant(ButtonVariant::Ghost)
                                     .tooltip("Copy the address")
                                     .on_click(move |_, _, cx| {
@@ -366,9 +366,9 @@ impl RenderOnce for TransactionList {
             .children(self.transfers.iter().map(|transfer| {
                 let received = transfer.amount >= 0.0;
                 let (icon, ink) = if received {
-                    (IconName::ArrowDownLeft, colors.success)
+                    (LucideIcon::ArrowDownLeft, colors.success)
                 } else {
-                    (IconName::ArrowUpRight, colors.fg_muted)
+                    (LucideIcon::ArrowUpRight, colors.fg_muted)
                 };
                 let status = match transfer.settled {
                     Settled::Pending => Some(Badge::new("Pending").tone(Tone::Warning)),

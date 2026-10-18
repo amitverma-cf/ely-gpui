@@ -12,7 +12,7 @@ use super::{
     select::{field_button, field_text},
 };
 use crate::{
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize},
 };
 
@@ -233,7 +233,7 @@ impl RenderOnce for Cascader {
                     )
                     .when(!leaf, |row| {
                         row.child(
-                            Icon::new(IconName::ChevronRight)
+                            Icon::new(LucideIcon::ChevronRight)
                                 .size(IconSize::Xs)
                                 .color(colors.fg_subtle),
                         )
@@ -327,7 +327,7 @@ impl RenderOnce for Cascader {
                 cx,
             ))
             .child(
-                Icon::new(IconName::ChevronsUpDown)
+                Icon::new(LucideIcon::ChevronsUpDown)
                     .size(IconSize::Xs)
                     .color(colors.fg_subtle),
             )

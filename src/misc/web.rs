@@ -5,7 +5,7 @@ use gpui::{
 
 use crate::{
     buttons::IconButton,
-    primitives::{Icon, IconName, checked_ratio, framed},
+    primitives::{Icon, LucideIcon, checked_ratio, framed},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{Ellipsis, literal},
 };
@@ -265,13 +265,13 @@ impl RenderOnce for IframeEmbed {
                     .text_size(theme.text_size(TextSize::Sm))
                     .text_color(colors.fg_muted)
                     .child(
-                        Icon::new(IconName::Globe)
+                        Icon::new(LucideIcon::Globe)
                             .size(IconSize::Sm)
                             .color(colors.fg_subtle),
                     )
                     .child(literal(div()).flex_1().min_w_0().child(Ellipsis::new(url)))
                     .child(
-                        IconButton::new((id, "open"), IconName::ExternalLink)
+                        IconButton::new((id, "open"), LucideIcon::ExternalLink)
                             .tooltip("Open in browser")
                             .on_click(move |_, _, cx| {
                                 log::info!("iframe embed: opened {opened}");

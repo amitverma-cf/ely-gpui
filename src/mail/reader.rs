@@ -12,7 +12,7 @@ use crate::{
     chat::FileMessage,
     data_display::Avatar,
     forms::OnValue,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, AvatarSize, ControlSize, TextSize},
     typography::{Ellipsis, format},
 };
@@ -230,16 +230,16 @@ pub(super) fn open_letter(
                                 .text_color(colors.fg_subtle)
                                 .child(date),
                         )
-                        .children(act("reply", IconName::Reply, "Reply", asks.reply.clone()))
+                        .children(act("reply", LucideIcon::Reply, "Reply", asks.reply.clone()))
                         .children(act(
                             "reply-all",
-                            IconName::ReplyAll,
+                            LucideIcon::ReplyAll,
                             "Reply all",
                             asks.reply_all.clone().filter(|_| many),
                         ))
                         .children(act(
                             "forward",
-                            IconName::Forward,
+                            LucideIcon::Forward,
                             "Forward",
                             asks.forward.clone(),
                         )),

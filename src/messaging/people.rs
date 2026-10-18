@@ -10,7 +10,7 @@ use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     data_display::{Avatar, Presence},
     forms::Run,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, ControlSize, IconSize, TextSize},
     typography::{Ellipsis, format, fresh},
 };
@@ -138,7 +138,7 @@ impl RenderOnce for UserProfileCard {
                 .gap_1p5()
                 .text_color(colors.fg_muted)
                 .child(
-                    Icon::new(IconName::Clock)
+                    Icon::new(LucideIcon::Clock)
                         .size(IconSize::Sm)
                         .color(colors.fg_subtle),
                 )
@@ -148,7 +148,7 @@ impl RenderOnce for UserProfileCard {
         let message = self.on_message.map(|run| {
             let name = name.clone();
             Button::new((self.id.clone(), "message"), "Message")
-                .icon(IconName::MessageSquare)
+                .icon(LucideIcon::MessageSquare)
                 .variant(ButtonVariant::Primary)
                 .size(ControlSize::Sm)
                 .on_click(move |_, window, cx| {
@@ -157,7 +157,7 @@ impl RenderOnce for UserProfileCard {
                 })
         });
         let call = self.on_call.map(|run| {
-            IconButton::new((self.id.clone(), "call"), IconName::Phone)
+            IconButton::new((self.id.clone(), "call"), LucideIcon::Phone)
                 .variant(ButtonVariant::Outline)
                 .size(ControlSize::Sm)
                 .tooltip("Call")

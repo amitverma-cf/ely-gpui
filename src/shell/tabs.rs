@@ -9,7 +9,7 @@ use gpui::{
 use crate::{
     buttons::IconButton,
     motion,
-    primitives::{DragGhost, Icon, IconName},
+    primitives::{DragGhost, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -19,7 +19,7 @@ use crate::{
 pub struct WindowTab {
     id: SharedString,
     title: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
 }
 
 impl WindowTab {
@@ -31,7 +31,7 @@ impl WindowTab {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
@@ -209,7 +209,7 @@ impl RenderOnce for TabBar {
                                 slot.invisible().group_hover(group, |style| style.visible())
                             })
                             .child(
-                                IconButton::new(("close", ix), IconName::X)
+                                IconButton::new(("close", ix), LucideIcon::X)
                                     .size(ControlSize::Sm)
                                     .on_click(move |_, window, cx| {
                                         cx.stop_propagation();
@@ -234,7 +234,7 @@ impl RenderOnce for TabBar {
             .children(tabs)
             .when_some(self.on_add, |bar, add| {
                 bar.child(
-                    IconButton::new("new-tab", IconName::Plus)
+                    IconButton::new("new-tab", LucideIcon::Plus)
                         .size(ControlSize::Sm)
                         .on_click(move |_, window, cx| {
                             log::info!("tab bar: new tab");

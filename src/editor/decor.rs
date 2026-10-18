@@ -7,7 +7,7 @@ use gpui::{
 
 use crate::{
     buttons::{Button, ButtonVariant},
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -103,7 +103,7 @@ impl RenderOnce for ReadOnlyBanner {
             .text_size(theme.text_size(TextSize::Sm))
             .text_color(colors.fg)
             .child(
-                Icon::new(IconName::Lock)
+                Icon::new(LucideIcon::Lock)
                     .size(IconSize::Sm)
                     .color(colors.warning),
             )

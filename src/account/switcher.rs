@@ -10,7 +10,7 @@ use super::login::Run;
 use crate::{
     data_display::{Avatar, Presence},
     menus::{Menu, MenuItem, menu_under},
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -75,7 +75,7 @@ fn row(id: impl Into<ElementId>, lead: impl IntoElement, text: Div, cx: &App) ->
         .child(div().flex_none().child(lead))
         .child(text)
         .child(
-            Icon::new(IconName::ChevronsUpDown)
+            Icon::new(LucideIcon::ChevronsUpDown)
                 .size(IconSize::Sm)
                 .color(theme.colors.fg_subtle),
         )
@@ -155,7 +155,7 @@ impl RenderOnce for AccountSwitcher {
         if let Some(add) = self.on_add {
             menu = menu.separator().item(
                 MenuItem::new("Add account")
-                    .icon(IconName::UserPlus)
+                    .icon(LucideIcon::UserPlus)
                     .on_click(move |window, cx| add(window, cx)),
             );
         }
@@ -238,7 +238,7 @@ impl RenderOnce for WorkspaceSwitcher {
         if let Some(create) = self.on_create {
             menu = menu.separator().item(
                 MenuItem::new("Create workspace")
-                    .icon(IconName::Plus)
+                    .icon(LucideIcon::Plus)
                     .on_click(move |window, cx| create(window, cx)),
             );
         }
@@ -316,16 +316,15 @@ impl RenderOnce for UserMenu {
     fn render(self, window: &mut Window, cx: &mut App) -> impl IntoElement {
         let id = self.id;
         let sign_out = self.on_sign_out;
-        let menu =
-            Menu::new()
-                .group(format!("Signed in as {}", self.email), self.items)
-                .separator()
-                .item(MenuItem::new("Sign out").icon(IconName::LogOut).on_click(
-                    move |window, cx| {
-                        log::info!("user menu: sign out");
-                        sign_out(window, cx);
-                    },
-                ));
+        let menu = Menu::new()
+            .group(format!("Signed in as {}", self.email), self.items)
+            .separator()
+            .item(MenuItem::new("Sign out").icon(LucideIcon::LogOut).on_click(
+                move |window, cx| {
+                    log::info!("user menu: sign out");
+                    sign_out(window, cx);
+                },
+            ));
         let mut avatar = Avatar::new((id.clone(), "avatar"), self.name).size(AvatarSize::Sm);
         if let Some(image) = self.image {
             avatar = avatar.image(image);

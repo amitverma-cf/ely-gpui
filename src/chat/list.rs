@@ -9,7 +9,7 @@ use jiff::civil::Date;
 use crate::{
     buttons::{Button, ButtonVariant},
     forms::Run,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Elevation, TextSize},
 };
 
@@ -205,7 +205,7 @@ impl RenderOnce for ScrollToBottomButton {
                 Button::new(self.id, label)
                     .variant(ButtonVariant::Secondary)
                     .size(ControlSize::Sm)
-                    .icon(IconName::ArrowDown)
+                    .icon(LucideIcon::ArrowDown)
                     .on_click(move |_, window, cx| press(window, cx)),
             )
     }

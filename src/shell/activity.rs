@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     data_display::CountBadge,
     motion,
-    primitives::{Icon, IconName, Tooltip},
+    primitives::{Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, IconSize},
 };
 
@@ -16,7 +16,7 @@ use crate::{
 #[derive(Clone)]
 pub struct ActivityItem {
     id: SharedString,
-    icon: IconName,
+    icon: LucideIcon,
     label: SharedString,
     badge: Option<u32>,
 }
@@ -24,7 +24,7 @@ pub struct ActivityItem {
 impl ActivityItem {
     pub fn new(
         id: impl Into<SharedString>,
-        icon: IconName,
+        icon: LucideIcon,
         label: impl Into<SharedString>,
     ) -> Self {
         Self {

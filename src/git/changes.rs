@@ -11,7 +11,7 @@ use crate::{
     forms::{Checkbox, Input, Submit, TextInput},
     i18n,
     lists::GitStatus,
-    primitives::{FocusRing, IconName},
+    primitives::{FocusRing, LucideIcon},
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
     typography::{Ellipsis, tabular},
 };
@@ -228,7 +228,7 @@ impl ChangesList {
                     })
                     .child(action(
                         "open",
-                        IconName::FileText,
+                        LucideIcon::FileText,
                         "git.changes.open",
                         ChangeAction::Open,
                     ))
@@ -237,7 +237,7 @@ impl ChangesList {
                         |actions| {
                             actions.child(action(
                                 "discard",
-                                IconName::RotateCcw,
+                                LucideIcon::RotateCcw,
                                 "git.changes.discard",
                                 ChangeAction::Discard,
                             ))
@@ -246,7 +246,7 @@ impl ChangesList {
                     .when(section == ChangeSection::Staged, |actions| {
                         actions.child(action(
                             "unstage",
-                            IconName::Minus,
+                            LucideIcon::Minus,
                             "git.changes.unstage",
                             ChangeAction::Unstage,
                         ))
@@ -256,7 +256,7 @@ impl ChangesList {
                         |actions| {
                             actions.child(action(
                                 "stage",
-                                IconName::Plus,
+                                LucideIcon::Plus,
                                 "git.changes.stage",
                                 ChangeAction::Stage,
                             ))
@@ -278,8 +278,8 @@ impl ChangesList {
         let colors = theme.colors.clone();
         // Only staged and changed files move all at once.
         let all = match section {
-            ChangeSection::Staged => Some((IconName::Minus, "git.changes.unstage_all", false)),
-            ChangeSection::Unstaged => Some((IconName::Plus, "git.changes.stage_all", true)),
+            ChangeSection::Staged => Some((LucideIcon::Minus, "git.changes.unstage_all", false)),
+            ChangeSection::Unstaged => Some((LucideIcon::Plus, "git.changes.stage_all", true)),
             _ => None,
         };
         let on_all = self.on_all.clone();

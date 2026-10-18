@@ -13,14 +13,14 @@ use crate::{
     forms::{OnFlag, Run},
     media::device_toggle,
     motion::Pulse,
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, ControlSize, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
 
 fn leave(id: &ElementId, owner: &'static str, run: Run) -> Button {
     Button::new((id.clone(), "leave"), "Leave")
-        .icon(IconName::PhoneOff)
+        .icon(LucideIcon::PhoneOff)
         .variant(ButtonVariant::Danger)
         .size(ControlSize::Sm)
         .on_click(move |_, window, cx| {
@@ -97,19 +97,19 @@ impl RenderOnce for CallControls {
         let toggles = [
             toggle(
                 "mic",
-                (IconName::Mic, IconName::MicOff),
+                (LucideIcon::Mic, LucideIcon::MicOff),
                 "Microphone",
                 self.mic,
             ),
             toggle(
                 "camera",
-                (IconName::Video, IconName::VideoOff),
+                (LucideIcon::Video, LucideIcon::VideoOff),
                 "Camera",
                 self.camera,
             ),
             toggle(
                 "share",
-                (IconName::ScreenShare, IconName::ScreenShareOff),
+                (LucideIcon::ScreenShare, LucideIcon::ScreenShareOff),
                 "Share screen",
                 self.share,
             ),
@@ -198,7 +198,7 @@ impl RenderOnce for VoiceCallBar {
                 "voice call",
                 &id,
                 "mic",
-                (IconName::Mic, IconName::MicOff),
+                (LucideIcon::Mic, LucideIcon::MicOff),
                 "Microphone",
                 set,
             )
@@ -317,7 +317,7 @@ impl RenderOnce for HuddleIndicator {
             })
             .child(
                 Pulse::new(ring).child(
-                    Icon::new(IconName::Headphones)
+                    Icon::new(LucideIcon::Headphones)
                         .size(IconSize::Sm)
                         .color(colors.success),
                 ),

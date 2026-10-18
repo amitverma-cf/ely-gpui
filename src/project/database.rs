@@ -19,7 +19,7 @@ use crate::{
     data_display::Tone,
     forms::OnValue,
     layout::seeded::use_seeded,
-    primitives::IconName,
+    primitives::LucideIcon,
     tables::{Cell, Column, DataTable, Row},
     theme::{ActiveTheme, ControlSize, TextSize},
     typography::fresh,
@@ -56,13 +56,13 @@ impl DatabaseLayout {
         }
     }
 
-    fn icon(self) -> IconName {
+    fn icon(self) -> LucideIcon {
         match self {
-            DatabaseLayout::Table => IconName::Table,
-            DatabaseLayout::Board => IconName::Kanban,
-            DatabaseLayout::Gallery => IconName::LayoutGrid,
-            DatabaseLayout::Calendar => IconName::Calendar,
-            DatabaseLayout::Timeline => IconName::ChartGantt,
+            DatabaseLayout::Table => LucideIcon::Table,
+            DatabaseLayout::Board => LucideIcon::Kanban,
+            DatabaseLayout::Gallery => LucideIcon::LayoutGrid,
+            DatabaseLayout::Calendar => LucideIcon::Calendar,
+            DatabaseLayout::Timeline => LucideIcon::ChartGantt,
         }
     }
 

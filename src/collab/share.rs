@@ -11,7 +11,7 @@ use crate::{
     documents::source,
     forms::{Choice, OnValues, Pick, Run, Select, TagInput, is_email},
     overlays::Dialog,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, ControlSize, IconSize, TextSize},
     typography::Ellipsis,
 };
@@ -177,7 +177,7 @@ impl RenderOnce for AccessList {
                                 .into_any_element(),
                         })
                         .children(on_remove.map(|on_remove| {
-                            IconButton::new(id("remove"), IconName::X)
+                            IconButton::new(id("remove"), LucideIcon::X)
                                 .variant(ButtonVariant::Ghost)
                                 .size(ControlSize::Sm)
                                 .tooltip("Remove access")
@@ -292,7 +292,7 @@ impl RenderOnce for InviteInput {
                     .child(
                         Button::new((self.id.clone(), "invite"), "Invite")
                             .variant(ButtonVariant::Primary)
-                            .icon(IconName::UserPlus)
+                            .icon(LucideIcon::UserPlus)
                             .disabled(!ready(&self.emails))
                             .on_click(move |_, window, cx| {
                                 log::info!("invite: {count} people");
@@ -355,9 +355,9 @@ impl RenderOnce for LinkAccess {
                     .bg(colors.hover)
                     .child(
                         Icon::new(if anyone.is_some() {
-                            IconName::Globe
+                            LucideIcon::Globe
                         } else {
-                            IconName::Lock
+                            LucideIcon::Lock
                         })
                         .size(IconSize::Sm)
                         .color(colors.fg_muted),

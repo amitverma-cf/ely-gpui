@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     documents::source,
     forms::OnValue,
-    primitives::{Icon, IconName, Image, tab_stop},
+    primitives::{Icon, Image, LucideIcon, tab_stop},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -101,7 +101,7 @@ impl RenderOnce for StylePresetPicker {
                         .justify_center()
                         .bg(colors.sunken)
                         .child(
-                            Icon::new(IconName::Ban)
+                            Icon::new(LucideIcon::Ban)
                                 .size(IconSize::Md)
                                 .color(colors.fg_subtle),
                         )

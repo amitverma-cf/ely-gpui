@@ -6,7 +6,7 @@ use gpui::{
 use super::{Draw, point::point_lines};
 use crate::{
     documents::tree::{AlertKind, DocumentHeading, Node},
-    primitives::{FocusRing as _, Icon, IconName},
+    primitives::{FocusRing as _, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
 };
 
@@ -33,9 +33,9 @@ impl Draw<'_> {
             .children(items.iter().enumerate().map(|(ix, (task, body))| {
                 let marker: AnyElement = match (task, start) {
                     (Some(done), _) => Icon::new(if *done {
-                        IconName::SquareCheck
+                        LucideIcon::SquareCheck
                     } else {
-                        IconName::Square
+                        LucideIcon::Square
                     })
                     .size(IconSize::Sm)
                     .color(if *done {
@@ -87,12 +87,12 @@ impl Draw<'_> {
     pub(super) fn alert(&self, kind: AlertKind, body: &[Node], cx: &App) -> AnyElement {
         let colors = &cx.theme().colors;
         let (tone, icon) = match kind {
-            AlertKind::Note => (colors.info, IconName::Info),
-            AlertKind::Tip => (colors.success, IconName::Lightbulb),
+            AlertKind::Note => (colors.info, LucideIcon::Info),
+            AlertKind::Tip => (colors.success, LucideIcon::Lightbulb),
             // The palette's violet, read at 4.5:1.
-            AlertKind::Important => (colors.syntax.keyword, IconName::MessageSquareWarning),
-            AlertKind::Warning => (colors.warning, IconName::TriangleAlert),
-            AlertKind::Caution => (colors.danger, IconName::OctagonAlert),
+            AlertKind::Important => (colors.syntax.keyword, LucideIcon::MessageSquareWarning),
+            AlertKind::Warning => (colors.warning, LucideIcon::TriangleAlert),
+            AlertKind::Caution => (colors.danger, LucideIcon::OctagonAlert),
         };
         div()
             .flex()

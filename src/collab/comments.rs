@@ -15,7 +15,7 @@ use crate::{
     forms::{Enter, Input, OnFlag, Run, TextInput},
     i18n,
     overlays::Popover,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, AvatarSize, ControlSize, Radius, TextSize},
     typography::RelativeTime,
 };
@@ -180,9 +180,9 @@ impl RenderOnce for CommentThread {
             .variant(ButtonVariant::Ghost)
             .size(ControlSize::Sm)
             .icon(if resolved {
-                IconName::RotateCcw
+                LucideIcon::RotateCcw
             } else {
-                IconName::Check
+                LucideIcon::Check
             })
             .on_click(move |_, window, cx| {
                 cx.stop_propagation();
@@ -347,7 +347,7 @@ impl RenderOnce for CommentMarker {
             }
             div().w(prose).child(bubble)
         })
-        .icon(IconName::MessageSquare)
+        .icon(LucideIcon::MessageSquare)
         .variant(ButtonVariant::Ghost)
         .size(ControlSize::Sm)
     }

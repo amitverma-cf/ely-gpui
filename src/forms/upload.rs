@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{ButtonVariant, IconButton},
     motion::ProgressBar,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::{Ellipsis, format::file_size, tabular},
 };
@@ -88,7 +88,7 @@ impl RenderOnce for UploadList {
         let theme = cx.theme();
         let colors = &theme.colors;
         let button = |name: String,
-                      icon: IconName,
+                      icon: LucideIcon,
                       tip: &'static str,
                       handler: &Option<OnRow>,
                       ix: usize| {
@@ -111,21 +111,21 @@ impl RenderOnce for UploadList {
             let action = match &upload.state {
                 UploadState::Uploading(_) => button(
                     format!("cancel-{ix}"),
-                    IconName::X,
+                    LucideIcon::X,
                     "Cancel",
                     &self.on_cancel,
                     ix,
                 ),
                 UploadState::Failed(_) => button(
                     format!("retry-{ix}"),
-                    IconName::RotateCw,
+                    LucideIcon::RotateCw,
                     "Retry",
                     &self.on_retry,
                     ix,
                 ),
                 UploadState::Done => button(
                     format!("remove-{ix}"),
-                    IconName::X,
+                    LucideIcon::X,
                     "Remove",
                     &self.on_remove,
                     ix,
@@ -138,13 +138,13 @@ impl RenderOnce for UploadList {
                 .px_3()
                 .py_2()
                 .child(match upload.state {
-                    UploadState::Done => Icon::new(IconName::CircleCheck)
+                    UploadState::Done => Icon::new(LucideIcon::CircleCheck)
                         .size(IconSize::Md)
                         .color(colors.success),
-                    UploadState::Failed(_) => Icon::new(IconName::CircleAlert)
+                    UploadState::Failed(_) => Icon::new(LucideIcon::CircleAlert)
                         .size(IconSize::Md)
                         .color(colors.danger),
-                    UploadState::Uploading(_) => Icon::new(IconName::FileText)
+                    UploadState::Uploading(_) => Icon::new(LucideIcon::FileText)
                         .size(IconSize::Md)
                         .color(colors.fg_muted),
                 })

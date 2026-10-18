@@ -9,7 +9,7 @@ use web_time::Instant;
 use crate::{
     buttons::{ButtonVariant, IconButton},
     motion,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Elevation},
 };
 
@@ -86,7 +86,7 @@ impl RenderOnce for ScrollToTop {
             .bg(cx.theme().colors.surface)
             .shadow(cx.theme().elevation(Elevation::Floating))
             .child(
-                IconButton::new(self.id, IconName::ArrowUp)
+                IconButton::new(self.id, LucideIcon::ArrowUp)
                     .variant(ButtonVariant::Secondary)
                     .on_click(move |_, window, cx| {
                         let handle = handle.clone();

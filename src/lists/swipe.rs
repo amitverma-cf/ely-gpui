@@ -11,14 +11,14 @@ use crate::{
     data_display::Tone,
     forms::Run,
     motion,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
 /// One action behind a swiped row.
 pub struct SwipeAction {
     label: SharedString,
-    icon: IconName,
+    icon: LucideIcon,
     tone: Tone,
     run: Run,
 }
@@ -26,7 +26,7 @@ pub struct SwipeAction {
 impl SwipeAction {
     pub fn new(
         label: impl Into<SharedString>,
-        icon: IconName,
+        icon: LucideIcon,
         run: impl Fn(&mut Window, &mut App) + 'static,
     ) -> Self {
         Self {

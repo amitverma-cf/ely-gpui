@@ -8,7 +8,7 @@ use web_time::Instant;
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     motion::ProgressRing,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
     typography::{format, tabular},
 };
@@ -227,9 +227,9 @@ impl RenderOnce for PomodoroTimer {
             )
             .variant(ButtonVariant::Primary)
             .icon(if running {
-                IconName::Pause
+                LucideIcon::Pause
             } else {
-                IconName::Play
+                LucideIcon::Play
             })
             .on_click(move |_, _, cx| {
                 let now = cx.background_executor().now();
@@ -252,7 +252,7 @@ impl RenderOnce for PomodoroTimer {
         };
         let skip = {
             let (cycle, on_phase) = (cycle.clone(), self.on_phase.clone());
-            IconButton::new((self.id.clone(), "skip"), IconName::SkipForward)
+            IconButton::new((self.id.clone(), "skip"), LucideIcon::SkipForward)
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
                 .tooltip("Skip to the next phase")
@@ -260,7 +260,7 @@ impl RenderOnce for PomodoroTimer {
                     advance(&cycle, lengths, on_phase.clone(), window, cx)
                 })
         };
-        let reset = IconButton::new((self.id.clone(), "reset"), IconName::RotateCcw)
+        let reset = IconButton::new((self.id.clone(), "reset"), LucideIcon::RotateCcw)
             .variant(ButtonVariant::Ghost)
             .size(ControlSize::Sm)
             .tooltip("Start over")

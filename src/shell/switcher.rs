@@ -9,7 +9,7 @@ use gpui::{
 use super::WindowManager;
 use crate::{
     motion,
-    primitives::{Backdrop, FocusNext, FocusPrev, Icon, IconName, Place, give_back, take_focus},
+    primitives::{Backdrop, FocusNext, FocusPrev, Icon, LucideIcon, Place, give_back, take_focus},
     theme::{ActiveTheme, ControlSize, Elevation, IconSize, Radius, TextSize},
     typography::Caption,
 };
@@ -87,7 +87,7 @@ impl RenderOnce for WindowSwitcher {
                     .cursor_pointer()
                     .on_click(move |_, window, cx| switch_to(handle, &close, window, cx))
                     .child(
-                        Icon::new(IconName::AppWindow)
+                        Icon::new(LucideIcon::AppWindow)
                             .size(IconSize::Sm)
                             .color(colors.fg_muted),
                     )

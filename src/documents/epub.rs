@@ -8,7 +8,7 @@ use gpui::{
 use super::{reading::ReadingProgress, render::MarkdownRenderer};
 use crate::{
     buttons::{Button, ButtonVariant, IconButton, ToggleButton, ToggleItem},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ContainerSize, ControlSize, Radius, TextSize},
     typography::tabular,
 };
@@ -90,7 +90,7 @@ impl RenderOnce for EpubReader {
                 set(&place, cx, |place| place.chapter = to);
             }
         };
-        let sized = |to: Option<usize>, icon: IconName, tip: &'static str| {
+        let sized = |to: Option<usize>, icon: LucideIcon, tip: &'static str| {
             let place = place.clone();
             IconButton::new((self.id.clone(), tip), icon)
                 .variant(ButtonVariant::Ghost)
@@ -155,7 +155,7 @@ impl RenderOnce for EpubReader {
                         ToggleButton::new(
                             (self.id.clone(), "contents"),
                             ToggleItem::new("contents")
-                                .icon(IconName::List)
+                                .icon(LucideIcon::List)
                                 .tooltip("Chapters"),
                             contents,
                         )
@@ -179,12 +179,12 @@ impl RenderOnce for EpubReader {
                     )
                     .child(sized(
                         size.checked_sub(1),
-                        IconName::AArrowDown,
+                        LucideIcon::AArrowDown,
                         "Smaller type",
                     ))
                     .child(sized(
                         Some(size + 1).filter(|size| *size < SIZES.len()),
-                        IconName::AArrowUp,
+                        LucideIcon::AArrowUp,
                         "Larger type",
                     )),
             )

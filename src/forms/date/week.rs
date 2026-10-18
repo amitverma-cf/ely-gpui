@@ -10,7 +10,7 @@ use super::{
     super::options::{float, surface},
     picker::{CALENDAR_ROWS, Face, dropdown, picker_field, popped},
 };
-use crate::{primitives::IconName, theme::ControlSize};
+use crate::{primitives::LucideIcon, theme::ControlSize};
 
 type OnWeek = Rc<dyn Fn((i16, i8), &mut Window, &mut App)>;
 
@@ -63,7 +63,7 @@ impl RenderOnce for WeekPicker {
         picker_field(
             self.id,
             Face {
-                icon: IconName::CalendarRange,
+                icon: LucideIcon::CalendarRange,
                 shown: value.map(|(year, week)| format!("Week {week}, {year}").into()),
                 placeholder: "Pick a week".into(),
                 size: ControlSize::default(),

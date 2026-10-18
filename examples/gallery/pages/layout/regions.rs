@@ -4,7 +4,7 @@ use ely_gpui_component::{
         Accordion, AccordionItem, Card, CardHeader, Collapsible, Fieldset, Frame, Panel, Section,
         SplitPane, Well, resize_handle,
     },
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Radius},
     typography::{Caption, Label, Paragraph},
 };
@@ -107,9 +107,9 @@ pub fn collapsible(window: &mut Window, cx: &mut App) -> impl IntoElement + use<
                 )
                 .variant(ButtonVariant::Outline)
                 .trailing_icon(if is_open {
-                    IconName::ChevronUp
+                    LucideIcon::ChevronUp
                 } else {
-                    IconName::ChevronDown
+                    LucideIcon::ChevronDown
                 })
                 .on_click(move |_, _, cx| {
                     open.update(cx, |open, cx| {
@@ -168,7 +168,9 @@ pub fn card(cx: &App) -> impl IntoElement + use<> {
             .header(
                 CardHeader::new("Storage")
                     .description("Across all workspaces")
-                    .action(IconButton::new("card-more", IconName::Ellipsis).size(ControlSize::Sm)),
+                    .action(
+                        IconButton::new("card-more", LucideIcon::Ellipsis).size(ControlSize::Sm),
+                    ),
             )
             .child(Label::new("42.8 GB of 100 GB"))
             .child(Caption::new("Media takes the most room."))
@@ -192,8 +194,8 @@ pub fn panel(cx: &App) -> impl IntoElement + use<> {
         Panel::new("Outline")
             .w(px(320.0))
             .h(px(160.0))
-            .action(IconButton::new("panel-filter", IconName::Filter).size(ControlSize::Sm))
-            .action(IconButton::new("panel-more", IconName::Ellipsis).size(ControlSize::Sm))
+            .action(IconButton::new("panel-filter", LucideIcon::Filter).size(ControlSize::Sm))
+            .action(IconButton::new("panel-more", LucideIcon::Ellipsis).size(ControlSize::Sm))
             .child(
                 div()
                     .p_3()
@@ -216,7 +218,7 @@ pub fn section_demo(cx: &App) -> impl IntoElement + use<> {
         Section::new("Members")
             .w(px(520.0))
             .description("People who can open this workspace.")
-            .action(Button::new("invite", "Invite").icon(IconName::Plus))
+            .action(Button::new("invite", "Invite").icon(LucideIcon::Plus))
             .child(
                 row()
                     .child(tile("Ada", cx))

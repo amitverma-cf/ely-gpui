@@ -9,7 +9,7 @@ use gpui::{
 use super::button::{ButtonVariant, label_size, tone};
 use crate::{
     motion,
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, Radius},
 };
 
@@ -257,7 +257,7 @@ impl RenderOnce for ConfirmButton {
             .map(|button| {
                 if done {
                     button.child(
-                        Icon::new(IconName::Check)
+                        Icon::new(LucideIcon::Check)
                             .size(icon_size)
                             .color(colors.success)
                             .with_animation(

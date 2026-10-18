@@ -7,7 +7,7 @@ use gpui::{
 
 use crate::{
     forms::{Choice, Listing, listing},
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -16,7 +16,7 @@ use crate::{
 pub struct Crumb {
     value: SharedString,
     label: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     siblings: Vec<Choice>,
 }
 
@@ -30,7 +30,7 @@ impl Crumb {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
@@ -137,7 +137,7 @@ impl RenderOnce for Breadcrumb {
                 .child(crumb.label.clone())
                 .when(listed, |el| {
                     el.child(
-                        Icon::new(IconName::ChevronDown)
+                        Icon::new(LucideIcon::ChevronDown)
                             .size(IconSize::Xs)
                             .color(colors.fg_subtle),
                     )
@@ -167,7 +167,7 @@ impl RenderOnce for Breadcrumb {
             };
             if level > 0 {
                 levels.push(
-                    Icon::new(IconName::ChevronRight)
+                    Icon::new(LucideIcon::ChevronRight)
                         .size(IconSize::Xs)
                         .color(cx.theme().colors.fg_subtle)
                         .into_any_element(),

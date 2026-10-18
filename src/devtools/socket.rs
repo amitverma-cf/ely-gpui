@@ -12,7 +12,7 @@ use crate::{
     chat::MessageList,
     data_display::{Badge, Tone},
     forms::{Input, TextInput},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{Ellipsis, format},
 };
@@ -91,9 +91,9 @@ impl WebSocketConsole {
 fn message_row(message: &SocketMessage, now: Timestamp, ix: usize, cx: &App) -> AnyElement {
     let theme = cx.theme();
     let (icon, ink) = match message.direction {
-        Direction::Sent => (IconName::ArrowUpRight, theme.colors.accent),
-        Direction::Received => (IconName::ArrowDownLeft, theme.colors.success),
-        Direction::Note => (IconName::Info, theme.colors.fg_subtle),
+        Direction::Sent => (LucideIcon::ArrowUpRight, theme.colors.accent),
+        Direction::Received => (LucideIcon::ArrowDownLeft, theme.colors.success),
+        Direction::Note => (LucideIcon::Info, theme.colors.fg_subtle),
     };
     let text = reformat(&message.text, true).unwrap_or_else(|| message.text.to_string());
     div()

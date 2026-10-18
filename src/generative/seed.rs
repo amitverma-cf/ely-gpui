@@ -9,7 +9,7 @@ use gpui::{App, ElementId, Entity, EntityId, IntoElement, RenderOnce, Window};
 use crate::{
     buttons::IconButton,
     forms::{InputAddon, InputGroup, TextInput},
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 
 /// Fits an edit into a seed: digits only, and nothing past `u32::MAX`; a refused edit keeps the text.
@@ -73,7 +73,7 @@ impl RenderOnce for SeedInput {
         }
         let field = self.field.clone();
         InputGroup::new(&self.field).after(InputAddon::new(
-            IconButton::new((self.id.clone(), "roll"), IconName::Dices)
+            IconButton::new((self.id.clone(), "roll"), LucideIcon::Dices)
                 .tooltip("Roll a seed")
                 .on_click(move |_, _, cx| {
                     let seed = roll();

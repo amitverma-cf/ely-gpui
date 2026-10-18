@@ -9,7 +9,7 @@ use jiff::{Timestamp, tz::TimeZone};
 use crate::{
     forms::{OnFlag, OnValues},
     lists::{ListItem, SelectableList},
-    primitives::{FocusRing, Icon, IconName, Tooltip},
+    primitives::{FocusRing, Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::format,
 };
@@ -178,14 +178,14 @@ impl MailItem {
                             log::info!("mail {key}: star {}", !starred);
                             set(!starred, window, cx)
                         })
-                        .child(mark(IconName::Star))
+                        .child(mark(LucideIcon::Star))
                         .into_any_element(),
                 )
             }
-            None => starred.then(|| mark(IconName::Star).into_any_element()),
+            None => starred.then(|| mark(LucideIcon::Star).into_any_element()),
         };
         let clip = (mail.attachments > 0).then(|| {
-            Icon::new(IconName::Paperclip)
+            Icon::new(LucideIcon::Paperclip)
                 .size(IconSize::Sm)
                 .color(colors.fg_subtle)
         });

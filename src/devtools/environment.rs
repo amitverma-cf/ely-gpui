@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::IconButton,
     forms::{Choice, Select},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, TextSize},
     typography::Ellipsis,
 };
@@ -124,9 +124,9 @@ impl RenderOnce for EnvironmentSelector {
                         IconButton::new(
                             (id.clone(), format!("reveal-{name}")),
                             if open {
-                                IconName::EyeOff
+                                LucideIcon::EyeOff
                             } else {
-                                IconName::Eye
+                                LucideIcon::Eye
                             },
                         )
                         .tooltip(if open {

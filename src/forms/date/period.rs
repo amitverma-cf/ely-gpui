@@ -15,7 +15,7 @@ use super::{
 use crate::{
     buttons::{ButtonVariant, IconButton},
     layout::seeded::use_seeded,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
 };
 
@@ -60,7 +60,7 @@ fn period_grid(id: &ElementId, page: Page, grid: Grid, window: &mut Window, cx: 
     let focused = focus.is_focused(window);
     let theme = cx.theme();
     let colors = &theme.colors;
-    let arrow = |key: &'static str, icon: IconName, by: i16| {
+    let arrow = |key: &'static str, icon: LucideIcon, by: i16| {
         let turn = turn.clone();
         IconButton::new((id.clone(), key), icon)
             .variant(ButtonVariant::Ghost)
@@ -156,8 +156,8 @@ fn period_grid(id: &ElementId, page: Page, grid: Grid, window: &mut Window, cx: 
                     div()
                         .flex()
                         .gap_0p5()
-                        .child(arrow("prev", IconName::ChevronLeft, -1))
-                        .child(arrow("next", IconName::ChevronRight, 1)),
+                        .child(arrow("prev", LucideIcon::ChevronLeft, -1))
+                        .child(arrow("next", LucideIcon::ChevronRight, 1)),
                 ),
         )
         .child(div().grid().grid_cols(columns).gap_1().children(cells))
@@ -195,7 +195,7 @@ fn period_picker(
     picker_field(
         id,
         Face {
-            icon: IconName::Calendar,
+            icon: LucideIcon::Calendar,
             shown,
             placeholder: placeholder.into(),
             size: ControlSize::default(),

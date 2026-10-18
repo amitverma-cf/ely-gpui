@@ -6,7 +6,7 @@ use ely_gpui_component::{
     chat::StepState,
     data_display::Tone,
     lists::{Tree, TreeNode},
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
@@ -133,7 +133,7 @@ pub fn agents(_: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             StepState::Failed => ("failed", Tone::Danger),
         };
         TreeNode::new(key.to_string(), name.to_string())
-            .icon(IconName::Bot)
+            .icon(LucideIcon::Bot)
             .note(note)
             .tone(tone)
     };

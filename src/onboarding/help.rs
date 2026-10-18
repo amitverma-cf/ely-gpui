@@ -11,7 +11,7 @@ use crate::{
     forms::{Input, Run, TextInput},
     layout::on_axis,
     lists::{ListItem, SelectableList},
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
 };
 
@@ -117,7 +117,7 @@ fn foot_button(
     id: &ElementId,
     key: &'static str,
     label: &'static str,
-    icon: IconName,
+    icon: LucideIcon,
     run: Run,
 ) -> Button {
     Button::new((id.clone(), key), label)
@@ -146,7 +146,7 @@ impl RenderOnce for HelpPanel {
         });
         let theme = cx.theme();
         let close = self.on_close.map(|run| {
-            IconButton::new((id.clone(), "close"), IconName::X)
+            IconButton::new((id.clone(), "close"), LucideIcon::X)
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
                 .tooltip("Close help")
@@ -180,7 +180,7 @@ impl RenderOnce for HelpPanel {
                             Button::new((id.clone(), "back"), "All articles")
                                 .variant(ButtonVariant::Ghost)
                                 .size(ControlSize::Sm)
-                                .icon(IconName::ChevronLeft)
+                                .icon(LucideIcon::ChevronLeft)
                                 .focus_handle(&back_handle)
                                 .on_click(move |_, window, cx| back(None, window, cx)),
                         ),
@@ -246,7 +246,7 @@ impl RenderOnce for HelpPanel {
                     .p_4()
                     .child(
                         Input::new(&self.search)
-                            .prefix(Icon::new(IconName::Search).size(IconSize::Sm)),
+                            .prefix(Icon::new(LucideIcon::Search).size(IconSize::Sm)),
                     )
                     .children((!none).then(|| {
                         list.on_activate(move |key, window, cx| {
@@ -268,7 +268,7 @@ impl RenderOnce for HelpPanel {
                 &id,
                 "contact",
                 "Contact support",
-                IconName::MessageSquare,
+                LucideIcon::MessageSquare,
                 run,
             )
         });
@@ -277,7 +277,7 @@ impl RenderOnce for HelpPanel {
                 &id,
                 "shortcuts",
                 "Keyboard shortcuts",
-                IconName::Keyboard,
+                LucideIcon::Keyboard,
                 run,
             )
         });

@@ -10,7 +10,7 @@ use smallvec::SmallVec;
 use crate::{
     forms::{OnFlag, Run},
     layout::Collapsible,
-    primitives::{FocusRing, Icon, IconName, Tooltip},
+    primitives::{FocusRing, Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -19,7 +19,7 @@ use crate::{
 pub struct NavItem {
     id: ElementId,
     label: SharedString,
-    icon: IconName,
+    icon: LucideIcon,
     count: Option<SharedString>,
     active: bool,
     folded: bool,
@@ -27,7 +27,7 @@ pub struct NavItem {
 }
 
 impl NavItem {
-    pub fn new(id: impl Into<ElementId>, icon: IconName, label: impl Into<SharedString>) -> Self {
+    pub fn new(id: impl Into<ElementId>, icon: LucideIcon, label: impl Into<SharedString>) -> Self {
         Self {
             id: id.into(),
             label: label.into(),
@@ -218,9 +218,9 @@ impl RenderOnce for NavGroup {
                     })
                     .child(
                         Icon::new(if open {
-                            IconName::ChevronDown
+                            LucideIcon::ChevronDown
                         } else {
-                            IconName::ChevronRight
+                            LucideIcon::ChevronRight
                         })
                         .size(IconSize::Xs)
                         .color(colors.fg_subtle),

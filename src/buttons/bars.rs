@@ -9,7 +9,7 @@ use smallvec::SmallVec;
 use super::IconButton;
 use crate::{
     motion,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Elevation, TextSize},
     typography::AnimatedNumber,
 };
@@ -147,7 +147,7 @@ impl RenderOnce for BulkActionBar {
             .children(self.actions)
             .when_some(self.on_clear, |bar, clear| {
                 bar.child(
-                    IconButton::new("bulk-clear", IconName::X)
+                    IconButton::new("bulk-clear", LucideIcon::X)
                         .size(ControlSize::Sm)
                         .tooltip("Clear selection")
                         .on_click(move |_, window, cx| {

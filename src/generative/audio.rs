@@ -9,7 +9,7 @@ use crate::{
     chat::AudioMessage,
     forms::{OnFlag, Run},
     motion::ProgressBar,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{
         Ellipsis,
@@ -109,7 +109,7 @@ impl RenderOnce for AudioGenerationPlayer {
         let theme = cx.theme();
         let colors = theme.colors.clone();
         let making = self.making;
-        let action = |key: &'static str, icon: IconName, tip: &'static str, run: Option<Run>| {
+        let action = |key: &'static str, icon: LucideIcon, tip: &'static str, run: Option<Run>| {
             run.map(|run| {
                 IconButton::new((self.id.clone(), key), icon)
                     .size(ControlSize::Sm)
@@ -167,7 +167,7 @@ impl RenderOnce for AudioGenerationPlayer {
                     .gap_3()
                     .child(
                         div().flex_none().pt_0p5().child(
-                            Icon::new(IconName::AudioLines)
+                            Icon::new(LucideIcon::AudioLines)
                                 .size(IconSize::Sm)
                                 .color(colors.fg_muted),
                         ),
@@ -203,13 +203,13 @@ impl RenderOnce for AudioGenerationPlayer {
                             .gap_1()
                             .children(action(
                                 "regenerate",
-                                IconName::RefreshCw,
+                                LucideIcon::RefreshCw,
                                 "Regenerate",
                                 self.on_regenerate,
                             ))
                             .children(action(
                                 "download",
-                                IconName::Download,
+                                LucideIcon::Download,
                                 "Download",
                                 self.on_download,
                             )),

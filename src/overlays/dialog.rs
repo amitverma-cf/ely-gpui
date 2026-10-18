@@ -11,7 +11,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton},
     forms::{Enter, Run},
     i18n, motion,
-    primitives::{Backdrop, FocusScope, IconName, give_back, raise, take_focus},
+    primitives::{Backdrop, FocusScope, LucideIcon, give_back, raise, take_focus},
     theme::{ActiveTheme, Elevation, Radius, TextSize},
 };
 
@@ -184,7 +184,7 @@ impl RenderOnce for Dialog {
                         .border_color(colors.border)
                         .child(heading)
                         .child(
-                            IconButton::new((self.id.clone(), "close"), IconName::X)
+                            IconButton::new((self.id.clone(), "close"), LucideIcon::X)
                                 .variant(ButtonVariant::Ghost)
                                 .tooltip(i18n::text(cx, "dialog.close", &[]))
                                 .on_click(move |_, window, cx| button(window, cx)),

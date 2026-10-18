@@ -6,7 +6,7 @@ use ely_gpui_component::{
         ChatContainer, DateSeparator, MessageActions, MessageAvatar, MessageBubble, MessageFooter,
         MessageHeader, MessageList, Role, StreamingCursor, StreamingMarkdown, stop_button,
     },
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
 };
 use gpui::{App, ElementId, IntoElement, ParentElement, Styled, Task, Window, div, px};
@@ -192,7 +192,7 @@ pub fn streaming(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
                 div().flex().child(
                     Button::new("chat-replay", "Replay the stream")
                         .variant(ButtonVariant::Secondary)
-                        .icon(IconName::RefreshCw)
+                        .icon(LucideIcon::RefreshCw)
                         .on_click(move |_, window, cx| {
                             let feeder = replay.downgrade();
                             let feed = window.spawn(cx, async move |cx| {

@@ -6,7 +6,7 @@ use ely_gpui_component::{
     buttons::Button,
     data_display::Presence,
     menus::MenuItem,
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
@@ -85,8 +85,8 @@ pub fn switchers(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
                 "account-user",
                 UserMenu::new("account-user", "Ada Lovelace", "ada@atlas.dev", |_, _| log::info!("gallery: sign out"))
                     .presence(Presence::Online)
-                    .item(MenuItem::new("Profile").icon(IconName::User).on_click(|_, _| log::info!("gallery: profile")))
-                    .item(MenuItem::new("Settings").icon(IconName::Settings).on_click(|_, _| log::info!("gallery: settings"))),
+                    .item(MenuItem::new("Profile").icon(LucideIcon::User).on_click(|_, _| log::info!("gallery: profile")))
+                    .item(MenuItem::new("Settings").icon(LucideIcon::Settings).on_click(|_, _| log::info!("gallery: settings"))),
             )),
     )
 }
@@ -124,8 +124,8 @@ pub fn profile(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                         .title("Analyst, Atlas")
                         .presence(Presence::Online)
                         .bio(now.bio.clone())
-                        .detail(IconName::Mail, now.email.clone())
-                        .detail(IconName::MapPin, now.location.clone())
+                        .detail(LucideIcon::Mail, now.email.clone())
+                        .detail(LucideIcon::MapPin, now.location.clone())
                         .action(Button::new("account-card-message", "Message").primary())
                         .action(Button::new("account-card-profile", "View profile")),
                 ),
@@ -160,7 +160,7 @@ fn security() -> Security {
         sessions: vec![
             session(
                 "phone",
-                IconName::Smartphone,
+                LucideIcon::Smartphone,
                 "iPhone 17",
                 "Ely for iOS",
                 "Lisbon, Portugal",
@@ -169,7 +169,7 @@ fn security() -> Security {
             ),
             session(
                 "mac",
-                IconName::Monitor,
+                LucideIcon::Monitor,
                 "MacBook Pro",
                 "Ely 4.2",
                 "Lisbon, Portugal",
@@ -178,7 +178,7 @@ fn security() -> Security {
             ),
             session(
                 "office",
-                IconName::Monitor,
+                LucideIcon::Monitor,
                 "Office desktop",
                 "Firefox 150",
                 "Porto, Portugal",

@@ -5,7 +5,7 @@ use ely_gpui_component::{
         PropertyGroup, Release, Timeline, TimelineItem, UserChip,
     },
     forms::{NumberInput, Slider, Switch},
-    primitives::{IconName, Severity},
+    primitives::{LucideIcon, Severity},
     theme::{ActiveTheme, ControlSize, Radius},
     typography::Code,
 };
@@ -204,25 +204,25 @@ pub fn timelines(cx: &mut App) -> impl IntoElement + use<> {
         .item(
             TimelineItem::new("Build started")
                 .time("14:02")
-                .icon(IconName::GitCommitHorizontal)
+                .icon(LucideIcon::GitCommitHorizontal)
                 .child("main at 4f2a9c1, by Radia Perlman"),
         )
         .item(
             TimelineItem::new("Tests passed")
                 .time("14:06")
-                .icon(IconName::Check)
+                .icon(LucideIcon::Check)
                 .tone(Severity::Success)
                 .child("412 tests in 3 min 12 s"),
         )
         .item(
             TimelineItem::new("Deployed to staging")
                 .time("14:09")
-                .icon(IconName::Rocket)
+                .icon(LucideIcon::Rocket)
                 .tone(Severity::Info),
         )
         .item(
             TimelineItem::new("Promote to production")
-                .icon(IconName::Hourglass)
+                .icon(LucideIcon::Hourglass)
                 .child("Waiting for approval"),
         );
     let project = Timeline::new()
@@ -287,7 +287,7 @@ pub fn feed(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         .entry(
             Activity::new("deploy", "Build bot", "deployed", ago(2.hours()))
                 .object("v0.4.0")
-                .icon(IconName::Rocket),
+                .icon(LucideIcon::Rocket),
         )
         .entry(
             Activity::new("merge", "Alan Turing", "merged", ago(26.hours()))
@@ -307,7 +307,7 @@ pub fn feed(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         "feed-post",
         Button::new("feed-post", "Something happens")
             .variant(ButtonVariant::Ghost)
-            .icon(IconName::Plus)
+            .icon(LucideIcon::Plus)
             .on_click(move |_, _, cx| {
                 let mut next = post.read(cx).clone();
                 next.push(Timestamp::now());

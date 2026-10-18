@@ -1,7 +1,7 @@
 use ely_gpui_component::{
     buttons::{Button, ButtonVariant},
     layout::{AppShell, Drawer, MasterDetail, Page, Sheet, Sidebar, h_stack},
-    primitives::{Icon, IconName, Place},
+    primitives::{Icon, LucideIcon, Place},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{Caption, Paragraph},
 };
@@ -39,9 +39,9 @@ fn flip(state: &Entity<bool>, cx: &mut App) {
 
 fn nav(collapsed: bool, cx: &App) -> impl IntoElement + use<> {
     let items = [
-        (IconName::House, "Home"),
-        (IconName::Inbox, "Inbox"),
-        (IconName::Settings, "Settings"),
+        (LucideIcon::House, "Home"),
+        (LucideIcon::Inbox, "Inbox"),
+        (LucideIcon::Settings, "Settings"),
     ];
     let theme = cx.theme();
     div()
@@ -80,7 +80,7 @@ pub fn sidebar(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                         if collapsed { "Expand" } else { "Collapse" },
                     )
                     .variant(ButtonVariant::Outline)
-                    .icon(IconName::PanelLeft)
+                    .icon(LucideIcon::PanelLeft)
                     .on_click(move |_, _, cx| flip(&state, cx)),
                 )),
             ),
@@ -154,7 +154,7 @@ pub fn page(cx: &App) -> impl IntoElement + use<> {
                 .action(
                     Button::new("page-new", "New project")
                         .primary()
-                        .icon(IconName::Plus),
+                        .icon(LucideIcon::Plus),
                 )
                 .child(
                     row()

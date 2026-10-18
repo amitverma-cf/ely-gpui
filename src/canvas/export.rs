@@ -8,7 +8,7 @@ use super::panel::{OnEdit, editing, heading, pair};
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::{Choice, Select},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, TextSize},
     typography::Ellipsis,
 };
@@ -186,7 +186,7 @@ impl RenderOnce for ExportPanel {
                     )),
                 )
                 .child(
-                    IconButton::new((id.clone(), format!("remove-{ix}")), IconName::Minus)
+                    IconButton::new((id.clone(), format!("remove-{ix}")), LucideIcon::Minus)
                         .tooltip("Remove the size")
                         .on_click(move |_, window, cx| remove((), window, cx)),
                 )
@@ -199,7 +199,7 @@ impl RenderOnce for ExportPanel {
             .gap_3()
             .child(heading(
                 "Export",
-                IconButton::new((id.clone(), "add"), IconName::Plus)
+                IconButton::new((id.clone(), "add"), LucideIcon::Plus)
                     .tooltip("Add a size")
                     .disabled(next.is_none())
                     .on_click(move |_, window, cx| add((), window, cx)),

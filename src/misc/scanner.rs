@@ -7,7 +7,7 @@ use gpui::{
 
 use crate::{
     media::CameraPreview,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::literal,
 };
@@ -133,7 +133,7 @@ impl RenderOnce for QrCodeScanner {
                 .items_start()
                 .gap_2()
                 .child(
-                    Icon::new(IconName::CircleCheck)
+                    Icon::new(LucideIcon::CircleCheck)
                         .size(IconSize::Sm)
                         .color(colors.success),
                 )

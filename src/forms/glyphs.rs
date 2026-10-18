@@ -5,7 +5,7 @@ use gpui::{App, ElementId, IntoElement, RenderOnce, SharedString, Window};
 
 use super::picks::{Grid, Pick, finder, grid, rows};
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::Emoji,
 };
@@ -13,14 +13,14 @@ use crate::{
 /// Glyphs across an emoji or icon grid.
 const COLUMNS: usize = 8;
 
-type OnIcon = Rc<dyn Fn(IconName, &mut Window, &mut App)>;
+type OnIcon = Rc<dyn Fn(LucideIcon, &mut Window, &mut App)>;
 type OnEmoji = Rc<dyn Fn(&str, &mut Window, &mut App)>;
 
 /// A searchable grid of the library's icons.
 #[derive(IntoElement)]
 pub struct IconPicker {
     id: ElementId,
-    selected: Option<IconName>,
+    selected: Option<LucideIcon>,
     on_change: Option<OnIcon>,
 }
 
@@ -33,14 +33,14 @@ impl IconPicker {
         }
     }
 
-    pub fn selected(mut self, icon: IconName) -> Self {
+    pub fn selected(mut self, icon: LucideIcon) -> Self {
         self.selected = Some(icon);
         self
     }
 
     pub fn on_change(
         mut self,
-        handler: impl Fn(IconName, &mut Window, &mut App) + 'static,
+        handler: impl Fn(LucideIcon, &mut Window, &mut App) + 'static,
     ) -> Self {
         self.on_change = Some(Rc::new(handler));
         self
@@ -51,8 +51,8 @@ impl RenderOnce for IconPicker {
     fn render(self, window: &mut Window, cx: &mut App) -> impl IntoElement {
         let finder = finder(&self.id, "Search icons", window, cx);
         let query = finder.read(cx).query.clone();
-        let found: Rc<Vec<IconName>> = Rc::new(
-            IconName::ALL
+        let found: Rc<Vec<LucideIcon>> = Rc::new(
+            LucideIcon::ALL
                 .iter()
                 .copied()
                 .filter(|icon| icon.name().replace('-', " ").contains(&query))

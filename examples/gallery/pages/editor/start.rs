@@ -6,7 +6,7 @@ use ely_gpui_component::{
         Project, ProjectSwitcher, RecentProjects, Task, TaskRunner, TaskState, ThemePreview,
         WelcomePage,
     },
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Mode, Palette, Theme},
     typography::Caption,
 };
@@ -130,9 +130,9 @@ pub fn start(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     .child(
         div().w(px(840.)).child(
             WelcomePage::new("panels-welcome-page", "Ely Editor", "Quiet tools for careful code.")
-                .action(IconName::FilePlus, "New file", Some("secondary-n"))
-                .action(IconName::FolderOpen, "Open folder", Some("secondary-o"))
-                .action(IconName::GitBranch, "Clone repository", None)
+                .action(LucideIcon::FilePlus, "New file", Some("secondary-n"))
+                .action(LucideIcon::FolderOpen, "Open folder", Some("secondary-o"))
+                .action(LucideIcon::GitBranch, "Clone repository", None)
                 .recent(recent)
                 .show_at_start(now_show)
                 .on_show(move |on, _, cx| set(&toggle, on, cx)),

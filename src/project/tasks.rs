@@ -14,7 +14,7 @@ use crate::{
     data_display::Avatar,
     forms::{Checkbox, OnFlag, OnValue},
     lists::{ListItem, SelectableList},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, IconSize, TextSize},
     typography::{format, fresh},
 };
@@ -106,7 +106,7 @@ impl TaskItem {
                 .items_center()
                 .justify_center()
                 .child(
-                    Icon::new(IconName::User)
+                    Icon::new(LucideIcon::User)
                         .size(IconSize::Xs)
                         .color(colors.fg_subtle),
                 )

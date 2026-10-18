@@ -14,7 +14,7 @@ use crate::{
     forms::{DateTimePicker, FormError},
     menus::MenuItem,
     overlays::Dialog,
-    primitives::IconName,
+    primitives::LucideIcon,
     typography::format,
 };
 
@@ -80,7 +80,7 @@ pub(super) fn picking(id: &ElementId, window: &mut Window, cx: &mut App) -> Enti
 pub(super) fn pick_item(owner: &'static str, picking: &Entity<Picking>) -> MenuItem {
     let picking = picking.clone();
     MenuItem::new("Pick a time…")
-        .icon(IconName::Calendar)
+        .icon(LucideIcon::Calendar)
         .on_click(move |_, cx| {
             log::info!("{owner}: pick a time");
             picking.update(cx, |picking, cx| {

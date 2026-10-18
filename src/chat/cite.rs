@@ -9,7 +9,7 @@ use gpui::{
 use crate::{
     forms::{Pick, Run},
     overlays::HoverCard,
-    primitives::{Disclosure, FocusRing, Icon, IconName},
+    primitives::{Disclosure, FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{Ellipsis, tabular},
 };
@@ -78,7 +78,7 @@ fn lines(number: Option<usize>, source: &Source, cx: &App) -> Div {
                     .child(format!("{number}"))
                 }))
                 .child(
-                    Icon::new(IconName::Globe)
+                    Icon::new(LucideIcon::Globe)
                         .size(IconSize::Xs)
                         .color(colors.fg_subtle),
                 )

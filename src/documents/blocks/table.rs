@@ -6,7 +6,7 @@ use gpui::{
 use super::{Block, BlockEditor, BlockKind, view::Look};
 use crate::{
     buttons::{ButtonVariant, IconButton},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::ControlSize,
 };
 
@@ -212,7 +212,7 @@ pub(super) fn table(
         .map(|(_, cell)| cell);
     let colors = &look.colors;
     let tool = |name: &'static str,
-                icon: IconName,
+                icon: LucideIcon,
                 run: fn(&mut BlockEditor, u64, usize, &mut Window, &mut Context<BlockEditor>),
                 cell: usize,
                 cx: &mut Context<BlockEditor>| {
@@ -228,35 +228,35 @@ pub(super) fn table(
             .gap_0p5()
             .child(tool(
                 "Add row",
-                IconName::Rows2,
+                LucideIcon::Rows2,
                 |editor, key, _, window, cx| editor.add_row(key, window, cx),
                 cell,
                 cx,
             ))
             .child(tool(
                 "Add column",
-                IconName::Columns2,
+                LucideIcon::Columns2,
                 |editor, key, _, window, cx| editor.add_column(key, window, cx),
                 cell,
                 cx,
             ))
             .child(tool(
                 "Remove row",
-                IconName::Minus,
+                LucideIcon::Minus,
                 |editor, key, cell, _, cx| editor.remove_line(key, cell, false, cx),
                 cell,
                 cx,
             ))
             .child(tool(
                 "Remove column",
-                IconName::X,
+                LucideIcon::X,
                 |editor, key, cell, _, cx| editor.remove_line(key, cell, true, cx),
                 cell,
                 cx,
             ))
             .child(tool(
                 "Merge or part cells",
-                IconName::Merge,
+                LucideIcon::Merge,
                 |editor, key, cell, _, cx| editor.merge_right(key, cell, cx),
                 cell,
                 cx,

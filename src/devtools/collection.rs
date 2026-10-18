@@ -5,7 +5,7 @@ use gpui::{App, ElementId, IntoElement, RenderOnce, SharedString, Styled, Window
 use super::request::Method;
 use crate::{
     lists::{DropAt, Tree, TreeNode},
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 
 /// A folder of saved requests, or a request with its method.
@@ -57,10 +57,10 @@ impl Saved {
     fn node(&self) -> TreeNode {
         match self {
             Saved::Folder { key, name, items } => TreeNode::new(key.clone(), name.clone())
-                .icon(IconName::Folder)
+                .icon(LucideIcon::Folder)
                 .children(items.iter().map(Saved::node)),
             Saved::Request { key, name, method } => TreeNode::new(key.clone(), name.clone())
-                .icon(IconName::Send)
+                .icon(LucideIcon::Send)
                 .note(method.name()),
         }
     }

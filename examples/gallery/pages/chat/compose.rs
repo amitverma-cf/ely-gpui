@@ -8,7 +8,7 @@ use ely_gpui_component::{
     data_display::UsageBar,
     forms::{Choice, Select, TextInput},
     menus::{DropdownMenu, Menu, MenuItem},
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 use web_time::Instant;
@@ -65,8 +65,8 @@ pub fn composer(
         "chat-context",
         || {
             vec![
-                (SharedString::from("Color page"), IconName::Globe),
-                (SharedString::from("Selection in lift.rs"), IconName::Code),
+                (SharedString::from("Color page"), LucideIcon::Globe),
+                (SharedString::from("Selection in lift.rs"), LucideIcon::Code),
             ]
         },
         window,
@@ -147,7 +147,7 @@ pub fn composer(
             ],
             move |item, _, cx| {
                 let mut next = mentioned.read(cx).clone();
-                next.push((item.clone(), IconName::FileText));
+                next.push((item.clone(), LucideIcon::FileText));
                 set(&mentioned, next, cx)
             },
         )
@@ -243,8 +243,8 @@ pub fn pickers(
             .child(
                 SegmentedControl::new("chat-mode-pick", now_mode)
                     .segment("chat", "Chat", None)
-                    .segment("research", "Research", Some(IconName::Globe))
-                    .segment("code", "Code", Some(IconName::Code))
+                    .segment("research", "Research", Some(LucideIcon::Globe))
+                    .segment("code", "Code", Some(LucideIcon::Code))
                     .on_change(move |next, _, cx| set(&mode, next.clone(), cx)),
             )
             .child(DropdownMenu::new(

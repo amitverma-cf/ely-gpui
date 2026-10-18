@@ -6,7 +6,7 @@ use gpui::{
 use smallvec::SmallVec;
 
 use crate::{
-    primitives::{Icon, IconName, Tooltip},
+    primitives::{Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -179,7 +179,7 @@ type ClickHandler = Box<dyn Fn(&ClickEvent, &mut Window, &mut App)>;
 pub struct StatusBarItem {
     id: ElementId,
     leading: Option<AnyElement>,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     label: Option<SharedString>,
     tooltip: Option<SharedString>,
     on_click: Option<ClickHandler>,
@@ -203,7 +203,7 @@ impl StatusBarItem {
         self
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }

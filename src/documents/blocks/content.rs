@@ -7,7 +7,7 @@ use super::{Block, BlockEditor, BlockKind, media, table, view::Look};
 use crate::{
     buttons::CopyButton,
     forms::Checkbox,
-    primitives::{Disclosure, Icon, IconName},
+    primitives::{Disclosure, Icon, LucideIcon},
     theme::IconSize,
     typography::Latex,
 };
@@ -91,7 +91,7 @@ impl BlockEditor {
                 .rounded(look.radius)
                 .bg(colors.sunken)
                 .child(
-                    Icon::new(IconName::Lightbulb)
+                    Icon::new(LucideIcon::Lightbulb)
                         .size(IconSize::Sm)
                         .color(colors.warning),
                 )
@@ -229,7 +229,7 @@ impl BlockEditor {
                         .text_size(look.tiny)
                         .text_color(colors.fg_subtle)
                         .child(
-                            Icon::new(IconName::RefreshCw)
+                            Icon::new(LucideIcon::RefreshCw)
                                 .size(IconSize::Xs)
                                 .color(colors.fg_subtle),
                         )

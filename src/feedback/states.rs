@@ -10,7 +10,7 @@ use crate::{
     buttons::Button,
     forms::Run,
     motion,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::tabular,
 };
@@ -107,7 +107,7 @@ pub(super) fn state_view(
 }
 
 /// An icon on a soft disc, the head of an empty or broken view.
-pub(super) fn disc(icon: IconName, cx: &App) -> AnyElement {
+pub(super) fn disc(icon: LucideIcon, cx: &App) -> AnyElement {
     let theme = cx.theme();
     div()
         .flex()
@@ -143,12 +143,12 @@ pub(super) use words_builders;
 #[derive(IntoElement)]
 pub struct EmptyState {
     id: ElementId,
-    icon: IconName,
+    icon: LucideIcon,
     words: Words,
 }
 
 impl EmptyState {
-    pub fn new(id: impl Into<ElementId>, icon: IconName, title: impl Into<SharedString>) -> Self {
+    pub fn new(id: impl Into<ElementId>, icon: LucideIcon, title: impl Into<SharedString>) -> Self {
         Self {
             id: id.into(),
             icon,
@@ -167,7 +167,7 @@ impl RenderOnce for EmptyState {
 
 enum Head {
     Code(SharedString),
-    Icon(IconName),
+    Icon(LucideIcon),
 }
 
 /// A view that could not show what was asked: a status code or an icon, what happened, and a way on.
@@ -179,7 +179,7 @@ pub struct ErrorView {
 }
 
 impl ErrorView {
-    pub fn new(id: impl Into<ElementId>, icon: IconName, title: impl Into<SharedString>) -> Self {
+    pub fn new(id: impl Into<ElementId>, icon: LucideIcon, title: impl Into<SharedString>) -> Self {
         Self {
             id: id.into(),
             head: Head::Icon(icon),
@@ -211,11 +211,11 @@ impl ErrorView {
     }
 
     pub fn maintenance(id: impl Into<ElementId>) -> Self {
-        Self::new(id, IconName::Wrench, "Down for maintenance").body("We'll be back shortly.")
+        Self::new(id, LucideIcon::Wrench, "Down for maintenance").body("We'll be back shortly.")
     }
 
     pub fn offline(id: impl Into<ElementId>) -> Self {
-        Self::new(id, IconName::WifiOff, "You're offline")
+        Self::new(id, LucideIcon::WifiOff, "You're offline")
             .body("Check your connection. Your work stays on this device.")
     }
 
@@ -282,7 +282,7 @@ impl RenderOnce for ErrorBoundary {
             logged.update(cx, |logged, _| *logged = Some(chain.clone()));
         }
         let retry = (self.id.clone(), "retry");
-        ErrorView::new(self.id, IconName::CircleAlert, "Something went wrong")
+        ErrorView::new(self.id, LucideIcon::CircleAlert, "Something went wrong")
             .body(error.to_string())
             .detail(chain)
             .when_some(self.on_retry, |view, run| {

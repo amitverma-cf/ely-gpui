@@ -10,7 +10,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton},
     data_display::Badge,
     forms::OnValue,
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -120,9 +120,9 @@ impl RenderOnce for TTSVoicePicker {
                     IconButton::new(
                         (self.id.clone(), format!("play-{}", voice.key)),
                         if sounding {
-                            IconName::CircleStop
+                            LucideIcon::CircleStop
                         } else {
-                            IconName::Play
+                            LucideIcon::Play
                         },
                     )
                     .variant(ButtonVariant::Ghost)
@@ -203,7 +203,7 @@ impl RenderOnce for TTSVoicePicker {
                             .when(chosen, |name| {
                                 name.child(
                                     div().flex_none().child(
-                                        Icon::new(IconName::Check)
+                                        Icon::new(LucideIcon::Check)
                                             .size(IconSize::Sm)
                                             .color(colors.accent),
                                     ),

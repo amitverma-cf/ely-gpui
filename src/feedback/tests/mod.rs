@@ -10,7 +10,7 @@ mod states;
 
 use super::{Alert, Notification, NotificationCenter, Toast, ToastViewport, Toaster};
 use crate::{
-    primitives::{FocusNext, FocusScope, IconName, Severity},
+    primitives::{FocusNext, FocusScope, LucideIcon, Severity},
     theme::Theme,
 };
 
@@ -47,7 +47,7 @@ impl Render for Desk {
                 NotificationCenter::new("center")
                     .group(
                         "Today",
-                        [Notification::new("n", IconName::Bell, "Hello").unread(self.unread)],
+                        [Notification::new("n", LucideIcon::Bell, "Hello").unread(self.unread)],
                     )
                     .on_read_all(self.note(cx, "read all"))
                     .on_clear(self.note(cx, "clear")),

@@ -7,7 +7,7 @@ use gpui::{
 
 use crate::{
     forms::{Choice, OnValue, Select},
-    primitives::{Icon, IconName, checked_ratio, framed},
+    primitives::{Icon, LucideIcon, checked_ratio, framed},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -100,7 +100,7 @@ impl RenderOnce for CameraPreview {
                         .text_size(theme.text_size(TextSize::Sm))
                         .text_color(colors.fg_muted)
                         .child(
-                            Icon::new(IconName::VideoOff)
+                            Icon::new(LucideIcon::VideoOff)
                                 .size(IconSize::Lg)
                                 .color(colors.fg_subtle),
                         )
@@ -120,11 +120,11 @@ pub enum DeviceKind {
 }
 
 impl DeviceKind {
-    fn icon(self) -> IconName {
+    fn icon(self) -> LucideIcon {
         match self {
-            Self::Microphone => IconName::Mic,
-            Self::Camera => IconName::Video,
-            Self::Speaker => IconName::Volume2,
+            Self::Microphone => LucideIcon::Mic,
+            Self::Camera => LucideIcon::Video,
+            Self::Speaker => LucideIcon::Volume2,
         }
     }
 

@@ -12,7 +12,7 @@ use super::{
 };
 use crate::{
     i18n, motion,
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, IconSize, Mix, Radius, TextSize},
 };
 
@@ -55,8 +55,8 @@ pub(crate) fn check_mark(
         (colors.accent, colors.surface)
     };
     let glyph = match state {
-        CheckState::On => Some(IconName::Check),
-        CheckState::Mixed => Some(IconName::Minus),
+        CheckState::On => Some(LucideIcon::Check),
+        CheckState::Mixed => Some(LucideIcon::Minus),
         CheckState::Off => None,
     };
     let ink = colors.on_accent;

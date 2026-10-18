@@ -15,7 +15,7 @@ use super::{
 };
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -206,7 +206,7 @@ impl RenderOnce for FileInput {
                     move |paths, window, cx| browse(paths, window, cx),
                 );
             })
-            .child(Icon::new(IconName::File).size(IconSize::Sm).color(subtle))
+            .child(Icon::new(LucideIcon::File).size(IconSize::Sm).color(subtle))
             .child(field_text(
                 text.map(SharedString::from),
                 placeholder.into(),
@@ -215,7 +215,7 @@ impl RenderOnce for FileInput {
             ))
             .when(!self.paths.is_empty(), |field| {
                 field.child(
-                    IconButton::new((self.id.clone(), "clear"), IconName::X)
+                    IconButton::new((self.id.clone(), "clear"), LucideIcon::X)
                         .size(ControlSize::Sm)
                         .variant(ButtonVariant::Ghost)
                         .tooltip("Clear")
@@ -306,7 +306,7 @@ impl RenderOnce for DropZone {
             .border_dashed()
             .border_color(colors.border_strong)
             .child(
-                Icon::new(IconName::Upload)
+                Icon::new(LucideIcon::Upload)
                     .size(IconSize::Lg)
                     .color(colors.fg_muted),
             )

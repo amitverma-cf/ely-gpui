@@ -9,7 +9,7 @@ use web_time::Instant;
 use crate::{
     buttons::{ButtonVariant, IconButton},
     motion,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::AnimatedNumber,
 };
@@ -106,9 +106,9 @@ impl RenderOnce for OfflineIndicator {
         let theme = cx.theme();
         let colors = &theme.colors;
         let (icon, label) = match state {
-            Connectivity::Offline => (IconName::WifiOff, "Offline · changes stay on this device"),
-            Connectivity::Reconnecting => (IconName::Wifi, "Reconnecting…"),
-            Connectivity::Online => (IconName::Wifi, "Back online"),
+            Connectivity::Offline => (LucideIcon::WifiOff, "Offline · changes stay on this device"),
+            Connectivity::Reconnecting => (LucideIcon::Wifi, "Reconnecting…"),
+            Connectivity::Online => (LucideIcon::Wifi, "Back online"),
         };
         let showing =
             state != Connectivity::Online || back_at.is_some_and(|at| at.elapsed() < HOLD);
@@ -222,7 +222,7 @@ impl RenderOnce for ZoomControl {
             .items_center()
             .gap_0p5()
             .child(
-                IconButton::new("zoom-out", IconName::ZoomOut)
+                IconButton::new("zoom-out", LucideIcon::ZoomOut)
                     .size(ControlSize::Sm)
                     .disabled(down.is_none())
                     .when_some(down, |button, next| {
@@ -245,7 +245,7 @@ impl RenderOnce for ZoomControl {
                     .child(div().text_size(theme.text_size(TextSize::Sm)).child("%")),
             )
             .child(
-                IconButton::new("zoom-in", IconName::ZoomIn)
+                IconButton::new("zoom-in", LucideIcon::ZoomIn)
                     .size(ControlSize::Sm)
                     .variant(ButtonVariant::Ghost)
                     .disabled(up.is_none())
@@ -271,7 +271,7 @@ fn owned(id: ElementId, percent: u32, on_zoom: OnZoom, cx: &App) -> impl IntoEle
         .items_center()
         .gap_0p5()
         .child(
-            IconButton::new("zoom-out", IconName::ZoomOut)
+            IconButton::new("zoom-out", LucideIcon::ZoomOut)
                 .size(ControlSize::Sm)
                 .on_click(press(ZoomStep::Out)),
         )
@@ -291,7 +291,7 @@ fn owned(id: ElementId, percent: u32, on_zoom: OnZoom, cx: &App) -> impl IntoEle
                 .child(div().text_size(theme.text_size(TextSize::Sm)).child("%")),
         )
         .child(
-            IconButton::new("zoom-in", IconName::ZoomIn)
+            IconButton::new("zoom-in", LucideIcon::ZoomIn)
                 .size(ControlSize::Sm)
                 .on_click(press(ZoomStep::In)),
         )

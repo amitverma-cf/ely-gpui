@@ -9,7 +9,7 @@ use super::scrubber::OnTime;
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::InlineEdit,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
 };
 
@@ -224,14 +224,14 @@ impl RenderOnce for SubtitleEditor {
             };
             let seek = self.on_seek.clone().map(|seek| {
                 let start = cue.start;
-                IconButton::new((self.id.clone(), format!("{key}-seek")), IconName::Play)
+                IconButton::new((self.id.clone(), format!("{key}-seek")), LucideIcon::Play)
                     .size(ControlSize::Sm)
                     .tooltip("Play from here")
                     .on_click(move |_, window, cx| seek(start, window, cx))
             });
             let remove = self.on_change.clone().map(|change| {
                 let (cues, key) = (cues.clone(), key.clone());
-                IconButton::new((self.id.clone(), format!("{key}-remove")), IconName::X)
+                IconButton::new((self.id.clone(), format!("{key}-remove")), LucideIcon::X)
                     .size(ControlSize::Sm)
                     .tooltip("Remove")
                     .on_click(move |_, window, cx| {
@@ -291,7 +291,7 @@ impl RenderOnce for SubtitleEditor {
             Button::new((self.id.clone(), "add"), "Add a cue")
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
-                .icon(IconName::Plus)
+                .icon(LucideIcon::Plus)
                 .on_click(move |_, window, cx| {
                     let taken = |key: &str| cues.iter().any(|cue| cue.key == key);
                     let key = (cues.len() + 1..)

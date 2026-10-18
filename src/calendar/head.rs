@@ -5,7 +5,7 @@ use jiff::civil::Date;
 
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
 };
 
@@ -23,7 +23,7 @@ pub(crate) fn head(
     cx: &App,
 ) -> Div {
     let theme = cx.theme();
-    let button = |name: &str, icon: IconName, tip: &str, by: i32| {
+    let button = |name: &str, icon: LucideIcon, tip: &str, by: i32| {
         let step = step.clone();
         IconButton::new((id.clone(), name.to_string()), icon)
             .variant(ButtonVariant::Ghost)
@@ -60,7 +60,7 @@ pub(crate) fn head(
                 .items_center()
                 .gap_1()
                 .child(today)
-                .child(button("back", IconName::ChevronLeft, back, -1))
-                .child(button("on", IconName::ChevronRight, on, 1)),
+                .child(button("back", LucideIcon::ChevronLeft, back, -1))
+                .child(button("on", LucideIcon::ChevronRight, on, 1)),
         )
 }

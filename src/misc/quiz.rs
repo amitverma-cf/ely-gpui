@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{Button, ButtonVariant},
     forms::{Choice, RadioGroup},
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, IconSize, TextSize},
     typography::format,
 };
@@ -210,8 +210,8 @@ impl RenderOnce for Quiz {
             (false, true) => {
                 let rows = question.options.iter().enumerate().map(|(ix, label)| {
                     let (icon, tone) = match (ix == question.right, Some(ix) == pick) {
-                        (true, _) => (Some(IconName::CircleCheck), colors.success),
-                        (false, true) => (Some(IconName::CircleX), colors.danger),
+                        (true, _) => (Some(LucideIcon::CircleCheck), colors.success),
+                        (false, true) => (Some(LucideIcon::CircleX), colors.danger),
                         (false, false) => (None, colors.fg_muted),
                     };
                     div()

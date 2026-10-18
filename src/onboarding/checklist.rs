@@ -9,7 +9,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::Run,
     motion::{self, ProgressBar},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::tabular,
 };
@@ -94,8 +94,8 @@ impl RenderOnce for SetupChecklist {
             .enumerate()
             .map(|(ix, (task, turn))| {
                 let (icon, ink) = match task.done {
-                    true => (IconName::CircleCheck, theme.colors.success),
-                    false => (IconName::Circle, theme.colors.fg_subtle),
+                    true => (LucideIcon::CircleCheck, theme.colors.success),
+                    false => (LucideIcon::Circle, theme.colors.fg_subtle),
                 };
                 let mark = div()
                     .flex_none()

@@ -6,7 +6,7 @@ use gpui::{
 use super::{press, settle};
 use crate::{
     menus::{ContextMenu, Menu, MenuItem, SearchableMenu},
-    primitives::{FocusScope, IconName},
+    primitives::{FocusScope, LucideIcon},
     theme::Theme,
 };
 
@@ -30,19 +30,19 @@ impl Clip {
             .buttons(
                 [
                     MenuItem::new("Cut")
-                        .icon(IconName::Scissors)
+                        .icon(LucideIcon::Scissors)
                         .on_click(run("cut")),
                     MenuItem::new("Copy")
-                        .icon(IconName::Copy)
+                        .icon(LucideIcon::Copy)
                         .disabled(true)
                         .on_click(run("copy")),
                     MenuItem::new("Paste")
-                        .icon(IconName::Clipboard)
+                        .icon(LucideIcon::Clipboard)
                         .keys("secondary-v")
                         .disabled(self.paste_off)
                         .on_click(run("paste")),
                     MenuItem::new("Delete")
-                        .icon(IconName::Trash2)
+                        .icon(LucideIcon::Trash2)
                         .on_click(run("delete")),
                 ]
                 .into_iter()
@@ -212,8 +212,8 @@ fn a_marked_button_turned_off_or_gone_runs_nothing(cx: &mut TestAppContext) {
 fn a_disabled_button_says_it_is_unavailable(cx: &mut TestAppContext) {
     cx.update(|cx| {
         Theme::init(cx);
-        let off = MenuItem::new("Copy").icon(IconName::Copy).disabled(true);
-        let on = MenuItem::new("Cut").icon(IconName::Scissors);
+        let off = MenuItem::new("Copy").icon(LucideIcon::Copy).disabled(true);
+        let on = MenuItem::new("Cut").icon(LucideIcon::Scissors);
         let read =
             |item: &MenuItem, cx: &mut App| node(item, false, cx).description().map(str::to_owned);
         let expected = crate::i18n::text(cx, "state.unavailable", &[]).to_string();
@@ -235,8 +235,8 @@ fn node(item: &MenuItem, current: bool, cx: &mut App) -> gpui::accesskit::Node {
 fn a_button_offers_its_press_and_says_it_is_marked(cx: &mut TestAppContext) {
     cx.update(|cx| {
         Theme::init(cx);
-        let cut = MenuItem::new("Cut").icon(IconName::Scissors);
-        let off = MenuItem::new("Copy").icon(IconName::Copy).disabled(true);
+        let cut = MenuItem::new("Cut").icon(LucideIcon::Scissors);
+        let off = MenuItem::new("Copy").icon(LucideIcon::Copy).disabled(true);
         let click = gpui::accesskit::Action::Click;
         let marked = node(&cut, true, cx);
         assert!(marked.supports_action(click), "a reader can press it");

@@ -7,7 +7,7 @@ use gpui::{
 use super::button::ClickHandler;
 use crate::{
     motion,
-    primitives::{FocusRing, Icon, IconName, Tooltip},
+    primitives::{FocusRing, Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, Elevation, IconSize, TextSize},
 };
 
@@ -15,14 +15,14 @@ use crate::{
 #[derive(IntoElement)]
 pub struct FloatingActionButton {
     id: ElementId,
-    icon: IconName,
+    icon: LucideIcon,
     label: Option<SharedString>,
     tooltip: Option<SharedString>,
     on_click: Option<ClickHandler>,
 }
 
 impl FloatingActionButton {
-    pub fn new(id: impl Into<ElementId>, icon: IconName) -> Self {
+    pub fn new(id: impl Into<ElementId>, icon: LucideIcon) -> Self {
         Self {
             id: id.into(),
             icon,

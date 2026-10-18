@@ -7,7 +7,7 @@ use ely_gpui_component::{
         ContactSupport, FeedbackWidget, HelpArticle, HelpPanel, InlineHelp,
         KeyboardShortcutCheatsheet, WhatsNewDialog,
     },
-    primitives::{HelpTooltip, IconName},
+    primitives::{HelpTooltip, LucideIcon},
     settings::Shortcut,
     theme::{ActiveTheme, ControlSize, TextSize},
 };
@@ -144,7 +144,7 @@ pub fn tips(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             )
             .child(
                 div().w(px(320.)).text_size(theme.text_size(TextSize::Sm)).child(
-                    EmptyState::new("onboarding-empty", IconName::FolderOpen, "No projects yet")
+                    EmptyState::new("onboarding-empty", LucideIcon::FolderOpen, "No projects yet")
                         .body("Projects hold your work and who can see it.")
                         .action(
                             Button::new("onboarding-empty-new", "New project")
@@ -259,13 +259,13 @@ pub fn dialogs(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             .child(probe(
                 "onboarding-shortcuts",
                 Button::new("onboarding-shortcuts", "Keyboard shortcuts")
-                    .icon(IconName::Keyboard)
+                    .icon(LucideIcon::Keyboard)
                     .on_click(move |_, _, cx| change(&keys, cx, |help| help.dialog = Some(Dialog::Shortcuts))),
             ))
             .child(probe(
                 "onboarding-whats-new",
                 Button::new("onboarding-whats-new", "What's new")
-                    .icon(IconName::Sparkles)
+                    .icon(LucideIcon::Sparkles)
                     .on_click(move |_, _, cx| change(&news, cx, |help| help.dialog = Some(Dialog::WhatsNew))),
             )),
     )

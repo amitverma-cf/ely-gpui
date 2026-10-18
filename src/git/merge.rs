@@ -12,7 +12,7 @@ use super::merging::{MARKER, Region, RegionKind, Take, conflicts, resolve};
 use crate::{
     buttons::{Button, ButtonVariant},
     i18n,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Palette, Radius, TextSize},
 };
 
@@ -198,7 +198,7 @@ impl RenderOnce for ThreeWayMerge {
                                 .border_color(colors.border)
                                 .font_family(cx.theme().font_family.clone())
                                 .child(
-                                    Icon::new(IconName::TriangleAlert)
+                                    Icon::new(LucideIcon::TriangleAlert)
                                         .size(IconSize::Sm)
                                         .color(colors.warning),
                                 )

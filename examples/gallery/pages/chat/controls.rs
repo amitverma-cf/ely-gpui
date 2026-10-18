@@ -8,7 +8,7 @@ use ely_gpui_component::{
         ThinkingIndicator, continue_button, regenerate_button, stop_button,
     },
     forms::TextInput,
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 use web_time::Instant;
@@ -71,7 +71,7 @@ pub fn actions(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 "chat-edit-open",
                 Button::new("chat-edit", "Edit")
                     .variant(ButtonVariant::Ghost)
-                    .icon(IconName::Pencil)
+                    .icon(LucideIcon::Pencil)
                     .on_click(move |_, _, cx| set(&open, true, cx)),
             ))
             .into_any_element()

@@ -11,7 +11,7 @@ use super::{
     text::{Down, Up},
 };
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::format::{self, Separators},
 };
@@ -398,7 +398,7 @@ impl RenderOnce for NumberInput {
         let subtle = cx.theme().colors.fg_subtle;
         let grip = scrub_handle(
             (self.id.clone(), "grip").into(),
-            Icon::new(IconName::ChevronsUpDown)
+            Icon::new(LucideIcon::ChevronsUpDown)
                 .size(IconSize::Xs)
                 .color(subtle)
                 .into_any_element(),
@@ -408,7 +408,7 @@ impl RenderOnce for NumberInput {
         );
         let theme = cx.theme();
         let colors = &theme.colors;
-        let half = |id: &'static str, icon: IconName, enabled: bool, act: Nudge| {
+        let half = |id: &'static str, icon: LucideIcon, enabled: bool, act: Nudge| {
             div()
                 .id((self.id.clone(), id))
                 .flex()
@@ -436,10 +436,10 @@ impl RenderOnce for NumberInput {
             .h_full()
             .border_l_1()
             .border_color(colors.border)
-            .child(half("up", IconName::ChevronUp, now < max, Box::new(up)))
+            .child(half("up", LucideIcon::ChevronUp, now < max, Box::new(up)))
             .child(half(
                 "down",
-                IconName::ChevronDown,
+                LucideIcon::ChevronDown,
                 now > min,
                 Box::new(down),
             ));

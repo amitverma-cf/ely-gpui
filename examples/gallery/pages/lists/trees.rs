@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use ely_gpui_component::{
     lists::{DropAt, Outline, Tree, TreeNode, TreeSelect},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
     typography::Caption,
 };
@@ -55,9 +55,9 @@ fn build(items: &[Item], parent: Option<&SharedString>) -> Vec<TreeNode> {
         .filter(|item| item.parent.as_ref() == parent)
         .map(|item| {
             let node = TreeNode::new(item.key.clone(), item.name.clone()).icon(if item.folder {
-                IconName::Folder
+                LucideIcon::Folder
             } else {
-                IconName::FileText
+                LucideIcon::FileText
             });
             match (item.folder, item.pending) {
                 (true, true) => node.pending(),
@@ -209,13 +209,13 @@ pub fn select(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 "team-select",
                 [
                     TreeNode::new("design", "Design")
-                        .icon(IconName::PenTool)
+                        .icon(LucideIcon::PenTool)
                         .children([
                             TreeNode::new("brand", "Brand"),
                             TreeNode::new("product", "Product"),
                         ]),
                     TreeNode::new("engineering", "Engineering")
-                        .icon(IconName::Code)
+                        .icon(LucideIcon::Code)
                         .children([
                             TreeNode::new("platform", "Platform"),
                             TreeNode::new("apps", "Apps").children([
@@ -223,7 +223,7 @@ pub fn select(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                                 TreeNode::new("macos", "macOS"),
                             ]),
                         ]),
-                    TreeNode::new("operations", "Operations").icon(IconName::Wrench),
+                    TreeNode::new("operations", "Operations").icon(LucideIcon::Wrench),
                 ],
             )
             .selected(now)

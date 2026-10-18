@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{Button, ButtonVariant, CopyButton},
     forms::{Choice, FormField, Input, Run, Select, TextInput},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
     typography::{MiddleEllipsis, literal},
 };
@@ -182,7 +182,7 @@ impl RenderOnce for InlineHelp {
             .text_color(theme.colors.fg_muted)
             .child(
                 div().flex_none().pt_0p5().child(
-                    Icon::new(IconName::Info)
+                    Icon::new(LucideIcon::Info)
                         .size(IconSize::Sm)
                         .color(theme.colors.fg_subtle),
                 ),

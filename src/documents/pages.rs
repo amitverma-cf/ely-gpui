@@ -10,7 +10,7 @@ use crate::{
     documents::blocks::source,
     forms::{EmojiPicker, OnValue},
     overlays::Popover,
-    primitives::{IconName, Image},
+    primitives::{Image, LucideIcon},
     theme::{ActiveTheme, ControlSize, Radius},
 };
 
@@ -91,7 +91,7 @@ impl RenderOnce for PageCover {
                                 }),
                             )
                         })
-                        .icon(IconName::Image)
+                        .icon(LucideIcon::Image)
                         .variant(ButtonVariant::Secondary),
                     )
                     .child(
@@ -162,7 +162,7 @@ impl RenderOnce for PageIcon {
                                 on_change(&SharedString::from(glyph.to_string()), window, cx)
                             })
                     })
-                    .icon(IconName::Smile)
+                    .icon(LucideIcon::Smile)
                     .variant(ButtonVariant::Ghost),
                 )
         });

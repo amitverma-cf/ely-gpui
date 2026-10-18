@@ -13,7 +13,7 @@ use super::{
 };
 use crate::{
     data_display::Tag,
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -205,7 +205,7 @@ impl RenderOnce for MultiSelect {
             })
             .child(
                 div().ml_auto().child(
-                    Icon::new(IconName::ChevronsUpDown)
+                    Icon::new(LucideIcon::ChevronsUpDown)
                         .size(IconSize::Xs)
                         .color(colors.fg_subtle),
                 ),

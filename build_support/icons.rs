@@ -189,9 +189,6 @@ pub fn generate_icons(
     code.push_str("    }\n");
     code.push_str("}\n\n");
 
-    code.push_str("/// Backwards compatibility alias while transitioning to provider enums.\n");
-    code.push_str("pub type IconName = LucideIcon;\n\n");
-
     // 4. Pruned and minified embedded icons table
     code.push_str("#[allow(dead_code)]\n");
     code.push_str("pub const EMBEDDED_ICONS: &[(&str, &[u8])] = &[\n");

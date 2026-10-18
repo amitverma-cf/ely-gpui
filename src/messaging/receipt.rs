@@ -2,7 +2,7 @@ use gpui::{App, IntoElement, ParentElement, RenderOnce, Styled, Window, div, pre
 
 use crate::{
     data_display::{Avatar, AvatarGroup},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, IconSize, TextSize},
 };
 
@@ -25,11 +25,11 @@ impl Delivery {
         }
     }
 
-    fn icon(self) -> IconName {
+    fn icon(self) -> LucideIcon {
         match self {
-            Self::Sending => IconName::Clock,
-            Self::Sent => IconName::Check,
-            Self::Delivered | Self::Read => IconName::CheckCheck,
+            Self::Sending => LucideIcon::Clock,
+            Self::Sent => LucideIcon::Check,
+            Self::Delivered | Self::Read => LucideIcon::CheckCheck,
         }
     }
 }

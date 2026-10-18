@@ -12,7 +12,7 @@ use crate::{
     feedback::Timer,
     forms::{OnFlag, Run},
     motion::Pulse,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -31,7 +31,7 @@ pub(crate) fn device_toggle(
     owner: &'static str,
     id: &ElementId,
     key: &'static str,
-    icons: (IconName, IconName),
+    icons: (LucideIcon, LucideIcon),
     tip: &'static str,
     (on, set): (bool, OnFlag),
 ) -> ToggleButton {
@@ -137,7 +137,7 @@ impl RenderOnce for ScreenRecorderControls {
         let theme = cx.theme();
         let colors = &theme.colors;
         let id = self.id.clone();
-        let action = |key: &'static str, icon: IconName, tip: &'static str, run: Option<Run>| {
+        let action = |key: &'static str, icon: LucideIcon, tip: &'static str, run: Option<Run>| {
             run.map(|run| {
                 IconButton::new((id.clone(), key), icon)
                     .variant(ButtonVariant::Ghost)
@@ -167,7 +167,7 @@ impl RenderOnce for ScreenRecorderControls {
         let body = match self.state {
             Recording::Idle => div().children(self.on_record.map(|run| {
                 Button::new((id.clone(), "record"), "Record")
-                    .icon(IconName::CircleDot)
+                    .icon(LucideIcon::CircleDot)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .on_click(move |_, window, cx| {
@@ -182,8 +182,8 @@ impl RenderOnce for ScreenRecorderControls {
                 .pl_2()
                 .child(dot(true))
                 .child(time(since, None))
-                .children(action("pause", IconName::Pause, "Pause", self.on_pause))
-                .children(action("stop", IconName::Square, "Stop", self.on_stop)),
+                .children(action("pause", LucideIcon::Pause, "Pause", self.on_pause))
+                .children(action("stop", LucideIcon::Square, "Stop", self.on_stop)),
             Recording::Paused { since, at } => div()
                 .flex()
                 .items_center()
@@ -191,11 +191,11 @@ impl RenderOnce for ScreenRecorderControls {
                 .pl_2()
                 .child(dot(false))
                 .child(time(since, Some(at)))
-                .children(action("resume", IconName::Play, "Resume", self.on_resume))
-                .children(action("stop", IconName::Square, "Stop", self.on_stop)),
+                .children(action("resume", LucideIcon::Play, "Resume", self.on_resume))
+                .children(action("stop", LucideIcon::Square, "Stop", self.on_stop)),
         };
         let toggle = |key: &'static str,
-                      icons: (IconName, IconName),
+                      icons: (LucideIcon, LucideIcon),
                       tip: &'static str,
                       set: Option<(bool, OnFlag)>| {
             set.map(|set| device_toggle("screen recorder", &id, key, icons, tip, set))
@@ -222,13 +222,13 @@ impl RenderOnce for ScreenRecorderControls {
             })
             .children(toggle(
                 "mic",
-                (IconName::Mic, IconName::MicOff),
+                (LucideIcon::Mic, LucideIcon::MicOff),
                 "Microphone",
                 self.mic,
             ))
             .children(toggle(
                 "camera",
-                (IconName::Video, IconName::VideoOff),
+                (LucideIcon::Video, LucideIcon::VideoOff),
                 "Camera",
                 self.camera,
             ))

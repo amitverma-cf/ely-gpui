@@ -2,26 +2,26 @@ use std::{collections::HashMap, sync::LazyLock};
 
 use gpui::{App, Global};
 
-use super::IconName;
+use super::LucideIcon;
 
 /// Which icon a file shows: an owner's rules by name and by extension, laid over Ely's map. Without one, Ely's map alone.
 #[derive(Clone, Default)]
 pub struct IconTheme {
-    names: HashMap<String, IconName>,
-    extensions: HashMap<String, IconName>,
+    names: HashMap<String, LucideIcon>,
+    extensions: HashMap<String, LucideIcon>,
 }
 
 impl Global for IconTheme {}
 
 impl IconTheme {
     /// A file of this exact name, in any case: `Cargo.toml`, `Dockerfile`.
-    pub fn name(mut self, name: &str, icon: IconName) -> Self {
+    pub fn name(mut self, name: &str, icon: LucideIcon) -> Self {
         self.names.insert(name.to_lowercase(), icon);
         self
     }
 
     /// Files ending in this extension, given without its dot.
-    pub fn extension(mut self, extension: &str, icon: IconName) -> Self {
+    pub fn extension(mut self, extension: &str, icon: LucideIcon) -> Self {
         self.extensions.insert(extension.to_lowercase(), icon);
         self
     }
@@ -37,7 +37,7 @@ impl IconTheme {
         cx.refresh_windows();
     }
 
-    pub(crate) fn file(&self, name: &str) -> IconName {
+    pub(crate) fn file(&self, name: &str) -> LucideIcon {
         let name = name.to_lowercase();
         let extension = name.rsplit_once('.').map(|(_, extension)| extension);
         self.names
@@ -56,61 +56,61 @@ pub(crate) fn icon_theme(cx: &App) -> &IconTheme {
 }
 
 /// The icon a file's name suggests, under the owner's icon theme.
-pub(crate) fn file_icon(name: &str, cx: &App) -> IconName {
+pub(crate) fn file_icon(name: &str, cx: &App) -> LucideIcon {
     icon_theme(cx).file(name)
 }
 
 /// Ely's icon for a file by its extension, in lower case.
-fn ely_icon(extension: Option<&str>) -> IconName {
+fn ely_icon(extension: Option<&str>) -> LucideIcon {
     match extension {
         Some(
             "rs" | "ts" | "tsx" | "js" | "jsx" | "py" | "go" | "swift" | "c" | "h" | "cpp" | "java"
             | "kt" | "rb" | "php" | "css" | "html",
-        ) => IconName::FileCode,
-        Some("sh" | "zsh" | "bash" | "command") => IconName::FileTerminal,
-        Some("toml" | "yaml" | "yml" | "ini" | "lock" | "env" | "conf") => IconName::FileCog,
-        Some("json") => IconName::FileJson,
+        ) => LucideIcon::FileCode,
+        Some("sh" | "zsh" | "bash" | "command") => LucideIcon::FileTerminal,
+        Some("toml" | "yaml" | "yml" | "ini" | "lock" | "env" | "conf") => LucideIcon::FileCog,
+        Some("json") => LucideIcon::FileJson,
         Some("png" | "jpg" | "jpeg" | "gif" | "webp" | "svg" | "heic" | "bmp" | "tiff") => {
-            IconName::FileImage
+            LucideIcon::FileImage
         }
-        Some("mp3" | "wav" | "flac" | "aac" | "m4a" | "ogg" | "aiff") => IconName::FileAudio,
-        Some("mp4" | "mov" | "mkv" | "webm" | "avi") => IconName::FileVideoCamera,
-        Some("zip" | "tar" | "gz" | "tgz" | "rar" | "7z") => IconName::FileArchive,
-        Some("csv" | "xls" | "xlsx" | "numbers") => IconName::FileSpreadsheet,
-        Some("ttf" | "otf" | "woff" | "woff2") => IconName::FileType,
-        Some("md" | "txt" | "rtf" | "pdf" | "doc" | "docx" | "pages") => IconName::FileText,
-        _ => IconName::File,
+        Some("mp3" | "wav" | "flac" | "aac" | "m4a" | "ogg" | "aiff") => LucideIcon::FileAudio,
+        Some("mp4" | "mov" | "mkv" | "webm" | "avi") => LucideIcon::FileVideoCamera,
+        Some("zip" | "tar" | "gz" | "tgz" | "rar" | "7z") => LucideIcon::FileArchive,
+        Some("csv" | "xls" | "xlsx" | "numbers") => LucideIcon::FileSpreadsheet,
+        Some("ttf" | "otf" | "woff" | "woff2") => LucideIcon::FileType,
+        Some("md" | "txt" | "rtf" | "pdf" | "doc" | "docx" | "pages") => LucideIcon::FileText,
+        _ => LucideIcon::File,
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{IconName, IconTheme};
+    use super::{IconTheme, LucideIcon};
 
     #[test]
     fn a_name_picks_its_icon_by_its_last_extension() {
-        assert_eq!(IconTheme::default().file("main.RS"), IconName::FileCode);
-        assert_eq!(IconTheme::default().file("lift.PNG"), IconName::FileImage);
-        assert_eq!(IconTheme::default().file("notes.md"), IconName::FileText);
+        assert_eq!(IconTheme::default().file("main.RS"), LucideIcon::FileCode);
+        assert_eq!(IconTheme::default().file("lift.PNG"), LucideIcon::FileImage);
+        assert_eq!(IconTheme::default().file("notes.md"), LucideIcon::FileText);
         assert_eq!(
             IconTheme::default().file("backup.tar.gz"),
-            IconName::FileArchive
+            LucideIcon::FileArchive
         );
-        assert_eq!(IconTheme::default().file(".env"), IconName::FileCog);
+        assert_eq!(IconTheme::default().file(".env"), LucideIcon::FileCog);
         assert_eq!(
             IconTheme::default().file("take.mov"),
-            IconName::FileVideoCamera
+            LucideIcon::FileVideoCamera
         );
-        assert_eq!(IconTheme::default().file("Makefile"), IconName::File);
+        assert_eq!(IconTheme::default().file("Makefile"), LucideIcon::File);
     }
 
     #[test]
     fn an_owners_rules_come_before_elys_map() {
         let theme = IconTheme::default()
-            .name("Cargo.toml", IconName::Package)
-            .extension("RS", IconName::Braces);
-        assert_eq!(theme.file("cargo.TOML"), IconName::Package);
-        assert_eq!(theme.file("main.rs"), IconName::Braces);
-        assert_eq!(theme.file("deploy.toml"), IconName::FileCog);
+            .name("Cargo.toml", LucideIcon::Package)
+            .extension("RS", LucideIcon::Braces);
+        assert_eq!(theme.file("cargo.TOML"), LucideIcon::Package);
+        assert_eq!(theme.file("main.rs"), LucideIcon::Braces);
+        assert_eq!(theme.file("deploy.toml"), LucideIcon::FileCog);
     }
 }

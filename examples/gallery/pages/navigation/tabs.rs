@@ -1,7 +1,7 @@
 use ely_gpui_component::{
     forms::Choice,
     navigation::{EditorTab, EditorTabs, TabPlacement, Tabs},
-    primitives::IconName,
+    primitives::LucideIcon,
     typography::Paragraph,
 };
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
@@ -63,9 +63,9 @@ pub fn tabs(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                     Tabs::new(
                         "tabs-left",
                         [
-                            Choice::new("general", "General").icon(IconName::Settings),
-                            Choice::new("appearance", "Appearance").icon(IconName::Palette),
-                            Choice::new("keys", "Keyboard").icon(IconName::Keyboard),
+                            Choice::new("general", "General").icon(LucideIcon::Settings),
+                            Choice::new("appearance", "Appearance").icon(LucideIcon::Palette),
+                            Choice::new("keys", "Keyboard").icon(LucideIcon::Keyboard),
                         ],
                         left_now,
                     )
@@ -156,7 +156,7 @@ pub fn editor_tabs(window: &mut Window, cx: &mut App) -> impl IntoElement + use<
                 .pinned(doc.pinned)
                 .preview(doc.preview);
             if doc.title.ends_with(".rs") {
-                tab.icon(IconName::FileText)
+                tab.icon(LucideIcon::FileText)
             } else {
                 tab
             }

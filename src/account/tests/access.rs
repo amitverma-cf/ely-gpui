@@ -5,7 +5,7 @@ use crate::account::{
     Account, AccountSwitcher, ApiKey, ApiKeyManager, Profile, ProfileEditor, Session, SessionList,
     UserMenu, Workspace, WorkspaceSwitcher,
 };
-use crate::{menus::MenuItem, primitives::IconName};
+use crate::{menus::MenuItem, primitives::LucideIcon};
 
 fn accounts(_: &Bench, owner: Entity<Bench>) -> AnyElement {
     let account = |key: &str, name: &str, email: &str| Account {
@@ -40,7 +40,7 @@ fn the_account_menu_picks_another(cx: &mut TestAppContext) {
 fn sessions(_: &Bench, owner: Entity<Bench>) -> AnyElement {
     let session = |key: &str, current: bool| Session {
         key: key.to_string().into(),
-        icon: IconName::Monitor,
+        icon: LucideIcon::Monitor,
         device: "MacBook".into(),
         client: "Safari".into(),
         place: "Lisbon".into(),
@@ -224,7 +224,7 @@ fn the_workspace_menu_picks_or_makes_one(cx: &mut TestAppContext) {
 fn alone(_: &Bench, owner: Entity<Bench>) -> AnyElement {
     let here = Session {
         key: "mac".into(),
-        icon: IconName::Monitor,
+        icon: LucideIcon::Monitor,
         device: "MacBook".into(),
         client: "Safari".into(),
         place: "Lisbon".into(),

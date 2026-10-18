@@ -111,7 +111,7 @@ impl Icon {
     /// What a missing app icon shows: a broken picture in danger.
     fn broken(self, cx: &App) -> Self {
         Self {
-            path: IconName::ImageOff.path().into(),
+            path: LucideIcon::ImageOff.path().into(),
             bundled: true,
             color: Some(cx.theme().colors.danger),
             hover: None,

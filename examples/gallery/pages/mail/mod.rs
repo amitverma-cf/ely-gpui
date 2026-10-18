@@ -2,7 +2,7 @@ use ely_gpui_component::{
     buttons::Button,
     feedback::EmptyState,
     mail::{Mail, MailList, Mailbox, MailboxList},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Radius, TextSize},
     typography::format,
 };
@@ -108,21 +108,21 @@ fn boxes(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 .section(
                     "Mailboxes",
                     [
-                        Mailbox::new("inbox", "Inbox", IconName::Inbox).unread(12),
-                        Mailbox::new("starred", "Starred", IconName::Star),
-                        Mailbox::new("snoozed", "Snoozed", IconName::Clock),
-                        Mailbox::new("sent", "Sent", IconName::Send),
-                        Mailbox::new("drafts", "Drafts", IconName::FileText).unread(2),
-                        Mailbox::new("archive", "Archive", IconName::Archive),
-                        Mailbox::new("spam", "Spam", IconName::OctagonAlert).unread(4),
-                        Mailbox::new("trash", "Trash", IconName::Trash2),
+                        Mailbox::new("inbox", "Inbox", LucideIcon::Inbox).unread(12),
+                        Mailbox::new("starred", "Starred", LucideIcon::Star),
+                        Mailbox::new("snoozed", "Snoozed", LucideIcon::Clock),
+                        Mailbox::new("sent", "Sent", LucideIcon::Send),
+                        Mailbox::new("drafts", "Drafts", LucideIcon::FileText).unread(2),
+                        Mailbox::new("archive", "Archive", LucideIcon::Archive),
+                        Mailbox::new("spam", "Spam", LucideIcon::OctagonAlert).unread(4),
+                        Mailbox::new("trash", "Trash", LucideIcon::Trash2),
                     ],
                 )
                 .section(
                     "Folders",
                     [
-                        Mailbox::new("atrium", "Atrium", IconName::Folder).unread(3),
-                        Mailbox::new("invoices", "Invoices", IconName::Folder),
+                        Mailbox::new("atrium", "Atrium", LucideIcon::Folder).unread(3),
+                        Mailbox::new("invoices", "Invoices", LucideIcon::Folder),
                     ],
                 )
                 .section(
@@ -246,7 +246,7 @@ fn zero(cx: &mut App) -> impl IntoElement + use<> {
             .border_color(theme.colors.border)
             .rounded(theme.radius(Radius::Lg))
             .child(
-                EmptyState::new("mail-zero", IconName::Inbox, "All caught up")
+                EmptyState::new("mail-zero", LucideIcon::Inbox, "All caught up")
                     .body("Nothing waits in your inbox. New mail lands here, newest first.")
                     .action(Button::new("mail-zero-archive", "Open the archive")),
             ),

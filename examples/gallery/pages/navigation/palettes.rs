@@ -2,7 +2,7 @@ use ely_gpui_component::{
     buttons::{Button, ButtonVariant},
     forms::Choice,
     navigation::{Command, CommandPalette, QuickLauncher, QuickOpen, QuickSwitcher, SearchPalette},
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Window};
 
@@ -28,35 +28,35 @@ fn commands() -> Vec<(&'static str, Vec<Command>)> {
         (
             "File",
             vec![
-                command("new", "New file", IconName::FilePlus).keys("secondary-n"),
-                command("open", "Open…", IconName::FolderOpen).keys("secondary-o"),
-                command("save", "Save", IconName::Save).keys("secondary-s"),
-                command("share", "Share…", IconName::Share2),
+                command("new", "New file", LucideIcon::FilePlus).keys("secondary-n"),
+                command("open", "Open…", LucideIcon::FolderOpen).keys("secondary-o"),
+                command("save", "Save", LucideIcon::Save).keys("secondary-s"),
+                command("share", "Share…", LucideIcon::Share2),
             ],
         ),
         (
             "View",
             vec![
-                command("sidebar", "Toggle sidebar", IconName::PanelLeft).keys("secondary-b"),
-                command("terminal", "Toggle terminal", IconName::Terminal).keys("ctrl-`"),
-                command("zoom-in", "Zoom in", IconName::ZoomIn).keys("secondary-="),
-                command("zoom-out", "Zoom out", IconName::ZoomOut).keys("secondary--"),
+                command("sidebar", "Toggle sidebar", LucideIcon::PanelLeft).keys("secondary-b"),
+                command("terminal", "Toggle terminal", LucideIcon::Terminal).keys("ctrl-`"),
+                command("zoom-in", "Zoom in", LucideIcon::ZoomIn).keys("secondary-="),
+                command("zoom-out", "Zoom out", LucideIcon::ZoomOut).keys("secondary--"),
             ],
         ),
         (
             "Theme",
             vec![
-                command("light", "Light theme", IconName::Sun),
-                command("dark", "Dark theme", IconName::Moon),
-                command("system", "Match the system", IconName::Monitor),
+                command("light", "Light theme", LucideIcon::Sun),
+                command("dark", "Dark theme", LucideIcon::Moon),
+                command("system", "Match the system", LucideIcon::Monitor),
             ],
         ),
         (
             "Help",
             vec![
-                command("keys", "Keyboard shortcuts", IconName::Keyboard).keys("secondary-/"),
-                command("bug", "Report a bug", IconName::Bug),
-                command("new-in", "What's new", IconName::Sparkles),
+                command("keys", "Keyboard shortcuts", LucideIcon::Keyboard).keys("secondary-/"),
+                command("bug", "Report a bug", LucideIcon::Bug),
+                command("new-in", "What's new", LucideIcon::Sparkles),
             ],
         ),
     ]
@@ -102,7 +102,7 @@ pub fn command_palette(window: &mut Window, cx: &mut App) -> impl IntoElement + 
         probe(
             "commands",
             Button::new("commands-button", "Command palette")
-                .icon(IconName::Command)
+                .icon(LucideIcon::Command)
                 .on_click(move |_, _, cx| set(&opener, true, cx)),
         ),
         cx,
@@ -171,7 +171,7 @@ pub fn quick_open(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
         probe(
             "files",
             Button::new("files-button", "Go to file")
-                .icon(IconName::File)
+                .icon(LucideIcon::File)
                 .on_click(move |_, _, cx| set(&opener, true, cx)),
         ),
         cx,
@@ -182,22 +182,22 @@ pub fn quick_open(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
 fn places() -> Vec<Choice> {
     vec![
         Choice::new("roadmap", "Roadmap 2027")
-            .icon(IconName::FileText)
+            .icon(LucideIcon::FileText)
             .note("Document"),
         Choice::new("standup", "Design standup")
-            .icon(IconName::MessageSquare)
+            .icon(LucideIcon::MessageSquare)
             .note("Session"),
         Choice::new("ely", "Ely GPUI Component")
-            .icon(IconName::Box)
+            .icon(LucideIcon::Box)
             .note("Project"),
         Choice::new("brand", "Brand guidelines")
-            .icon(IconName::FileText)
+            .icon(LucideIcon::FileText)
             .note("Document"),
         Choice::new("research", "User research")
-            .icon(IconName::MessageSquare)
+            .icon(LucideIcon::MessageSquare)
             .note("Session"),
         Choice::new("site", "ely.dev")
-            .icon(IconName::Globe)
+            .icon(LucideIcon::Globe)
             .note("Project"),
     ]
 }
@@ -238,7 +238,7 @@ pub fn quick_switcher(window: &mut Window, cx: &mut App) -> impl IntoElement + u
         probe(
             "switcher",
             Button::new("switcher-button", "Switch")
-                .icon(IconName::Layers)
+                .icon(LucideIcon::Layers)
                 .on_click(move |_, _, cx| set(&opener, true, cx)),
         ),
         cx,
@@ -251,7 +251,7 @@ type Found = (
     &'static str,
     &'static str,
     &'static str,
-    IconName,
+    LucideIcon,
 );
 
 const FOUND: [Found; 12] = [
@@ -260,84 +260,84 @@ const FOUND: [Found; 12] = [
         "palette",
         "Command palette",
         "Navigation · every command in one place",
-        IconName::Command,
+        LucideIcon::Command,
     ),
     (
         "Components",
         "date",
         "Date picker",
         "Forms · a calendar under a field",
-        IconName::Calendar,
+        LucideIcon::Calendar,
     ),
     (
         "Components",
         "color",
         "Color picker",
         "Forms · hue, saturation and alpha",
-        IconName::Pipette,
+        LucideIcon::Pipette,
     ),
     (
         "Components",
         "tabs",
         "Tabs",
         "Navigation · a line slides to the chosen tab",
-        IconName::PanelLeft,
+        LucideIcon::PanelLeft,
     ),
     (
         "Components",
         "slider",
         "Slider",
         "Forms · a thumb on a track, with steps",
-        IconName::SlidersHorizontal,
+        LucideIcon::SlidersHorizontal,
     ),
     (
         "Guides",
         "tokens",
         "Theme and tokens",
         "Colors, sizes and radii come from the theme",
-        IconName::Palette,
+        LucideIcon::Palette,
     ),
     (
         "Guides",
         "motion",
         "Motion",
         "Durations honor reduced motion; springs stay in animators",
-        IconName::Sparkles,
+        LucideIcon::Sparkles,
     ),
     (
         "Guides",
         "focus",
         "Focus",
         "Tab and Shift-Tab walk every stop in order",
-        IconName::Keyboard,
+        LucideIcon::Keyboard,
     ),
     (
         "Guides",
         "capture",
         "Captures",
         "The gallery photographs its own windows",
-        IconName::Image,
+        LucideIcon::Image,
     ),
     (
         "People",
         "ada",
         "Ada Lovelace",
         "Design · London",
-        IconName::User,
+        LucideIcon::User,
     ),
     (
         "People",
         "grace",
         "Grace Hopper",
         "Engineering · Arlington",
-        IconName::User,
+        LucideIcon::User,
     ),
     (
         "People",
         "alan",
         "Alan Kay",
         "Research · Los Angeles",
-        IconName::User,
+        LucideIcon::User,
     ),
 ];
 
@@ -391,7 +391,7 @@ pub fn search_palette(window: &mut Window, cx: &mut App) -> impl IntoElement + u
                 probe(
                     "search",
                     Button::new("search-button", "Search everything")
-                        .icon(IconName::Search)
+                        .icon(LucideIcon::Search)
                         .on_click(move |_, _, cx| set(&opener, true, cx)),
                 ),
                 cx,
@@ -402,7 +402,7 @@ pub fn search_palette(window: &mut Window, cx: &mut App) -> impl IntoElement + u
                     "launcher",
                     Button::new("launcher-button", "Open the launcher")
                         .variant(ButtonVariant::Ghost)
-                        .icon(IconName::Rocket)
+                        .icon(LucideIcon::Rocket)
                         .on_click(move |_, _, cx| {
                             let went = launched.clone();
                             let opened = QuickLauncher::open(

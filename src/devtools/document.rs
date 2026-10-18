@@ -8,7 +8,7 @@ use crate::{
     feedback::InlineMessage,
     forms::{Input, TextInput},
     lists::{Tree, TreeNode},
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
@@ -136,7 +136,7 @@ fn document(
         .flex()
         .flex_col()
         .gap_2()
-        .child(Input::new(search).prefix(Icon::new(IconName::Search).size(IconSize::Sm)))
+        .child(Input::new(search).prefix(Icon::new(LucideIcon::Search).size(IconSize::Sm)))
         .child(body)
         .children(note)
         .into_any_element()

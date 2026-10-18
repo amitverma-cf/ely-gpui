@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{ButtonVariant, IconButton},
     menus::{Menu, MenuItem, SplitButton},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
 };
 
@@ -102,7 +102,7 @@ pub struct TerminalToolbar {
     title: SharedString,
     exit: Option<i32>,
     shells: Option<AnyElement>,
-    actions: Vec<(&'static str, IconName, &'static str, Run)>,
+    actions: Vec<(&'static str, LucideIcon, &'static str, Run)>,
 }
 
 impl TerminalToolbar {
@@ -129,7 +129,7 @@ impl TerminalToolbar {
     fn action(
         mut self,
         key: &'static str,
-        icon: IconName,
+        icon: LucideIcon,
         words: &'static str,
         run: impl Fn(&mut Window, &mut App) + 'static,
     ) -> Self {
@@ -138,19 +138,19 @@ impl TerminalToolbar {
     }
 
     pub fn on_split(self, run: impl Fn(&mut Window, &mut App) + 'static) -> Self {
-        self.action("split", IconName::Columns2, "Split terminal", run)
+        self.action("split", LucideIcon::Columns2, "Split terminal", run)
     }
 
     pub fn on_clear(self, run: impl Fn(&mut Window, &mut App) + 'static) -> Self {
-        self.action("clear", IconName::Eraser, "Clear", run)
+        self.action("clear", LucideIcon::Eraser, "Clear", run)
     }
 
     pub fn on_stop(self, run: impl Fn(&mut Window, &mut App) + 'static) -> Self {
-        self.action("stop", IconName::CircleStop, "Stop the program", run)
+        self.action("stop", LucideIcon::CircleStop, "Stop the program", run)
     }
 
     pub fn on_maximize(self, run: impl Fn(&mut Window, &mut App) + 'static) -> Self {
-        self.action("maximize", IconName::Maximize2, "Maximize", run)
+        self.action("maximize", LucideIcon::Maximize2, "Maximize", run)
     }
 }
 
@@ -159,9 +159,9 @@ impl RenderOnce for TerminalToolbar {
         let theme = cx.theme();
         let colors = theme.colors.clone();
         let (mark, color) = match self.exit {
-            None => (IconName::Terminal, colors.fg_muted),
-            Some(0) => (IconName::CircleCheck, colors.success),
-            Some(_) => (IconName::CircleX, colors.danger),
+            None => (LucideIcon::Terminal, colors.fg_muted),
+            Some(0) => (LucideIcon::CircleCheck, colors.success),
+            Some(_) => (LucideIcon::CircleX, colors.danger),
         };
         div()
             .flex()

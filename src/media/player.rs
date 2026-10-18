@@ -10,7 +10,7 @@ use crate::{
     forms::{OnFlag, Run},
     motion::duration as motion_duration,
     overlays::media_button,
-    primitives::{FocusRing, IconName, framed, tab_stop},
+    primitives::{FocusRing, LucideIcon, framed, tab_stop},
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
     typography::tabular,
 };
@@ -197,7 +197,7 @@ impl RenderOnce for VideoPlayer {
         let colors = theme.colors.clone();
         let light = colors.on_media;
         let (length, at, playing, speed) = (self.length, self.at, self.playing, self.speed);
-        let button = |key: &'static str, icon: IconName, run: Run| {
+        let button = |key: &'static str, icon: LucideIcon, run: Run| {
             let watch = watch.clone();
             media_button(
                 (self.id.clone(), key),
@@ -229,9 +229,9 @@ impl RenderOnce for VideoPlayer {
             });
         let play = toggle.clone().map(|run| {
             let icon = if playing {
-                IconName::Pause
+                LucideIcon::Pause
             } else {
-                IconName::Play
+                LucideIcon::Play
             };
             button("play", icon, run)
         });
@@ -247,7 +247,7 @@ impl RenderOnce for VideoPlayer {
                 .items_center()
                 .child(button(
                     "speed",
-                    IconName::Gauge,
+                    LucideIcon::Gauge,
                     Rc::new(move |window, cx| {
                         log::info!("video player: speed {next}×");
                         set(next, window, cx)
@@ -262,20 +262,20 @@ impl RenderOnce for VideoPlayer {
         });
         let captions = turn.clone().map(|run| {
             let icon = if self.captions == Some(true) {
-                IconName::Captions
+                LucideIcon::Captions
             } else {
-                IconName::CaptionsOff
+                LucideIcon::CaptionsOff
             };
             button("captions", icon, run)
         });
         let picture = self
             .on_picture
             .clone()
-            .map(|run| button("picture", IconName::PictureInPicture2, run));
+            .map(|run| button("picture", LucideIcon::PictureInPicture2, run));
         let fullscreen = self
             .on_fullscreen
             .clone()
-            .map(|run| button("fullscreen", IconName::Fullscreen, run));
+            .map(|run| button("fullscreen", LucideIcon::Fullscreen, run));
         let scrubber = Scrubber::new((self.id.clone(), "scrubber"), length, at)
             .loaded(self.loaded)
             .over_media();

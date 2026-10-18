@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{Button, ButtonVariant},
     forms::{Run, float_height, surface},
-    primitives::{FocusScope, IconName, Takeover, give_back, take_focus},
+    primitives::{FocusScope, LucideIcon, Takeover, give_back, take_focus},
     theme::ControlSize,
 };
 
@@ -18,7 +18,7 @@ type Own = Box<dyn FnOnce(Run) -> AnyElement>;
 /// A popover's own button: its label and look.
 struct Face {
     label: SharedString,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     variant: ButtonVariant,
     size: ControlSize,
 }
@@ -100,7 +100,7 @@ impl Popover {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.face("an icon").icon = Some(icon);
         self
     }

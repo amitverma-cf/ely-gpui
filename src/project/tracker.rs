@@ -9,7 +9,7 @@ use web_time::Instant;
 use crate::{
     buttons::{Button, ButtonVariant},
     forms::{Enter, Input, Run, TextInput},
-    primitives::{IconName, tab_stop},
+    primitives::{LucideIcon, tab_stop},
     theme::{ActiveTheme, TextSize},
     typography::{Ellipsis, format, tabular},
 };
@@ -182,9 +182,9 @@ impl RenderOnce for TimeTracker {
             ButtonVariant::Primary
         })
         .icon(if running {
-            IconName::Square
+            LucideIcon::Square
         } else {
-            IconName::Play
+            LucideIcon::Play
         })
         .on_click(move |_, window, cx| match running {
             true => stop(window, cx),

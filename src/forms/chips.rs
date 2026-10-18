@@ -7,7 +7,7 @@ use gpui::{
 
 use super::{Choice, listbox::chosen, options::OnValues};
 use crate::{
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
 };
 
@@ -108,7 +108,7 @@ impl RenderOnce for ChoiceChips {
                             })
                     })
                     .when(on && self.multiple, |chip| {
-                        chip.child(Icon::new(IconName::Check).size(IconSize::Xs).color(fg))
+                        chip.child(Icon::new(LucideIcon::Check).size(IconSize::Xs).color(fg))
                     })
                     .when_some(choice.icon, |chip, icon| {
                         chip.child(Icon::new(icon).size(IconSize::Xs).color(fg))

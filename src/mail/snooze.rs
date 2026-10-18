@@ -8,7 +8,7 @@ use super::times::{
 };
 use crate::{
     menus::{DropdownMenu, Menu, MenuItem},
-    primitives::IconName,
+    primitives::LucideIcon,
     typography::format,
 };
 
@@ -102,7 +102,7 @@ impl RenderOnce for SnoozePicker {
         );
         div()
             .flex_none()
-            .child(DropdownMenu::new(self.id.clone(), "Snooze", menu).icon(IconName::Clock))
+            .child(DropdownMenu::new(self.id.clone(), "Snooze", menu).icon(LucideIcon::Clock))
             .children(dialog)
     }
 }

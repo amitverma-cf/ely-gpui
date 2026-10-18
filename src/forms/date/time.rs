@@ -19,7 +19,7 @@ use super::{
     show_date, show_time, zoned_now,
 };
 use crate::{
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
 };
 
@@ -245,7 +245,7 @@ impl RenderOnce for TimePicker {
         picker_field(
             self.id,
             Face {
-                icon: IconName::Clock,
+                icon: LucideIcon::Clock,
                 shown: value.map(|time| show_time(time).into()),
                 placeholder: self.placeholder,
                 size: self.size,
@@ -341,7 +341,7 @@ impl RenderOnce for DateTimePicker {
         picker_field(
             self.id,
             Face {
-                icon: IconName::CalendarDays,
+                icon: LucideIcon::CalendarDays,
                 shown: value
                     .map(|at| format!("{} {}", show_date(at.date()), show_time(at.time())).into()),
                 placeholder: self.placeholder,

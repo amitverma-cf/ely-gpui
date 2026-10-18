@@ -1,6 +1,6 @@
 use ely_gpui_component::{
     buttons::{Button, ButtonGroup, ButtonVariant, IconButton},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::ControlSize,
 };
 use gpui::{AnyElement, App, ElementId, IntoElement, ParentElement, Styled, div};
@@ -61,18 +61,18 @@ pub fn basics(cx: &App) -> AnyElement {
                     .child(
                         Button::new("new", "New file")
                             .primary()
-                            .icon(IconName::Plus),
+                            .icon(LucideIcon::Plus),
                     )
-                    .child(Button::new("share", "Share").icon(IconName::Share2))
+                    .child(Button::new("share", "Share").icon(LucideIcon::Share2))
                     .child(
                         Button::new("sort", "Sort")
                             .variant(ButtonVariant::Ghost)
-                            .trailing_icon(IconName::ChevronDown),
+                            .trailing_icon(LucideIcon::ChevronDown),
                     )
                     .child(
                         Button::new("delete", "Delete")
                             .variant(ButtonVariant::Danger)
-                            .icon(IconName::Trash2),
+                            .icon(LucideIcon::Trash2),
                     ),
             ),
         )
@@ -86,21 +86,21 @@ pub fn basics(cx: &App) -> AnyElement {
                             .child(
                                 IconButton::new(
                                     ElementId::Name(format!("{name}-a").into()),
-                                    IconName::Bold,
+                                    LucideIcon::Bold,
                                 )
                                 .size(size),
                             )
                             .child(
                                 IconButton::new(
                                     ElementId::Name(format!("{name}-b").into()),
-                                    IconName::Italic,
+                                    LucideIcon::Italic,
                                 )
                                 .size(size),
                             )
                             .child(
                                 IconButton::new(
                                     ElementId::Name(format!("{name}-c").into()),
-                                    IconName::Underline,
+                                    LucideIcon::Underline,
                                 )
                                 .size(size)
                                 .variant(ButtonVariant::Subtle),
@@ -108,7 +108,7 @@ pub fn basics(cx: &App) -> AnyElement {
                             .child(
                                 IconButton::new(
                                     ElementId::Name(format!("{name}-d").into()),
-                                    IconName::Link,
+                                    LucideIcon::Link,
                                 )
                                 .size(size)
                                 .variant(ButtonVariant::Outline),
@@ -130,7 +130,7 @@ pub fn basics(cx: &App) -> AnyElement {
                     .child(
                         Button::new("hint-find", "Find")
                             .variant(ButtonVariant::Ghost)
-                            .icon(IconName::Search)
+                            .icon(LucideIcon::Search)
                             .shortcut("cmd-shift-f"),
                     ),
             )
@@ -150,12 +150,12 @@ pub fn basics(cx: &App) -> AnyElement {
                             .button(
                                 Button::new("group-prev", "Previous")
                                     .variant(ButtonVariant::Outline)
-                                    .icon(IconName::ChevronLeft),
+                                    .icon(LucideIcon::ChevronLeft),
                             )
                             .button(
                                 Button::new("group-next", "Next")
                                     .variant(ButtonVariant::Outline)
-                                    .trailing_icon(IconName::ChevronRight),
+                                    .trailing_icon(LucideIcon::ChevronRight),
                             ),
                     ),
             ),

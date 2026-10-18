@@ -5,7 +5,7 @@ use gpui::{
 };
 
 use crate::{
-    primitives::{FocusRing, Icon, IconName, tab_stop},
+    primitives::{FocusRing, Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, Elevation, IconSize},
 };
 
@@ -123,7 +123,7 @@ impl RenderOnce for BeforeAfter {
                     .bg(colors.on_media)
                     .shadow(theme.elevation(Elevation::Raised))
                     .child(
-                        Icon::new(IconName::ChevronsLeftRight)
+                        Icon::new(LucideIcon::ChevronsLeftRight)
                             .size(IconSize::Sm)
                             .color(colors.media_backdrop),
                     )

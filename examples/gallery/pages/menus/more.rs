@@ -1,6 +1,6 @@
 use ely_gpui_component::{
     menus::{Menu, MenuBar, MenuItem, PieItem, PieMenu, SearchableMenu},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
     typography::Caption,
 };
@@ -44,15 +44,15 @@ pub fn mega_menu(cx: &App) -> impl IntoElement + use<> {
     ))
 }
 
-const PLACES: [(&str, IconName); 8] = [
-    ("Inbox", IconName::Inbox),
-    ("Roadmap", IconName::Map),
-    ("Design", IconName::PenTool),
-    ("Engineering", IconName::Code),
-    ("Research", IconName::BookOpen),
-    ("Marketing", IconName::Globe),
-    ("Archive", IconName::Archive),
-    ("Trash", IconName::Trash2),
+const PLACES: [(&str, LucideIcon); 8] = [
+    ("Inbox", LucideIcon::Inbox),
+    ("Roadmap", LucideIcon::Map),
+    ("Design", LucideIcon::PenTool),
+    ("Engineering", LucideIcon::Code),
+    ("Research", LucideIcon::BookOpen),
+    ("Marketing", LucideIcon::Globe),
+    ("Archive", LucideIcon::Archive),
+    ("Trash", LucideIcon::Trash2),
 ];
 
 pub fn searchable(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
@@ -70,7 +70,7 @@ pub fn searchable(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
         probe(
             "move",
             SearchableMenu::new("move", "Move to", menu)
-                .icon(IconName::FolderOpen)
+                .icon(LucideIcon::FolderOpen)
                 .placeholder("Find a place"),
         ),
         cx,
@@ -80,12 +80,12 @@ pub fn searchable(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
 pub fn pie(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let (last, caption) = ran("pie-ran", window, cx);
     let items = [
-        (IconName::Copy, "Copy"),
-        (IconName::Scissors, "Cut"),
-        (IconName::Clipboard, "Paste"),
-        (IconName::Share2, "Share"),
-        (IconName::Pin, "Pin"),
-        (IconName::Trash2, "Delete"),
+        (LucideIcon::Copy, "Copy"),
+        (LucideIcon::Scissors, "Cut"),
+        (LucideIcon::Clipboard, "Paste"),
+        (LucideIcon::Share2, "Share"),
+        (LucideIcon::Pin, "Pin"),
+        (LucideIcon::Trash2, "Delete"),
     ]
     .map(|(icon, name)| PieItem::new(icon, name).on_click(run(&last, name)));
     let theme = cx.theme();

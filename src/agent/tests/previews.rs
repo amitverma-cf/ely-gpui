@@ -10,7 +10,7 @@ use crate::{
     agent::{ArtifactPanel, BrowserPreview, ComputerUseViewer, LivePreview},
     forms,
     layout::tests::narrow_width,
-    primitives::{FocusNext, IconName},
+    primitives::{FocusNext, LucideIcon},
     theme::{ActiveTheme, AvatarSize, Theme},
 };
 
@@ -88,7 +88,7 @@ impl Render for Panel {
     fn render(&mut self, _: &mut Window, _: &mut Context<Self>) -> impl IntoElement {
         let drew = self.drew_source.clone();
         div().w(px(480.0)).h(px(320.0)).child(
-            ArtifactPanel::new("panel", "Notes", IconName::FileText)
+            ArtifactPanel::new("panel", "Notes", LucideIcon::FileText)
                 .preview(div().h(px(40.0)))
                 .source(
                     div().relative().h(px(40.0)).child(
@@ -191,7 +191,7 @@ impl Render for Crowded {
     fn render(&mut self, _: &mut Window, _: &mut Context<Self>) -> impl IntoElement {
         let top = self.top.clone();
         div().w(self.width).h(px(320.0)).child(
-            ArtifactPanel::new("crowded", "Notes on lift", IconName::FileText)
+            ArtifactPanel::new("crowded", "Notes on lift", LucideIcon::FileText)
                 .version(1, 3, |_, _, _| {})
                 .preview(
                     div().relative().h(px(40.0)).child(

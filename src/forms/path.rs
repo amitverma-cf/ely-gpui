@@ -7,7 +7,7 @@ use gpui::{
 use super::{Input, TextInput};
 use crate::{
     buttons::{Button, ButtonVariant},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize},
 };
 
@@ -79,9 +79,9 @@ impl RenderOnce for PathInput {
         let subtle = cx.theme().colors.fg_subtle;
         let (state, directories) = (self.state.clone(), self.directories);
         let icon = if directories {
-            IconName::Folder
+            LucideIcon::Folder
         } else {
-            IconName::File
+            LucideIcon::File
         };
         Input::new(&self.state)
             .prefix(Icon::new(icon).size(IconSize::Sm).color(subtle))

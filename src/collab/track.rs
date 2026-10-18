@@ -11,7 +11,7 @@ use super::peers::Peer;
 use crate::{
     buttons::{Button, ButtonVariant, IconButton, SegmentedControl},
     documents::Change,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, AvatarSize, ControlSize, Radius, TextSize},
     typography::format::plural,
 };
@@ -27,15 +27,15 @@ pub enum EditMode {
     Viewing,
 }
 
-const MODES: [(EditMode, &str, &str, IconName); 3] = [
-    (EditMode::Editing, "editing", "Editing", IconName::Pencil),
+const MODES: [(EditMode, &str, &str, LucideIcon); 3] = [
+    (EditMode::Editing, "editing", "Editing", LucideIcon::Pencil),
     (
         EditMode::Suggesting,
         "suggesting",
         "Suggesting",
-        IconName::MessageSquareDiff,
+        LucideIcon::MessageSquareDiff,
     ),
-    (EditMode::Viewing, "viewing", "Viewing", IconName::Eye),
+    (EditMode::Viewing, "viewing", "Viewing", LucideIcon::Eye),
 ];
 
 type OnMode = Rc<dyn Fn(EditMode, &mut Window, &mut App)>;
@@ -348,14 +348,14 @@ impl RenderOnce for TrackChanges {
                 )
                 .when(self.on_decide.is_some(), |row| {
                     row.child(
-                        IconButton::new(id("accept"), IconName::Check)
+                        IconButton::new(id("accept"), LucideIcon::Check)
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
                             .tooltip("Accept")
                             .on_click(decide(Decision::Accept(at))),
                     )
                     .child(
-                        IconButton::new(id("reject"), IconName::X)
+                        IconButton::new(id("reject"), LucideIcon::X)
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
                             .tooltip("Reject")

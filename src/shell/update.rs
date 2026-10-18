@@ -11,7 +11,7 @@ use crate::{
     i18n::text,
     layout::ScrollArea,
     motion::ProgressBar,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{Caption, Label, Title},
 };
@@ -148,7 +148,7 @@ impl RenderOnce for UpdateBanner {
             .border_color(theme.colors.border)
             .text_size(theme.text_size(TextSize::Sm))
             .child(
-                Icon::new(IconName::Download)
+                Icon::new(LucideIcon::Download)
                     .size(IconSize::Sm)
                     .color(theme.colors.fg_muted),
             )
@@ -164,7 +164,7 @@ impl RenderOnce for UpdateBanner {
             ))
             .when_some(dismiss, |banner, dismiss| {
                 banner.child(
-                    IconButton::new("update-dismiss", IconName::X)
+                    IconButton::new("update-dismiss", LucideIcon::X)
                         .size(ControlSize::Sm)
                         .on_click(move |_, window, cx| dismiss(window, cx)),
                 )

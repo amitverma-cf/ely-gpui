@@ -10,7 +10,7 @@ use crate::{
     canvas::color_well,
     forms::{ColorPalette, Slider},
     i18n,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Density, Mode, TextSize},
 };
 
@@ -24,10 +24,10 @@ pub enum Appearance {
 
 impl Appearance {
     /// Each with its value, catalog key and icon.
-    const ALL: [(Appearance, &'static str, IconName); 3] = [
-        (Appearance::Light, "theme.light", IconName::Sun),
-        (Appearance::Dark, "theme.dark", IconName::Moon),
-        (Appearance::System, "theme.system", IconName::Monitor),
+    const ALL: [(Appearance, &'static str, LucideIcon); 3] = [
+        (Appearance::Light, "theme.light", LucideIcon::Sun),
+        (Appearance::Dark, "theme.dark", LucideIcon::Moon),
+        (Appearance::System, "theme.system", LucideIcon::Monitor),
     ];
 
     /// The mode it shows when the system is in `system`.
@@ -222,7 +222,7 @@ impl RenderOnce for FontSizeControl {
                             .child(format!("{} px", self.size)),
                     )
                     .child(
-                        IconButton::new((self.id, "reset"), IconName::RotateCcw)
+                        IconButton::new((self.id, "reset"), LucideIcon::RotateCcw)
                             .tooltip(i18n::text(cx, "theme.size.reset", &[]))
                             .disabled(self.size == default)
                             .on_click(move |_, window, cx| {

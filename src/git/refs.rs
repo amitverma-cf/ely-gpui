@@ -9,7 +9,7 @@ use crate::{
     buttons::{ButtonVariant, IconButton},
     i18n,
     navigation::{Group, Palette, Row, fuzzy, marked, query_field},
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{Ellipsis, tabular},
 };
@@ -107,9 +107,9 @@ impl RenderOnce for BranchSelector {
                     value: branch.name.clone(),
                     name: branch.name.clone(),
                     icon: Some(if branch.current {
-                        IconName::Check
+                        LucideIcon::Check
                     } else {
-                        IconName::GitBranch
+                        LucideIcon::GitBranch
                     }),
                     label: marked(branch.name.clone(), hits, cx),
                     detail: Some(
@@ -159,7 +159,7 @@ impl RenderOnce for BranchSelector {
                     rows: vec![Row {
                         value: format!("{CREATE}{query}").into(),
                         name: create.clone(),
-                        icon: Some(IconName::Plus),
+                        icon: Some(LucideIcon::Plus),
                         label: div().child(create).into_any_element(),
                         detail: None,
                         end: None,
@@ -206,7 +206,7 @@ pub(super) struct Pick {
 
 /// A row's icon, name, detail, trailing words and hover actions.
 pub(super) struct Entry {
-    pub icon: IconName,
+    pub icon: LucideIcon,
     pub name: AnyElement,
     pub detail: SharedString,
     pub trailing: Vec<SharedString>,
@@ -288,7 +288,7 @@ pub(super) fn listed(id: ElementId, entry: Entry, pick: Option<Pick>, cx: &App) 
 
 pub(super) fn action(
     id: ElementId,
-    icon: IconName,
+    icon: LucideIcon,
     words: impl Into<SharedString>,
     run: Option<Run>,
 ) -> AnyElement {
@@ -386,13 +386,13 @@ impl RenderOnce for BranchList {
                     [
                         (
                             "switch",
-                            IconName::ArrowRight,
+                            LucideIcon::ArrowRight,
                             "palette.branch.switch",
                             bind(&self.on_switch),
                         ),
                         (
                             "delete",
-                            IconName::Trash2,
+                            LucideIcon::Trash2,
                             "palette.branch.delete",
                             bind(&self.on_delete),
                         ),
@@ -414,9 +414,9 @@ impl RenderOnce for BranchList {
                     (self.id.clone(), format!("branch-{}", branch.name)).into(),
                     Entry {
                         icon: if branch.current {
-                            IconName::Check
+                            LucideIcon::Check
                         } else {
-                            IconName::GitBranch
+                            LucideIcon::GitBranch
                         },
                         name,
                         detail: branch.subject.clone(),

@@ -11,7 +11,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::Run,
     layout::ScrollArea,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
 };
 
@@ -19,7 +19,7 @@ use crate::{
 #[derive(IntoElement)]
 pub struct Notification {
     id: ElementId,
-    icon: IconName,
+    icon: LucideIcon,
     title: SharedString,
     body: Option<SharedString>,
     time: Option<SharedString>,
@@ -28,7 +28,7 @@ pub struct Notification {
 }
 
 impl Notification {
-    pub fn new(id: impl Into<ElementId>, icon: IconName, title: impl Into<SharedString>) -> Self {
+    pub fn new(id: impl Into<ElementId>, icon: LucideIcon, title: impl Into<SharedString>) -> Self {
         Self {
             id: id.into(),
             icon,
@@ -253,7 +253,7 @@ impl RenderOnce for NotificationCenter {
                 .child(
                     EmptyState::new(
                         (self.id.clone(), "empty"),
-                        IconName::CheckCheck,
+                        LucideIcon::CheckCheck,
                         "All caught up",
                     )
                     .body("New notifications will show here."),

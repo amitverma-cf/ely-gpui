@@ -16,7 +16,7 @@ use crate::{
     data_display::color_mark,
     forms::{OnValue, Run},
     overlays::Popover,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::format,
 };
@@ -85,7 +85,7 @@ impl EventPopover {
 }
 
 /// A line of the details: an icon, then its words, wrapping.
-fn line(icon: IconName, words: String, cx: &App) -> AnyElement {
+fn line(icon: LucideIcon, words: String, cx: &App) -> AnyElement {
     let theme = cx.theme();
     div()
         .flex()
@@ -149,12 +149,12 @@ impl RenderOnce for EventPopover {
                                 .child(self.event.title.clone()),
                         ),
                 )
-                .child(line(IconName::Clock, when(&self.event, &zone), cx))
+                .child(line(LucideIcon::Clock, when(&self.event, &zone), cx))
                 .children(
                     self.event
                         .place
                         .clone()
-                        .map(|place| line(IconName::MapPin, place.to_string(), cx)),
+                        .map(|place| line(LucideIcon::MapPin, place.to_string(), cx)),
                 )
                 .when(!self.attendees.is_empty(), |details| {
                     details.child(AttendeeList::new(

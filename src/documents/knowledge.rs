@@ -12,7 +12,7 @@ use crate::{
     feedback::EmptyState,
     forms::{OnValue, Pick, Run},
     motion::Reorder,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
     typography::{RelativeTime, format::plural},
 };
@@ -221,7 +221,7 @@ impl RenderOnce for Favorites {
                                 .child(
                                     IconButton::new(
                                         (self.id.clone(), format!("unpin-{unpin_key}")),
-                                        IconName::Star,
+                                        LucideIcon::Star,
                                     )
                                     .variant(ButtonVariant::Ghost)
                                     .size(ControlSize::Sm)
@@ -317,7 +317,7 @@ impl RenderOnce for TrashBin {
         if self.pages.is_empty() {
             return EmptyState::new(
                 (self.id.clone(), "empty"),
-                IconName::Trash2,
+                LucideIcon::Trash2,
                 "The trash is empty",
             )
             .body("Deleted pages wait here until they are emptied.")

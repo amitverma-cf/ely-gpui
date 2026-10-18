@@ -4,7 +4,7 @@ use gpui::{
 };
 
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{AnimatedNumber, format},
 };
@@ -45,9 +45,9 @@ impl RenderOnce for TrendIndicator {
     fn render(self, _: &mut Window, cx: &mut App) -> impl IntoElement {
         let colors = &cx.theme().colors;
         let icon = match self.change {
-            change if change > 0.0 => IconName::TrendingUp,
-            change if change < 0.0 => IconName::TrendingDown,
-            _ => IconName::Minus,
+            change if change > 0.0 => LucideIcon::TrendingUp,
+            change if change < 0.0 => LucideIcon::TrendingDown,
+            _ => LucideIcon::Minus,
         };
         let tone = match good(self.change, self.down_is_good) {
             None => colors.fg_muted,
@@ -166,7 +166,7 @@ impl RenderOnce for Statistic {
 pub struct KpiCard {
     base: Div,
     statistic: Statistic,
-    icon: Option<IconName>,
+    icon: Option<LucideIcon>,
     caption: Option<SharedString>,
 }
 
@@ -180,7 +180,7 @@ impl KpiCard {
         }
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }

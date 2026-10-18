@@ -11,7 +11,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     data_display::{Avatar, AvatarGroup, Tag, Tone},
     forms::{Input, TextInput},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, ControlSize, IconSize, Palette, Radius, TextSize},
     typography::{Ellipsis, LEADING, format},
 };
@@ -29,12 +29,12 @@ pub enum PullState {
 }
 
 impl PullState {
-    fn look(self, colors: &Palette) -> (IconName, Hsla, &'static str) {
+    fn look(self, colors: &Palette) -> (LucideIcon, Hsla, &'static str) {
         match self {
-            Self::Open => (IconName::GitPullRequest, colors.success, "Open"),
-            Self::Draft => (IconName::GitPullRequestDraft, colors.fg_muted, "Draft"),
-            Self::Merged => (IconName::GitMerge, colors.info, "Merged"),
-            Self::Closed => (IconName::GitPullRequestClosed, colors.danger, "Closed"),
+            Self::Open => (LucideIcon::GitPullRequest, colors.success, "Open"),
+            Self::Draft => (LucideIcon::GitPullRequestDraft, colors.fg_muted, "Draft"),
+            Self::Merged => (LucideIcon::GitMerge, colors.info, "Merged"),
+            Self::Closed => (LucideIcon::GitPullRequestClosed, colors.danger, "Closed"),
         }
     }
 }
@@ -88,9 +88,9 @@ impl RenderOnce for PullRequestCard {
         let (icon, tint, state) = pull.state.look(&colors);
         let (passed, failed, running) = pull.checks;
         let (check_icon, check_tint) = match (failed, running) {
-            (0, 0) => (IconName::CircleCheck, colors.success),
-            (0, _) => (IconName::LoaderCircle, colors.warning),
-            _ => (IconName::CircleX, colors.danger),
+            (0, 0) => (LucideIcon::CircleCheck, colors.success),
+            (0, _) => (LucideIcon::LoaderCircle, colors.warning),
+            _ => (LucideIcon::CircleX, colors.danger),
         };
         let checks = [(passed, "passed"), (failed, "failed"), (running, "running")]
             .iter()
@@ -192,7 +192,7 @@ impl RenderOnce for PullRequestCard {
                             .items_center()
                             .gap_1()
                             .child(
-                                Icon::new(IconName::MessageSquare)
+                                Icon::new(LucideIcon::MessageSquare)
                                     .size(IconSize::Sm)
                                     .color(colors.fg_subtle),
                             )
@@ -328,7 +328,7 @@ impl RenderOnce for ReviewComment {
                     .items_center()
                     .gap_2()
                     .child(
-                        Icon::new(IconName::MessageSquare)
+                        Icon::new(LucideIcon::MessageSquare)
                             .size(IconSize::Sm)
                             .color(colors.fg_muted),
                     )

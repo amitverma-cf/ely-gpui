@@ -6,7 +6,7 @@ use gpui::{
 use crate::{
     buttons::{Button, ButtonVariant},
     forms::evaluate,
-    primitives::{FocusRing, IconName, tab_stop},
+    primitives::{FocusRing, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
     typography::{
         format::{MINUS, Separators, group_digits, significant},
@@ -235,7 +235,7 @@ impl RenderOnce for Calculator {
         };
         let keys = PAD.iter().map(|&(key, label)| {
             let button = match key {
-                Key::Back => Button::new((id.clone(), "back"), "").icon(IconName::Delete),
+                Key::Back => Button::new((id.clone(), "back"), "").icon(LucideIcon::Delete),
                 _ => Button::new((id.clone(), label), label),
             };
             let tape = tape.clone();

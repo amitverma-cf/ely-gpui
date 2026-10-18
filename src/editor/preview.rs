@@ -6,7 +6,7 @@ use gpui::{
 };
 
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Palette, Radius, TextSize},
 };
 
@@ -176,7 +176,7 @@ impl RenderOnce for ThemePreview {
                     })
                     .text_color(theme.colors.fg)
                     .when(self.selected, |label| {
-                        label.child(Icon::new(IconName::Check).size(IconSize::Sm).color(ring))
+                        label.child(Icon::new(LucideIcon::Check).size(IconSize::Sm).color(ring))
                     })
                     .child(self.name),
             )

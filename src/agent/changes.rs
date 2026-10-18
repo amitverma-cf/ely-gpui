@@ -11,7 +11,7 @@ use crate::{
     collab::Decision,
     forms::OnFlag,
     git::{DiffStat, DiffViewer, stat},
-    primitives::{Disclosure, FocusRing, Icon, IconName, file_icon},
+    primitives::{Disclosure, FocusRing, Icon, LucideIcon, file_icon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::Ellipsis,
 };
@@ -38,7 +38,7 @@ type OnDecision = Rc<dyn Fn(Decision, &mut Window, &mut App)>;
 /// Reject and Accept while the change is proposed; after, a quiet word for how it ended.
 fn verdict(id: &ElementId, state: ChangeState, on_decide: Option<OnFlag>, cx: &App) -> AnyElement {
     let colors = &cx.theme().colors;
-    let said = |icon: IconName, word: &'static str, color| {
+    let said = |icon: LucideIcon, word: &'static str, color| {
         div()
             .flex()
             .items_center()
@@ -70,9 +70,9 @@ fn verdict(id: &ElementId, state: ChangeState, on_decide: Option<OnFlag>, cx: &A
                 )
                 .into_any_element()
         }
-        (ChangeState::Proposed, None) => said(IconName::Clock, "Proposed", colors.fg_subtle),
-        (ChangeState::Accepted, _) => said(IconName::Check, "Accepted", colors.success),
-        (ChangeState::Rejected, _) => said(IconName::X, "Rejected", colors.fg_subtle),
+        (ChangeState::Proposed, None) => said(LucideIcon::Clock, "Proposed", colors.fg_subtle),
+        (ChangeState::Accepted, _) => said(LucideIcon::Check, "Accepted", colors.success),
+        (ChangeState::Rejected, _) => said(LucideIcon::X, "Rejected", colors.fg_subtle),
     }
 }
 

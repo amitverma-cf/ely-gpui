@@ -10,7 +10,7 @@ use super::{
     options::{Choice, Popup},
 };
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize},
 };
 
@@ -82,10 +82,11 @@ impl RenderOnce for SearchInput {
         div()
             .relative()
             .child(
-                Input::new(&self.state)
-                    .size(self.size)
-                    .clearable()
-                    .prefix(Icon::new(IconName::Search).size(IconSize::Sm).color(subtle)),
+                Input::new(&self.state).size(self.size).clearable().prefix(
+                    Icon::new(LucideIcon::Search)
+                        .size(IconSize::Sm)
+                        .color(subtle),
+                ),
             )
             .child(
                 canvas(

@@ -1,7 +1,7 @@
 use gpui::SharedString;
 
 use super::view::Frame;
-use crate::primitives::IconName;
+use crate::primitives::LucideIcon;
 
 /// What a shape is.
 #[derive(Clone, Debug, PartialEq)]
@@ -26,16 +26,16 @@ pub enum ShapeKind {
 
 impl ShapeKind {
     /// Its icon in lists and grids.
-    pub(crate) fn icon(&self) -> IconName {
+    pub(crate) fn icon(&self) -> LucideIcon {
         match self {
-            ShapeKind::Rect => IconName::Square,
-            ShapeKind::Ellipse => IconName::Circle,
-            ShapeKind::Polygon(_) => IconName::Hexagon,
-            ShapeKind::Line(_) => IconName::Slash,
-            ShapeKind::Arrow(_) => IconName::MoveUpRight,
-            ShapeKind::Text(_) => IconName::Type,
-            ShapeKind::Path { .. } => IconName::PenTool,
-            ShapeKind::Note(_) => IconName::StickyNote,
+            ShapeKind::Rect => LucideIcon::Square,
+            ShapeKind::Ellipse => LucideIcon::Circle,
+            ShapeKind::Polygon(_) => LucideIcon::Hexagon,
+            ShapeKind::Line(_) => LucideIcon::Slash,
+            ShapeKind::Arrow(_) => LucideIcon::MoveUpRight,
+            ShapeKind::Text(_) => LucideIcon::Type,
+            ShapeKind::Path { .. } => LucideIcon::PenTool,
+            ShapeKind::Note(_) => LucideIcon::StickyNote,
         }
     }
 

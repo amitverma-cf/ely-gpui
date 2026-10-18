@@ -15,7 +15,7 @@ use crate::{
     documents::blocks::source,
     editor::FindWidget,
     overlays::HoverCard,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     shell::ToolbarSeparator,
     theme::{ActiveTheme, ControlSize, Elevation, IconSize, Radius, TextSize},
     typography::tabular,
@@ -200,7 +200,7 @@ impl RenderOnce for DocumentViewer {
                 scroll.scroll_to_top_of_item(page)
             }
         };
-        let zoom_to = |next: Option<f32>, icon: IconName, tip: &'static str| {
+        let zoom_to = |next: Option<f32>, icon: LucideIcon, tip: &'static str| {
             let on_zoom = self.on_zoom.clone();
             IconButton::new((self.id.clone(), tip), icon)
                 .variant(ButtonVariant::Ghost)
@@ -230,7 +230,7 @@ impl RenderOnce for DocumentViewer {
                     .child(self.title.clone()),
             )
             .child(
-                IconButton::new((self.id.clone(), "previous"), IconName::ChevronUp)
+                IconButton::new((self.id.clone(), "previous"), LucideIcon::ChevronUp)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .tooltip("Previous page")
@@ -242,7 +242,7 @@ impl RenderOnce for DocumentViewer {
                     .child(format!("{} of {count}", page_now + 1)),
             )
             .child(
-                IconButton::new((self.id.clone(), "next"), IconName::ChevronDown)
+                IconButton::new((self.id.clone(), "next"), LucideIcon::ChevronDown)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .tooltip("Next page")
@@ -250,7 +250,7 @@ impl RenderOnce for DocumentViewer {
                     .on_click(go((page_now + 1).min(count.saturating_sub(1)), &scroll)),
             )
             .child(ToolbarSeparator)
-            .child(zoom_to(step(zoom, false), IconName::ZoomOut, "Zoom out"))
+            .child(zoom_to(step(zoom, false), LucideIcon::ZoomOut, "Zoom out"))
             .child(
                 tabular(
                     div()
@@ -260,15 +260,15 @@ impl RenderOnce for DocumentViewer {
                 )
                 .child(format!("{:.0}%", zoom * 100.0)),
             )
-            .child(zoom_to(step(zoom, true), IconName::ZoomIn, "Zoom in"))
-            .child(zoom_to(fit, IconName::Maximize2, "Fit to width"))
+            .child(zoom_to(step(zoom, true), LucideIcon::ZoomIn, "Zoom in"))
+            .child(zoom_to(fit, LucideIcon::Maximize2, "Fit to width"))
             .when(self.on_note.is_some(), |header| {
                 let desk = desk.clone();
                 header.child(
                     ToggleButton::new(
                         (self.id.clone(), "pin"),
                         ToggleItem::new("notes")
-                            .icon(IconName::MessageSquare)
+                            .icon(LucideIcon::MessageSquare)
                             .tooltip("Pin notes"),
                         pinning,
                     )
@@ -360,7 +360,7 @@ impl RenderOnce for DocumentViewer {
                                         .rounded(theme.radius(Radius::Sm))
                                         .bg(colors.warning)
                                         .child(
-                                            Icon::new(IconName::MessageSquare)
+                                            Icon::new(LucideIcon::MessageSquare)
                                                 .size(IconSize::Xs)
                                                 .color(colors.on_accent),
                                         ),

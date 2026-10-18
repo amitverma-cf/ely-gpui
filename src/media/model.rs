@@ -11,7 +11,7 @@ use crate::{
     layout::seeded::use_seeded,
     motion::Spinner,
     overlays::media_button,
-    primitives::{FocusRing, IconName, checked_ratio, framed, tab_stop},
+    primitives::{FocusRing, LucideIcon, checked_ratio, framed, tab_stop},
     theme::{ActiveTheme, ControlSize, Radius},
 };
 
@@ -147,7 +147,7 @@ impl RenderOnce for ModelViewer {
             })
         };
         let now = orbit.read(cx).value;
-        let button = |key: &'static str, icon: IconName, next: Orbit| {
+        let button = |key: &'static str, icon: LucideIcon, next: Orbit| {
             let move_to = move_to.clone();
             media_button(
                 (self.id.clone(), key),
@@ -169,9 +169,9 @@ impl RenderOnce for ModelViewer {
             .items_center()
             .rounded_full()
             .bg(colors.media_backdrop.alpha(0.6))
-            .child(button("farther", IconName::Minus, now.scaled(ZOOM)))
-            .child(button("nearer", IconName::Plus, now.scaled(1.0 / ZOOM)))
-            .child(button("reset", IconName::RotateCcw, Orbit::START));
+            .child(button("farther", LucideIcon::Minus, now.scaled(ZOOM)))
+            .child(button("nearer", LucideIcon::Plus, now.scaled(1.0 / ZOOM)))
+            .child(button("reset", LucideIcon::RotateCcw, Orbit::START));
         let (pressed, dragged, wheeled, keyed) =
             (from.clone(), move_to.clone(), move_to.clone(), move_to);
         let (spun, zoomed, turned_by_key) = (orbit.clone(), orbit.clone(), orbit);

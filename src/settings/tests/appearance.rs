@@ -74,7 +74,7 @@ fn many_presets_fold_inside_a_narrow_box(cx: &mut TestAppContext) {
 
 /// A size saved past the range, a section and a code palette no longer offered.
 fn drifted(_: &mut Window, _: &mut App, _: Entity<Desk>) -> AnyElement {
-    let sections = [("a", "Appearance", crate::primitives::IconName::Palette)];
+    let sections = [("a", "Appearance", crate::primitives::LucideIcon::Palette)];
     div()
         .w(px(480.0))
         .child(FontSizeControl::new(

@@ -9,7 +9,7 @@ use crate::i18n;
 use crate::{
     buttons::{Button, ButtonVariant, IconButton, ToggleButton, ToggleItem},
     forms::{Input, TextInput},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Elevation, Radius, TextSize},
 };
 
@@ -175,7 +175,7 @@ impl RenderOnce for FindWidget {
         let colors = theme.colors.clone();
         let options = self.options;
         let toggle = |key: &'static str,
-                      icon: IconName,
+                      icon: LucideIcon,
                       words: SharedString,
                       on: bool,
                       set: fn(&mut FindOptions, bool)| {
@@ -198,7 +198,7 @@ impl RenderOnce for FindWidget {
         let (count, missing) = count(&self.matches, cx);
         let found = matches!(self.matches, Ok((_, total)) if total > 0);
         let icon_button = |key: &'static str,
-                           icon: IconName,
+                           icon: LucideIcon,
                            words: SharedString,
                            enabled: bool,
                            action: Option<OnBool>,
@@ -241,9 +241,9 @@ impl RenderOnce for FindWidget {
                         icon_button(
                             "fold",
                             if showing {
-                                IconName::ChevronDown
+                                LucideIcon::ChevronDown
                             } else {
-                                IconName::ChevronRight
+                                LucideIcon::ChevronRight
                             },
                             i18n::text(cx, "find.fold", &[]),
                             true,
@@ -260,21 +260,21 @@ impl RenderOnce for FindWidget {
                     .when(self.on_options.is_some(), |row| {
                         row.child(toggle(
                             "case",
-                            IconName::CaseSensitive,
+                            LucideIcon::CaseSensitive,
                             i18n::text(cx, "find.case", &[]),
                             options.case,
                             |next, on| next.case = on,
                         ))
                         .child(toggle(
                             "word",
-                            IconName::WholeWord,
+                            LucideIcon::WholeWord,
                             i18n::text(cx, "find.word", &[]),
                             options.word,
                             |next, on| next.word = on,
                         ))
                         .child(toggle(
                             "regex",
-                            IconName::Regex,
+                            LucideIcon::Regex,
                             i18n::text(cx, "find.regex", &[]),
                             options.regex,
                             |next, on| next.regex = on,
@@ -293,7 +293,7 @@ impl RenderOnce for FindWidget {
                     )
                     .child(icon_button(
                         "previous",
-                        IconName::ArrowUp,
+                        LucideIcon::ArrowUp,
                         i18n::text(cx, "find.previous", &[]),
                         found,
                         self.on_step.clone(),
@@ -301,14 +301,14 @@ impl RenderOnce for FindWidget {
                     ))
                     .child(icon_button(
                         "next",
-                        IconName::ArrowDown,
+                        LucideIcon::ArrowDown,
                         i18n::text(cx, "find.next", &[]),
                         found,
                         self.on_step.clone(),
                         true,
                     ))
                     .children(self.on_close.clone().map(|close| {
-                        IconButton::new((self.id.clone(), "close"), IconName::X)
+                        IconButton::new((self.id.clone(), "close"), LucideIcon::X)
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
                             .tooltip(i18n::text(cx, "dialog.close", &[]))

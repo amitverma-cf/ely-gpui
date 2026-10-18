@@ -11,7 +11,7 @@ use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     chat::{Attachment, AttachmentChip},
     forms::{Choice, Input, OnValue, Run, TagInput, TextInput, is_email},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
 };
 
@@ -311,7 +311,7 @@ impl RenderOnce for MailComposer {
             None => send,
         };
         let attach = self.on_attach.map(|attach| {
-            IconButton::new((self.id.clone(), "attach"), IconName::Paperclip)
+            IconButton::new((self.id.clone(), "attach"), LucideIcon::Paperclip)
                 .variant(ButtonVariant::Ghost)
                 .tooltip("Attach files")
                 .on_click(move |_, window, cx| {
@@ -320,7 +320,7 @@ impl RenderOnce for MailComposer {
                 })
         });
         let discard = self.on_discard.map(|discard| {
-            IconButton::new((self.id.clone(), "discard"), IconName::Trash2)
+            IconButton::new((self.id.clone(), "discard"), LucideIcon::Trash2)
                 .variant(ButtonVariant::Ghost)
                 .tooltip("Discard")
                 .on_click(move |_, window, cx| {

@@ -7,7 +7,7 @@ use ely_gpui_component::{
         TrendIndicator, UserChip,
     },
     forms::AvatarUpload,
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, AvatarSize, IconSize, TextSize},
     typography::Caption,
 };
@@ -24,7 +24,7 @@ pub fn badges(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let unread = keep("badge-unread", || 3usize, window, cx);
     let (count, more) = (*unread.read(cx), unread.clone());
     let muted = cx.theme().colors.fg_muted;
-    let bell = || Icon::new(IconName::Bell).size(IconSize::Lg).color(muted);
+    let bell = || Icon::new(LucideIcon::Bell).size(IconSize::Lg).color(muted);
     section(
         "Badge / CountBadge / DotBadge",
         "Small labels tinted by what they mean, counts whose digits roll, and a dot for something new.",
@@ -42,7 +42,7 @@ pub fn badges(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     .child(
         specimens()
             .child(specimen("count", CountBadge::new("count-bell", count).over(bell()), cx))
-            .child(specimen("capped", CountBadge::new("count-inbox", 128).over(Icon::new(IconName::Inbox).size(IconSize::Lg).color(muted)), cx))
+            .child(specimen("capped", CountBadge::new("count-inbox", 128).over(Icon::new(LucideIcon::Inbox).size(IconSize::Lg).color(muted)), cx))
             .child(specimen("dot", DotBadge::new().over(bell()), cx))
             .child(specimen("alone", CountBadge::new("count-alone", 7), cx)),
     )
@@ -67,11 +67,11 @@ pub fn tags(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     .child(
         row()
             .child(Tag::new("tag-plain", "Research"))
-            .child(Tag::new("tag-icon", "Pinned").icon(IconName::Pin))
+            .child(Tag::new("tag-icon", "Pinned").icon(LucideIcon::Pin))
             .child(
                 Tag::new("tag-tone", "Shipped")
                     .tone(Severity::Success)
-                    .icon(IconName::Check),
+                    .icon(LucideIcon::Check),
             ),
     )
     .child(
@@ -129,7 +129,7 @@ pub fn avatars(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             .child(specimen("away", Avatar::new("avatar-away", "Lucía Romero").size(AvatarSize::Lg).presence(Presence::Away), cx))
             .child(specimen("busy", Avatar::new("avatar-busy", "Ben Carter").size(AvatarSize::Lg).presence(Presence::Busy), cx))
             .child(specimen("team", Avatar::new("avatar-team", "Studio North").size(AvatarSize::Lg).square(), cx))
-            .child(specimen("bot", Avatar::new("avatar-bot", "Build bot").icon(IconName::Bot).size(AvatarSize::Lg), cx))
+            .child(specimen("bot", Avatar::new("avatar-bot", "Build bot").icon(LucideIcon::Bot).size(AvatarSize::Lg), cx))
             .child(specimen(
                 "upload",
                 probe("avatar-upload", AvatarUpload::new("avatar-upload", upload).on_change(move |path, _, cx| set(&take, Some(path), cx))),
@@ -202,14 +202,14 @@ pub fn numbers(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             .child(
                 div().flex_1().child(
                     KpiCard::new(Statistic::new("kpi-revenue", "Revenue", revenue).prefix("$").trend(TrendIndicator::new(0.124)))
-                        .icon(IconName::DollarSign)
+                        .icon(LucideIcon::DollarSign)
                         .caption("This month, against the last"),
                 ),
             )
             .child(
                 div().flex_1().child(
                     KpiCard::new(Statistic::new("kpi-users", "Active people", users).trend(TrendIndicator::new(0.031)))
-                        .icon(IconName::Users)
+                        .icon(LucideIcon::Users)
                         .caption("Seen in the last seven days"),
                 ),
             )
@@ -220,7 +220,7 @@ pub fn numbers(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                             .suffix("ms")
                             .trend(TrendIndicator::new(-0.08).down_is_good()),
                     )
-                    .icon(IconName::Gauge)
+                    .icon(LucideIcon::Gauge)
                     .caption("Across all regions"),
                 ),
             ),

@@ -6,7 +6,7 @@ use gpui::{
 use crate::{
     data_display::Avatar,
     lists::ListItem,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, IconSize, TextSize},
 };
 
@@ -29,12 +29,12 @@ impl Answer {
         }
     }
 
-    fn icon(self) -> IconName {
+    fn icon(self) -> LucideIcon {
         match self {
-            Self::Going => IconName::CircleCheck,
-            Self::Maybe => IconName::CircleHelp,
-            Self::Declined => IconName::CircleX,
-            Self::Waiting => IconName::Clock,
+            Self::Going => LucideIcon::CircleCheck,
+            Self::Maybe => LucideIcon::CircleHelp,
+            Self::Declined => LucideIcon::CircleX,
+            Self::Waiting => LucideIcon::Clock,
         }
     }
 }

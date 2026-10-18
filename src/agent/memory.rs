@@ -11,7 +11,7 @@ use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     data_display::{Timeline, TimelineItem, Tone},
     forms::{Pick, TextInput},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
     typography::{RelativeTime, format::plural},
 };
@@ -110,7 +110,7 @@ impl RenderOnce for MemoryPanel {
                     let key = memory.key.clone();
                     IconButton::new(
                         (self.id.clone(), format!("forget-{}", memory.key)),
-                        IconName::Trash2,
+                        LucideIcon::Trash2,
                     )
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
@@ -217,7 +217,7 @@ impl RenderOnce for CheckpointList {
                         Button::new((self.id.clone(), format!("rewind-{ix}")), "Rewind to here")
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
-                            .icon(IconName::RotateCcw)
+                            .icon(LucideIcon::RotateCcw)
                             .on_click(move |_, window, cx| {
                                 log::info!("checkpoints: rewind to {ix}");
                                 rewind(ix, window, cx)

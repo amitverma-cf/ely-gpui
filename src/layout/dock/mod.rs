@@ -5,7 +5,7 @@ use std::rc::Rc;
 use gpui::{AnyElement, App, Context, Rems, SharedString, Window};
 use serde::{Deserialize, Serialize};
 
-use crate::{primitives::IconName, theme::ActiveTheme};
+use crate::{primitives::LucideIcon, theme::ActiveTheme};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum DockSide {
@@ -39,7 +39,7 @@ pub enum Spot {
 pub struct DockPanel {
     pub id: SharedString,
     pub title: SharedString,
-    pub icon: IconName,
+    pub icon: LucideIcon,
 }
 
 /// Saved dock arrangement, per side in `DockSide` order. Sizes are in rems.

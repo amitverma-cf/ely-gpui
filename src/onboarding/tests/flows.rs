@@ -6,7 +6,7 @@ use crate::{
     onboarding::{
         FeatureHighlight, Hotspot, OnboardingStep, OnboardingWizard, SetupChecklist, SetupTask,
     },
-    primitives::{FocusScope, IconName},
+    primitives::{FocusScope, LucideIcon},
 };
 
 fn wizard(bench: &Bench, owner: Entity<Bench>) -> AnyElement {
@@ -181,7 +181,7 @@ fn highlight(_: &Bench, owner: Entity<Bench>) -> AnyElement {
     let later = owner.clone();
     FeatureHighlight::new(
         "split",
-        IconName::Columns2,
+        LucideIcon::Columns2,
         "Split view",
         "Work on two files side by side.",
         move |_, cx| say(&owner, "try".into(), cx),

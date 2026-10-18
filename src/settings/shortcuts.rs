@@ -5,7 +5,7 @@ use gpui::{
 
 use crate::{
     forms::{Input, TextInput},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
     typography::{Ellipsis, KbdCombo},
 };
@@ -98,7 +98,9 @@ impl RenderOnce for KeyboardShortcutsList {
         div()
             .flex()
             .flex_col()
-            .child(Input::new(&self.search).prefix(Icon::new(IconName::Search).size(IconSize::Sm)))
+            .child(
+                Input::new(&self.search).prefix(Icon::new(LucideIcon::Search).size(IconSize::Sm)),
+            )
             .children(body)
     }
 }

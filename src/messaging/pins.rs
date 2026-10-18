@@ -11,7 +11,7 @@ use crate::{
     data_display::Avatar,
     forms::OnValue,
     lists::{ListItem, SelectableList},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, AvatarSize, ControlSize, TextSize},
     typography::format,
 };
@@ -101,7 +101,7 @@ impl RenderOnce for PinnedMessages {
                         .child(
                             IconButton::new(
                                 (self.id.clone(), format!("unpin-{key}")),
-                                IconName::PinOff,
+                                LucideIcon::PinOff,
                             )
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)

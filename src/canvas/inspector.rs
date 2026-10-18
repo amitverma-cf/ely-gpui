@@ -12,7 +12,7 @@ use super::{
 use crate::{
     feedback::EmptyState,
     forms::{ColorPalette, ScrubInput, Switch},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, HUE_NAMES, IconSize},
     typography::Ellipsis,
 };
@@ -51,7 +51,7 @@ impl RenderOnce for InspectorPanel {
                 0 => "Nothing selected".into(),
                 count => format!("{count} layers selected").into(),
             };
-            return EmptyState::new((id, "empty"), IconName::MousePointer2, title)
+            return EmptyState::new((id, "empty"), LucideIcon::MousePointer2, title)
                 .body("Select one layer to see its properties.")
                 .into_any_element();
         };

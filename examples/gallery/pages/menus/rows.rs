@@ -1,7 +1,7 @@
 use ely_gpui_component::{
     buttons::ButtonVariant,
     menus::{ContextMenu, DropdownMenu, Menu, MenuItem, OverflowMenu, SplitButton},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
 };
 use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
@@ -38,12 +38,12 @@ pub fn file_menu(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
     let recent = Menu::new()
         .item(
             MenuItem::new("roadmap.md")
-                .icon(IconName::FileText)
+                .icon(LucideIcon::FileText)
                 .on_click(run(&last, "roadmap.md")),
         )
         .item(
             MenuItem::new("tokens.rs")
-                .icon(IconName::FileText)
+                .icon(LucideIcon::FileText)
                 .on_click(run(&last, "tokens.rs")),
         )
         .separator()
@@ -51,21 +51,21 @@ pub fn file_menu(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
     let menu = Menu::new()
         .item(
             MenuItem::new("New file")
-                .icon(IconName::FilePlus)
+                .icon(LucideIcon::FilePlus)
                 .keys("secondary-n")
                 .on_click(run(&last, "new file")),
         )
         .item(
             MenuItem::new("Open…")
-                .icon(IconName::FolderOpen)
+                .icon(LucideIcon::FolderOpen)
                 .keys("secondary-o")
                 .on_click(run(&last, "open")),
         )
-        .item(MenuItem::submenu("Open recent", recent).icon(IconName::History))
+        .item(MenuItem::submenu("Open recent", recent).icon(LucideIcon::History))
         .separator()
         .item(
             MenuItem::new("Save")
-                .icon(IconName::Save)
+                .icon(LucideIcon::Save)
                 .keys("secondary-s")
                 .on_click(run(&last, "save")),
         )
@@ -79,10 +79,10 @@ pub fn file_menu(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
             "Share",
             [
                 MenuItem::new("Copy link")
-                    .icon(IconName::Link)
+                    .icon(LucideIcon::Link)
                     .on_click(run(&last, "copy link")),
                 MenuItem::new("Export PDF")
-                    .icon(IconName::Download)
+                    .icon(LucideIcon::Download)
                     .on_click(run(&last, "export")),
             ],
         );
@@ -93,7 +93,7 @@ pub fn file_menu(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
     )
     .child(specimen(
         caption,
-        probe("file-menu", DropdownMenu::new("file", "File", menu).icon(IconName::FileText)),
+        probe("file-menu", DropdownMenu::new("file", "File", menu).icon(LucideIcon::FileText)),
         cx,
     ))
 }
@@ -156,35 +156,35 @@ pub fn hosts(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let more = Menu::new()
         .item(
             MenuItem::new("Rename")
-                .icon(IconName::Pencil)
+                .icon(LucideIcon::Pencil)
                 .keys("f2")
                 .on_click(run(&last, "rename")),
         )
         .item(
             MenuItem::new("Duplicate")
-                .icon(IconName::Copy)
+                .icon(LucideIcon::Copy)
                 .on_click(run(&last, "duplicate")),
         )
         .item(
             MenuItem::new("Archive")
-                .icon(IconName::Archive)
+                .icon(LucideIcon::Archive)
                 .on_click(run(&last, "archive")),
         )
         .separator()
         .item(
             MenuItem::new("Delete")
-                .icon(IconName::Trash2)
+                .icon(LucideIcon::Trash2)
                 .on_click(run(&last, "delete")),
         );
     let share = Menu::new()
         .item(
             MenuItem::new("Copy link")
-                .icon(IconName::Link)
+                .icon(LucideIcon::Link)
                 .on_click(run(&last, "copy link")),
         )
         .item(
             MenuItem::new("Email")
-                .icon(IconName::Mail)
+                .icon(LucideIcon::Mail)
                 .on_click(run(&last, "email")),
         );
     let main = last.clone();
@@ -196,7 +196,7 @@ pub fn hosts(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     .child(specimen(
         caption,
         row()
-            .child(probe("share", DropdownMenu::new("share", "Share", share).icon(IconName::Share2)))
+            .child(probe("share", DropdownMenu::new("share", "Share", share).icon(LucideIcon::Share2)))
             .child(probe(
                 "merge",
                 SplitButton::new("merge", "Merge", merge)
@@ -213,48 +213,48 @@ pub fn context(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let menu = Menu::new()
         .buttons([
             MenuItem::new("Cut")
-                .icon(IconName::Scissors)
+                .icon(LucideIcon::Scissors)
                 .keys("secondary-x")
                 .on_click(run(&last, "cut")),
             MenuItem::new("Copy")
-                .icon(IconName::Copy)
+                .icon(LucideIcon::Copy)
                 .keys("secondary-c")
                 .on_click(run(&last, "copy")),
             MenuItem::new("Paste")
-                .icon(IconName::Clipboard)
+                .icon(LucideIcon::Clipboard)
                 .keys("secondary-v")
                 .on_click(run(&last, "paste")),
             MenuItem::new("Delete")
-                .icon(IconName::Trash2)
+                .icon(LucideIcon::Trash2)
                 .disabled(true),
         ])
         .separator()
         .item(
             MenuItem::new("Back")
-                .icon(IconName::ArrowLeft)
+                .icon(LucideIcon::ArrowLeft)
                 .keys("secondary-[")
                 .on_click(run(&last, "back")),
         )
         .item(
             MenuItem::new("Forward")
-                .icon(IconName::ArrowRight)
+                .icon(LucideIcon::ArrowRight)
                 .disabled(true),
         )
         .item(
             MenuItem::new("Reload")
-                .icon(IconName::RotateCw)
+                .icon(LucideIcon::RotateCw)
                 .keys("secondary-r")
                 .on_click(run(&last, "reload")),
         )
         .separator()
         .item(
             MenuItem::new("Copy link")
-                .icon(IconName::Link)
+                .icon(LucideIcon::Link)
                 .on_click(run(&last, "copy link")),
         )
         .item(
             MenuItem::new("Inspect")
-                .icon(IconName::Code)
+                .icon(LucideIcon::Code)
                 .on_click(run(&last, "inspect")),
         );
     let theme = cx.theme();

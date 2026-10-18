@@ -1,6 +1,6 @@
 use gpui::SharedString;
 
-use crate::primitives::IconName;
+use crate::primitives::LucideIcon;
 
 /// Where a picture sits across its column.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -87,28 +87,28 @@ impl BlockKind {
         }
     }
 
-    pub fn icon(&self) -> IconName {
+    pub fn icon(&self) -> LucideIcon {
         match self {
-            Self::Paragraph => IconName::Type,
-            Self::Heading(1) => IconName::Heading1,
-            Self::Heading(2) => IconName::Heading2,
-            Self::Heading(_) => IconName::Heading3,
-            Self::Bullet => IconName::List,
-            Self::Numbered => IconName::ListOrdered,
-            Self::Todo(_) => IconName::ListTodo,
-            Self::Quote => IconName::Quote,
-            Self::Callout => IconName::Info,
-            Self::Toggle(_) => IconName::ChevronRight,
-            Self::Code => IconName::Code,
-            Self::Math => IconName::SquareFunction,
-            Self::Diagram => IconName::Workflow,
-            Self::Divider => IconName::Minus,
-            Self::Table { .. } => IconName::Table,
-            Self::Image(_) => IconName::Image,
-            Self::Video(_) => IconName::Video,
-            Self::Embed(_) => IconName::Globe,
-            Self::Columns(_) => IconName::Columns2,
-            Self::Synced(_) => IconName::RefreshCw,
+            Self::Paragraph => LucideIcon::Type,
+            Self::Heading(1) => LucideIcon::Heading1,
+            Self::Heading(2) => LucideIcon::Heading2,
+            Self::Heading(_) => LucideIcon::Heading3,
+            Self::Bullet => LucideIcon::List,
+            Self::Numbered => LucideIcon::ListOrdered,
+            Self::Todo(_) => LucideIcon::ListTodo,
+            Self::Quote => LucideIcon::Quote,
+            Self::Callout => LucideIcon::Info,
+            Self::Toggle(_) => LucideIcon::ChevronRight,
+            Self::Code => LucideIcon::Code,
+            Self::Math => LucideIcon::SquareFunction,
+            Self::Diagram => LucideIcon::Workflow,
+            Self::Divider => LucideIcon::Minus,
+            Self::Table { .. } => LucideIcon::Table,
+            Self::Image(_) => LucideIcon::Image,
+            Self::Video(_) => LucideIcon::Video,
+            Self::Embed(_) => LucideIcon::Globe,
+            Self::Columns(_) => LucideIcon::Columns2,
+            Self::Synced(_) => LucideIcon::RefreshCw,
         }
     }
 

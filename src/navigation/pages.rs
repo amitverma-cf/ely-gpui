@@ -9,7 +9,7 @@ use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::{NumberInput, Run},
     i18n,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
     typography::format::{self, Separators},
 };
@@ -185,7 +185,7 @@ impl RenderOnce for Pagination {
             .gap_1()
             .child(
                 div().debug_selector(|| "pagination-previous".into()).child(
-                    IconButton::new("previous", IconName::ChevronLeft)
+                    IconButton::new("previous", LucideIcon::ChevronLeft)
                         .size(size)
                         .variant(ButtonVariant::Ghost)
                         .tooltip(i18n::text(cx, "pagination.previous", &[]))
@@ -196,7 +196,7 @@ impl RenderOnce for Pagination {
             .children(cells)
             .child(
                 div().debug_selector(|| "pagination-next".into()).child(
-                    IconButton::new("next", IconName::ChevronRight)
+                    IconButton::new("next", LucideIcon::ChevronRight)
                         .size(size)
                         .variant(ButtonVariant::Ghost)
                         .tooltip(i18n::text(cx, "pagination.next", &[]))

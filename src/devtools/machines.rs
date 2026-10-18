@@ -10,7 +10,7 @@ use crate::{
     data_display::{Badge, Tone},
     forms::{Choice, Select},
     lists::{ListItem, SelectableList, row_action},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     tables::{Cell, Column, DataTable, Row},
     theme::{ActiveTheme, IconSize},
     typography::format,
@@ -137,7 +137,7 @@ impl RenderOnce for ContainerList {
                 let key = container.key.clone();
                 let running = container.state == ContainerState::Running;
                 let (tone, words) = container.state.badge();
-                let button = |icon: IconName, tip: &'static str, handler: &Option<OnKey>| {
+                let button = |icon: LucideIcon, tip: &'static str, handler: &Option<OnKey>| {
                     handler.clone().map(|handler| {
                         let key = key.clone();
                         row_action(
@@ -154,7 +154,11 @@ impl RenderOnce for ContainerList {
                     key.clone(),
                     ListItem::new((id.clone(), format!("row-{key}")), container.name.clone())
                         .description(described(container))
-                        .leading(Icon::new(IconName::Package).size(IconSize::Md).color(muted))
+                        .leading(
+                            Icon::new(LucideIcon::Package)
+                                .size(IconSize::Md)
+                                .color(muted),
+                        )
                         .trailing(
                             div()
                                 .flex()
@@ -163,15 +167,15 @@ impl RenderOnce for ContainerList {
                                 .child(Badge::new(words).tone(tone).dot())
                                 .children(button(
                                     if running {
-                                        IconName::CircleStop
+                                        LucideIcon::CircleStop
                                     } else {
-                                        IconName::Play
+                                        LucideIcon::Play
                                     },
                                     if running { "Stop" } else { "Start" },
                                     &self.on_toggle,
                                 ))
-                                .children(button(IconName::RotateCw, "Restart", &self.on_restart))
-                                .children(button(IconName::Terminal, "Logs", &self.on_logs)),
+                                .children(button(LucideIcon::RotateCw, "Restart", &self.on_restart))
+                                .children(button(LucideIcon::Terminal, "Logs", &self.on_logs)),
                         ),
                 )
             },

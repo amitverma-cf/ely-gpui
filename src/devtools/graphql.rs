@@ -12,7 +12,7 @@ use crate::{
     feedback::{EmptyState, InlineMessage},
     forms::TextInput,
     lists::{Tree, TreeNode},
-    primitives::{IconName, Severity},
+    primitives::{LucideIcon, Severity},
     theme::{ActiveTheme, Radius, TextSize},
 };
 
@@ -112,9 +112,9 @@ impl RenderOnce for GraphQLExplorer {
             TreeNode::new(ty.name.clone(), ty.name.clone())
                 .note(ty.kind.word())
                 .icon(match ty.kind {
-                    TypeKind::Object | TypeKind::Input => IconName::Braces,
-                    TypeKind::Enum => IconName::ListOrdered,
-                    TypeKind::Scalar => IconName::Hash,
+                    TypeKind::Object | TypeKind::Input => LucideIcon::Braces,
+                    TypeKind::Enum => LucideIcon::ListOrdered,
+                    TypeKind::Scalar => LucideIcon::Hash,
                 })
                 .children(ty.fields.iter().map(|(field, of)| {
                     TreeNode::new(format!("{}.{field}", ty.name), field.clone()).note(of.clone())
@@ -153,7 +153,7 @@ impl RenderOnce for GraphQLExplorer {
             Some(json) => {
                 JsonViewer::new((id.clone(), "answer"), json, &self.search).into_any_element()
             }
-            None => EmptyState::new((id.clone(), "none"), IconName::Play, "No answer yet")
+            None => EmptyState::new((id.clone(), "none"), LucideIcon::Play, "No answer yet")
                 .body("Run the query to see what comes back.")
                 .into_any_element(),
         };

@@ -11,7 +11,7 @@ use crate::{
     buttons::{IconButton, ToggleGroup, ToggleItem},
     forms::{ColorSwatch, Drawing, History, pen},
     layout::seeded::{Seeded, use_seeded},
-    primitives::{FocusRing, IconName, Image, checked_ratio, framed, tab_stop},
+    primitives::{FocusRing, Image, LucideIcon, checked_ratio, framed, tab_stop},
     theme::{ActiveTheme, ControlSize, TextSize},
 };
 
@@ -21,12 +21,12 @@ type OnMarks = Rc<dyn Fn(&[Mark], &mut Window, &mut App)>;
 const COLORS: usize = 4;
 
 /// Each tool, its key, its icon, and its name.
-const TOOLS: [(Tool, &str, IconName, &str); 5] = [
-    (Tool::Select, "v", IconName::MousePointer2, "Select"),
-    (Tool::Box, "b", IconName::Square, "Box"),
-    (Tool::Arrow, "a", IconName::ArrowUpRight, "Arrow"),
-    (Tool::Pen, "p", IconName::PenLine, "Pen"),
-    (Tool::Pin, "n", IconName::MapPin, "Pin"),
+const TOOLS: [(Tool, &str, LucideIcon, &str); 5] = [
+    (Tool::Select, "v", LucideIcon::MousePointer2, "Select"),
+    (Tool::Box, "b", LucideIcon::Square, "Box"),
+    (Tool::Arrow, "a", LucideIcon::ArrowUpRight, "Arrow"),
+    (Tool::Pen, "p", LucideIcon::PenLine, "Pen"),
+    (Tool::Pin, "n", LucideIcon::MapPin, "Pin"),
 ];
 
 /// The tool and color in hand, the mark chosen, and the steps to undo.
@@ -228,7 +228,7 @@ impl RenderOnce for ImageAnnotator {
                 })
         });
         let action = |key: &'static str,
-                      icon: IconName,
+                      icon: LucideIcon,
                       tip: &'static str,
                       enabled: bool,
                       run: fn(&Board, &mut Window, &mut App)| {
@@ -260,21 +260,21 @@ impl RenderOnce for ImageAnnotator {
                     .gap_1()
                     .child(action(
                         "undo",
-                        IconName::Undo2,
+                        LucideIcon::Undo2,
                         "Undo",
                         can_undo,
                         |board, window, cx| board.step(true, window, cx),
                     ))
                     .child(action(
                         "redo",
-                        IconName::Redo2,
+                        LucideIcon::Redo2,
                         "Redo",
                         can_redo,
                         |board, window, cx| board.step(false, window, cx),
                     ))
                     .child(action(
                         "remove",
-                        IconName::Trash2,
+                        LucideIcon::Trash2,
                         "Remove",
                         chosen.is_some(),
                         Board::remove,

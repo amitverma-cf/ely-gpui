@@ -11,7 +11,7 @@ use crate::{
     documents::source,
     forms::Pick,
     motion::Skeleton,
-    primitives::{Icon, IconName, Image, checked_ratio, framed, tab_stop},
+    primitives::{Icon, Image, LucideIcon, checked_ratio, framed, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{format::percent, tabular},
 };
@@ -165,7 +165,7 @@ impl RenderOnce for GenerationGrid {
                                     .text_size(theme.text_size(TextSize::Xs))
                                     .text_color(colors.fg_muted)
                                     .child(
-                                        Icon::new(IconName::CircleAlert)
+                                        Icon::new(LucideIcon::CircleAlert)
                                             .size(IconSize::Md)
                                             .color(colors.danger),
                                     )

@@ -9,7 +9,7 @@ use super::login::Run;
 use crate::{
     buttons::{Button, ButtonVariant, ConfirmButton, ConfirmMode},
     data_display::{Badge, Tone},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::Ellipsis,
 };
@@ -20,7 +20,7 @@ type OnKey = Rc<dyn Fn(&SharedString, &mut Window, &mut App)>;
 #[derive(Clone, Debug, PartialEq)]
 pub struct Session {
     pub key: SharedString,
-    pub icon: IconName,
+    pub icon: LucideIcon,
     pub device: SharedString,
     pub client: SharedString,
     pub place: SharedString,

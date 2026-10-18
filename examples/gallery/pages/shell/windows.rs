@@ -1,6 +1,6 @@
 use ely_gpui_component::{
     buttons::{Button, ButtonVariant, IconButton},
-    primitives::{IconName, Image},
+    primitives::{Image, LucideIcon},
     shell::{
         AboutDialog, Corner, MiniWindow, SplashScreen, TitleBar, WindowManager, WindowSwitcher,
     },
@@ -62,7 +62,7 @@ fn trigger(
         key,
         Button::new(key, label)
             .variant(ButtonVariant::Outline)
-            .icon(IconName::AppWindow)
+            .icon(LucideIcon::AppWindow)
             .on_click(move |_, _, cx| open(cx)),
     )
 }
@@ -291,9 +291,9 @@ impl Render for Player {
                 IconButton::new(
                     "player-toggle",
                     if playing {
-                        IconName::Pause
+                        LucideIcon::Pause
                     } else {
-                        IconName::Play
+                        LucideIcon::Play
                     },
                 )
                 .on_click(cx.listener(|player, _, _, cx| {

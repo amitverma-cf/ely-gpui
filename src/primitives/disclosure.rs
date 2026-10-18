@@ -4,7 +4,7 @@ use gpui::{
     Animation, AnimationExt, App, ElementId, Hsla, IntoElement, RenderOnce, Window, radians,
 };
 
-use super::{Icon, IconName};
+use super::{Icon, LucideIcon};
 use crate::{
     motion,
     theme::{ActiveTheme, IconSize},
@@ -47,7 +47,7 @@ impl RenderOnce for Disclosure {
         let turns = motion::changes((self.id.clone(), "turns"), open, window, cx);
         let color = self.color.unwrap_or(cx.theme().colors.fg_subtle);
         let turn = |share: f32| radians(share * FRAC_PI_2);
-        let icon = Icon::new(IconName::ChevronRight)
+        let icon = Icon::new(LucideIcon::ChevronRight)
             .size(self.size)
             .color(color);
         if turns == 0 {

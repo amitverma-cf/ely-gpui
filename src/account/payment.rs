@@ -11,7 +11,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     feedback::InlineMessage,
     forms::{Enter, FormField, Input, MaskedInput},
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, IconSize},
     typography::format::system_zone,
 };
@@ -236,7 +236,7 @@ impl RenderOnce for PaymentMethodForm {
             .child(
                 number_field.child(
                     MaskedInput::new((id.clone(), "number"), &number, mask).prefix(
-                        Icon::new(IconName::CreditCard)
+                        Icon::new(LucideIcon::CreditCard)
                             .size(IconSize::Sm)
                             .color(theme.colors.fg_subtle),
                     ),

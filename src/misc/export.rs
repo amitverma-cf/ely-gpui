@@ -8,7 +8,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::{RadioCard, Run},
     overlays::Dialog,
-    primitives::IconName,
+    primitives::LucideIcon,
 };
 
 type OnExport = Rc<dyn Fn(ExportFormat, &mut Window, &mut App)>;
@@ -51,12 +51,12 @@ impl ExportFormat {
         }
     }
 
-    fn icon(self) -> IconName {
+    fn icon(self) -> LucideIcon {
         match self {
-            Self::Pdf => IconName::FileText,
-            Self::Png => IconName::FileImage,
-            Self::Csv => IconName::FileSpreadsheet,
-            Self::Json => IconName::FileJson,
+            Self::Pdf => LucideIcon::FileText,
+            Self::Png => LucideIcon::FileImage,
+            Self::Csv => LucideIcon::FileSpreadsheet,
+            Self::Json => LucideIcon::FileJson,
         }
     }
 }

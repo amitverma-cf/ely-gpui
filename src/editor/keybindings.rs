@@ -9,7 +9,7 @@ use crate::{
     data_display::{Badge, Tone},
     forms::HotkeyInput,
     navigation::fuzzy,
-    primitives::{Icon, IconName, Tooltip},
+    primitives::{Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::KbdCombo,
 };
@@ -168,7 +168,7 @@ impl RenderOnce for KeybindingsEditor {
                                         .id((self.id.clone(), format!("clash-{ix}")))
                                         .tooltip(Tooltip::text(words))
                                         .child(
-                                            Icon::new(IconName::TriangleAlert)
+                                            Icon::new(LucideIcon::TriangleAlert)
                                                 .size(IconSize::Xs)
                                                 .color(colors.warning),
                                         ),

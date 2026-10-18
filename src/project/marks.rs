@@ -8,7 +8,7 @@ use gpui::{
 use super::work::{IssueId, Person, Priority, Status};
 use crate::{
     forms::{Choice, Select},
-    primitives::{Icon, IconName, Tooltip},
+    primitives::{Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::tabular,
 };
@@ -45,7 +45,7 @@ impl RenderOnce for PriorityIndicator {
         let theme = cx.theme();
         let colors = &theme.colors;
         let mark = match self.priority {
-            Priority::Urgent => Icon::new(IconName::CircleAlert)
+            Priority::Urgent => Icon::new(LucideIcon::CircleAlert)
                 .size(IconSize::Sm)
                 .color(colors.danger)
                 .into_any_element(),
@@ -215,7 +215,7 @@ impl RenderOnce for AssigneePicker {
                 );
             }
         }
-        let nobody = Choice::new("", "No assignee").icon(IconName::User);
+        let nobody = Choice::new("", "No assignee").icon(LucideIcon::User);
         let choices: Vec<Choice> = std::iter::once(nobody)
             .chain(self.people.iter().map(|person| {
                 Choice::new(person.key.clone(), person.name.clone()).avatar(person.name.clone())

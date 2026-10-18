@@ -12,7 +12,7 @@ use crate::{
     buttons::IconButton,
     documents::zoom_step,
     motion::Spinner,
-    primitives::{FocusRing, Icon, IconName, tab_stop},
+    primitives::{FocusRing, Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::tabular,
 };
@@ -156,7 +156,7 @@ impl RenderOnce for ImageViewer {
             let zoom = pixels.map(|pixels| view.zoom.unwrap_or_else(|| fit(pixels, stage)));
             (zoom, view.offset, stage)
         };
-        let button = |key: &'static str, icon: IconName, tip: &'static str, act: Act| {
+        let button = |key: &'static str, icon: LucideIcon, tip: &'static str, act: Act| {
             let (acted, pixels) = (view.clone(), pixels);
             IconButton::new((self.id.clone(), key), icon)
                 .size(ControlSize::Sm)
@@ -200,7 +200,7 @@ impl RenderOnce for ImageViewer {
                     .gap_1()
                     .child(button(
                         "out",
-                        IconName::ZoomOut,
+                        LucideIcon::ZoomOut,
                         "Zoom out",
                         Box::new(step(false)),
                     ))
@@ -218,13 +218,13 @@ impl RenderOnce for ImageViewer {
                     )
                     .child(button(
                         "in",
-                        IconName::ZoomIn,
+                        LucideIcon::ZoomIn,
                         "Zoom in",
                         Box::new(step(true)),
                     ))
                     .child(button(
                         "fit",
-                        IconName::Maximize2,
+                        LucideIcon::Maximize2,
                         "Fit",
                         Box::new(|view, pixels| view.zoom_to(None, (0.0, 0.0), pixels)),
                     )),
@@ -236,13 +236,13 @@ impl RenderOnce for ImageViewer {
                     .gap_1()
                     .child(button(
                         "left",
-                        IconName::RotateCcw,
+                        LucideIcon::RotateCcw,
                         "Turn left",
                         Box::new(turn(3)),
                     ))
                     .child(button(
                         "right",
-                        IconName::RotateCw,
+                        LucideIcon::RotateCw,
                         "Turn right",
                         Box::new(turn(1)),
                     )),
@@ -276,7 +276,7 @@ impl RenderOnce for ImageViewer {
                 .text_size(theme.text_size(TextSize::Sm))
                 .text_color(colors.fg_muted)
                 .child(
-                    Icon::new(IconName::ImageOff)
+                    Icon::new(LucideIcon::ImageOff)
                         .size(IconSize::Lg)
                         .color(colors.fg_subtle),
                 )

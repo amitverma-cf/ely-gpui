@@ -10,7 +10,7 @@ use crate::{
     data_display::{Badge, Tone},
     feedback::Callout,
     forms::{Input, Switch, TextInput},
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
@@ -107,7 +107,9 @@ impl RenderOnce for FeatureFlags {
             .flex()
             .flex_col()
             .gap_2()
-            .child(Input::new(&self.search).prefix(Icon::new(IconName::Search).size(IconSize::Sm)))
+            .child(
+                Input::new(&self.search).prefix(Icon::new(LucideIcon::Search).size(IconSize::Sm)),
+            )
             .children(rows)
             .child(
                 div()

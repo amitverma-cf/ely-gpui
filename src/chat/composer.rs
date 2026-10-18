@@ -12,7 +12,7 @@ use crate::{
         Choice, Enter, OnValue, Pick, Run, Suggestions, TextInput, active_trigger, choose, dropped,
         replace_trigger,
     },
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::Kbd,
 };
@@ -41,7 +41,7 @@ impl AttachmentButton {
 impl RenderOnce for AttachmentButton {
     fn render(self, _: &mut Window, _: &mut App) -> impl IntoElement {
         let pick = self.on_pick;
-        IconButton::new(self.id, IconName::Paperclip)
+        IconButton::new(self.id, LucideIcon::Paperclip)
             .variant(ButtonVariant::Ghost)
             .size(ControlSize::Sm)
             .tooltip("Attach files")
@@ -97,7 +97,7 @@ impl SendButton {
 impl RenderOnce for SendButton {
     fn render(self, _: &mut Window, _: &mut App) -> impl IntoElement {
         match self.on_stop {
-            Some(stop) => IconButton::new(self.id, IconName::Square)
+            Some(stop) => IconButton::new(self.id, LucideIcon::Square)
                 .variant(ButtonVariant::Secondary)
                 .size(ControlSize::Sm)
                 .tooltip("Stop")
@@ -107,7 +107,7 @@ impl RenderOnce for SendButton {
                 }),
             None => {
                 let send = self.on_send;
-                IconButton::new(self.id, IconName::ArrowUp)
+                IconButton::new(self.id, LucideIcon::ArrowUp)
                     .variant(ButtonVariant::Primary)
                     .size(ControlSize::Sm)
                     .tooltip("Send")
@@ -193,7 +193,7 @@ impl RenderOnce for DragDropOverlay {
                     .items_center()
                     .gap_2()
                     .child(
-                        Icon::new(IconName::Upload)
+                        Icon::new(LucideIcon::Upload)
                             .size(IconSize::Sm)
                             .color(colors.fg_muted),
                     )

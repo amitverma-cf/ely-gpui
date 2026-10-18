@@ -4,7 +4,7 @@ use gpui::{
 };
 
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -131,11 +131,11 @@ impl RenderOnce for Comparison {
                             Cell::Text(text) => {
                                 div().text_color(colors.fg).child(text).into_any_element()
                             }
-                            Cell::Mark(true) => Icon::new(IconName::Check)
+                            Cell::Mark(true) => Icon::new(LucideIcon::Check)
                                 .size(IconSize::Sm)
                                 .color(colors.fg)
                                 .into_any_element(),
-                            Cell::Mark(false) => Icon::new(IconName::Minus)
+                            Cell::Mark(false) => Icon::new(LucideIcon::Minus)
                                 .size(IconSize::Sm)
                                 .color(colors.fg_subtle)
                                 .into_any_element(),

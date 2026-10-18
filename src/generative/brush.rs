@@ -6,7 +6,7 @@ use super::mask::{OnBrush, REACH};
 use crate::{
     buttons::{IconButton, SegmentedControl},
     forms::{Run, Slider},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
     typography::{format::percent, tabular},
 };
@@ -67,7 +67,7 @@ impl RenderOnce for MaskBrush {
         let colors = theme.colors.clone();
         let (radius, erase, empty) = (self.radius, self.erase, self.strokes == 0);
         let (mode, size) = (self.on_brush.clone(), self.on_brush);
-        let back = |key: &'static str, icon: IconName, tip: &'static str, run: Option<Run>| {
+        let back = |key: &'static str, icon: LucideIcon, tip: &'static str, run: Option<Run>| {
             run.map(|run| {
                 IconButton::new((self.id.clone(), key), icon)
                     .size(ControlSize::Sm)
@@ -95,8 +95,8 @@ impl RenderOnce for MaskBrush {
                             (self.id.clone(), "mode"),
                             if erase { "erase" } else { "paint" },
                         )
-                        .segment("paint", "Paint", Some(IconName::Brush))
-                        .segment("erase", "Erase", Some(IconName::Eraser))
+                        .segment("paint", "Paint", Some(LucideIcon::Brush))
+                        .segment("erase", "Erase", Some(LucideIcon::Eraser))
                         .size(ControlSize::Sm)
                         .on_change(move |value, window, cx| {
                             if let Some(mode) = &mode {
@@ -110,13 +110,13 @@ impl RenderOnce for MaskBrush {
                             .gap_1()
                             .children(back(
                                 "undo",
-                                IconName::Undo2,
+                                LucideIcon::Undo2,
                                 "Undo the last stroke",
                                 self.on_undo,
                             ))
                             .children(back(
                                 "clear",
-                                IconName::Trash2,
+                                LucideIcon::Trash2,
                                 "Clear the mask",
                                 self.on_clear,
                             )),

@@ -10,7 +10,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     data_display::UsageBar,
     forms::TextInput,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{format::currency, tabular},
 };
@@ -104,7 +104,7 @@ impl RenderOnce for HumanInputRequest {
                     .gap_2()
                     .child(
                         div().flex_none().child(
-                            Icon::new(IconName::CircleHelp)
+                            Icon::new(LucideIcon::CircleHelp)
                                 .size(IconSize::Sm)
                                 .color(colors.fg_muted),
                         ),
@@ -126,7 +126,7 @@ impl RenderOnce for HumanInputRequest {
                     .text_color(colors.fg_muted)
                     .child(
                         div().flex_none().child(
-                            Icon::new(IconName::Check)
+                            Icon::new(LucideIcon::Check)
                                 .size(IconSize::Sm)
                                 .color(colors.success),
                         ),

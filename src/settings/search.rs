@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     forms::{Input, TextInput},
     lists::{ListItem, SelectableList},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
@@ -94,7 +94,9 @@ impl RenderOnce for SettingsSearch {
             .flex()
             .flex_col()
             .gap_2()
-            .child(Input::new(&self.search).prefix(Icon::new(IconName::Search).size(IconSize::Sm)))
+            .child(
+                Input::new(&self.search).prefix(Icon::new(LucideIcon::Search).size(IconSize::Sm)),
+            )
             .children((!found.is_empty()).then(|| {
                 list.on_activate(move |key, window, cx| {
                     log::info!("settings search: go to {key}");

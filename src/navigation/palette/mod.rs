@@ -14,7 +14,7 @@ use gpui::{
 use crate::{
     forms::{Down, Enter, OnValue, Pick, Run, TextInput, Up},
     motion,
-    primitives::{Backdrop, FocusScope, Icon, IconName, give_back, take_focus},
+    primitives::{Backdrop, FocusScope, Icon, LucideIcon, give_back, take_focus},
     theme::{ActiveTheme, ControlSize, Elevation, IconSize, Radius, TextSize},
 };
 
@@ -104,7 +104,7 @@ pub(crate) struct Row {
     pub value: SharedString,
     /// The row's plain name, for assistive technology.
     pub name: SharedString,
-    pub icon: Option<IconName>,
+    pub icon: Option<LucideIcon>,
     pub label: AnyElement,
     pub detail: Option<AnyElement>,
     pub end: Option<AnyElement>,
@@ -357,7 +357,7 @@ impl Palette {
                     .border_color(colors.border)
                     .text_size(theme.text_size(TextSize::Md))
                     .child(
-                        Icon::new(IconName::Search)
+                        Icon::new(LucideIcon::Search)
                             .size(IconSize::Sm)
                             .color(colors.fg_subtle),
                     )

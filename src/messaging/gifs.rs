@@ -11,7 +11,7 @@ use crate::{
     forms::{Input, InputEvent, OnValue, TextInput},
     layout::{Masonry, bring_into_view, on_axis},
     motion::Skeleton,
-    primitives::{FocusRing, Icon, IconName, Image, Tooltip, checked_ratio, framed, tab_stop},
+    primitives::{FocusRing, Icon, Image, LucideIcon, Tooltip, checked_ratio, framed, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -285,7 +285,7 @@ impl RenderOnce for GifPicker {
                 .text_size(theme.text_size(TextSize::Sm))
                 .text_color(colors.fg_muted)
                 .child(
-                    Icon::new(IconName::SearchX)
+                    Icon::new(LucideIcon::SearchX)
                         .size(IconSize::Lg)
                         .color(colors.fg_subtle),
                 )
@@ -300,7 +300,7 @@ impl RenderOnce for GifPicker {
             .gap_2()
             .child(
                 Input::new(&input).prefix(
-                    Icon::new(IconName::Search)
+                    Icon::new(LucideIcon::Search)
                         .size(IconSize::Sm)
                         .color(colors.fg_subtle),
                 ),

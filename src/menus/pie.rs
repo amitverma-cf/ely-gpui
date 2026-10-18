@@ -10,20 +10,20 @@ use smallvec::SmallVec;
 use crate::{
     forms::{Pick, Run},
     motion,
-    primitives::{Icon, IconName, give_back, raise, take_focus},
+    primitives::{Icon, LucideIcon, give_back, raise, take_focus},
     theme::{ActiveTheme, Elevation, IconSize, TextSize},
 };
 
 /// One slice of a pie menu.
 #[derive(Clone)]
 pub struct PieItem {
-    icon: IconName,
+    icon: LucideIcon,
     label: SharedString,
     on_click: Option<Run>,
 }
 
 impl PieItem {
-    pub fn new(icon: IconName, label: impl Into<SharedString>) -> Self {
+    pub fn new(icon: LucideIcon, label: impl Into<SharedString>) -> Self {
         Self {
             icon,
             label: label.into(),

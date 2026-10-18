@@ -5,7 +5,7 @@ use gpui::{
 
 use crate::{
     forms::hex,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{
         ActiveTheme, AvatarSize, ContainerSize, ControlSize, Elevation, HUE_NAMES, IconSize,
         Palette, Radius, Syntax, TextSize,
@@ -261,7 +261,7 @@ impl RenderOnce for DesignTokenViewer {
             (IconSize::Xxl, "Xxl"),
         ]
         .map(|(size, name)| {
-            let sample = Icon::new(IconName::Star).size(size).color(colors.fg);
+            let sample = Icon::new(LucideIcon::Star).size(size).color(colors.fg);
             measure(
                 format!("IconSize::{name}"),
                 at(theme.icon_size(size)),

@@ -5,7 +5,7 @@ use gpui::{App, ElementId, IntoElement, ParentElement, RenderOnce, Styled, Windo
 use super::{CoordFormat, CoordinateDisplay, LatLon, MapView};
 use crate::{
     layout::seeded::use_seeded,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize},
 };
 
@@ -77,7 +77,11 @@ impl RenderOnce for LocationPicker {
                         .flex()
                         .items_center()
                         .justify_center()
-                        .child(Icon::new(IconName::Crosshair).size(IconSize::Lg).color(fg)),
+                        .child(
+                            Icon::new(LucideIcon::Crosshair)
+                                .size(IconSize::Lg)
+                                .color(fg),
+                        ),
                 ),
             )
             .child(CoordinateDisplay::new((self.id, "place"), view.center).format(self.format))

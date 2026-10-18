@@ -10,7 +10,7 @@ use smallvec::SmallVec;
 use crate::{
     buttons::IconButton,
     motion,
-    primitives::{Backdrop, IconName, Place},
+    primitives::{Backdrop, LucideIcon, Place},
     theme::{ActiveTheme, Elevation, Radius, TextSize},
 };
 
@@ -30,7 +30,8 @@ fn title_row(title: SharedString, close: Close, cx: &App) -> impl IntoElement + 
                 .child(title),
         )
         .child(
-            IconButton::new("close", IconName::X).on_click(move |_, window, cx| close(window, cx)),
+            IconButton::new("close", LucideIcon::X)
+                .on_click(move |_, window, cx| close(window, cx)),
         )
 }
 

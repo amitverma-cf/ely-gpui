@@ -6,7 +6,7 @@ use gpui::{
 use super::button::{ButtonVariant, ClickHandler, label_size, tone};
 use crate::{
     i18n,
-    primitives::{FocusRing, Icon, IconName, Tooltip},
+    primitives::{FocusRing, Icon, LucideIcon, Tooltip},
     theme::{ActiveTheme, ControlSize, Radius},
 };
 
@@ -14,7 +14,7 @@ use crate::{
 #[derive(IntoElement)]
 pub struct IconButton {
     id: ElementId,
-    icon: IconName,
+    icon: LucideIcon,
     variant: ButtonVariant,
     size: ControlSize,
     disabled: bool,
@@ -23,7 +23,7 @@ pub struct IconButton {
 }
 
 impl IconButton {
-    pub fn new(id: impl Into<ElementId>, icon: IconName) -> Self {
+    pub fn new(id: impl Into<ElementId>, icon: LucideIcon) -> Self {
         Self {
             id: id.into(),
             icon,

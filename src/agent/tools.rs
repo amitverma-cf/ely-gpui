@@ -9,7 +9,7 @@ use smallvec::SmallVec;
 
 use crate::{
     chat::{CodeBlock, StepState, step_mark},
-    primitives::{Disclosure, FocusRing, Icon, IconName, Severity},
+    primitives::{Disclosure, FocusRing, Icon, LucideIcon, Severity},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{Ellipsis, format::took, tabular},
 };
@@ -226,7 +226,7 @@ impl RenderOnce for ToolCallGroup {
                     .py_0p5()
                     .text_color(colors.fg_muted)
                     .child(
-                        Icon::new(IconName::Wrench)
+                        Icon::new(LucideIcon::Wrench)
                             .size(IconSize::Sm)
                             .color(colors.fg_subtle),
                     )

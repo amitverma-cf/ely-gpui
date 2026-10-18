@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::{Input, TextInput},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
 };
 
@@ -99,7 +99,7 @@ impl RenderOnce for InlineChat {
                     .items_center()
                     .gap_2()
                     .child(
-                        Icon::new(IconName::Sparkles)
+                        Icon::new(LucideIcon::Sparkles)
                             .size(IconSize::Sm)
                             .color(colors.accent),
                     )
@@ -120,7 +120,7 @@ impl RenderOnce for InlineChat {
                         .on_click(move |_, window, cx| send(window, cx)),
                     )
                     .children(self.on_close.map(|close| {
-                        IconButton::new((self.id.clone(), "close"), IconName::X)
+                        IconButton::new((self.id.clone(), "close"), LucideIcon::X)
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
                             .tooltip("Close")

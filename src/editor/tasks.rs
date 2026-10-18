@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{ButtonVariant, IconButton},
     motion::Spinner,
-    primitives::{Disclosure, Icon, IconName},
+    primitives::{Disclosure, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{Ellipsis, format},
 };
@@ -115,18 +115,18 @@ impl RenderOnce for TaskRunner {
             {
                 let running = task.state == TaskState::Running;
                 let status = match task.state {
-                    TaskState::Idle => Icon::new(IconName::Circle)
+                    TaskState::Idle => Icon::new(LucideIcon::Circle)
                         .size(IconSize::Sm)
                         .color(colors.fg_subtle)
                         .into_any_element(),
                     TaskState::Running => Spinner::new((self.id.clone(), format!("spinner-{ix}")))
                         .size(IconSize::Sm)
                         .into_any_element(),
-                    TaskState::Passed(_) => Icon::new(IconName::CircleCheck)
+                    TaskState::Passed(_) => Icon::new(LucideIcon::CircleCheck)
                         .size(IconSize::Sm)
                         .color(colors.success)
                         .into_any_element(),
-                    TaskState::Failed(_) => Icon::new(IconName::CircleX)
+                    TaskState::Failed(_) => Icon::new(LucideIcon::CircleX)
                         .size(IconSize::Sm)
                         .color(colors.danger)
                         .into_any_element(),
@@ -141,9 +141,9 @@ impl RenderOnce for TaskRunner {
                     TaskState::Failed(code) => format!("Exit {code}").into(),
                 };
                 let (action, icon, words) = if running {
-                    (self.on_stop.clone(), IconName::CircleStop, "Stop")
+                    (self.on_stop.clone(), LucideIcon::CircleStop, "Stop")
                 } else {
-                    (self.on_run.clone(), IconName::Play, "Run")
+                    (self.on_run.clone(), LucideIcon::Play, "Run")
                 };
                 let opened = self.open == Some(ix);
                 let toggle = self.on_open.clone();

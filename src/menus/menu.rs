@@ -13,7 +13,7 @@ use super::{
 use crate::{
     forms::{Down, Enter, Left, Right, Run, TextInput, Up, float},
     motion,
-    primitives::{Icon, IconName, Takeover, give_back, raise, take_focus},
+    primitives::{Icon, LucideIcon, Takeover, give_back, raise, take_focus},
     theme::{ActiveTheme, IconSize},
 };
 
@@ -359,7 +359,7 @@ pub(crate) fn hang(
             .border_b_1()
             .border_color(theme.colors.border)
             .child(
-                Icon::new(IconName::Search)
+                Icon::new(LucideIcon::Search)
                     .size(IconSize::Sm)
                     .color(theme.colors.fg_subtle),
             )

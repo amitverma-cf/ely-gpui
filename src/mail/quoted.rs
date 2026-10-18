@@ -7,7 +7,7 @@ use smallvec::SmallVec;
 use crate::{
     buttons::{ButtonVariant, IconButton},
     layout::Collapsible,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize},
 };
 
@@ -45,7 +45,7 @@ impl RenderOnce for QuotedText {
             .gap_2()
             .child(
                 div().flex().child(
-                    IconButton::new((self.id.clone(), "toggle"), IconName::Ellipsis)
+                    IconButton::new((self.id.clone(), "toggle"), LucideIcon::Ellipsis)
                         .variant(ButtonVariant::Subtle)
                         .size(ControlSize::Sm)
                         .tooltip(if shown {

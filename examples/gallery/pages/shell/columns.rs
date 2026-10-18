@@ -1,7 +1,7 @@
 use ely_gpui_component::{
     buttons::IconButton,
     navigation::NavItem,
-    primitives::IconName,
+    primitives::LucideIcon,
     shell::{ColumnShell, ShellColumn},
     theme::{ActiveTheme, ControlSize},
     typography::{Caption, Paragraph},
@@ -11,7 +11,7 @@ use gpui::{App, IntoElement, ParentElement, SharedString, Styled, div, px};
 use super::chrome::window_frame;
 use crate::ui::{code, section, specimen};
 
-fn icon(id: &'static str, ix: usize, name: IconName) -> IconButton {
+fn icon(id: &'static str, ix: usize, name: LucideIcon) -> IconButton {
     IconButton::new((id, ix), name).size(ControlSize::Sm)
 }
 
@@ -21,7 +21,7 @@ fn shell(id: &'static str, cx: &App) -> ColumnShell {
         .on_close(|_, _| log::info!("gallery: demo close refused"))
 }
 
-fn sidebar(id: &'static str, items: [(IconName, &'static str); 3], cx: &App) -> ShellColumn {
+fn sidebar(id: &'static str, items: [(LucideIcon, &'static str); 3], cx: &App) -> ShellColumn {
     let nav = div()
         .p_2()
         .flex()
@@ -32,22 +32,22 @@ fn sidebar(id: &'static str, items: [(IconName, &'static str); 3], cx: &App) -> 
         }));
     ShellColumn::new(id)
         .width(cx.theme().sidebar_width(false))
-        .leading(icon(id, 0, IconName::PanelLeft))
-        .leading(icon(id, 1, IconName::ArrowLeft))
-        .leading(icon(id, 2, IconName::ArrowRight))
+        .leading(icon(id, 0, LucideIcon::PanelLeft))
+        .leading(icon(id, 1, LucideIcon::ArrowLeft))
+        .leading(icon(id, 2, LucideIcon::ArrowRight))
         .child(nav)
 }
 
 fn two_columns(cx: &App) -> impl IntoElement + use<> {
     let items = [
-        (IconName::SquarePen, "New task"),
-        (IconName::Search, "Search"),
-        (IconName::Inbox, "Inbox"),
+        (LucideIcon::SquarePen, "New task"),
+        (LucideIcon::Search, "Search"),
+        (LucideIcon::Inbox, "Inbox"),
     ];
     let main = ShellColumn::new("cs2-main")
         .title("New task")
-        .action(icon("cs2-main", 0, IconName::Info))
-        .action(icon("cs2-main", 1, IconName::PanelRight))
+        .action(icon("cs2-main", 0, LucideIcon::Info))
+        .action(icon("cs2-main", 1, LucideIcon::PanelRight))
         .child(
             div()
                 .size_full()
@@ -65,9 +65,9 @@ fn two_columns(cx: &App) -> impl IntoElement + use<> {
 
 fn three_columns(cx: &App) -> impl IntoElement + use<> {
     let items = [
-        (IconName::Inbox, "Inbox"),
-        (IconName::Send, "Sent"),
-        (IconName::Archive, "Archive"),
+        (LucideIcon::Inbox, "Inbox"),
+        (LucideIcon::Send, "Sent"),
+        (LucideIcon::Archive, "Archive"),
     ];
     let mail = [
         (
@@ -80,7 +80,7 @@ fn three_columns(cx: &App) -> impl IntoElement + use<> {
     let list = ShellColumn::new("cs3-list")
         .width(px(220.0))
         .title("Inbox")
-        .action(icon("cs3-list", 0, IconName::Search))
+        .action(icon("cs3-list", 0, LucideIcon::Search))
         .child(
             div()
                 .p_2()
@@ -99,8 +99,8 @@ fn three_columns(cx: &App) -> impl IntoElement + use<> {
         );
     let message = ShellColumn::new("cs3-main")
         .title("Quarterly review")
-        .action(icon("cs3-main", 0, IconName::Reply))
-        .action(icon("cs3-main", 1, IconName::Archive))
+        .action(icon("cs3-main", 0, LucideIcon::Reply))
+        .action(icon("cs3-main", 1, LucideIcon::Archive))
         .child(div().p_5().child(Paragraph::new(
             "Revenue rose eight percent. Three moves come next: hire, ship the beta, close the books.",
         )));

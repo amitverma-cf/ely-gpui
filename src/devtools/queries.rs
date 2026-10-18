@@ -10,7 +10,7 @@ use crate::{
     forms::{Input, TextInput},
     layout::on_axis,
     lists::{ListItem, SelectableList},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     tables::{Cell, Column, TreeRow, TreeTable},
     theme::{ActiveTheme, IconSize},
     typography::format,
@@ -97,8 +97,8 @@ impl RenderOnce for QueryHistory {
             .fold(SelectableList::new((id.clone(), "runs")), |list, run| {
                 let first = run.sql.lines().next().unwrap_or_default().to_string();
                 let (icon, ink) = match run.outcome {
-                    Outcome::Rows(_) => (IconName::CircleCheck, good),
-                    Outcome::Failed(_) => (IconName::CircleX, bad),
+                    Outcome::Rows(_) => (LucideIcon::CircleCheck, good),
+                    Outcome::Failed(_) => (LucideIcon::CircleX, bad),
                 };
                 list.row(
                     run.key.clone(),
@@ -112,7 +112,9 @@ impl RenderOnce for QueryHistory {
             .flex()
             .flex_col()
             .gap_2()
-            .child(Input::new(&self.search).prefix(Icon::new(IconName::Search).size(IconSize::Sm)))
+            .child(
+                Input::new(&self.search).prefix(Icon::new(LucideIcon::Search).size(IconSize::Sm)),
+            )
             .child(list.on_activate(move |key, window, cx| {
                 log::info!("query history: run {key} again");
                 if let Some(on_run) = &on_run {

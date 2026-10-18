@@ -7,7 +7,7 @@ use gpui::{
 use crate::{
     i18n,
     motion::Spinner,
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Mix, Palette, Platform, Radius, TextSize},
     typography::{
         Ellipsis,
@@ -132,8 +132,8 @@ pub(crate) fn shortcut_text(source: &str, platform: Platform) -> String {
 pub struct Button {
     id: ElementId,
     label: SharedString,
-    icon: Option<IconName>,
-    trailing_icon: Option<IconName>,
+    icon: Option<LucideIcon>,
+    trailing_icon: Option<LucideIcon>,
     shortcut: Option<SharedString>,
     variant: ButtonVariant,
     size: ControlSize,
@@ -178,12 +178,12 @@ impl Button {
         self
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
 
-    pub fn trailing_icon(mut self, icon: IconName) -> Self {
+    pub fn trailing_icon(mut self, icon: LucideIcon) -> Self {
         self.trailing_icon = Some(icon);
         self
     }

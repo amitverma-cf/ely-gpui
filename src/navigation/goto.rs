@@ -7,7 +7,7 @@ use gpui::{
 
 use crate::{
     forms::{Enter, Input, TextInput},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
@@ -98,7 +98,7 @@ impl RenderOnce for GoToLine {
             })
             .child(
                 Input::new(&self.state).invalid(aim.is_err()).prefix(
-                    Icon::new(IconName::Hash)
+                    Icon::new(LucideIcon::Hash)
                         .size(IconSize::Sm)
                         .color(colors.fg_subtle),
                 ),

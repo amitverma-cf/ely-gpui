@@ -1,11 +1,11 @@
 use gpui::{Context, IntoElement, Render, TestAppContext, Window, black};
 
-use super::{FoundIcons, Icon, IconName, found};
+use super::{FoundIcons, Icon, LucideIcon, found};
 use crate::theme::{ActiveTheme, Theme};
 
 #[test]
 fn every_icon_ships_in_the_bundle() {
-    for icon in IconName::ALL {
+    for icon in LucideIcon::ALL {
         assert!(
             crate::Assets::get(icon.path()).is_some(),
             "{icon:?} missing at {}",
@@ -19,14 +19,14 @@ fn an_app_path_draws_as_given_and_a_name_as_its_bundled_file() {
     let custom = Icon::from_path("app-icons/mark.svg");
     assert_eq!(custom.path.as_ref(), "app-icons/mark.svg");
     assert!(!custom.bundled);
-    let named = Icon::new(IconName::Check);
-    assert_eq!(named.path.as_ref(), IconName::Check.path());
+    let named = Icon::new(LucideIcon::Check);
+    assert_eq!(named.path.as_ref(), LucideIcon::Check.path());
     assert!(named.bundled);
 }
 
 #[test]
 fn the_source_answers_whether_it_holds_a_path() {
-    assert!(found(&crate::Assets, IconName::Check.path()));
+    assert!(found(&crate::Assets, LucideIcon::Check.path()));
     assert!(!found(&crate::Assets, "app-icons/missing.svg"));
 }
 
@@ -55,7 +55,7 @@ fn a_broken_icon_shows_a_broken_picture_in_danger(cx: &mut TestAppContext) {
             .color(black())
             .group_hover_color("row", black())
             .broken(cx);
-        assert_eq!(icon.path.as_ref(), IconName::ImageOff.path());
+        assert_eq!(icon.path.as_ref(), LucideIcon::ImageOff.path());
         assert_eq!(icon.color, Some(cx.theme().colors.danger));
         assert!(icon.hover.is_none(), "hover keeps the danger color");
     });

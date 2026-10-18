@@ -12,7 +12,7 @@ use crate::{
     forms::{Run, TextInput, surface},
     layout::Collapsible,
     motion,
-    primitives::{IconName, raise},
+    primitives::{LucideIcon, raise},
     theme::{ActiveTheme, ControlSize, TextSize},
 };
 
@@ -155,7 +155,7 @@ impl RenderOnce for Peek {
                         .font_weight(FontWeight::MEDIUM)
                         .child(self.title)
                         .child(
-                            IconButton::new((self.id.clone(), "close"), IconName::X)
+                            IconButton::new((self.id.clone(), "close"), LucideIcon::X)
                                 .variant(ButtonVariant::Ghost)
                                 .size(ControlSize::Sm)
                                 .tooltip("Close")

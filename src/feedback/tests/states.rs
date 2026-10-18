@@ -15,7 +15,7 @@ use crate::{
         SavingIndicator,
     },
     layout::tests::narrow_width,
-    primitives::{FocusScope, IconName, Measure},
+    primitives::{FocusScope, LucideIcon, Measure},
 };
 
 /// A boundary, a confirmation card, a saving line and a countdown, recording what they do.
@@ -151,7 +151,7 @@ impl Render for Column {
                 view.update(cx, |column, _| column.height = bounds.size.height)
             })
             .child(
-                EmptyState::new("empty", IconName::Inbox, "Nothing yet")
+                EmptyState::new("empty", LucideIcon::Inbox, "Nothing yet")
                     .body(self.body)
                     .action(Button::new("act", "Act")),
             ),
@@ -209,7 +209,7 @@ fn state_views_fill_a_column_their_block_measures_by_content(cx: &mut TestAppCon
     setup(cx);
     let widths = [
         narrow_width(cx, "state-root", |_, _| {
-            EmptyState::new("empty", IconName::Search, "Nothing here").into_any_element()
+            EmptyState::new("empty", LucideIcon::Search, "Nothing here").into_any_element()
         }),
         narrow_width(cx, "state-root", |_, _| {
             ErrorView::not_found("missing").into_any_element()

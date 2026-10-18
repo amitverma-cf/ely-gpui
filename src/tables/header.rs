@@ -8,7 +8,7 @@ use gpui::{
 use super::{Column, table::View};
 use crate::layout::{bring_into_view, seeded::Seeded};
 use crate::{
-    primitives::{DragGhost, FocusRing, Icon, IconName},
+    primitives::{DragGhost, FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, TextSize},
 };
 
@@ -184,9 +184,9 @@ pub(crate) fn header(
                 .items_center()
                 .child(
                     Icon::new(if rising {
-                        IconName::ArrowUp
+                        LucideIcon::ArrowUp
                     } else {
-                        IconName::ArrowDown
+                        LucideIcon::ArrowDown
                     })
                     .size(IconSize::Xs)
                     .color(colors.fg_muted),

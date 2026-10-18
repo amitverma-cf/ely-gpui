@@ -3,7 +3,7 @@ use ely_gpui_component::{
     forms::{History, Input, TextInput},
     interaction::{RovingFocus, ScrollSync},
     lists::{ListItem, SelectableList},
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{KbdCombo, format::plural},
 };
@@ -139,7 +139,7 @@ pub fn undo(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 })
             }))
             .child(
-                IconButton::new("interaction-undo", IconName::Undo2)
+                IconButton::new("interaction-undo", LucideIcon::Undo2)
                     .variant(ButtonVariant::Ghost)
                     .tooltip("Undo")
                     .disabled(!can_undo)
@@ -151,7 +151,7 @@ pub fn undo(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                     }),
             )
             .child(
-                IconButton::new("interaction-redo", IconName::Redo2)
+                IconButton::new("interaction-redo", LucideIcon::Redo2)
                     .variant(ButtonVariant::Ghost)
                     .tooltip("Redo")
                     .disabled(!can_redo)
@@ -240,10 +240,10 @@ pub fn focus(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let focus = field.read(cx).focus_handle(cx);
     let theme = cx.theme();
     let tools = [
-        ("bold", IconName::Bold),
-        ("italic", IconName::Italic),
-        ("underline", IconName::Underline),
-        ("strike", IconName::Strikethrough),
+        ("bold", LucideIcon::Bold),
+        ("italic", LucideIcon::Italic),
+        ("underline", LucideIcon::Underline),
+        ("strike", LucideIcon::Strikethrough),
     ];
     let toolbar = tools.into_iter().fold(
         RovingFocus::new("interaction-tools", Axis::Horizontal, move |key, _, cx| {

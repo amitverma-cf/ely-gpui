@@ -8,7 +8,7 @@ use gpui::{
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::Run,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::Ellipsis,
 };
@@ -75,7 +75,7 @@ impl RenderOnce for ChannelHeader {
         let theme = cx.theme();
         let colors = &theme.colors;
         let counted =
-            |key: &'static str, icon: IconName, tip: &'static str, what: Option<(usize, Run)>| {
+            |key: &'static str, icon: LucideIcon, tip: &'static str, what: Option<(usize, Run)>| {
                 what.map(|(count, run)| {
                     Button::new((self.id.clone(), key), count.to_string())
                         .icon(icon)
@@ -88,7 +88,7 @@ impl RenderOnce for ChannelHeader {
                 })
             };
         let call = self.on_call.map(|run| {
-            IconButton::new((self.id.clone(), "call"), IconName::Phone)
+            IconButton::new((self.id.clone(), "call"), LucideIcon::Phone)
                 .variant(ButtonVariant::Ghost)
                 .size(ControlSize::Sm)
                 .tooltip("Start a call")
@@ -98,9 +98,9 @@ impl RenderOnce for ChannelHeader {
                 })
         });
         let mark = if self.private {
-            IconName::Lock
+            LucideIcon::Lock
         } else {
-            IconName::Hash
+            LucideIcon::Hash
         };
         div()
             .debug_selector(|| "channel-header".into())
@@ -144,8 +144,18 @@ impl RenderOnce for ChannelHeader {
                     .flex()
                     .items_center()
                     .gap_1()
-                    .children(counted("members", IconName::Users, "members", self.members))
-                    .children(counted("pins", IconName::Pin, "pinned messages", self.pins))
+                    .children(counted(
+                        "members",
+                        LucideIcon::Users,
+                        "members",
+                        self.members,
+                    ))
+                    .children(counted(
+                        "pins",
+                        LucideIcon::Pin,
+                        "pinned messages",
+                        self.pins,
+                    ))
                     .children(call),
             )
     }

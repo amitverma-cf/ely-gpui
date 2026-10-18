@@ -2,7 +2,7 @@ use ely_gpui_component::{
     buttons::{Button, ButtonVariant},
     forms::Switch,
     overlays::{HoverCard, Popover},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, TextSize},
 };
 use gpui::{AnyElement, App, FontWeight, IntoElement, ParentElement, Styled, Window, div};
@@ -41,7 +41,7 @@ pub fn popovers(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             )
             .child(
                 Button::new("share-copy", "Copy link")
-                    .icon(IconName::Link)
+                    .icon(LucideIcon::Link)
                     .full_width(),
             )
     };
@@ -54,7 +54,7 @@ pub fn popovers(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         row()
             .child(probe(
                 "share",
-                Popover::new("share", "Share", panel).icon(IconName::Share2),
+                Popover::new("share", "Share", panel).icon(LucideIcon::Share2),
             ))
             .child(
                 div()

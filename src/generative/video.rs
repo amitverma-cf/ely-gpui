@@ -14,7 +14,7 @@ use crate::{
     forms::{OnValue, Run},
     layout::{bring_into_view, on_axis},
     motion::Skeleton,
-    primitives::{Icon, IconName, Image, tab_stop},
+    primitives::{Icon, Image, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::{
         Caption,
@@ -203,7 +203,7 @@ impl RenderOnce for VideoGenerationTimeline {
                         .justify_center()
                         .bg(colors.sunken)
                         .child(
-                            Icon::new(IconName::CircleAlert)
+                            Icon::new(LucideIcon::CircleAlert)
                                 .size(IconSize::Sm)
                                 .color(colors.danger),
                         )
@@ -282,7 +282,7 @@ impl RenderOnce for VideoGenerationTimeline {
             Button::new((self.id.clone(), "extend"), "Extend")
                 .variant(ButtonVariant::Secondary)
                 .size(ControlSize::Sm)
-                .icon(IconName::Plus)
+                .icon(LucideIcon::Plus)
                 .on_click(move |_, window, cx| {
                     log::info!("video timeline: extend");
                     extend(window, cx)

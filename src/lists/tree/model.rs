@@ -2,7 +2,7 @@ use std::collections::HashSet;
 
 use gpui::SharedString;
 
-use crate::{data_display::Tone, forms::CheckState, primitives::IconName};
+use crate::{data_display::Tone, forms::CheckState, primitives::LucideIcon};
 
 /// What a node holds under it.
 #[derive(Clone, Debug, PartialEq)]
@@ -18,7 +18,7 @@ pub(crate) enum Children {
 pub struct TreeNode {
     pub(crate) key: SharedString,
     pub(crate) label: SharedString,
-    pub(crate) icon: Option<IconName>,
+    pub(crate) icon: Option<LucideIcon>,
     pub(crate) note: Option<SharedString>,
     pub(crate) tone: Option<Tone>,
     pub(crate) children: Children,
@@ -49,7 +49,7 @@ impl TreeNode {
         self
     }
 
-    pub fn icon(mut self, icon: IconName) -> Self {
+    pub fn icon(mut self, icon: LucideIcon) -> Self {
         self.icon = Some(icon);
         self
     }
@@ -104,7 +104,7 @@ pub(crate) enum Shown {
     Node {
         key: SharedString,
         label: SharedString,
-        icon: Option<IconName>,
+        icon: Option<LucideIcon>,
         note: Option<SharedString>,
         tone: Option<Tone>,
         opens: bool,

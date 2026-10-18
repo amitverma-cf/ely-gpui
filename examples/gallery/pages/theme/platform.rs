@@ -2,7 +2,7 @@ use ely_gpui_component::{
     buttons::{Button, SegmentedControl},
     files::FileIcon,
     forms::Switch,
-    primitives::{IconName, IconTheme},
+    primitives::{IconTheme, LucideIcon},
     shell::{Vibrancy, WindowControls},
     theme::{ActiveTheme, Platform, Theme},
     typography::{Kbd, KbdCombo},
@@ -113,9 +113,9 @@ fn icons(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 .on_change(move |on, _, cx| {
                     let theme = if on {
                         IconTheme::default()
-                            .name("Cargo.toml", IconName::Package)
-                            .name("README.md", IconName::BookOpen)
-                            .extension("rs", IconName::Braces)
+                            .name("Cargo.toml", LucideIcon::Package)
+                            .name("README.md", LucideIcon::BookOpen)
+                            .extension("rs", LucideIcon::Braces)
                     } else {
                         IconTheme::default()
                     };

@@ -5,7 +5,7 @@ use gpui::{App, ElementId, IntoElement, ParentElement, RenderOnce, Styled, Windo
 use super::options::OnNumber;
 use crate::{
     buttons::{ButtonVariant, IconButton},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
     typography::format::{self, Separators},
 };
@@ -84,7 +84,7 @@ impl RenderOnce for Stepper {
             .border_color(theme.colors.border_strong)
             .bg(theme.colors.surface)
             .child(
-                IconButton::new((self.id.clone(), "less"), IconName::Minus)
+                IconButton::new((self.id.clone(), "less"), LucideIcon::Minus)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .disabled(value <= min)
@@ -99,7 +99,7 @@ impl RenderOnce for Stepper {
                     .child(format::number(value, self.precision, Separators::EN)),
             )
             .child(
-                IconButton::new((self.id.clone(), "more"), IconName::Plus)
+                IconButton::new((self.id.clone(), "more"), LucideIcon::Plus)
                     .variant(ButtonVariant::Ghost)
                     .size(ControlSize::Sm)
                     .disabled(value >= max)

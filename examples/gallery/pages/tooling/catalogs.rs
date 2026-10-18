@@ -1,6 +1,6 @@
 use ely_gpui_component::{
     forms::IconPicker,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize},
     tooling::{A11yChecker, DesignTokenViewer},
     typography::Code,
@@ -11,7 +11,7 @@ use crate::probe::probe;
 use crate::ui::section;
 
 pub fn sections(window: &mut Window, cx: &mut App) -> Vec<AnyElement> {
-    let picked = window.use_keyed_state("icon-browser-picked", cx, |_, _| IconName::Search);
+    let picked = window.use_keyed_state("icon-browser-picked", cx, |_, _| LucideIcon::Search);
     let icon = *picked.read(cx);
     let fg = cx.theme().colors.fg;
     vec![
@@ -50,7 +50,7 @@ pub fn sections(window: &mut Window, cx: &mut App) -> Vec<AnyElement> {
                         .items_center()
                         .gap_3()
                         .child(Icon::new(icon).size(IconSize::Xxl).color(fg))
-                        .child(Code::new(format!("IconName::{icon:?}"))),
+                        .child(Code::new(format!("LucideIcon::{icon:?}"))),
                 ),
         )
         .into_any_element(),

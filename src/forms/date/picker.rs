@@ -17,7 +17,7 @@ use super::{
     show_date, show_span,
 };
 use crate::{
-    primitives::{Icon, IconName, tab_stop},
+    primitives::{Icon, LucideIcon, tab_stop},
     theme::{ActiveTheme, ControlSize, IconSize},
 };
 
@@ -65,7 +65,7 @@ pub(crate) fn toggle(
 
 /// What a picker field shows while closed, and how it sits.
 pub(crate) struct Face {
-    pub icon: IconName,
+    pub icon: LucideIcon,
     pub shown: Option<SharedString>,
     pub placeholder: SharedString,
     pub size: ControlSize,
@@ -233,7 +233,7 @@ impl RenderOnce for DatePicker {
         picker_field(
             self.id,
             Face {
-                icon: IconName::Calendar,
+                icon: LucideIcon::Calendar,
                 shown: value.map(|date| show_date(date).into()),
                 placeholder: self.placeholder,
                 size: self.size,
@@ -327,7 +327,7 @@ impl RenderOnce for DateRangePicker {
         picker_field(
             self.id,
             Face {
-                icon: IconName::CalendarRange,
+                icon: LucideIcon::CalendarRange,
                 shown: value.map(|(start, end)| show_span(start, end).into()),
                 placeholder: self.placeholder,
                 size: self.size,

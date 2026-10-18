@@ -7,7 +7,7 @@ use gpui::{
 
 use crate::{
     buttons::{ToggleButton, ToggleItem},
-    primitives::{Icon, IconName, Severity},
+    primitives::{Icon, LucideIcon, Severity},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{Ellipsis, format},
 };
@@ -161,7 +161,7 @@ impl RenderOnce for ProblemsPanel {
                     .pt_1()
                     .text_size(theme.text_size(TextSize::Sm))
                     .child(
-                        Icon::new(IconName::FileText)
+                        Icon::new(LucideIcon::FileText)
                             .size(IconSize::Sm)
                             .color(colors.fg_muted),
                     )

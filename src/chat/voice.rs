@@ -8,7 +8,7 @@ use crate::{
     feedback::Timer,
     forms::OnFlag,
     motion::Pulse,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
 };
 
@@ -41,9 +41,9 @@ impl RenderOnce for VoiceInputButton {
         IconButton::new(
             self.id,
             if recording {
-                IconName::Square
+                LucideIcon::Square
             } else {
-                IconName::Mic
+                LucideIcon::Mic
             },
         )
         .variant(if recording {

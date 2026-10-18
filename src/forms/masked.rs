@@ -11,7 +11,7 @@ use super::{
     options::{Choice, Popup},
 };
 use crate::{
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius},
 };
 
@@ -264,7 +264,7 @@ impl RenderOnce for PhoneInput {
             })
             .child(format!("{flag} {dial}"))
             .child(
-                Icon::new(IconName::ChevronDown)
+                Icon::new(LucideIcon::ChevronDown)
                     .size(IconSize::Xs)
                     .color(muted),
             );

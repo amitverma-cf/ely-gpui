@@ -1,7 +1,7 @@
 use ely_gpui_component::{
     buttons::IconButton,
     forms::{Input, InputAddon, InputGroup, PasswordInput, SearchInput, TextInput},
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::ControlSize,
     typography::Caption,
 };
@@ -155,7 +155,7 @@ pub fn group(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 "control addon",
                 div().w(px(200.0)).child(
                     InputGroup::new(&share).after(InputAddon::new(
-                        IconButton::new("group-copy", IconName::Copy)
+                        IconButton::new("group-copy", LucideIcon::Copy)
                             .size(ControlSize::Sm)
                             .tooltip("Copy"),
                     )),

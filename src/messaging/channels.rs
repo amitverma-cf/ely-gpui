@@ -9,7 +9,7 @@ use crate::{
     data_display::{Avatar, CountBadge, Presence},
     forms::OnValue,
     lists::{ListItem, Sections},
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, AvatarSize, IconSize},
 };
 
@@ -22,7 +22,7 @@ fn trail(id: &ElementId, unread: u32, pinned: bool, cx: &App) -> gpui::Div {
         .gap_2()
         .when(pinned, |trail| {
             trail.child(
-                Icon::new(IconName::Pin)
+                Icon::new(LucideIcon::Pin)
                     .size(IconSize::Xs)
                     .color(colors.fg_subtle),
             )
@@ -80,9 +80,9 @@ impl ChannelItem {
         let colors = &cx.theme().colors;
         let unread = if self.muted { 0 } else { self.unread };
         let mark = if self.private {
-            IconName::Lock
+            LucideIcon::Lock
         } else {
-            IconName::Hash
+            LucideIcon::Hash
         };
         let trail = trail(&self.id, unread, self.pinned, cx);
         ListItem::new(self.id, self.name)

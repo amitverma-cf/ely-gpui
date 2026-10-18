@@ -10,7 +10,7 @@ use super::cite::Source;
 use crate::{
     forms::Run,
     motion::{self, Spinner},
-    primitives::{FocusRing, Icon, IconName},
+    primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{Ellipsis, tabular},
 };
@@ -34,7 +34,7 @@ pub(crate) fn step_mark(
     let changes = motion::changes((id.clone(), "changes"), state, window, cx);
     let theme = cx.theme();
     let colors = &theme.colors;
-    let pop = |icon: IconName, ink: Hsla| {
+    let pop = |icon: LucideIcon, ink: Hsla| {
         let icon = Icon::new(icon).size(IconSize::Sm).color(ink);
         if changes == 0 {
             return icon.into_any_element();
@@ -47,8 +47,8 @@ pub(crate) fn step_mark(
         .into_any_element()
     };
     let mark = match state {
-        StepState::Done => pop(IconName::Check, colors.success),
-        StepState::Failed => pop(IconName::X, colors.danger),
+        StepState::Done => pop(LucideIcon::Check, colors.success),
+        StepState::Failed => pop(LucideIcon::X, colors.danger),
         StepState::Working => Spinner::new(id).size(IconSize::Sm).into_any_element(),
         StepState::Waiting => div()
             .size(theme.status_dot())
@@ -187,7 +187,7 @@ impl RenderOnce for WebResultCard {
                     .text_size(theme.text_size(TextSize::Xs))
                     .text_color(colors.fg_subtle)
                     .child(
-                        Icon::new(IconName::Globe)
+                        Icon::new(LucideIcon::Globe)
                             .size(IconSize::Xs)
                             .color(colors.fg_subtle),
                     )
@@ -294,7 +294,7 @@ impl RenderOnce for DocumentChunkPreview {
                     .text_size(theme.text_size(TextSize::Xs))
                     .text_color(colors.fg_subtle)
                     .child(
-                        Icon::new(IconName::FileText)
+                        Icon::new(LucideIcon::FileText)
                             .size(IconSize::Xs)
                             .color(colors.fg_subtle),
                     )

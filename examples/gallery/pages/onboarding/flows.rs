@@ -6,7 +6,7 @@ use ely_gpui_component::{
     onboarding::{
         FeatureHighlight, Hotspot, OnboardingStep, OnboardingWizard, SetupChecklist, SetupTask,
     },
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize},
 };
 use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, prelude::*, px};
@@ -120,11 +120,12 @@ pub fn highlights(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
     let (spot_seen, card_seen) = (state.read(cx).hotspot, state.read(cx).highlight);
     let [spot, card, reset] = [(); 3].map(|_| state.clone());
     let theme = cx.theme();
-    let tool =
-        |id: &'static str, icon: IconName| IconButton::new(id, icon).variant(ButtonVariant::Ghost);
+    let tool = |id: &'static str, icon: LucideIcon| {
+        IconButton::new(id, icon).variant(ButtonVariant::Ghost)
+    };
     let pin = div()
         .relative()
-        .child(tool("onboarding-pin", IconName::Pin))
+        .child(tool("onboarding-pin", LucideIcon::Pin))
         .when(!spot_seen, |pin| {
             pin.child(div().absolute().top_neg_1p5().right_neg_1p5().child(probe(
                 "onboarding-hotspot",
@@ -144,13 +145,13 @@ pub fn highlights(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
         .rounded_lg()
         .border_1()
         .border_color(theme.colors.border)
-        .child(tool("onboarding-search", IconName::Search))
+        .child(tool("onboarding-search", LucideIcon::Search))
         .child(pin)
-        .child(tool("onboarding-share", IconName::Share2));
+        .child(tool("onboarding-share", LucideIcon::Share2));
     let highlight = (!card_seen).then(|| {
         FeatureHighlight::new(
             "onboarding-split",
-            IconName::Columns2,
+            LucideIcon::Columns2,
             "Split view",
             "Work on two files side by side, each with its own history.",
             |_, _| log::info!("gallery: split view tried"),
@@ -160,11 +161,11 @@ pub fn highlights(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
     let menu = List::new()
         .child(
             ListItem::new("onboarding-inbox", "Inbox")
-                .leading(Icon::new(IconName::Inbox).size(IconSize::Sm)),
+                .leading(Icon::new(LucideIcon::Inbox).size(IconSize::Sm)),
         )
         .child(
             ListItem::new("onboarding-automations", "Automations")
-                .leading(Icon::new(IconName::Zap).size(IconSize::Sm))
+                .leading(Icon::new(LucideIcon::Zap).size(IconSize::Sm))
                 .trailing(Badge::new("New").tone(Tone::Accent)),
         );
     section(

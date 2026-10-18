@@ -10,7 +10,7 @@ use crate::{
     buttons::{Button, ButtonVariant},
     forms::{DropZone, PICTURES, Run, browse},
     motion::Spinner,
-    primitives::{Icon, IconName},
+    primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::Ellipsis,
 };
@@ -175,7 +175,7 @@ impl RenderOnce for ImageUpload {
                 .text_size(theme.text_size(TextSize::Sm))
                 .text_color(colors.danger)
                 .child(
-                    Icon::new(IconName::ImageOff)
+                    Icon::new(LucideIcon::ImageOff)
                         .size(IconSize::Md)
                         .color(colors.danger),
                 )

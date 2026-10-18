@@ -3,7 +3,7 @@ use ely_gpui_component::{
     buttons::{Button, ButtonVariant},
     chat::CodeBlock,
     documents::MarkdownRenderer,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, TextSize},
     typography::format::plural,
 };
@@ -134,7 +134,7 @@ pub fn artifacts(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
             .gap_6()
             .child(
                 div().w(px(460.)).h(px(360.)).child(
-                    ArtifactPanel::new("agent-note", "Notes on lift", IconName::FileText)
+                    ArtifactPanel::new("agent-note", "Notes on lift", LucideIcon::FileText)
                         .version(now, 3, move |to, _, cx| set(&version, to, cx))
                         .preview(div().p_4().child(MarkdownRenderer::new("agent-note-text", NOTE)))
                         .source(div().p_3().child(CodeBlock::new("agent-note-source", NOTE).language("markdown")))
@@ -143,7 +143,7 @@ pub fn artifacts(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
             )
             .child(
                 div().w(px(420.)).h(px(360.)).child(
-                    ArtifactPanel::new("agent-code", "lift.rs", IconName::Code)
+                    ArtifactPanel::new("agent-code", "lift.rs", LucideIcon::Code)
                         .source(div().p_3().child(CodeBlock::new("agent-code-source", LIFT).language("rust"))),
                 ),
             ),

@@ -1,6 +1,6 @@
 use ely_gpui_component::{
     buttons::IconButton,
-    primitives::IconName,
+    primitives::LucideIcon,
     shell::{TitleBar, WindowControls, drag_region},
     theme::{ActiveTheme, ControlSize, Elevation, Platform, Radius, TextSize},
     typography::Caption,
@@ -30,8 +30,8 @@ fn demo_bar(id: &'static str, style: Platform) -> TitleBar {
         .platform(style)
         .title("Ely — Projects")
         .on_close(|_, _| log::info!("gallery: demo close refused"))
-        .child(IconButton::new((id, 1usize), IconName::PanelLeft).size(ControlSize::Sm))
-        .action(IconButton::new((id, 2usize), IconName::Search).size(ControlSize::Sm))
+        .child(IconButton::new((id, 1usize), LucideIcon::PanelLeft).size(ControlSize::Sm))
+        .action(IconButton::new((id, 2usize), LucideIcon::Search).size(ControlSize::Sm))
 }
 
 pub fn title_bar(cx: &App) -> impl IntoElement + use<> {

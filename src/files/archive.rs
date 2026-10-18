@@ -8,7 +8,7 @@ use gpui::{
 use super::FileIcon;
 use crate::{
     lists::{Folder, Tree, TreeNode},
-    primitives::{IconName, IconTheme, icon_theme},
+    primitives::{IconTheme, LucideIcon, icon_theme},
     theme::{ActiveTheme, IconSize, TextSize},
     typography::{MiddleEllipsis, format},
 };
@@ -47,7 +47,7 @@ fn nodes(
         let (children, bytes) = nodes(inner, &format!("{path}/"), entries, icons);
         held += bytes;
         let node = TreeNode::new(path, name.clone())
-            .icon(IconName::Folder)
+            .icon(LucideIcon::Folder)
             .note(format::file_size(bytes, false))
             .children(children);
         out.push(node);

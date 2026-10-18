@@ -4,7 +4,7 @@ use ely_gpui_component::{
         CopyButton, FloatingActionButton, QuickAction, QuickActions, ShareButton, back_button,
         close_button, more_button,
     },
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Radius},
     typography::Caption,
 };
@@ -54,10 +54,11 @@ pub fn fab(cx: &App) -> impl IntoElement + use<> {
                     .items_center()
                     .gap_3()
                     .child(
-                        FloatingActionButton::new("fab-compose", IconName::Pencil).label("Compose"),
+                        FloatingActionButton::new("fab-compose", LucideIcon::Pencil)
+                            .label("Compose"),
                     )
                     .child(
-                        FloatingActionButton::new("fab-add", IconName::Plus).tooltip("New item"),
+                        FloatingActionButton::new("fab-add", LucideIcon::Plus).tooltip("New item"),
                     ),
             ),
     )
@@ -155,17 +156,17 @@ pub fn action_bar(cx: &App) -> impl IntoElement + use<> {
                         .child(
                             Button::new("bar-reply", "Reply")
                                 .variant(ButtonVariant::Ghost)
-                                .icon(IconName::Reply),
+                                .icon(LucideIcon::Reply),
                         )
                         .child(
                             Button::new("bar-forward", "Forward")
                                 .variant(ButtonVariant::Ghost)
-                                .icon(IconName::Forward),
+                                .icon(LucideIcon::Forward),
                         )
                         .child(
                             Button::new("bar-archive", "Archive")
                                 .primary()
-                                .icon(IconName::Archive),
+                                .icon(LucideIcon::Archive),
                         ),
                 ),
             )
@@ -210,12 +211,12 @@ pub fn bulk(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                     .action(
                         Button::new("bulk-move", "Move")
                             .variant(ButtonVariant::Ghost)
-                            .icon(IconName::Folder),
+                            .icon(LucideIcon::Folder),
                     )
                     .action(
                         Button::new("bulk-delete", "Delete")
                             .variant(ButtonVariant::Danger)
-                            .icon(IconName::Trash2),
+                            .icon(LucideIcon::Trash2),
                     )
                     .on_clear(move |_, cx| {
                         clear.update(cx, |count, cx| {
@@ -278,20 +279,21 @@ pub fn quick_actions(cx: &App) -> impl IntoElement + use<> {
         div().w(px(420.0)).child(
             QuickActions::new("quick-actions")
                 .action(
-                    QuickAction::new(IconName::FilePlus, "New document", note("new"))
+                    QuickAction::new(LucideIcon::FilePlus, "New document", note("new"))
                         .note("Blank, or from a template")
                         .shortcut("cmd-n"),
                 )
                 .action(
-                    QuickAction::new(IconName::FolderOpen, "Open…", note("open")).shortcut("cmd-o"),
+                    QuickAction::new(LucideIcon::FolderOpen, "Open…", note("open"))
+                        .shortcut("cmd-o"),
                 )
                 .action(
-                    QuickAction::new(IconName::Search, "Search everywhere", note("search"))
+                    QuickAction::new(LucideIcon::Search, "Search everywhere", note("search"))
                         .note("Files, symbols, commands")
                         .shortcut("cmd-shift-p"),
                 )
                 .action(
-                    QuickAction::new(IconName::Settings, "Settings", note("settings"))
+                    QuickAction::new(LucideIcon::Settings, "Settings", note("settings"))
                         .shortcut("cmd-,"),
                 ),
         ),

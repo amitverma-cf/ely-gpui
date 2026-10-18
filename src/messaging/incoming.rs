@@ -11,7 +11,7 @@ use crate::{
     forms::Run,
     motion::Pulse,
     overlays::Dialog,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::AvatarSize,
 };
 
@@ -64,9 +64,9 @@ impl RenderOnce for IncomingCallDialog {
             None => avatar,
         };
         let (kind, icon) = if self.video {
-            ("Incoming video call", IconName::Video)
+            ("Incoming video call", LucideIcon::Video)
         } else {
-            ("Incoming voice call", IconName::Phone)
+            ("Incoming voice call", LucideIcon::Phone)
         };
         let (id, caller) = (self.id.clone(), self.caller.clone());
         let (decline, accept) = (self.on_decline, self.on_accept);
@@ -93,7 +93,7 @@ impl RenderOnce for IncomingCallDialog {
         )
         .action(move |close| {
             Button::new((decline_id, "decline"), "Decline")
-                .icon(IconName::PhoneOff)
+                .icon(LucideIcon::PhoneOff)
                 .variant(ButtonVariant::Danger)
                 .on_click(move |_, window, cx| close(window, cx))
         })

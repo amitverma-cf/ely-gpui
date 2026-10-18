@@ -9,7 +9,7 @@ use super::OnIndex;
 use crate::{
     buttons::{ButtonVariant, IconButton, shortcut_text},
     forms::Checkbox,
-    primitives::IconName,
+    primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, Elevation, Radius, TextSize},
     typography::{Ellipsis, tabular},
 };
@@ -69,7 +69,7 @@ impl RenderOnce for DebugToolbar {
         let paused = self.state == DebugState::Paused;
         let platform = theme.platform;
         let button =
-            |command: DebugCommand, icon: IconName, words: &str, key: &str, enabled: bool| {
+            |command: DebugCommand, icon: LucideIcon, words: &str, key: &str, enabled: bool| {
                 let run = self.on_command.clone();
                 IconButton::new((self.id.clone(), format!("{command:?}")), icon)
                     .variant(ButtonVariant::Ghost)
@@ -97,31 +97,31 @@ impl RenderOnce for DebugToolbar {
             .child(if paused {
                 button(
                     DebugCommand::Continue,
-                    IconName::Play,
+                    LucideIcon::Play,
                     "Continue",
                     "f5",
                     true,
                 )
             } else {
-                button(DebugCommand::Pause, IconName::Pause, "Pause", "f6", true)
+                button(DebugCommand::Pause, LucideIcon::Pause, "Pause", "f6", true)
             })
             .child(button(
                 DebugCommand::StepOver,
-                IconName::RedoDot,
+                LucideIcon::RedoDot,
                 "Step over",
                 "f10",
                 paused,
             ))
             .child(button(
                 DebugCommand::StepInto,
-                IconName::ArrowDownToDot,
+                LucideIcon::ArrowDownToDot,
                 "Step into",
                 "f11",
                 paused,
             ))
             .child(button(
                 DebugCommand::StepOut,
-                IconName::ArrowUpFromDot,
+                LucideIcon::ArrowUpFromDot,
                 "Step out",
                 "shift-f11",
                 paused,
@@ -129,14 +129,14 @@ impl RenderOnce for DebugToolbar {
             .child(rule())
             .child(button(
                 DebugCommand::Restart,
-                IconName::RotateCw,
+                LucideIcon::RotateCw,
                 "Restart",
                 "secondary-shift-f5",
                 true,
             ))
             .child(button(
                 DebugCommand::Stop,
-                IconName::Square,
+                LucideIcon::Square,
                 "Stop",
                 "shift-f5",
                 true,
@@ -278,7 +278,7 @@ impl RenderOnce for BreakpointList {
                             .child(
                                 IconButton::new(
                                     (self.id.clone(), format!("remove-{ix}")),
-                                    IconName::X,
+                                    LucideIcon::X,
                                 )
                                 .variant(ButtonVariant::Ghost)
                                 .size(ControlSize::Sm)
