@@ -90,3 +90,39 @@ fn glass_lets_the_blur_through_until_high_contrast() {
         assert_eq!(strong.glass, strong.bg);
     }
 }
+
+#[gpui::test]
+fn baked_tokens_match_config(cx: &mut TestAppContext) {
+    use crate::theme::{ControlSize, Radius, TextSize, Theme};
+    cx.update(Theme::init);
+    cx.read(|cx| {
+        let theme = cx.theme();
+        assert_eq!(theme.control_height(ControlSize::Sm).0, 24.0 / 16.0);
+        assert_eq!(theme.control_height(ControlSize::Md).0, 28.0 / 16.0);
+        assert_eq!(theme.control_height(ControlSize::Lg).0, 32.0 / 16.0);
+
+        assert_eq!(theme.radius(Radius::Sm).0, 4.0 / 16.0);
+        assert_eq!(theme.radius(Radius::Md).0, 6.0 / 16.0);
+        assert_eq!(theme.radius(Radius::Lg).0, 8.0 / 16.0);
+        assert_eq!(theme.radius(Radius::Xl).0, 12.0 / 16.0);
+
+        assert_eq!(theme.text_size(TextSize::Xs).0, 11.0 / 16.0);
+        assert_eq!(theme.text_size(TextSize::Sm).0, 12.0 / 16.0);
+        assert_eq!(theme.text_size(TextSize::Base).0, 13.0 / 16.0);
+        assert_eq!(theme.text_size(TextSize::Display).0, 32.0 / 16.0);
+    });
+}
+
+#[gpui::test]
+fn baked_fonts_register_in_theme(cx: &mut TestAppContext) {
+    cx.update(Theme::init);
+    let (font, mono) = cx.read(|cx| {
+        (
+            cx.theme().font_family.clone(),
+            cx.theme().mono_family.clone(),
+        )
+    });
+    assert_eq!(font, "Inter");
+    assert_eq!(mono, "JetBrains Mono");
+    assert!(crate::assets::EMBEDDED_FONTS.len() >= 6);
+}
