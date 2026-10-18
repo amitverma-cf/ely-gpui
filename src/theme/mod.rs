@@ -17,6 +17,10 @@ mod syntax;
 mod tokens;
 mod tooling;
 
+pub(crate) mod baked {
+    include!(concat!(env!("OUT_DIR"), "/ely_baked.rs"));
+}
+
 #[cfg(all(test, feature = "test-support"))]
 mod tests;
 
@@ -96,18 +100,32 @@ impl ActiveTheme for App {
 
 impl Theme {
     pub(crate) fn init(cx: &mut App) {
+        let mode = match baked::BAKED_DEFAULT_MODE {
+            "dark" => Mode::Dark,
+            "light" => Mode::Light,
+            _ => Mode::default(),
+        };
+        let density = match baked::BAKED_DENSITY_STR {
+            "compact" => Density::Compact,
+            "comfortable" => Density::Comfortable,
+            _ => Density::Standard,
+        };
         cx.set_global(Theme {
-            mode: Mode::Light,
-            high_contrast: false,
-            color_blind_safe: false,
+            mode,
+            high_contrast: baked::BAKED_HIGH_CONTRAST,
+            color_blind_safe: baked::BAKED_COLOR_BLIND_SAFE,
             transition: 0,
             custom: [None, None],
-            colors: Palette::light(false),
-            density: Density::Standard,
-            radius_scale: 1.0,
-            font_scale: 1.0,
-            font_family: "Inter".into(),
-            mono_family: "JetBrains Mono".into(),
+            colors: if mode == Mode::Dark {
+                Palette::dark(baked::BAKED_HIGH_CONTRAST)
+            } else {
+                Palette::light(baked::BAKED_HIGH_CONTRAST)
+            },
+            density,
+            radius_scale: baked::BAKED_RADIUS_SCALE,
+            font_scale: baked::BAKED_FONT_SCALE,
+            font_family: baked::BAKED_FONT_SANS.into(),
+            mono_family: baked::BAKED_FONT_MONO.into(),
             reduced_motion: false,
             platform: Platform::current(),
         });

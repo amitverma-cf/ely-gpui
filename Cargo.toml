@@ -66,6 +66,12 @@ wry = { version = "0.57", default-features = false }
 [target.'cfg(unix)'.dependencies]
 rustix = { version = "1", default-features = false, features = ["std", "fs"] }
 
+[build-dependencies]
+regex = "1"
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+walkdir = "2"
+
 [dev-dependencies]
 env_logger = "0.11"
 

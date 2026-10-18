@@ -1,6 +1,6 @@
 use gpui::{BoxShadow, Hsla, Pixels, Point, Rems, Size, point, px, rems, size};
 
-use super::{Mode, Theme};
+use super::{Mode, Theme, baked};
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub enum Density {
@@ -82,9 +82,9 @@ pub(super) fn px_to_rems(value: f32) -> Rems {
 impl Theme {
     pub fn control_height(&self, size: ControlSize) -> Rems {
         let base = match size {
-            ControlSize::Sm => 24.0,
-            ControlSize::Md => 28.0,
-            ControlSize::Lg => 32.0,
+            ControlSize::Sm => baked::BAKED_CONTROL_HEIGHT_SM,
+            ControlSize::Md => baked::BAKED_CONTROL_HEIGHT_MD,
+            ControlSize::Lg => baked::BAKED_CONTROL_HEIGHT_LG,
         };
         let delta = match self.density {
             Density::Compact => -4.0,
@@ -96,9 +96,9 @@ impl Theme {
 
     pub fn control_padding(&self, size: ControlSize) -> Rems {
         let base = match size {
-            ControlSize::Sm => 8.0,
-            ControlSize::Md => 12.0,
-            ControlSize::Lg => 16.0,
+            ControlSize::Sm => baked::BAKED_CONTROL_PADDING_SM,
+            ControlSize::Md => baked::BAKED_CONTROL_PADDING_MD,
+            ControlSize::Lg => baked::BAKED_CONTROL_PADDING_LG,
         };
         let delta = match self.density {
             Density::Compact => -2.0,
@@ -217,7 +217,7 @@ impl Theme {
 
     /// A window's rem size at 100% zoom; gpui's own default.
     pub fn base_rem(&self) -> Pixels {
-        px(16.0)
+        px(baked::BAKED_BASE_REM)
     }
 
     /// Gap between the edge of a screen or window and what floats by it: a mini window, a toast stack.
@@ -312,9 +312,9 @@ impl Theme {
     /// A table row's height at each density.
     pub fn table_row(&self, density: Density) -> Rems {
         px_to_rems(match density {
-            Density::Compact => 28.0,
-            Density::Standard => 36.0,
-            Density::Comfortable => 44.0,
+            Density::Compact => baked::BAKED_TABLE_ROW_COMPACT,
+            Density::Standard => baked::BAKED_TABLE_ROW_STANDARD,
+            Density::Comfortable => baked::BAKED_TABLE_ROW_COMFORTABLE,
         })
     }
 
@@ -456,24 +456,24 @@ impl Theme {
 
     pub fn text_size(&self, size: TextSize) -> Rems {
         let base = match size {
-            TextSize::Xs => 11.0,
-            TextSize::Sm => 12.0,
-            TextSize::Base => 13.0,
-            TextSize::Md => 14.0,
-            TextSize::Lg => 16.0,
-            TextSize::Xl => 20.0,
-            TextSize::Xxl => 24.0,
-            TextSize::Display => 32.0,
+            TextSize::Xs => baked::BAKED_TEXT_XS,
+            TextSize::Sm => baked::BAKED_TEXT_SM,
+            TextSize::Base => baked::BAKED_TEXT_BASE,
+            TextSize::Md => baked::BAKED_TEXT_MD,
+            TextSize::Lg => baked::BAKED_TEXT_LG,
+            TextSize::Xl => baked::BAKED_TEXT_XL,
+            TextSize::Xxl => baked::BAKED_TEXT_XXL,
+            TextSize::Display => baked::BAKED_TEXT_DISPLAY,
         };
         px_to_rems(base * self.font_scale)
     }
 
     pub fn radius(&self, size: Radius) -> Rems {
         let base = match size {
-            Radius::Sm => 4.0,
-            Radius::Md => 6.0,
-            Radius::Lg => 8.0,
-            Radius::Xl => 12.0,
+            Radius::Sm => baked::BAKED_RADIUS_SM,
+            Radius::Md => baked::BAKED_RADIUS_MD,
+            Radius::Lg => baked::BAKED_RADIUS_LG,
+            Radius::Xl => baked::BAKED_RADIUS_XL,
         };
         px_to_rems(base * self.radius_scale)
     }
