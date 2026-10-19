@@ -173,7 +173,23 @@ fallback = "image-off"
 
 fn handle_list(args: &[String]) {
     let as_json = args.iter().any(|a| a == "--json");
-    component::list_components(as_json);
+    let non_flags: Vec<&str> = args
+        .iter()
+        .filter(|a| !a.starts_with("--"))
+        .map(|s| s.as_str())
+        .collect();
+
+    let filter = if non_flags.is_empty() {
+        if args.iter().any(|a| a == "--all") {
+            Some("--all".to_string())
+        } else {
+            None
+        }
+    } else {
+        Some(non_flags.join(" "))
+    };
+
+    component::list_components(filter.as_deref(), as_json);
 }
 
 fn handle_add(args: &[String]) {
@@ -252,10 +268,9 @@ fn handle_add_component(name: &str) {
     let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
     if let Err(e) = component::scaffold_component(name, &cwd) {
         eprintln!("[error] {}", e);
-        println!("\nAvailable components in Ely catalog:");
-        for c in component::CATALOG {
-            println!("  - {:<18} {}", c.name, c.description);
-        }
+        println!(
+            "\nRun 'cargo ely list' to see all 44 chapters, or 'cargo ely list search <name>' to find components."
+        );
     }
 }
 

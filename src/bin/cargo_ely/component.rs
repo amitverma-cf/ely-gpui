@@ -1,235 +1,224 @@
+use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::Path;
 use std::process::Command;
 
-pub struct ComponentEntry {
-    pub name: &'static str,
-    pub category: &'static str,
-    pub file: &'static str,
-    pub export_type: &'static str,
-    pub description: &'static str,
-    pub dependencies: &'static [&'static str],
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct RegistryComponent {
+    pub name: String,
+    pub display_name: String,
+    pub chapter: usize,
+    pub chapter_title: String,
+    pub category: String,
+    pub source_dir: String,
+    pub file: String,
+    pub export_type: String,
+    pub description: String,
+    #[serde(default)]
+    pub dependencies: Vec<String>,
 }
 
-pub const CATALOG: &[ComponentEntry] = &[
-    ComponentEntry {
-        name: "button",
-        category: "inputs",
-        file: "button.rs",
-        export_type: "Button",
-        description: "Buttons, icon buttons, toggle buttons",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "input",
-        category: "inputs",
-        file: "text_input.rs",
-        export_type: "TextInput",
-        description: "Single and multi-line text input fields",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "checkbox",
-        category: "inputs",
-        file: "checkbox.rs",
-        export_type: "Checkbox",
-        description: "Checkboxes with tristate support",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "switch",
-        category: "inputs",
-        file: "switch.rs",
-        export_type: "Switch",
-        description: "Toggle switches",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "slider",
-        category: "inputs",
-        file: "slider.rs",
-        export_type: "Slider",
-        description: "Continuous and stepped value sliders",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "dropdown",
-        category: "inputs",
-        file: "dropdown.rs",
-        export_type: "Dropdown",
-        description: "Single and multi-select dropdown menus",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "badge",
-        category: "display",
-        file: "badge.rs",
-        export_type: "Badge",
-        description: "Status and count badges",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "avatar",
-        category: "display",
-        file: "avatar.rs",
-        export_type: "Avatar",
-        description: "User avatar images with initials fallback",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "tooltip",
-        category: "primitives",
-        file: "tooltip.rs",
-        export_type: "Tooltip",
-        description: "Hover and focus help tooltips",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "app_layout",
-        category: "layout",
-        file: "app_layout.rs",
-        export_type: "AppLayout",
-        description: "Desktop shell layout with header, sidebars and footer",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "card",
-        category: "layout",
-        file: "surface.rs",
-        export_type: "Card",
-        description: "Structured content container cards",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "dialog",
-        category: "overlays",
-        file: "dialog.rs",
-        export_type: "Dialog",
-        description: "Modal dialog overlays with backdrop",
-        dependencies: &["button"],
-    },
-    ComponentEntry {
-        name: "command_palette",
-        category: "overlays",
-        file: "command_palette.rs",
-        export_type: "CommandPalette",
-        description: "Command palette / quick search dialog",
-        dependencies: &["badge", "input"],
-    },
-    ComponentEntry {
-        name: "sheet",
-        category: "overlays",
-        file: "sheet.rs",
-        export_type: "Sheet",
-        description: "Side sheet / drawer panels",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "toast",
-        category: "overlays",
-        file: "toast.rs",
-        export_type: "Toast",
-        description: "Toast notification manager and toasts",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "table",
-        category: "collections",
-        file: "table.rs",
-        export_type: "Table",
-        description: "Virtual scrolling data tables with header resize",
-        dependencies: &[],
-    },
-    ComponentEntry {
-        name: "tabs",
-        category: "navigation",
-        file: "tabs.rs",
-        export_type: "Tabs",
-        description: "Tabbed navigation bars and panels",
-        dependencies: &[],
-    },
-];
+#[derive(Debug, Serialize, Deserialize)]
+pub struct RegistryChapter {
+    pub number: usize,
+    pub name: String,
+    pub title: String,
+    pub summary: String,
+    pub source_dir: String,
+    pub component_count: usize,
+    pub components: Vec<String>,
+}
 
-pub fn list_components(as_json: bool) {
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Registry {
+    pub total_components: usize,
+    pub total_chapters: usize,
+    pub chapters: Vec<RegistryChapter>,
+    pub components: Vec<RegistryComponent>,
+}
+
+pub fn load_registry() -> Registry {
+    if let Ok(content) = fs::read_to_string("registry.json")
+        && let Ok(reg) = serde_json::from_str::<Registry>(&content)
+    {
+        return reg;
+    }
+    const EMBEDDED: &str = include_str!("../../../registry.json");
+    serde_json::from_str(EMBEDDED).expect("Valid embedded registry.json")
+}
+
+pub fn list_components(filter: Option<&str>, as_json: bool) {
     if as_json {
-        let registry_path = Path::new("registry.json");
-        if registry_path.is_file()
-            && let Ok(json) = fs::read_to_string(registry_path)
-        {
-            println!("{json}");
-            return;
+        if let Ok(content) = fs::read_to_string("registry.json") {
+            println!("{content}");
+        } else {
+            const EMBEDDED: &str = include_str!("../../../registry.json");
+            println!("{EMBEDDED}");
         }
-
-        println!("{{\"components\":[");
-        for (i, c) in CATALOG.iter().enumerate() {
-            let comma = if i + 1 < CATALOG.len() { "," } else { "" };
-            let deps_json = c
-                .dependencies
-                .iter()
-                .map(|d| format!("\"{d}\""))
-                .collect::<Vec<_>>()
-                .join(",");
-            println!(
-                "  {{\"name\":\"{}\",\"category\":\"{}\",\"file\":\"{}\",\"export\":\"{}\",\"dependencies\":[{deps_json}],\"description\":\"{}\"}}{comma}",
-                c.name, c.category, c.file, c.export_type, c.description
-            );
-        }
-        println!("]}}");
         return;
     }
 
-    println!("Ely GPUI Component Registry\n");
-    println!("Total available components: {}\n", CATALOG.len());
+    let registry = load_registry();
 
-    let categories = [
-        "inputs",
-        "display",
-        "layout",
-        "overlays",
-        "primitives",
-        "collections",
-        "navigation",
-    ];
-
-    for cat in categories {
-        let matching: Vec<&ComponentEntry> = CATALOG.iter().filter(|c| c.category == cat).collect();
-        if matching.is_empty() {
-            continue;
-        }
-
-        println!("[{cat}]");
-        for c in matching {
-            let deps = if c.dependencies.is_empty() {
-                String::new()
-            } else {
-                format!(" (deps: {})", c.dependencies.join(", "))
-            };
+    match filter {
+        None => {
+            println!("Ely GPUI Component Registry");
             println!(
-                "  {:<18} {:<15} {}{}",
-                c.name, c.export_type, c.description, deps
+                "Total: {} components across {} chapters\n",
+                registry.total_components, registry.total_chapters
+            );
+            println!("Chapters:");
+            for ch in &registry.chapters {
+                println!(
+                    "  {:02}. {:<24} ({} components)",
+                    ch.number, ch.title, ch.component_count
+                );
+            }
+            println!("\nUsage:");
+            println!(
+                "  cargo ely list <chapter>        List components in a chapter (e.g. 'forms', 'charts')"
+            );
+            println!("  cargo ely list search <query>   Search across all 1,280 components");
+            println!(
+                "  cargo ely list --all            List all 1,280 components grouped by chapter"
+            );
+            println!(
+                "  cargo ely add <component>       Scaffold an editable component into your app\n"
             );
         }
-        println!();
-    }
+        Some("--all") => {
+            println!(
+                "Ely GPUI Component Registry (All {} components)\n",
+                registry.total_components
+            );
+            for ch in &registry.chapters {
+                println!(
+                    "== {:02}. {} ({} components) ==",
+                    ch.number, ch.title, ch.component_count
+                );
+                let matching: Vec<&RegistryComponent> = registry
+                    .components
+                    .iter()
+                    .filter(|c| c.chapter == ch.number)
+                    .collect();
+                for c in matching {
+                    let deps = if c.dependencies.is_empty() {
+                        String::new()
+                    } else {
+                        format!(" [deps: {}]", c.dependencies.join(", "))
+                    };
+                    println!(
+                        "  {:<26} {:<24} {}{}",
+                        c.name, c.export_type, c.description, deps
+                    );
+                }
+                println!();
+            }
+        }
+        Some(query) if query.starts_with("search ") || query.starts_with("find ") => {
+            let term = query
+                .trim_start_matches("search ")
+                .trim_start_matches("find ")
+                .trim()
+                .to_lowercase();
+            search_and_print(&registry, &term);
+        }
+        Some(target) => {
+            let clean = target.trim().to_lowercase();
+            // Check if matches chapter number or chapter name
+            let chapter_match = registry.chapters.iter().find(|ch| {
+                ch.name == clean
+                    || ch.title.to_lowercase() == clean
+                    || format!("{:02}", ch.number) == clean
+                    || format!("{}", ch.number) == clean
+            });
 
-    println!("Scaffold any component into your project with:");
-    println!("  cargo ely add <component>\n");
+            if let Some(ch) = chapter_match {
+                println!(
+                    "== {:02}. {} ({} components) ==",
+                    ch.number, ch.title, ch.component_count
+                );
+                println!("Summary: {}\n", ch.summary);
+                let matching: Vec<&RegistryComponent> = registry
+                    .components
+                    .iter()
+                    .filter(|c| c.chapter == ch.number)
+                    .collect();
+                for c in matching {
+                    let deps = if c.dependencies.is_empty() {
+                        String::new()
+                    } else {
+                        format!(" [deps: {}]", c.dependencies.join(", "))
+                    };
+                    println!(
+                        "  {:<26} {:<24} {}{}",
+                        c.name, c.export_type, c.description, deps
+                    );
+                }
+                println!("\nScaffold any of these components with:");
+                println!("  cargo ely add <component>\n");
+            } else {
+                // Treat as search query
+                search_and_print(&registry, &clean);
+            }
+        }
+    }
+}
+
+fn search_and_print(registry: &Registry, term: &str) {
+    let clean_term = term.replace('-', "_");
+    let hits: Vec<&RegistryComponent> = registry
+        .components
+        .iter()
+        .filter(|c| {
+            c.name.contains(&clean_term)
+                || c.display_name.to_lowercase().contains(term)
+                || c.description.to_lowercase().contains(term)
+        })
+        .collect();
+
+    println!("Search results for '{}' ({} found):\n", term, hits.len());
+    for c in hits {
+        let deps = if c.dependencies.is_empty() {
+            String::new()
+        } else {
+            format!(" [deps: {}]", c.dependencies.join(", "))
+        };
+        println!(
+            "  {:<26} {:<20} (Ch {:02} {}) - {}{}",
+            c.name, c.export_type, c.chapter, c.category, c.description, deps
+        );
+    }
+    println!("\nScaffold with: cargo ely add <component>\n");
 }
 
 pub fn scaffold_component(name: &str, project_root: &Path) -> Result<(), String> {
+    let registry = load_registry();
     let clean = name.to_ascii_lowercase().replace('-', "_");
-    let entry = CATALOG.iter().find(|c| c.name == clean).ok_or_else(|| {
-        format!("Unknown component '{name}'. Run 'cargo ely list' to see available components.")
-    })?;
+    let clean_compact = clean.replace('_', "");
+
+    let entry = registry
+        .components
+        .iter()
+        .find(|c| {
+            c.name == clean
+                || c.name.replace('_', "") == clean_compact
+                || c.display_name.to_lowercase() == clean
+                || c.display_name.to_lowercase().replace(' ', "") == clean_compact
+        })
+        .ok_or_else(|| {
+            format!(
+                "Unknown component '{name}'. Run 'cargo ely list search {name}' to find matching components."
+            )
+        })?;
 
     let components_dir = project_root.join("src").join("components");
     fs::create_dir_all(&components_dir)
         .map_err(|e| format!("Failed to create components directory: {e}"))?;
 
-    // Auto-resolve missing dependencies first
-    for &dep_name in entry.dependencies {
-        if let Some(dep_entry) = CATALOG.iter().find(|c| c.name == dep_name) {
-            let dep_file = components_dir.join(dep_entry.file);
+    for dep_name in &entry.dependencies {
+        if let Some(dep_entry) = registry.components.iter().find(|c| &c.name == dep_name) {
+            let dep_file = components_dir.join(&dep_entry.file);
             if !dep_file.exists() {
                 println!("[ely] Resolving required dependency: '{}'", dep_name);
                 scaffold_single_file(dep_entry, project_root, &components_dir)?;
@@ -250,12 +239,12 @@ pub fn scaffold_component(name: &str, project_root: &Path) -> Result<(), String>
 }
 
 fn scaffold_single_file(
-    entry: &ComponentEntry,
+    entry: &RegistryComponent,
     project_root: &Path,
     components_dir: &Path,
 ) -> Result<(), String> {
-    let dest_file = components_dir.join(entry.file);
-    let source_content = fetch_component_source(entry.category, entry.file, project_root)?;
+    let dest_file = components_dir.join(&entry.file);
+    let source_content = fetch_component_source(&entry.source_dir, &entry.file, project_root)?;
 
     fs::write(&dest_file, source_content)
         .map_err(|e| format!("Failed to write {}: {e}", dest_file.display()))?;
@@ -271,11 +260,11 @@ fn scaffold_single_file(
 }
 
 fn fetch_component_source(
-    category: &str,
+    source_dir: &str,
     file: &str,
     project_root: &Path,
 ) -> Result<String, String> {
-    let local_path = project_root.join("src").join(category).join(file);
+    let local_path = project_root.join(source_dir).join(file);
     if local_path.is_file()
         && let Ok(content) = fs::read_to_string(&local_path)
     {
@@ -283,8 +272,8 @@ fn fetch_component_source(
     }
 
     let url = format!(
-        "https://raw.githubusercontent.com/amitverma-cf/ely-gpui/main/src/{}/{}",
-        category, file
+        "https://raw.githubusercontent.com/amitverma-cf/ely-gpui/main/{}/{}",
+        source_dir, file
     );
 
     println!("[ely] Fetching component source from upstream GitHub...");
@@ -303,7 +292,7 @@ fn fetch_component_source(
     ))
 }
 
-fn update_components_mod(components_dir: &Path, entry: &ComponentEntry) -> Result<(), String> {
+fn update_components_mod(components_dir: &Path, entry: &RegistryComponent) -> Result<(), String> {
     let mod_file = components_dir.join("mod.rs");
     let mod_name = entry.file.trim_end_matches(".rs");
     let pub_mod_line = format!("pub mod {};\n", mod_name);
