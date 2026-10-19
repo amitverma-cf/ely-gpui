@@ -43,7 +43,10 @@ fn choice(theme: &str) -> Result<Choice> {
 /// `?page=<slug>&story=<title or slug>&theme=light|dark`, each optional; a story needs its page.
 fn read(search: &str) -> Result<Start> {
     let assets = asset!("");
-    if !(assets.starts_with("https://") || assets.starts_with("http://")) || !assets.ends_with('/')
+    if !(assets.starts_with("https://")
+        || assets.starts_with("http://")
+        || assets.starts_with('/'))
+        || !assets.ends_with('/')
     {
         bail!("ELY_GALLERY_ASSETS is an address ending in /, not {assets}");
     }

@@ -15,7 +15,14 @@ import "./styles.css";
 
 const root = createRootRoute({ component: Shell, notFoundComponent: () => <NotFound /> });
 const home = createRoute({ getParentRoute: () => root, path: "/", component: Home });
-const index = createRoute({ getParentRoute: () => root, path: "/components", component: Chapters });
+const index = createRoute({
+  getParentRoute: () => root,
+  path: "/components",
+  validateSearch: (search: Record<string, unknown>): { chapter?: number } => ({
+    chapter: search.chapter ? Number(search.chapter) : undefined,
+  }),
+  component: Chapters,
+});
 const chapter = createRoute({
   getParentRoute: () => root,
   path: "/components/$page",

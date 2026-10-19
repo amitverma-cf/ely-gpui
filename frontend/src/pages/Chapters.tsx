@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
 import { ComponentCard } from "../ComponentCard";
-import { Find } from "../Find";
+import { Sidebar } from "../Sidebar";
 import {
   type RegistryChapter,
   type RegistryComponent,
@@ -10,13 +11,23 @@ import {
 } from "../data";
 
 export function Chapters() {
-  const [activeChapter, setActiveChapter] = useState<number | null>(null);
+  const searchParams = useSearch({ strict: false }) as { chapter?: string | number };
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
+  const activeChapter = searchParams?.chapter ? Number(searchParams.chapter) : null;
+
+  const handleSelectChapter = (chNum: number | null) => {
+    navigate({
+      to: "/components/",
+      search: (chNum !== null ? { chapter: chNum } : {}) as any,
+    });
+  };
+
   useEffect(() => {
-    document.title = activeChapter
-      ? `${registryChapters.find((c) => c.number === activeChapter)?.title} · Components · Ely`
+    document.title = activeChapter !== null
+      ? `${registryChapters.find((c) => Number(c.number) === Number(activeChapter))?.title} · Components · Ely`
       : "Components (1,280) · Ely";
   }, [activeChapter]);
 
@@ -24,7 +35,7 @@ export function Chapters() {
   const filteredComponents = useMemo(() => {
     let list = registryComponents;
     if (activeChapter !== null) {
-      list = list.filter((c) => c.chapter === activeChapter);
+      list = list.filter((c) => Number(c.chapter) === Number(activeChapter));
     }
     if (query.trim()) {
       const q = query.trim().toLowerCase().replace("-", "_");
@@ -42,72 +53,36 @@ export function Chapters() {
   // Group by chapter
   const displayedChapters = useMemo(() => {
     if (activeChapter !== null) {
-      const ch = registryChapters.find((c) => c.number === activeChapter);
+      const ch = registryChapters.find((c) => Number(c.number) === Number(activeChapter));
       return ch ? [ch] : [];
     }
     if (query.trim()) {
       // Only include chapters that have matching components
-      const activeNums = new Set(filteredComponents.map((c) => c.chapter));
-      return registryChapters.filter((c) => activeNums.has(c.number));
+      const activeNums = new Set(filteredComponents.map((c) => Number(c.chapter)));
+      return registryChapters.filter((c) => activeNums.has(Number(c.number)));
     }
     return registryChapters;
   }, [activeChapter, query, filteredComponents]);
 
-  const activeChapterData = activeChapter
-    ? registryChapters.find((c) => c.number === activeChapter)
+  const activeChapterData = activeChapter !== null
+    ? registryChapters.find((c) => Number(c.number) === Number(activeChapter))
     : null;
 
   return (
     <div className="components-layout">
-      {/* Sidebar with Chapter selector */}
-      <aside className="components-sidebar" data-lenis-prevent>
-        <div className="sidebar-search-wrap">
-          <Find
-            className="find small"
-            query={query}
-            onQuery={setQuery}
-            onEnter={() => {}}
-          />
-        </div>
-
-        <div className="sidebar-chapter-list">
-          <button
-            type="button"
-            className={`chapter-nav-item all-chapters ${activeChapter === null ? "active" : ""}`}
-            onClick={() => setActiveChapter(null)}
-          >
-            <span className="chapter-nav-title">All Chapters</span>
-            <span className="chapter-nav-badge">{registryComponents.length}</span>
-          </button>
-
-          <div className="sidebar-divider" />
-
-          {registryChapters.map((ch) => {
-            const isActive = activeChapter === ch.number;
-            return (
-              <button
-                key={ch.number}
-                type="button"
-                className={`chapter-nav-item ${isActive ? "active" : ""}`}
-                onClick={() => setActiveChapter(ch.number)}
-              >
-                <span className="chapter-nav-num">{pad(ch.number)}</span>
-                <span className="chapter-nav-title">{ch.title}</span>
-                <span className="chapter-nav-badge">{ch.component_count}</span>
-              </button>
-            );
-          })}
-        </div>
-      </aside>
+      <Sidebar
+        activeChapter={activeChapter}
+        onSelectChapter={handleSelectChapter}
+        query={query}
+        onQuery={setQuery}
+      />
 
       {/* Main Content Area */}
       <main className="components-content">
         <header className="components-header">
           <div className="components-header-info">
             <span className="components-header-overline">
-              {activeChapterData
-                ? `Chapter ${pad(activeChapterData.number)}`
-                : "All Chapters"}
+              {activeChapterData ? "Chapter Components" : "All Chapters"}
             </span>
             <h1 className="components-header-title">
               {activeChapterData ? activeChapterData.title : "Components"}
@@ -169,7 +144,7 @@ export function Chapters() {
               className="text"
               onClick={() => {
                 setQuery("");
-                setActiveChapter(null);
+                handleSelectChapter(null);
               }}
             >
               Reset filters
@@ -179,12 +154,12 @@ export function Chapters() {
           <div className="chapters-sections-wrap">
             {displayedChapters.map((ch) => {
               const chComps = filteredComponents.filter(
-                (c) => c.chapter === ch.number
+                (c) => Number(c.chapter) === Number(ch.number)
               );
               if (chComps.length === 0) return null;
 
               return (
-                <LazyChapterSection
+                <ChapterSection
                   key={ch.number}
                   chapter={ch}
                   components={chComps}
@@ -200,8 +175,8 @@ export function Chapters() {
   );
 }
 
-/** Lazy chapter section that only mounts its component cards when visible in the viewport */
-function LazyChapterSection({
+/** Chapter section that renders its components directly */
+function ChapterSection({
   chapter,
   components,
   viewMode,
@@ -212,30 +187,8 @@ function LazyChapterSection({
   viewMode: "grid" | "list";
   standalone: boolean;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(standalone);
-
-  useEffect(() => {
-    if (standalone || isVisible) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "600px 0px" }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [standalone, isVisible]);
-
   return (
-    <section ref={containerRef} className="chapter-display-section">
+    <section className="chapter-display-section" id={`chapter-${chapter.number}`}>
       {!standalone && (
         <div className="chapter-section-header">
           <div className="chapter-section-badge">{pad(chapter.number)}</div>
@@ -249,31 +202,22 @@ function LazyChapterSection({
         </div>
       )}
 
-      {isVisible ? (
-        viewMode === "grid" ? (
-          <div className="components-card-grid">
-            {components.map((item) => (
-              <ComponentCard key={item.name} item={item} />
-            ))}
-          </div>
-        ) : (
-          <div className="components-list-table">
-            {components.map((item) => (
-              <div key={item.name} className="list-row-item">
-                <span className="list-col-name">{item.display_name}</span>
-                <span className="list-col-desc">{item.description}</span>
-                <code className="list-col-type">{item.export_type}</code>
-                <code className="list-col-cli">cargo ely add {item.name}</code>
-              </div>
-            ))}
-          </div>
-        )
+      {viewMode === "grid" ? (
+        <div className="components-card-grid">
+          {components.map((item) => (
+            <ComponentCard key={item.name} item={item} />
+          ))}
+        </div>
       ) : (
-        <div
-          className="lazy-chapter-placeholder"
-          style={{ height: Math.min(600, Math.max(160, Math.ceil(components.length / 3) * 140)) }}
-        >
-          <span className="placeholder-loading-text">Loading {chapter.title} ({components.length} components)...</span>
+        <div className="components-list-table">
+          {components.map((item) => (
+            <div key={item.name} className="list-row-item">
+              <span className="list-col-name">{item.display_name}</span>
+              <span className="list-col-desc">{item.description}</span>
+              <code className="list-col-type">{item.export_type}</code>
+              <code className="list-col-cli">cargo ely add {item.name}</code>
+            </div>
+          ))}
         </div>
       )}
     </section>
