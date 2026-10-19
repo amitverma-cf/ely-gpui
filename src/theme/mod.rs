@@ -2,6 +2,7 @@ mod calendar;
 mod canvas;
 mod chart;
 mod dashboard;
+mod elevation;
 mod files;
 mod generative;
 mod interaction;
@@ -34,6 +35,7 @@ pub use calendar::CalendarSizes;
 pub use canvas::CanvasSizes;
 pub use chart::ChartSizes;
 pub use dashboard::DashboardSizes;
+pub use elevation::Elevation;
 pub use files::FileSizes;
 pub use generative::GenerativeSizes;
 pub use interaction::InteractionSizes;
@@ -46,9 +48,7 @@ pub use palette::{HUE_NAMES, Mix, Palette, Syntax};
 pub use platform::Platform;
 pub use project::ProjectSizes;
 pub use syntax::{SyntaxTheme, syntax_themes};
-pub use tokens::{
-    AvatarSize, ContainerSize, ControlSize, Density, Elevation, IconSize, Radius, TextSize,
-};
+pub use tokens::{AvatarSize, ContainerSize, ControlSize, Density, IconSize, Radius, TextSize};
 pub use tooling::ToolingSizes;
 
 const FRAME: Duration = Duration::from_millis(8);

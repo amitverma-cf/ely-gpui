@@ -1,6 +1,6 @@
-use gpui::{BoxShadow, Hsla, Pixels, Point, Rems, Size, point, px, rems, size};
+use gpui::{Pixels, Point, Rems, Size, point, px, rems, size};
 
-use super::{Mode, Theme, baked};
+use super::{Theme, baked};
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub enum Density {
@@ -68,13 +68,6 @@ pub enum Radius {
     Xl,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum Elevation {
-    Raised,
-    Floating,
-    Modal,
-}
-
 pub(super) fn px_to_rems(value: f32) -> Rems {
     rems(value / 16.0)
 }
@@ -139,12 +132,17 @@ impl Theme {
     }
 
     pub fn sidebar_width(&self, collapsed: bool) -> Rems {
-        px_to_rems(if collapsed { 56.0 } else { 240.0 })
+        let w = if collapsed {
+            baked::BAKED_SIDEBAR_WIDTH_COLLAPSED
+        } else {
+            baked::BAKED_SIDEBAR_WIDTH_EXPANDED
+        };
+        px_to_rems(w)
     }
 
     /// Width of a side sheet, height of a top or bottom one.
     pub fn sheet_size(&self) -> Rems {
-        px_to_rems(380.0)
+        px_to_rems(baked::BAKED_SHEET_SIZE)
     }
 
     pub fn scrollbar_thickness(&self) -> Rems {
@@ -157,11 +155,11 @@ impl Theme {
 
     /// Smallest a split pane or dock may shrink to.
     pub fn pane_min(&self) -> Rems {
-        px_to_rems(160.0)
+        px_to_rems(baked::BAKED_PANE_MIN)
     }
 
     pub fn titlebar_height(&self) -> Rems {
-        px_to_rems(38.0)
+        px_to_rems(baked::BAKED_TITLEBAR_HEIGHT)
     }
 
     /// Room kept for the macOS traffic lights.
@@ -181,7 +179,7 @@ impl Theme {
 
     /// A border's width, which does not scale: `border_1`.
     pub fn hairline(&self) -> Pixels {
-        px(1.0)
+        px(baked::BAKED_HAIRLINE)
     }
 
     pub fn caret_width(&self) -> Rems {
@@ -276,12 +274,12 @@ impl Theme {
 
     /// Width of a dialog's card.
     pub fn dialog_width(&self) -> Rems {
-        px_to_rems(440.0)
+        px_to_rems(baked::BAKED_DIALOG_WIDTH)
     }
 
     /// Width of a toast stack.
     pub fn toast_width(&self) -> Rems {
-        px_to_rems(360.0)
+        px_to_rems(baked::BAKED_TOAST_WIDTH)
     }
 
     /// How far a glow's light reaches at its brightest.
@@ -477,24 +475,4 @@ impl Theme {
         };
         px_to_rems(base * self.radius_scale)
     }
-
-    pub fn elevation(&self, level: Elevation) -> Vec<BoxShadow> {
-        let dark = self.mode == Mode::Dark;
-        let layers: &[(f32, f32, f32)] = match (level, dark) {
-            (Elevation::Raised, false) => &[(1.0, 2.0, 0.06)],
-            (Elevation::Floating, false) => &[(1.0, 2.0, 0.04), (6.0, 16.0, 0.08)],
-            (Elevation::Modal, false) => &[(2.0, 4.0, 0.04), (16.0, 40.0, 0.14)],
-            (Elevation::Raised, true) => &[(1.0, 2.0, 0.4)],
-            (Elevation::Floating, true) => &[(2.0, 4.0, 0.3), (8.0, 24.0, 0.45)],
-            (Elevation::Modal, true) => &[(4.0, 8.0, 0.3), (20.0, 48.0, 0.55)],
-        };
-        layers
-            .iter()
-            .map(|&(y, blur, alpha)| shadow(self.colors.shadow.alpha(alpha), y, blur))
-            .collect()
-    }
-}
-
-fn shadow(color: Hsla, y: f32, blur: f32) -> BoxShadow {
-    BoxShadow::new(px(0.0), px(y), color).blur_radius(px(blur))
 }

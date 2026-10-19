@@ -110,6 +110,15 @@ fn baked_tokens_match_config(cx: &mut TestAppContext) {
         assert_eq!(theme.text_size(TextSize::Sm).0, 12.0 / 16.0);
         assert_eq!(theme.text_size(TextSize::Base).0, 13.0 / 16.0);
         assert_eq!(theme.text_size(TextSize::Display).0, 32.0 / 16.0);
+
+        assert_eq!(theme.sidebar_width(true).0, 56.0 / 16.0);
+        assert_eq!(theme.sidebar_width(false).0, 240.0 / 16.0);
+        assert_eq!(theme.sheet_size().0, 380.0 / 16.0);
+        assert_eq!(theme.dialog_width().0, 440.0 / 16.0);
+        assert_eq!(theme.toast_width().0, 360.0 / 16.0);
+        assert_eq!(theme.titlebar_height().0, 38.0 / 16.0);
+        assert_eq!(theme.pane_min().0, 160.0 / 16.0);
+        assert_eq!(theme.hairline(), gpui::px(1.0));
     });
 }
 
