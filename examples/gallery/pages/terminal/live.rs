@@ -22,19 +22,33 @@ use crate::{
 /// A build's output as a terminal printed it, colors and all.
 const BUILD: &str = "\x1b[1;32m   Compiling\x1b[0m ely-gpui v0.1.0\r\n\x1b[1;33mwarning\x1b[0m\x1b[1m: unused variable: `spare`\x1b[0m\r\n  \x1b[1;34m-->\x1b[0m src/main.rs:47:9\r\n\x1b[1;33mwarning\x1b[0m\x1b[1m: field `hint` is never read\x1b[0m\r\n  \x1b[1;34m-->\x1b[0m src/palette.rs:12:5\r\n\x1b[1;32m    Finished\x1b[0m `dev` profile [unoptimized + debuginfo] target(s) in 4.21s\r\n\x1b[1;32m     Running\x1b[0m `target/debug/palette`\r\n\x1b[38;5;110m◆\x1b[0m 5 tints of accent, the last \x1b[38;2;232;243;252m██\x1b[0m #e8f3fc\r\n\x1b[2mdocs: https://github.com/amitverma-cf/ely-gpui\x1b[0m\r\n";
 
+#[cfg(not(target_os = "windows"))]
 const SHELLS: [(&str, &str); 3] = [
     ("bash", "/bin/bash"),
     ("zsh", "/bin/zsh"),
     ("sh", "/bin/sh"),
 ];
 
+#[cfg(target_os = "windows")]
+const SHELLS: [(&str, &str); 3] = [
+    ("powershell", "powershell.exe"),
+    ("cmd", "cmd.exe"),
+    ("powershell", "powershell.exe"),
+];
+
 /// A shell with no startup files, its prompt the folder's name, in this repository.
 fn launch(shell: usize) -> Launch {
-    let (name, program) = SHELLS[shell];
+    let (name, program) = SHELLS[shell.min(SHELLS.len() - 1)];
+    #[cfg(not(target_os = "windows"))]
     let args = match name {
         "bash" => vec!["--noprofile".into(), "--norc".into(), "-i".into()],
         "zsh" => vec!["-f".into(), "-i".into()],
         _ => vec!["-i".into()],
+    };
+    #[cfg(target_os = "windows")]
+    let args = match name {
+        "powershell" => vec!["-NoLogo".into()],
+        _ => vec![],
     };
     Launch {
         program: Some((program.into(), args)),
@@ -70,7 +84,11 @@ fn session(
     if let Some((_, terminal)) = sessions.read(cx).iter().find(|(id, _)| *id == pane) {
         return terminal.clone();
     }
-    let terminal = cx.new(|cx| Terminal::spawn(launch(shell), cx).expect("the shell starts"));
+    let terminal = cx.new(|cx| {
+        Terminal::spawn(launch(shell), cx)
+            .or_else(|_| Terminal::spawn(Launch::default(), cx))
+            .expect("terminal spawns")
+    });
     sessions.update(cx, |all, _| all.push((pane, terminal.clone())));
     terminal
 }
