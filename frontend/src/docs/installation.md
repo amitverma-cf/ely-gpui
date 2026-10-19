@@ -3,7 +3,7 @@
 ## Requirements
 
 - Rust 1.95 or later, the version Ely's `Cargo.toml` names.
-- macOS, where Ely is tested. Windows and Linux builds are not tested yet.
+- macOS, Windows, or Linux (all tested in CI).
 - No full Xcode: GPUI compiles its Metal shaders at run time.
 
 ## Add the dependencies
@@ -26,6 +26,29 @@ gpui_platform = { package = "gpui-pre-platform", version = "=0.3.9", features = 
 ## Shaders
 
 Ely's default feature, `runtime_shaders`, turns on the same feature in `gpui_platform`, so GPUI compiles its Metal shaders at run time. With `default-features = false` the build runs `xcrun metal` instead, which needs Xcode's Metal compiler.
+
+## CLI tool
+
+Install the `cargo-ely` binary to scaffold configuration manifests, add icons, and inspect diagnostics:
+
+```sh
+cargo install --path .
+cargo ely init
+cargo ely doctor
+```
+
+## Workspace configuration
+
+Create `ely-gpui.toml` at your workspace root to define design tokens, paths, media, and icon pruning:
+
+```toml
+[paths]
+scan_sources = ["src/**/*.rs"]
+
+[icons]
+packs = ["lucide", "heroicons", "hugeicons"]
+mode = "auto"
+```
 
 ## Check the install
 

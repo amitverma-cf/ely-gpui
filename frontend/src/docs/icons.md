@@ -4,11 +4,11 @@
 
 ## Icons
 
-Ely bundles 306 Lucide 1.48.0 icons, each an `IconName` variant: `IconName::Check` is `icons/check.svg`, and `name()` returns the Lucide name, `check`. `IconName::ALL` lists them all.
+Ely supports typed icon provider enums (`LucideIcon`, `HeroIcon`, `HugeIcon`). Rather than using loose string paths, each provider enum implements `IconAsset`: `LucideIcon::Check` is `icons/lucide/check.svg`, and `name()` returns the icon name, `check`. Unreferenced icons are evicted at compilation time by `build.rs` based on AST scanning.
 
 | Call | Does |
 | --- | --- |
-| `Icon::new(name)` | Draws the icon at `IconSize::Md` in the theme's `fg`. |
+| `Icon::new(icon)` | Draws the icon (e.g. `LucideIcon::Check`, `HeroIcon::Sparkles`, `HugeIcon::AiChat01`) at `IconSize::Md` in `fg`. |
 | `Icon::from_path(path)` | Draws an SVG from the application's asset source with the same defaults. |
 | `.size(IconSize::Xl)` | `Xs` to `Xxl`, from the theme's icon sizes. |
 | `.color(color)` | Any color; components pass theme colors. |
@@ -17,12 +17,16 @@ Ely bundles 306 Lucide 1.48.0 icons, each an `IconName` variant: `IconName::Chec
 
 GPUI's `svg()` paints with its own text color alone, so `Icon` always sets one.
 
-## Adding an icon
+## Adding icon packs
 
-From a clone of the repository:
+Declare icon packs in `ely-gpui.toml` or add them via `cargo ely`:
 
-1. `scripts/icons.sh <lucide-name>...` fetches Lucide 1.48.0 with npm and copies each SVG into `assets/icons/`.
-2. Add a line to the `icons!` list in `src/primitives/icon.rs`, such as `Rocket => "rocket",`.
+```sh
+cargo ely add icons heroicons
+cargo ely add icons hugeicons
+```
+
+At build time, `build.rs` parses your source files and only bakes referenced SVGs into the binary.
 
 ## File icons
 
@@ -30,8 +34,8 @@ From a clone of the repository:
 
 | Call | Does |
 | --- | --- |
-| `IconTheme::default().name("Cargo.toml", IconName::Package)` | A file of that exact name, in any case. |
-| `.extension("md", IconName::BookOpen)` | Files with that extension, given without its dot. |
+| `IconTheme::default().name("Cargo.toml", LucideIcon::Package)` | A file of that exact name, in any case. |
+| `.extension("md", LucideIcon::BookOpen)` | Files with that extension, given without its dot. |
 | `.apply(cx)` | Serves every window from then on, and repaints. |
 
 A name rule beats an extension rule, and both beat Ely's map.
@@ -44,7 +48,7 @@ A name rule beats an extension rule, and both beat Ely's map.
 
 GPUI takes one asset source. An app with files of its own, or another library's, passes `Assets::before(theirs)`: Ely's paths load from Ely, every other path from `theirs`, whose errors pass through. `init` returns an error naming the first of Ely's files the source cannot load.
 
-Use `Icon::from_path("app-icons/mark.svg")` to draw one of those SVG assets with Ely's themed sizing and color. It also accepts an owned `String` or `SharedString`. Paths are asset keys resolved by `AssetSource`; a path it lacks logs an error on first draw and shows a red broken-picture icon. SVGs render as single-color masks; `IconName` and `IconPicker` continue to list the bundled icons.
+Use `Icon::from_path("app-icons/mark.svg")` to draw one of those SVG assets with Ely's themed sizing and color. It also accepts an owned `String` or `SharedString`. Paths are asset keys resolved by `AssetSource`; a path it lacks logs an error on first draw and shows a red broken-picture icon. SVGs render as single-color masks; `LucideIcon` and `IconPicker` continue to list the bundled icons.
 
 Compatible single-color SVGs can come from [Lucide](https://lucide.dev/), [Hugeicons](https://github.com/hugeicons/hugeicons), [Phosphor](https://github.com/phosphor-icons/core), [Remix Icon](https://github.com/Remix-Design/RemixIcon), or [Tabler](https://github.com/tabler/tabler-icons). The app supplies its chosen files and preserves their licenses; Ely does not download or register those catalogs.
 
