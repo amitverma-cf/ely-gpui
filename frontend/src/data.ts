@@ -37,6 +37,41 @@ export function search(query: string): Chapter[] {
   });
 }
 
+import registryManifest from "../../registry.json";
+
+export interface RegistryComponent {
+  name: string;
+  display_name: string;
+  chapter: number;
+  chapter_title: string;
+  category: string;
+  source_dir: string;
+  file: string;
+  export_type: string;
+  description: string;
+  dependencies: string[];
+}
+
+export interface RegistryChapter {
+  number: number;
+  name: string;
+  title: string;
+  summary: string;
+  source_dir: string;
+  component_count: number;
+  components: string[];
+}
+
+export const registryComponents: RegistryComponent[] = registryManifest.components;
+export const registryChapters: RegistryChapter[] = registryManifest.chapters;
+
+export function getStoryUrl(chapterNumber: number, componentName: string): { page: string; story: string } {
+  const ch = chapters.find((c) => c.number === chapterNumber);
+  if (!ch) return { page: "primitives", story: "box-view" };
+  const s = ch.stories.find((st) => st.components.includes(componentName)) || ch.stories[0];
+  return { page: ch.slug, story: s ? s.slug : ch.stories[0].slug };
+}
+
 export const REPO = "https://github.com/amitverma-cf/ely-gpui";
 export const ORIGINAL_REPO = "https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components";
 
