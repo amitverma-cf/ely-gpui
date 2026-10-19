@@ -17,7 +17,10 @@ fn a_formula_typesets_to_outlined_svg_in_its_color() {
     let (svg, shape) = svg(&formula(r"\frac{a}{b} + \sqrt{x}", false)).expect("typesets");
     assert!(svg.starts_with("<svg") && !svg.contains("<text"), "{svg}");
     assert!(svg.contains("17,34,51"), "the color: {svg}");
-    assert!(shape.width > px(16.) && shape.height > px(16.), "{shape:?}");
+    assert!(
+        shape.width > Pixels::from(16.) && shape.height > Pixels::from(16.),
+        "{shape:?}"
+    );
 }
 
 #[test]

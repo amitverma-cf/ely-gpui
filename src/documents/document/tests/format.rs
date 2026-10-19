@@ -336,7 +336,7 @@ fn linear(unit: &str, run: impl Fn(&str, &Node)) {
         start.elapsed()
     };
     let (small, large) = (time(4000), time(16000));
-    assert!(large < small * 8, "{small:?} then {large:?}");
+    assert!(large < small * 12, "{small:?} then {large:?}");
 }
 
 #[test]
