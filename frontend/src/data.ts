@@ -72,6 +72,14 @@ export function getStoryUrl(chapterNumber: number, componentName: string): { pag
   return { page: ch.slug, story: s ? s.slug : ch.stories[0].slug };
 }
 
+export function getComponentImageSrc(page: string, story: string, mode: string): string {
+  let key = `${page}-${story}`;
+  if (key.length > 70) {
+    key = key.slice(0, 70);
+  }
+  return `/components/${key}-${mode}.webp`;
+}
+
 export const REPO = "https://github.com/amitverma-cf/ely-gpui";
 export const ORIGINAL_REPO = "https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components";
 

@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { type RegistryComponent, getStoryUrl } from "./data";
+import { type RegistryComponent, getStoryUrl, getComponentImageSrc } from "./data";
 import { useMode } from "./theme";
 
 export function ComponentCard({ item }: { item: RegistryComponent }) {
@@ -8,7 +8,7 @@ export function ComponentCard({ item }: { item: RegistryComponent }) {
   const [imgError, setImgError] = useState(false);
   const mode = useMode();
   const target = getStoryUrl(item.chapter, item.display_name);
-  const imageSrc = `/components/${target.page}-${target.story}-${mode}.webp`;
+  const imageSrc = getComponentImageSrc(target.page, target.story, mode);
 
   const copyCommand = (e: React.MouseEvent) => {
     e.preventDefault();

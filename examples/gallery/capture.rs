@@ -68,6 +68,14 @@ pub fn run_stories(
     .detach();
 }
 
+fn story_image_name(page: &str, story: &str, mode: &str) -> String {
+    let mut key = format!("{page}-{story}");
+    if key.len() > 70 {
+        key.truncate(70);
+    }
+    format!("{key}-{mode}.webp")
+}
+
 async fn shoot_all_stories(
     window: WindowHandle<Gallery>,
     dir: &Path,
@@ -85,6 +93,8 @@ async fn shoot_all_stories(
         }
         for story in &page.stories {
             for (choice, name) in [(Choice::Light, "light"), (Choice::Dark, "dark")] {
+                let filename = story_image_name(&page.slug, &story.slug, name);
+                let path = dir.join(filename);
                 window.update(cx, |gallery, window, cx| {
                     gallery.select_story(ix, story.slug.clone().into(), cx);
                     gallery.choose(choice, window, cx);
@@ -92,7 +102,6 @@ async fn shoot_all_stories(
                 cx.background_executor()
                     .timer(Duration::from_millis(100))
                     .await;
-                let path = dir.join(format!("{}-{}-{name}.webp", page.slug, story.slug));
                 snapshot_cropped(gallery, &path)?;
                 log::info!("capture story: wrote {}", path.display());
             }
