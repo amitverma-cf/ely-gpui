@@ -173,8 +173,59 @@ impl Palette {
             .unwrap_or_else(|| panic!("{owner}: no chart hue {hue}"))
     }
 
-    pub fn light(high_contrast: bool) -> Self {
-        let p = &super::baked::BAKED_LIGHT_PALETTE;
+    pub fn from_baked(p: &super::baked::BakedPalette, is_dark: bool, high_contrast: bool) -> Self {
+        let (chart, ansi, syntax) = if is_dark {
+            (
+                c8([
+                    0x79a7e2, 0x4eb9ad, 0xcd995c, 0xdc8a90, 0xa998dd, 0x7cb57d, 0xd9906f, 0x56b2d4,
+                ]),
+                c8([
+                    0x3f3f3f, 0xe1897f, 0x6fb880, 0xc99d4e, 0x74a7e8, 0xc38ecf, 0x35b9c0, 0xafadab,
+                    0x5c5a58, 0xfda297, 0x89d298, 0xe3b667, 0x8dc1ff, 0xdda7ea, 0x56d3da, 0xf3f1f0,
+                ]),
+                Syntax {
+                    keyword: c(0xbba3e8),
+                    string: c(0x8ac596),
+                    number: c(0xeaab78),
+                    comment: c(0xacaaa8),
+                    function: c(0x85b6e9),
+                    type_name: c(0x84c9c8),
+                    constant: c(0xeda382),
+                    property: c(0xe29fa9),
+                    tag: c(0xe29fa9),
+                    attribute: c(0xe1b671),
+                    operator: c(0xafadab),
+                    punctuation: c(0xafadab),
+                    variable: c(0xf3f1f0),
+                },
+            )
+        } else {
+            (
+                c8([
+                    0x5182c1, 0x009589, 0xaa732b, 0xb8636b, 0x8572bb, 0x539156, 0xb66946, 0x138db1,
+                ]),
+                c8([
+                    0x181613, 0xa34942, 0x287c42, 0x8c5f00, 0x346aac, 0x875093, 0x007c84, 0xacaaa8,
+                    0x605d5a, 0xbd6158, 0x439458, 0xa57710, 0x4c82c6, 0xa067ac, 0x00959c, 0xcccac8,
+                ]),
+                Syntax {
+                    keyword: c(0x714ca6),
+                    string: c(0x317a45),
+                    number: c(0xa3591b),
+                    comment: c(0x696764),
+                    function: c(0x2863ab),
+                    type_name: c(0x1e7777),
+                    constant: c(0xaa5529),
+                    property: c(0xa14759),
+                    tag: c(0xa14759),
+                    attribute: c(0x9f5d12),
+                    operator: c(0x605d5a),
+                    punctuation: c(0x605d5a),
+                    variable: c(0x181613),
+                },
+            )
+        };
+
         let mut palette = Self {
             bg: c(p.bg),
             surface: c(p.surface),
@@ -212,109 +263,40 @@ impl Palette {
             tooltip_fg: c(p.tooltip_fg),
             paper: c(p.paper),
             ink: c(p.ink),
-            chart: c8([
-                0x5182c1, 0x009589, 0xaa732b, 0xb8636b, 0x8572bb, 0x539156, 0xb66946, 0x138db1,
-            ]),
-            ansi: c8([
-                0x181613, 0xa34942, 0x287c42, 0x8c5f00, 0x346aac, 0x875093, 0x007c84, 0xacaaa8,
-                0x605d5a, 0xbd6158, 0x439458, 0xa57710, 0x4c82c6, 0xa067ac, 0x00959c, 0xcccac8,
-            ]),
-            syntax: Syntax {
-                keyword: c(0x714ca6),
-                string: c(0x317a45),
-                number: c(0xa3591b),
-                comment: c(0x696764),
-                function: c(0x2863ab),
-                type_name: c(0x1e7777),
-                constant: c(0xaa5529),
-                property: c(0xa14759),
-                tag: c(0xa14759),
-                attribute: c(0x9f5d12),
-                operator: c(0x605d5a),
-                punctuation: c(0x605d5a),
-                variable: c(0x181613),
-            },
+            chart,
+            ansi,
+            syntax,
         };
+
         if high_contrast {
-            palette.fg_muted = c(0x44423f);
-            palette.fg_subtle = c(0x575552);
-            palette.border = c(0xa6a4a2);
-            palette.border_strong = c(0x82807d);
+            if is_dark {
+                palette.fg_muted = c(0xcfcdcb);
+                palette.fg_subtle = c(0xafadab);
+                palette.border = c(0x6a6966);
+                palette.border_strong = c(0x858380);
+            } else {
+                palette.fg_muted = c(0x44423f);
+                palette.fg_subtle = c(0x575552);
+                palette.border = c(0xa6a4a2);
+                palette.border_strong = c(0x82807d);
+            }
             palette.glass = palette.bg;
         }
+
         palette
     }
 
+    pub fn light(high_contrast: bool) -> Self {
+        Self::from_baked(&super::baked::BAKED_LIGHT_PALETTE, false, high_contrast)
+    }
+
     pub fn dark(high_contrast: bool) -> Self {
-        let p = &super::baked::BAKED_DARK_PALETTE;
-        let mut palette = Self {
-            bg: c(p.bg),
-            surface: c(p.surface),
-            sunken: c(p.sunken),
-            overlay: c(p.overlay),
-            hover: c(p.hover),
-            active: c(p.active),
-            border: c(p.border),
-            border_strong: c(p.border_strong),
-            fg: c(p.fg),
-            fg_muted: c(p.fg_muted),
-            fg_subtle: c(p.fg_subtle),
-            fg_disabled: c(p.fg_disabled),
-            accent: c(p.accent),
-            accent_hover: c(p.accent_hover),
-            on_accent: c(p.on_accent),
-            on_media: c(p.on_media),
-            focus: c(p.focus),
-            link: c(p.link),
-            selection: rgba(p.selection).into(),
-            success: c(p.success),
-            warning: c(p.warning),
-            danger: c(p.danger),
-            info: c(p.info),
-            success_subtle: c(p.success_subtle),
-            warning_subtle: c(p.warning_subtle),
-            danger_subtle: c(p.danger_subtle),
-            info_subtle: c(p.info_subtle),
-            backdrop: rgba(p.backdrop).into(),
-            media_backdrop: rgba(p.media_backdrop).into(),
-            shimmer: rgba(p.shimmer).into(),
-            glass: rgba(p.glass).into(),
-            shadow: c(p.shadow),
-            tooltip_bg: c(p.tooltip_bg),
-            tooltip_fg: c(p.tooltip_fg),
-            paper: c(p.paper),
-            ink: c(p.ink),
-            chart: c8([
-                0x79a7e2, 0x4eb9ad, 0xcd995c, 0xdc8a90, 0xa998dd, 0x7cb57d, 0xd9906f, 0x56b2d4,
-            ]),
-            ansi: c8([
-                0x3f3f3f, 0xe1897f, 0x6fb880, 0xc99d4e, 0x74a7e8, 0xc38ecf, 0x35b9c0, 0xafadab,
-                0x5c5a58, 0xfda297, 0x89d298, 0xe3b667, 0x8dc1ff, 0xdda7ea, 0x56d3da, 0xf3f1f0,
-            ]),
-            syntax: Syntax {
-                keyword: c(0xbba3e8),
-                string: c(0x8ac596),
-                number: c(0xeaab78),
-                comment: c(0xacaaa8),
-                function: c(0x85b6e9),
-                type_name: c(0x84c9c8),
-                constant: c(0xeda382),
-                property: c(0xe29fa9),
-                tag: c(0xe29fa9),
-                attribute: c(0xe1b671),
-                operator: c(0xafadab),
-                punctuation: c(0xafadab),
-                variable: c(0xf3f1f0),
-            },
-        };
-        if high_contrast {
-            palette.fg_muted = c(0xcfcdcb);
-            palette.fg_subtle = c(0xafadab);
-            palette.border = c(0x6a6966);
-            palette.border_strong = c(0x858380);
-            palette.glass = palette.bg;
-        }
-        palette
+        Self::from_baked(&super::baked::BAKED_DARK_PALETTE, true, high_contrast)
+    }
+
+    pub fn preset(name: &str, is_dark: bool, high_contrast: bool) -> Option<Self> {
+        super::baked::get_baked_preset(name, is_dark)
+            .map(|p| Self::from_baked(&p, is_dark, high_contrast))
     }
 }
 

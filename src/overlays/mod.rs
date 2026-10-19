@@ -1,3 +1,4 @@
+mod command_palette;
 mod dialog;
 mod dialogs;
 mod floats;
@@ -8,6 +9,7 @@ mod spotlight;
 #[cfg(all(test, feature = "test-support"))]
 mod tests;
 
+pub use command_palette::{CommandGroup, CommandItem, CommandPalette};
 pub use dialog::{Close, Dialog};
 pub use dialogs::{AlertDialog, ConfirmDialog, PromptDialog};
 pub use floats::{FloatingToolbar, Peek};

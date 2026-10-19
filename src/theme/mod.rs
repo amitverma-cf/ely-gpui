@@ -191,6 +191,18 @@ impl Theme {
         Self::fade_to_target(cx);
     }
 
+    /// Sets light and dark palettes from a named preset (e.g., "zinc", "nord", "catppuccin", "tokyo-night").
+    pub fn set_preset(name: &str, cx: &mut App) {
+        let high_contrast = cx.global::<Theme>().high_contrast();
+        if let Some(light) = Palette::preset(name, false, high_contrast) {
+            let dark = Palette::preset(name, true, high_contrast).unwrap_or_else(|| light.clone());
+            cx.global_mut::<Theme>().custom = [Some(light), Some(dark)];
+            Self::fade_to_target(cx);
+        }
+    }
+
+    pub const PRESET_NAMES: &'static [&'static str] = baked::BAKED_PRESET_NAMES;
+
     /// The palette the shown mode fades to: the owner's, or Ely's.
     pub fn palette(&self) -> Palette {
         self.target()

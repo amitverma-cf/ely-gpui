@@ -2,6 +2,11 @@ use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
 
+#[path = "cargo_ely/component.rs"]
+mod component;
+#[path = "cargo_ely/icons.rs"]
+mod icons;
+
 fn main() {
     let mut args: Vec<String> = env::args().collect();
     if args.len() > 1 && args[1] == "ely" {
@@ -220,87 +225,26 @@ fn handle_add_icons(pack: &str) {
 
     println!("[ok] Created directory: assets/icons/{}", pack_clean);
     println!("[ok] Generated typed provider enum: {}", enum_name);
-    println!("Usage example in GPUI views:");
+
+    match icons::download_icon_pack(&pack_clean, &pack_dir) {
+        Ok(count) => println!(
+            "[ok] Downloaded {} SVG icons into assets/icons/{}",
+            count, pack_clean
+        ),
+        Err(e) => eprintln!("[warn] Icon download warning: {}", e),
+    }
+
+    println!("\nUsage example in GPUI views:");
     println!("  Icon::new({}::<Variant>)", enum_name);
 }
 
 fn handle_add_component(name: &str) {
-    let catalog = [
-        (
-            "button",
-            "inputs::Button",
-            "Buttons, icon buttons, toggle buttons",
-        ),
-        (
-            "input",
-            "inputs::TextInput",
-            "Single and multi-line text input fields",
-        ),
-        (
-            "checkbox",
-            "inputs::Checkbox",
-            "Checkboxes with tristate support",
-        ),
-        ("switch", "inputs::Switch", "Toggle switches"),
-        (
-            "slider",
-            "inputs::Slider",
-            "Continuous and stepped value sliders",
-        ),
-        (
-            "dropdown",
-            "inputs::Dropdown",
-            "Single and multi-select dropdown menus",
-        ),
-        (
-            "dialog",
-            "overlays::Dialog",
-            "Modal dialog overlays with backdrop",
-        ),
-        ("sheet", "overlays::Sheet", "Side sheet / drawer panels"),
-        (
-            "toast",
-            "overlays::Toast",
-            "Toast notification manager and toasts",
-        ),
-        (
-            "table",
-            "collections::Table",
-            "Virtual scrolling data tables with header resize",
-        ),
-        (
-            "tabs",
-            "navigation::Tabs",
-            "Tabbed navigation bars and panels",
-        ),
-        ("badge", "display::Badge", "Status and count badges"),
-        (
-            "avatar",
-            "display::Avatar",
-            "User avatar images with initials fallback",
-        ),
-        ("card", "layout::Card", "Structured content container cards"),
-        (
-            "tooltip",
-            "primitives::Tooltip",
-            "Hover and focus help tooltips",
-        ),
-    ];
-
-    let query = name.to_ascii_lowercase();
-    if let Some((comp, import_path, desc)) = catalog.iter().find(|(c, _, _)| *c == query) {
-        println!("\n=== Component: {} ===", comp);
-        println!("Description: {}", desc);
-        println!("Module path: ely_gpui::{}", import_path);
-        println!("\nUsage:");
-        println!("  use ely_gpui::{};\n", import_path);
-    } else {
-        println!(
-            "\nUnknown component '{}'. Available components in Ely catalog:",
-            name
-        );
-        for (c, import_path, desc) in &catalog {
-            println!("  - {:<12} {:<30} {}", c, import_path, desc);
+    let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+    if let Err(e) = component::scaffold_component(name, &cwd) {
+        eprintln!("[error] {}", e);
+        println!("\nAvailable components in Ely catalog:");
+        for c in component::CATALOG {
+            println!("  - {:<18} {}", c.name, c.description);
         }
     }
 }

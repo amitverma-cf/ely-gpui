@@ -34,6 +34,7 @@ pub struct Gallery {
     scroll: ScrollHandle,
     /// Narrow check width, if any.
     narrow: Option<Pixels>,
+    pub playground_open: bool,
     _appearance: Subscription,
 }
 
@@ -55,6 +56,7 @@ impl Gallery {
             focus,
             scroll: ScrollHandle::new(),
             narrow: start.narrow.map(px),
+            playground_open: false,
             _appearance: appearance,
         }
     }
@@ -178,6 +180,11 @@ impl Gallery {
             )
     }
 
+    pub fn toggle_playground(&mut self, cx: &mut Context<Self>) {
+        self.playground_open = !self.playground_open;
+        cx.notify();
+    }
+
     fn switcher(&self, cx: &mut Context<Self>) -> impl IntoElement + use<> {
         let options = [
             (Choice::Light, LucideIcon::Sun, "theme-light"),
@@ -188,26 +195,44 @@ impl Gallery {
         div()
             .flex_none()
             .flex()
-            .gap_0p5()
-            .p_0p5()
-            .rounded(cx.theme().radius(Radius::Lg))
-            .border_1()
-            .border_color(colors.border)
-            .children(options.map(|(choice, icon, id)| {
-                let variant = if choice == self.choice {
-                    ButtonVariant::Subtle
-                } else {
-                    ButtonVariant::Ghost
-                };
-                IconButton::new(id, icon)
-                    .variant(variant)
+            .items_center()
+            .gap_2()
+            .child(
+                div()
+                    .flex_none()
+                    .flex()
+                    .gap_0p5()
+                    .p_0p5()
+                    .rounded(cx.theme().radius(Radius::Lg))
+                    .border_1()
+                    .border_color(colors.border)
+                    .children(options.map(|(choice, icon, id)| {
+                        let variant = if choice == self.choice {
+                            ButtonVariant::Subtle
+                        } else {
+                            ButtonVariant::Ghost
+                        };
+                        IconButton::new(id, icon)
+                            .variant(variant)
+                            .size(ControlSize::Sm)
+                            .on_click(cx.listener(move |gallery, _, window, cx| {
+                                gallery.choose(choice, window, cx)
+                            }))
+                    })),
+            )
+            .child(
+                IconButton::new("toggle-playground", LucideIcon::SlidersHorizontal)
+                    .variant(if self.playground_open {
+                        ButtonVariant::Primary
+                    } else {
+                        ButtonVariant::Ghost
+                    })
                     .size(ControlSize::Sm)
-                    .on_click(
-                        cx.listener(move |gallery, _, window, cx| {
-                            gallery.choose(choice, window, cx)
-                        }),
-                    )
-            }))
+                    .tooltip("Theme Playground")
+                    .on_click(cx.listener(|gallery, _, _, cx| {
+                        gallery.toggle_playground(cx);
+                    })),
+            )
     }
 }
 
@@ -308,52 +333,56 @@ impl Render for Gallery {
         let theme = cx.theme();
         let colors = &theme.colors;
 
-        self.root(cx).child(sidebar).child(
-            on_axis(div().id(("page", self.pass)))
-                .flex_1()
-                .h_full()
-                .overflow_y_scroll()
-                .track_scroll(&self.scroll)
-                .child(
-                    div()
-                        .max_w(px(960.0))
-                        .px(px(56.0))
-                        .pt(px(56.0))
-                        .pb(px(96.0))
-                        .child(
-                            self.card(
-                                div()
-                                    .flex()
-                                    .flex_wrap()
-                                    .items_start()
-                                    .justify_between()
-                                    .gap_6()
-                                    .child(
-                                        div()
-                                            .flex_1()
-                                            .min_w(px(200.0))
-                                            .flex()
-                                            .flex_col()
-                                            .gap_2()
-                                            .child(
-                                                div()
-                                                    .text_size(theme.text_size(TextSize::Xxl))
-                                                    .font_weight(FontWeight::SEMIBOLD)
-                                                    .child(page.title),
-                                            )
-                                            .child(
-                                                div()
-                                                    .text_size(theme.text_size(TextSize::Md))
-                                                    .text_color(colors.fg_muted)
-                                                    .child(page.summary),
-                                            ),
-                                    )
-                                    .child(switcher),
-                                body,
-                                cx,
-                            ),
+        let page_content = on_axis(div().id(("page", self.pass)))
+            .flex_1()
+            .h_full()
+            .overflow_y_scroll()
+            .track_scroll(&self.scroll)
+            .child(
+                div()
+                    .max_w(px(960.0))
+                    .px(px(56.0))
+                    .pt(px(56.0))
+                    .pb(px(96.0))
+                    .child(
+                        self.card(
+                            div()
+                                .flex()
+                                .flex_wrap()
+                                .items_start()
+                                .justify_between()
+                                .gap_6()
+                                .child(
+                                    div()
+                                        .flex_1()
+                                        .min_w(px(200.0))
+                                        .flex()
+                                        .flex_col()
+                                        .gap_2()
+                                        .child(
+                                            div()
+                                                .text_size(theme.text_size(TextSize::Xxl))
+                                                .font_weight(FontWeight::SEMIBOLD)
+                                                .child(page.title),
+                                        )
+                                        .child(
+                                            div()
+                                                .text_size(theme.text_size(TextSize::Md))
+                                                .text_color(colors.fg_muted)
+                                                .child(page.summary),
+                                        ),
+                                )
+                                .child(switcher),
+                            body,
+                            cx,
                         ),
-                ),
-        )
+                    ),
+            );
+
+        let mut root = self.root(cx).child(sidebar).child(page_content);
+        if self.playground_open {
+            root = root.child(crate::playground::render_playground_drawer(self, cx));
+        }
+        root
     }
 }

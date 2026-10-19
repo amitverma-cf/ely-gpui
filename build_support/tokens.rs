@@ -3,10 +3,8 @@ use std::path::Path;
 
 use serde::Deserialize;
 
-use super::palette::{
-    PaletteColors, check_contrast, default_dark_palette, default_light_palette,
-    emit_palette_instance, emit_palette_struct,
-};
+use super::palette::{PaletteColors, check_contrast, emit_palette_instance, emit_palette_struct};
+use super::presets::get_preset_palettes;
 
 #[derive(Debug, Deserialize, Default)]
 pub struct ThemeConfig {
@@ -132,7 +130,7 @@ pub fn generate_tokens(
         palette_name
     ));
 
-    let mut light_palette = default_light_palette();
+    let (mut light_palette, mut dark_palette) = get_preset_palettes(palette_name);
     if let Some(overrides) = theme.palette.as_ref().and_then(|p| p.light.as_ref()) {
         macro_rules! merge_light {
             ($($field:ident),*) => {
@@ -178,8 +176,6 @@ pub fn generate_tokens(
             ink
         );
     }
-
-    let mut dark_palette = default_dark_palette();
     if let Some(overrides) = theme.palette.as_ref().and_then(|p| p.dark.as_ref()) {
         macro_rules! merge_dark {
             ($($field:ident),*) => {
@@ -366,6 +362,44 @@ pub fn generate_tokens(
     emit_palette_struct(&mut code);
     emit_palette_instance("BAKED_LIGHT_PALETTE", &light_palette, &mut code);
     emit_palette_instance("BAKED_DARK_PALETTE", &dark_palette, &mut code);
+
+    let presets = [
+        ("ely", "BAKED_PRESET_ELY"),
+        ("zinc", "BAKED_PRESET_ZINC"),
+        ("slate", "BAKED_PRESET_SLATE"),
+        ("nord", "BAKED_PRESET_NORD"),
+        ("catppuccin", "BAKED_PRESET_CATPPUCCIN"),
+        ("tokyo_night", "BAKED_PRESET_TOKYO_NIGHT"),
+    ];
+    for (name, const_name) in presets {
+        let (p_l, p_d) = get_preset_palettes(name);
+        code.push_str("#[allow(dead_code)]\n");
+        emit_palette_instance(&format!("{}_LIGHT", const_name), &p_l, &mut code);
+        code.push_str("#[allow(dead_code)]\n");
+        emit_palette_instance(&format!("{}_DARK", const_name), &p_d, &mut code);
+    }
+
+    code.push_str("#[allow(dead_code)]\n");
+    code.push_str("pub const BAKED_PRESET_NAMES: &[&str] = &[\"ely\", \"zinc\", \"slate\", \"nord\", \"catppuccin\", \"tokyo-night\"];\n\n");
+    code.push_str("#[allow(dead_code)]\n");
+    code.push_str("pub fn get_baked_preset(name: &str, dark: bool) -> Option<BakedPalette> {\n");
+    code.push_str("    let clean = name.to_ascii_lowercase().replace('-', \"_\");\n");
+    code.push_str("    match (clean.as_str(), dark) {\n");
+    code.push_str("        (\"ely\", false) => Some(BAKED_PRESET_ELY_LIGHT),\n");
+    code.push_str("        (\"ely\", true) => Some(BAKED_PRESET_ELY_DARK),\n");
+    code.push_str("        (\"zinc\", false) => Some(BAKED_PRESET_ZINC_LIGHT),\n");
+    code.push_str("        (\"zinc\", true) => Some(BAKED_PRESET_ZINC_DARK),\n");
+    code.push_str("        (\"slate\", false) => Some(BAKED_PRESET_SLATE_LIGHT),\n");
+    code.push_str("        (\"slate\", true) => Some(BAKED_PRESET_SLATE_DARK),\n");
+    code.push_str("        (\"nord\", false) => Some(BAKED_PRESET_NORD_LIGHT),\n");
+    code.push_str("        (\"nord\", true) => Some(BAKED_PRESET_NORD_DARK),\n");
+    code.push_str("        (\"catppuccin\", false) => Some(BAKED_PRESET_CATPPUCCIN_LIGHT),\n");
+    code.push_str("        (\"catppuccin\", true) => Some(BAKED_PRESET_CATPPUCCIN_DARK),\n");
+    code.push_str("        (\"tokyo_night\" | \"tokyonight\", false) => Some(BAKED_PRESET_TOKYO_NIGHT_LIGHT),\n");
+    code.push_str("        (\"tokyo_night\" | \"tokyonight\", true) => Some(BAKED_PRESET_TOKYO_NIGHT_DARK),\n");
+    code.push_str("        _ => None,\n");
+    code.push_str("    }\n");
+    code.push_str("}\n\n");
 
     fs::write(dest_path, code).expect("failed to write ely_baked.rs");
 }

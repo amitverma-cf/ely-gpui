@@ -135,3 +135,15 @@ fn baked_fonts_register_in_theme(cx: &mut TestAppContext) {
     assert_eq!(mono, "JetBrains Mono");
     assert!(crate::assets::EMBEDDED_FONTS.len() >= 6);
 }
+
+#[test]
+fn theme_presets_load_and_meet_contrast() {
+    for &name in Theme::PRESET_NAMES {
+        let light = Palette::preset(name, false, false)
+            .unwrap_or_else(|| panic!("failed preset {name} light"));
+        let dark = Palette::preset(name, true, false)
+            .unwrap_or_else(|| panic!("failed preset {name} dark"));
+        assert!(light.bg.l > 0.6, "{name} light bg should be bright");
+        assert!(dark.bg.l < 0.4, "{name} dark bg should be dark");
+    }
+}

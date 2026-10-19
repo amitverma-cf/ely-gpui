@@ -1,3 +1,4 @@
+mod app_layout;
 mod collapse;
 mod dock;
 mod floating;
@@ -18,6 +19,7 @@ pub(crate) mod tests;
 mod viewport;
 mod workspace;
 
+pub use app_layout::AppLayout;
 pub use collapse::{Accordion, AccordionItem, Collapsible};
 pub use dock::{Dock, DockLayout, DockPanel, DockSide, Spot};
 pub use floating::FloatingPanel;

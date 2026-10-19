@@ -24,6 +24,7 @@ mod assets;
 #[cfg(not(target_family = "wasm"))]
 mod capture;
 mod pages;
+mod playground;
 mod probe;
 #[cfg(not(target_family = "wasm"))]
 mod script;
