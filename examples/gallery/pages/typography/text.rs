@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     theme::{ActiveTheme, Radius},
     typography::{
         Blockquote, Caption, Code, Ellipsis, EllipsisTooltip, ExternalLink, Heading, Highlight,

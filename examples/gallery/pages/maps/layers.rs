@@ -1,4 +1,4 @@
-use ely_gpui_component::maps::{
+use ely_gpui::maps::{
     GeoHeatmap, GeoJsonLayer, LatLon, MapMarker, MapView, MapViewport, RouteLine, read_geojson,
 };
 use gpui::{App, IntoElement, ParentElement, Styled, div, px};

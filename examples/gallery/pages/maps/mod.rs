@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     maps::{
         CoordFormat, CoordinateDisplay, LatLon, LocationPicker, MapMarker, MapPopup, MapView,
         MapViewport, Tile,

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     devtools::{
         ApiRequest, ApiRequestBuilder, ApiResponse, Auth, CollectionTree, Direction, Environment,
         EnvironmentSelector, GraphQLExplorer, Method, ResponseViewer, Saved, SchemaType,

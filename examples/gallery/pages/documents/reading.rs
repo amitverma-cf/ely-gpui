@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use ely_gpui_component::{
+use ely_gpui::{
     documents::{
         Chapter, DocPage, DocumentViewer, EpubReader, Footnote, Glossary, MarkdownRenderer,
         PageHit, PageNote, PrintPreview, PrintSettings, ReadingProgress, RichTextEditor,
@@ -267,7 +267,7 @@ pub fn reading(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                             })
                             .chrome(
                                 div().p_2().flex().child(
-                                    ely_gpui_component::buttons::Button::new("read-zen-on", "Focus on the text")
+                                    ely_gpui::buttons::Button::new("read-zen-on", "Focus on the text")
                                         .on_click(move |_, _, cx| set(&zen, true, cx)),
                                 ),
                             )

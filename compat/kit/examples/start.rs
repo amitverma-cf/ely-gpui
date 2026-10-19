@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     Assets,
     buttons::Button,
     primitives::FocusScope,
@@ -73,7 +73,7 @@ fn main() {
         .with_assets(Assets::before(gpui_kit::assets::Assets))
         .run(|cx: &mut App| {
             gpui_kit::init(cx);
-            ely_gpui_component::init(cx).expect("Ely failed to start");
+            ely_gpui::init(cx).expect("Ely failed to start");
             gpui_kit::open_window(WindowOptions::default(), cx, |window, cx| {
                 cx.new(|cx| {
                     let focus = cx.focus_handle();

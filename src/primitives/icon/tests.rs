@@ -66,5 +66,5 @@ fn init_without_ely_assets_returns_an_error(cx: &mut TestAppContext) {
     let error = cx
         .update(crate::init)
         .expect_err("the test source holds no Ely assets");
-    assert!(format!("{error:#}").contains("pass `ely_gpui_component::Assets`"));
+    assert!(format!("{error:#}").contains("pass `ely_gpui::Assets`"));
 }

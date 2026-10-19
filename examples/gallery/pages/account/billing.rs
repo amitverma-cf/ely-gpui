@@ -1,4 +1,4 @@
-use ely_gpui_component::account::{
+use ely_gpui::account::{
     BillingHistory, Invitation, InvitationList, Invoice, InvoiceState, Member, PaymentMethodForm,
     Quota, Role, Standing, Subscription, SubscriptionCard, TeamMemberTable, UpgradePrompt,
     UsageQuota,

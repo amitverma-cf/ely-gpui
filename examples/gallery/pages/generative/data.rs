@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     data_display::{DescriptionList, Tone},
     forms::TextInput,
     generative::{

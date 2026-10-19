@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     charts::PieChart,
     data_display::Gauge,
     feedback::Countdown,

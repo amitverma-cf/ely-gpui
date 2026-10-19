@@ -7,7 +7,7 @@ use std::{
 };
 
 use anyhow::anyhow;
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     feedback::AsyncView,
     forms::{Upload, UploadList, UploadState},

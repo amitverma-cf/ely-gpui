@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::Choice,
     navigation::{EditorTab, EditorTabs, TabPlacement, Tabs},
     primitives::LucideIcon,

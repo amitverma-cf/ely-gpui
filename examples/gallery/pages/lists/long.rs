@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     data_display::Avatar,
     lists::{GroupedList, InfiniteList, ListItem, VirtualList},
     theme::{ActiveTheme, AvatarSize, Radius},

@@ -1,6 +1,6 @@
 import { Link, Outlet, useRouter } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { REPO } from "./data";
+import { ORIGINAL_REPO, REPO } from "./data";
 import { Icon } from "./icons";
 import { Mark } from "./Mark";
 import { useStill } from "./iso/Iso";
@@ -36,8 +36,8 @@ function Header() {
         <button className="tool" aria-label={dark ? "Light mode" : "Dark mode"} onClick={() => setMode(dark ? "light" : "dark")}>
           <Icon name={dark ? "Sun" : "Moon"} />
         </button>
-        <a className="tool" href={REPO} rel="noopener" aria-label="Ely on Gitea">
-          <Icon name="Gitea" />
+        <a className="tool" href={REPO} rel="noopener" aria-label="Ely on GitHub">
+          <Icon name="GitHub" />
         </a>
       </div>
     </header>
@@ -53,6 +53,9 @@ function Footer() {
       </a>
       <span>
         Built on <a href="https://github.com/zed-industries/zed/tree/main/crates/gpui" rel="noopener">GPUI</a>
+      </span>
+      <span>
+        Forked from <a href={ORIGINAL_REPO} rel="noopener">Ely GPUI Components</a> by Zachary Zhang
       </span>
       <span>Geist and Geist Mono, OFL</span>
       <span>

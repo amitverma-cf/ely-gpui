@@ -291,9 +291,9 @@ fn handle_add_component(name: &str) {
     if let Some((comp, import_path, desc)) = catalog.iter().find(|(c, _, _)| *c == query) {
         println!("\n=== Component: {} ===", comp);
         println!("Description: {}", desc);
-        println!("Module path: ely_gpui_component::{}", import_path);
+        println!("Module path: ely_gpui::{}", import_path);
         println!("\nUsage:");
-        println!("  use ely_gpui_component::{};\n", import_path);
+        println!("  use ely_gpui::{};\n", import_path);
     } else {
         println!(
             "\nUnknown component '{}'. Available components in Ely catalog:",

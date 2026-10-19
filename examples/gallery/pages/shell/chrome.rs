@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::IconButton,
     primitives::LucideIcon,
     shell::{TitleBar, WindowControls, drag_region},

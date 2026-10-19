@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 
-use ely_gpui_component::theme::{ActiveTheme, TextSize};
+use ely_gpui::theme::{ActiveTheme, TextSize};
 use gpui::{
     AnyElement, App, Div, Entity, FontWeight, Global, ImageSource, IntoElement, ParentElement,
     Resource, SharedString, Styled, Window, div, prelude::*,

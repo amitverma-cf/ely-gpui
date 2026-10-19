@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     forms::{Input, TextInput},
     overlays::{AlertDialog, ConfirmDialog, Dialog, PromptDialog},
@@ -138,7 +138,7 @@ pub fn dialogs(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                         .gap_3()
                         .max_w(
                             cx.theme()
-                                .container_width(ely_gpui_component::theme::ContainerSize::Sm),
+                                .container_width(ely_gpui::theme::ContainerSize::Sm),
                         )
                         .child(Caption::new("Menus nest, filter and follow their buttons."))
                         .child(Caption::new("Palettes pick on release, as buttons do."))

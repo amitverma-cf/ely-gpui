@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     mail::Label,
     project::{
         IssueCard, KanbanBoard, KanbanCard, KanbanColumn, LabelManager, Status, Task,

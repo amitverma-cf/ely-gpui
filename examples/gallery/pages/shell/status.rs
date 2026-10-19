@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     shell::{
         Connectivity, CrashReporter, OfflineIndicator, UpdateBanner, UpdateDialog, UpdateState,
@@ -134,7 +134,7 @@ pub fn offline(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         probe(
             key,
             Button::new(key, label)
-                .size(ely_gpui_component::theme::ControlSize::Sm)
+                .size(ely_gpui::theme::ControlSize::Sm)
                 .variant(if current == choice {
                     ButtonVariant::Subtle
                 } else {
@@ -150,9 +150,7 @@ pub fn offline(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     })))
     .child(
         div()
-            .h(cx
-                .theme()
-                .control_height(ely_gpui_component::theme::ControlSize::Lg))
+            .h(cx.theme().control_height(ely_gpui::theme::ControlSize::Lg))
             .flex()
             .items_center()
             .child(OfflineIndicator::new("connectivity-pill", current)),

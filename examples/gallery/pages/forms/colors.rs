@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::{ColorPalette, ColorPicker, ColorSwatch, EyeDropper, GradientEditor, GradientStop},
     theme::{ActiveTheme, ControlSize},
 };

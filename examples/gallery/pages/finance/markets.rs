@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     finance::{
         Arrangement, Candle, CandlestickChart, ChartKind, ChartSync, ChartTypeSwitcher, DepthChart,

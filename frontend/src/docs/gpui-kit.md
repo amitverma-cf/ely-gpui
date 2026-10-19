@@ -7,7 +7,7 @@ Ely runs beside Longbridge's [GPUI Kit](https://gpui-kit.com) in one app and one
 ```toml
 [dependencies]
 gpui-kit = "0.7"
-ely-gpui-component = { git = "https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components" }
+ely-gpui = { git = "https://github.com/amitverma-cf/ely-gpui" }
 ```
 
 Kit brings GPUI and puts it at its root, so the app writes `use gpui_kit::*` and lists no `gpui` line of its own. Ely follows Kit's default GPUI.
@@ -18,8 +18,8 @@ In an app, Cargo picks the newest Kit that shares Ely's GPUI. A Kit release on a
 
 | Step | Why |
 | --- | --- |
-| `gpui_kit::application().with_assets(Assets::before(gpui_kit::assets::Assets))` | GPUI takes one asset source. Ely's files load from Ely, every other path from Kit. `ely_gpui_component::init` returns an error if one of Ely's files does not load. |
-| `gpui_kit::init(cx)` and `ely_gpui_component::init(cx)?` | In either order. |
+| `gpui_kit::application().with_assets(Assets::before(gpui_kit::assets::Assets))` | GPUI takes one asset source. Ely's files load from Ely, every other path from Kit. `ely_gpui::init` returns an error if one of Ely's files does not load. |
+| `gpui_kit::init(cx)` and `ely_gpui::init(cx)?` | In either order. |
 | `gpui_kit::open_window(options, cx, build)` | Kit's `Root` hosts Kit's dialogs, sheets and notifications. |
 | `FocusScope::new(&handle).root()` around the view, `handle` focused | Ely's Tab, focus return and overlays live in the scope. |
 
@@ -39,8 +39,8 @@ Locales work the same way: Ely reads its `I18n` global, Kit its `gpui_kit::compo
 
 ## Inspector
 
-In debug builds Kit's `init` installs Kit's inspector. Call `ely_gpui_component::tooling::install_inspector(cx)` after it to draw Ely's.
+In debug builds Kit's `init` installs Kit's inspector. Call `ely_gpui::tooling::install_inspector(cx)` after it to draw Ely's.
 
 ## A whole app
 
-[`compat/kit/examples/start.rs`](https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components/src/branch/main/compat/kit/examples/start.rs) puts Ely's heading and button beside Kit's field and dialog, and one button turns both themes. From a clone, run it with `cargo run --manifest-path compat/kit/Cargo.toml --example start`. The crate's tests hold each claim on this page.
+[`compat/kit/examples/start.rs`](https://github.com/amitverma-cf/ely-gpui/blob/main/compat/kit/examples/start.rs) puts Ely's heading and button beside Kit's field and dialog, and one button turns both themes. From a clone, run it with `cargo run --manifest-path compat/kit/Cargo.toml --example start`. The crate's tests hold each claim on this page.

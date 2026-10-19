@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::{
         CheckState, Checkbox, CheckboxCard, CheckboxGroup, Choice, RadioCard, RadioGroup, Switch,
     },

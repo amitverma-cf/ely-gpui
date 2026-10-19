@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use ely_gpui_component::{
+use ely_gpui::{
     git::{ConflictResolver, DiffLayout, DiffViewer, Take, ThreeWayMerge, regions},
     theme::{ActiveTheme, Radius},
 };

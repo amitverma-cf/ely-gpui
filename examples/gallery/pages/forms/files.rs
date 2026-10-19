@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use ely_gpui_component::forms::{DropZone, FileInput};
+use ely_gpui::forms::{DropZone, FileInput};
 use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::{

@@ -1,4 +1,4 @@
-use ely_gpui_component::chat::{
+use ely_gpui::chat::{
     CitationBadge, DocumentChunkPreview, SearchProgress, Source, SourceList, StepState,
     WebResultCard,
 };

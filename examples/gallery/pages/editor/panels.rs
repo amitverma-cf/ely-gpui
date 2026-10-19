@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     editor::{
         ConsoleEntry, DebugConsole, Extension, ExtensionAction, ExtensionState, ExtensionsPanel,
         OutputPanel, Problem, ProblemsPanel,
@@ -78,7 +78,7 @@ pub fn problems_and_output(window: &mut Window, cx: &mut App) -> impl IntoElemen
         Vec::new()
     } else if now_channel.as_ref() == "Build" {
         vec![
-            "   Compiling ely-gpui-component v0.1.0",
+            "   Compiling ely-gpui v0.1.0",
             "warning: unused variable: `spare`",
             "error[E0308]: mismatched types",
             "   --> src/main.rs:46:22",

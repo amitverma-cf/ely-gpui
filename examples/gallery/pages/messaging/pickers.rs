@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     messaging::{ChatMessage, Gif, GifPicker, Gifs, Sticker, StickerPack, StickerPicker},
     primitives::Image,
     theme::{ActiveTheme, Radius, TextSize},

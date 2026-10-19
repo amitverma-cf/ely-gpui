@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant, IconButton},
     primitives::{Image, LucideIcon},
     shell::{
@@ -24,13 +24,10 @@ const ATRIUM: &str = asset!("atrium.jpg");
 fn about() -> AboutDialog {
     AboutDialog::new("Ely", "0.1.0 (2026.09)")
         .description("A component library for GPUI, in light and dark.")
-        .link(
-            "Website",
-            "https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components",
-        )
+        .link("Website", "https://github.com/amitverma-cf/ely-gpui")
         .link(
             "License",
-            "https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components#license",
+            "https://github.com/amitverma-cf/ely-gpui#license",
         )
         .copyright("© 2026 Ely contributors")
 }

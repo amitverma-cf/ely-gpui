@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     theme::TextSize,
     typography::{
         CopyableText, CurrencyText, DateTimeText, DurationStyle, DurationText, Emoji, FileSizeText,

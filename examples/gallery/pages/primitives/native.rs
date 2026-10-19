@@ -1,6 +1,6 @@
 use std::f32::consts::TAU;
 
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, Radius, TextSize},
@@ -148,7 +148,7 @@ pub fn portal(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         .bg(theme.colors.overlay)
         .border_1()
         .border_color(theme.colors.border)
-        .shadow(theme.elevation(ely_gpui_component::theme::Elevation::Floating))
+        .shadow(theme.elevation(ely_gpui::theme::Elevation::Floating))
         .text_size(theme.text_size(TextSize::Sm))
         .child("Painted last, above the clipped box.");
     section(

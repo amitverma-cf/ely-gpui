@@ -1,4 +1,4 @@
-use ely_gpui_component::generative::{
+use ely_gpui::generative::{
     Download, DownloadState, FineTuneJobCard, HardwareMonitor, ModelCard, ModelDownloadManager,
     ModelState, ModelStatus, Reading, TunePhase,
 };

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::Button,
     editor::{
         ActionKind, Call, CallHierarchy, CodeAction, CodeActionMenu, CompletionItem,

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     settings::{ThemeDraft, ThemeEditor},
     theme::{ActiveTheme, Density, Mode, Theme},

@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     data_display::{
         Avatar, AvatarGroup, Badge, CountBadge, DotBadge, KpiCard, Presence, Statistic, Tag, Tone,

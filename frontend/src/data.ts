@@ -37,6 +37,7 @@ export function search(query: string): Chapter[] {
   });
 }
 
-export const REPO = "https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components";
+export const REPO = "https://github.com/amitverma-cf/ely-gpui";
+export const ORIGINAL_REPO = "https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components";
 
 export const pad = (n: number) => String(n).padStart(2, "0");

@@ -8,7 +8,7 @@ Ely tests itself on GPUI's test platform: every chapter has tests, and `cargo te
 
 ## Testing an app that uses Ely
 
-GPUI's `TestAppContext` serves no assets, so `ely_gpui_component::init` returns an error there. Call `ely_gpui_component::init_for_tests(cx)` instead, under the `test-support` feature: it sets the theme and key bindings without assets or fonts.
+GPUI's `TestAppContext` serves no assets, so `ely_gpui::init` returns an error there. Call `ely_gpui::init_for_tests(cx)` instead, under the `test-support` feature: it sets the theme and key bindings without assets or fonts.
 
 ## Writing a test inside Ely
 
@@ -25,7 +25,7 @@ GPUI's `TestAppContext` serves no assets, so `ely_gpui_component::init` returns 
 
 ## Tests to read
 
-- [Layers](https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components/src/branch/main/src/primitives/tests.rs): what is raised inside a raise lies over it, and keeps its state.
-- [Feedback](https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components/src/branch/main/src/feedback/tests/mod.rs): toasts and alerts, and focus handed to the root when a focused toast leaves.
-- [Tables](https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components/src/branch/main/src/tables/tests/mod.rs): clicks, double presses, Tab across a grid.
-- [Internationalization](https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components/src/branch/main/src/i18n/tests/mod.rs): catalogs, locales and a mirrored row.
+- [Layers](https://github.com/amitverma-cf/ely-gpui/blob/main/src/primitives/tests.rs): what is raised inside a raise lies over it, and keeps its state.
+- [Feedback](https://github.com/amitverma-cf/ely-gpui/blob/main/src/feedback/tests/mod.rs): toasts and alerts, and focus handed to the root when a focused toast leaves.
+- [Tables](https://github.com/amitverma-cf/ely-gpui/blob/main/src/tables/tests/mod.rs): clicks, double presses, Tab across a grid.
+- [Internationalization](https://github.com/amitverma-cf/ely-gpui/blob/main/src/i18n/tests/mod.rs): catalogs, locales and a mirrored row.

@@ -1,6 +1,6 @@
 use std::{borrow::Cow, f32::consts::FRAC_PI_4};
 
-use ely_gpui_component::{
+use ely_gpui::{
     Assets,
     files::FileIcon,
     primitives::{FocusScope, Icon, IconTheme, LucideIcon},
@@ -87,7 +87,7 @@ fn main() {
     gpui_platform::application()
         .with_assets(AppAssets)
         .run(|cx: &mut App| {
-            ely_gpui_component::init(cx).expect("Ely failed to start");
+            ely_gpui::init(cx).expect("Ely failed to start");
             IconTheme::default()
                 .name("Cargo.toml", LucideIcon::Package)
                 .apply(cx);

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant, SegmentedControl},
     data_display::{
         Activity, ActivityFeed, Badge, Change, Changelog, DescriptionList, PropertyGrid,

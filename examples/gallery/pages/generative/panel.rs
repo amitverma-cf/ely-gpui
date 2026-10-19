@@ -1,6 +1,6 @@
 use std::{rc::Rc, time::Duration};
 
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     forms::{Form, FormField, TagInput, TextInput},
     generative::{AspectRatioPicker, PromptEnhancer, SeedInput, StylePreset, StylePresetPicker},

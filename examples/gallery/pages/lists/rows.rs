@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     data_display::{Avatar, Badge, CountBadge, Tone},
     lists::{List, ListItem, SelectableList, SortableList, SwipeAction, SwipeableListItem},
     primitives::{Icon, LucideIcon, Severity},

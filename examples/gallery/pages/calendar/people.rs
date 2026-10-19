@@ -1,4 +1,4 @@
-use ely_gpui_component::calendar::{AgendaView, Answer, Attendee, AttendeeList, EventPopover};
+use ely_gpui::calendar::{AgendaView, Answer, Attendee, AttendeeList, EventPopover};
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use super::{here, plan, quiet};

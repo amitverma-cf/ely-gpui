@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant, IconButton},
     motion::{AnimatePresence, Entrance, Flip, Reorder, Stagger, Transition},
     primitives::{Icon, LucideIcon},

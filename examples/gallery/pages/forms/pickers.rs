@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::{Cascade, Cascader, Choice, Combobox, ListBox, MultiSelect, Select, TransferList},
     primitives::LucideIcon,
 };

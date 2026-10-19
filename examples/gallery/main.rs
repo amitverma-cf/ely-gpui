@@ -45,7 +45,7 @@ use anyhow::bail;
 use anyhow::{Context as _, Result};
 #[cfg(not(target_family = "wasm"))]
 use assets::GalleryAssets;
-use ely_gpui_component::theme::{Mode, Theme};
+use ely_gpui::theme::{Mode, Theme};
 use gpui::{
     App, AppContext, Bounds, KeyBinding, Menu, MenuItem, SharedString, TitlebarOptions,
     WindowBounds, WindowHandle, WindowOptions, actions, point, px, size,
@@ -115,9 +115,9 @@ pub struct Start {
 
 /// Sets Ely up and opens the gallery's window.
 fn launch(start: Start, cx: &mut App) -> Result<WindowHandle<shell::Gallery>> {
-    ely_gpui_component::init(cx)?;
+    ely_gpui::init(cx)?;
     #[cfg(debug_assertions)]
-    ely_gpui_component::tooling::install_inspector(cx);
+    ely_gpui::tooling::install_inspector(cx);
     pages::bind_keys(cx);
     pages::install_i18n(cx);
     cx.bind_keys([KeyBinding::new("cmd-q", Quit, None)]);

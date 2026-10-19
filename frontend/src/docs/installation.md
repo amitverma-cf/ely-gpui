@@ -12,14 +12,14 @@ Ely is not on crates.io. Depend on it by git, with GPUI at the snapshot Ely pins
 
 ```toml
 [dependencies]
-ely-gpui-component = { git = "https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components" }
+ely-gpui = { git = "https://github.com/amitverma-cf/ely-gpui" }
 gpui = { package = "gpui-pre", version = "=0.3.9" }
 gpui_platform = { package = "gpui-pre-platform", version = "=0.3.9", features = ["font-kit"] }
 ```
 
 | Line | Why |
 | --- | --- |
-| `ely-gpui-component` | The library. `Cargo.lock` records the commit; add `rev = "<commit>"` to hold it in `Cargo.toml` as well. |
+| `ely-gpui` | The library. `Cargo.lock` records the commit; add `rev = "<commit>"` to hold it in `Cargo.toml` as well. |
 | `gpui` | The same snapshot as Ely's, under the name `gpui`. Another builds a second GPUI, and its types do not match the ones Ely takes. |
 | `gpui_platform` | Opens windows on each platform. Without `font-kit`, macOS falls back to GPUI's no-op text system and draws no text. |
 

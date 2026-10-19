@@ -1,6 +1,6 @@
 use std::borrow::Cow;
 
-use ely_gpui_component::Assets;
+use ely_gpui::Assets;
 use gpui::{AssetSource, SharedString};
 
 pub const CUSTOM_ICON: &str = "app-icons/mark.svg";

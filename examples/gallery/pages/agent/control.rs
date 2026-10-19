@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use ely_gpui_component::{
+use ely_gpui::{
     agent::{AgentState, AgentStatus, CostBreakdown, HumanInputRequest},
     charts::{BarChart, Series},
     chat::{continue_button, stop_button},

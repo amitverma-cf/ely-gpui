@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     finance::{
         Fill, GreeksTable, Leg, LeverageSlider, MarginIndicator, OptionChain, OptionQuote, Order,
         OrderConfirmDialog, OrderEntry, OrderKind, OrderTable, PayoffDiagram, PnLDisplay, Position,

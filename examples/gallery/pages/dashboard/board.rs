@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     charts::{LineChart, Series},
     dashboard::{
         DashboardCard, DashboardFilter, DashboardFilterBar, DashboardGrid, RefreshIntervalSelector,

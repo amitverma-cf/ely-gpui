@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::Choice,
     navigation::{Breadcrumb, Crumb, Pagination, Steps, Wizard},
     primitives::LucideIcon,

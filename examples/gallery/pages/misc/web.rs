@@ -1,4 +1,4 @@
-use ely_gpui_component::misc::{IframeEmbed, WebSource, WebView};
+use ely_gpui::misc::{IframeEmbed, WebSource, WebView};
 use gpui::{App, IntoElement, ParentElement, Styled, div, px};
 
 use crate::probe::probe;

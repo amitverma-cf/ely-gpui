@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     mail::Label,
     project::{IssueId, Person, Priority, Status, Task},
     theme::{ActiveTheme, TextSize},

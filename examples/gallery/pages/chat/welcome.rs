@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     chat::{
         CapabilityCards, FollowUpSuggestions, MessageAvatar, MessageBubble, PromptInput, Role,
         StreamingMarkdown, SuggestionChips, WelcomeScreen,

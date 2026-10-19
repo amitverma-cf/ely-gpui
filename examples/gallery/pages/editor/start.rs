@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::Button,
     editor::{
         Project, ProjectSwitcher, RecentProjects, Task, TaskRunner, TaskState, ThemePreview,
@@ -24,7 +24,7 @@ fn projects() -> Vec<Project> {
     };
     vec![
         project(
-            "ely-gpui-component",
+            "ely-gpui",
             "~/Documents/GitHub/Ely-GPUI-Components",
             Some("main"),
             "now",

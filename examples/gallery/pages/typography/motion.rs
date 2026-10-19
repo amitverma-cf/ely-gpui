@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     theme::{ActiveTheme, TextSize},
     typography::{AnimatedNumber, GradientText, ShimmerText, Typewriter},

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::Button,
     chat::DateSeparator,
     collab::{Reaction, Reactions, toggled},
@@ -134,7 +134,7 @@ pub fn conversation(window: &mut Window, cx: &mut App) -> impl IntoElement + use
 pub fn thread(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let open = thread_open(window, cx);
     let reply = window.use_keyed_state("messaging-thread-reply", cx, |window, cx| {
-        ely_gpui_component::forms::TextInput::new(window, cx).placeholder("Reply…")
+        ely_gpui::forms::TextInput::new(window, cx).placeholder("Reply…")
     });
     let shown = *open.read(cx);
     let theme = cx.theme();

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     layout::{ScrollArea, ScrollShadow, ScrollToTop, Scrollbar, StickyHeader},
     theme::{ActiveTheme, Radius, TextSize},
 };

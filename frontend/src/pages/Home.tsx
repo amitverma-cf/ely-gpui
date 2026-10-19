@@ -129,7 +129,7 @@ export function Home() {
       <City />
       <section className="close">
         <h2 className="rise">Build with Ely.</h2>
-        <code className="rise">ely-gpui-component = {`{ git = "${REPO}" }`}</code>
+        <code className="rise">ely-gpui = {`{ git = "${REPO}" }`}</code>
         <Link to="/components/" className="button rise">
           Browse
         </Link>

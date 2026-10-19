@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     canvas::{
         AutoLayout, AutoLayoutControls, Border, BorderEditor, ColorPanel, Constraints,
         ConstraintsEditor, Dash, ExportFormat, ExportPanel, ExportSetting, Flow, Frame, Pin, Place,

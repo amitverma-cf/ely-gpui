@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     Assets,
     buttons::Button,
     primitives::FocusScope,
@@ -45,7 +45,7 @@ fn main() {
     gpui_platform::application()
         .with_assets(Assets)
         .run(|cx: &mut App| {
-            ely_gpui_component::init(cx).expect("Ely failed to start");
+            ely_gpui::init(cx).expect("Ely failed to start");
             Theme::set_mode_now(Mode::Dark, cx);
             let bounds = Bounds::centered(None, size(px(640.0), px(400.0)), cx);
             let options = WindowOptions {

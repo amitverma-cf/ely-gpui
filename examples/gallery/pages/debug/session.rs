@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     debug::{
         Breakpoint, BreakpointList, CallStack, DebugCommand, DebugState, DebugToolbar, StackFrame,
         Thread, ThreadList, ThreadState, ValueKind, Variable, VariablesPanel, Watch, WatchPanel,

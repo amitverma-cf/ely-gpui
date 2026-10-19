@@ -1,4 +1,4 @@
-use ely_gpui_component::misc::{Flashcards, Poll, Question, Quiz, QuizQuestion, Survey};
+use ely_gpui::misc::{Flashcards, Poll, Question, Quiz, QuizQuestion, Survey};
 use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::probe::probe;

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     lists::{DirEntry, DirectoryListing, FileTree, GitStatus},
     theme::{ActiveTheme, Radius},
     typography::Caption,

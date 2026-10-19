@@ -1,6 +1,6 @@
 use std::{collections::HashMap, rc::Rc};
 
-use ely_gpui_component::{
+use ely_gpui::{
     tables::{Aggregate, Cell, Column, DataGrid, PivotTable, Spreadsheet, TreeRow, TreeTable},
     typography::Caption,
 };

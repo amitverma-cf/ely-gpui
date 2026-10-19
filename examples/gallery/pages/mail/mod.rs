@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::Button,
     feedback::EmptyState,
     mail::{Mail, MailList, Mailbox, MailboxList},

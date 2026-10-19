@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::SegmentedControl,
     chat::{
         Attachment, AttachmentButton, AttachmentChip, ContextChips, CostEstimator, InputHint,

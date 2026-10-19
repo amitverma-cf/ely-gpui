@@ -1,4 +1,4 @@
-use ely_gpui_component::forms::{Choice, ChoiceChips, Knob, RangeSlider, Rating, Slider, Stepper};
+use ely_gpui::forms::{Choice, ChoiceChips, Knob, RangeSlider, Rating, Slider, Stepper};
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{

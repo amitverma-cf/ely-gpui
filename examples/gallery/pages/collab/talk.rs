@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     collab::{
         AnnotatedText, Annotation, Comment, CommentMarker, CommentSidebar, CommentThread, Decision,
         EditMode, Reaction, Suggestion, SuggestionMode, Thread, TrackChanges, accept, suggested,
@@ -210,7 +210,7 @@ pub fn comments(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 div()
                     .w(px(400.))
                     .h(px(560.))
-                    .rounded(theme.radius(ely_gpui_component::theme::Radius::Lg))
+                    .rounded(theme.radius(ely_gpui::theme::Radius::Lg))
                     .border_1()
                     .border_color(theme.colors.border)
                     .bg(theme.colors.sunken)

@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use anyhow::anyhow;
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     feedback::{
         ConfirmationCard, ConnectionStatus, Countdown, ErrorBoundary, ErrorView, InlineMessage,

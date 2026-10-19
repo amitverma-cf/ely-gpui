@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     menus::{Menu, MenuBar, MenuItem, PieItem, PieMenu, SearchableMenu},
     primitives::LucideIcon,
     theme::{ActiveTheme, Radius},

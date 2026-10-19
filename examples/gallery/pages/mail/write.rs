@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     chat::Attachment,
     mail::{Contact, MailComposer, ScheduleSend, SignatureEditor},
     theme::{ActiveTheme, Radius},

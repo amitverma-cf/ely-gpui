@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant, IconButton},
     data_display::{Badge, Tone},
     forms::{FormField, Input, TextInput},

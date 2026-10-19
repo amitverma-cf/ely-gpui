@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     settings::{SyntaxThemePicker, ThemeImporter},
     theme::{ActiveTheme, Theme, syntax_themes},
 };

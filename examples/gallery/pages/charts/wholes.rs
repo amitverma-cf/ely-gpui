@@ -1,4 +1,4 @@
-use ely_gpui_component::charts::{
+use ely_gpui::charts::{
     CalendarHeatmap, HeatmapChart, PieChart, RadarChart, Series, Slice, Sunburst, Treemap,
 };
 use gpui::{App, IntoElement, ParentElement, Styled, div, px};

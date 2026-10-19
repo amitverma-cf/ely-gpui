@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::{
         CodeInput, Combobox, EmojiPicker, FontPicker, IconPicker, JsonInput, NumberInput,
         SignaturePad, Stroke, code_highlights, json_highlights,

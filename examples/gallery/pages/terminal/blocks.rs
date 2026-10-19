@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::Button,
     terminal::{AnsiText, CommandBlock, CommandHistory, CommandState, PastCommand},
     typography::Caption,

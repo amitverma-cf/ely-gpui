@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     dashboard::{
         AlertList, AlertState, Check, EventStream, Health, HealthCheck, Incident, IncidentCard,
         IncidentPhase, IncidentUpdate, MonitorAlert, Service, ServiceStatus, StreamEvent,

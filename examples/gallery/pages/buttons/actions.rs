@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{
         ActionBar, ActionSheet, BulkActionBar, Button, ButtonVariant, ConfirmButton, ConfirmMode,
         CopyButton, FloatingActionButton, QuickAction, QuickActions, ShareButton, back_button,
@@ -115,7 +115,7 @@ pub fn small_buttons(cx: &App) -> impl IntoElement + use<> {
                     "share-button",
                     ShareButton::new("share-page")
                         .text("Ely, components for GPUI")
-                        .url("https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components"),
+                        .url("https://github.com/amitverma-cf/ely-gpui"),
                 ),
                 cx,
             ))

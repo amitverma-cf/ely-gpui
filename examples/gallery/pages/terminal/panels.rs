@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use ely_gpui_component::{
+use ely_gpui::{
     forms::{Input, TextInput},
     terminal::{LogLevel, LogLine, LogViewer, Process, ProcessList},
     theme::{ActiveTheme, Radius},

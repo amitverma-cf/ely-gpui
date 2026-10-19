@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use ely_gpui_component::primitives::Measure;
+use ely_gpui::primitives::Measure;
 use gpui::{
     AnyWindowHandle, App, Bounds, Div, Global, IntoElement, ParentElement, Pixels, Styled, div,
 };

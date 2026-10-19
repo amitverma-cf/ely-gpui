@@ -1,6 +1,6 @@
 use std::{path::Path, time::Duration};
 
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, IconButton},
     primitives::{
         Backdrop, Divider, FocusRing, FocusScope, Icon, Image, IntersectionObserver, LucideIcon,
@@ -170,7 +170,7 @@ pub fn backdrop(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         .gap_3()
         .rounded(theme.radius(Radius::Xl))
         .bg(theme.colors.overlay)
-        .shadow(theme.elevation(ely_gpui_component::theme::Elevation::Modal))
+        .shadow(theme.elevation(ely_gpui::theme::Elevation::Modal))
         .child(div().font_weight(FontWeight::SEMIBOLD).child("Backdrop"))
         .child(
             div()

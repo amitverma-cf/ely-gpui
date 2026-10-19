@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     forms::Choice,
     navigation::{Command, CommandPalette, QuickLauncher, QuickOpen, QuickSwitcher, SearchPalette},

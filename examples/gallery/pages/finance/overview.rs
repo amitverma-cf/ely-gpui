@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     data_display::Tone,
     finance::{
         Earnings, EarningsCalendar, EconomicCalendar, MarketHeatmap, MarketOverview, MarketStatus,

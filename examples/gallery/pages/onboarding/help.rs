@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     data_display::{Change, Release},
     feedback::EmptyState,

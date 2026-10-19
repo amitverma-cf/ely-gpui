@@ -1,4 +1,4 @@
-# Ely GPUI Component
+# Ely GPUI (`ely-gpui`)
 
 A component library for [GPUI](https://www.gpui.rs), the Rust UI framework behind Zed.
 Every component ships in light and dark. The palette is warm and quiet. Color carries meaning, not decoration.
@@ -11,18 +11,18 @@ Status: early. `TASKS.md` tracks every component, chapter by chapter. To help, s
 
 ```toml
 [dependencies]
-ely-gpui-component = { git = "https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components" }
+ely-gpui = { git = "https://github.com/amitverma-cf/ely-gpui" }
 gpui = { package = "gpui-pre", version = "=0.3.9" }
 gpui_platform = { package = "gpui-pre-platform", version = "=0.3.9", features = ["font-kit"] }
 ```
 
 ```rust
-use ely_gpui_component::{Assets, theme::{Mode, Theme}};
+use ely_gpui::{Assets, theme::{Mode, Theme}};
 use gpui::App;
 
 fn main() {
     gpui_platform::application().with_assets(Assets).run(|cx: &mut App| {
-        ely_gpui_component::init(cx).expect("Ely failed to start");
+        ely_gpui::init(cx).expect("Ely failed to start");
         Theme::set_mode(Mode::Dark, cx);
     });
 }
@@ -89,7 +89,7 @@ cargo ely doctor
 Icons are referenced through provider-scoped enums rather than loose string paths:
 
 ```rust
-use ely_gpui_component::primitives::{Icon, LucideIcon, HeroIcon, HugeIcon};
+use ely_gpui::primitives::{Icon, LucideIcon, HeroIcon, HugeIcon};
 
 // Compile-time verified icon names
 Icon::new(LucideIcon::ArrowRight)
@@ -104,7 +104,7 @@ At compilation, `build.rs` scans your source tree via AST matching (`scan_source
 Declared fonts and media in `ely-gpui.toml` generate compile-time verified enums:
 
 ```rust
-use ely_gpui_component::assets::Image;
+use ely_gpui::assets::Image;
 
 let path = Image::Logo.path();          // "logo.png"
 let mime = Image::Logo.mime_type();     // "image/png"
@@ -151,6 +151,10 @@ pnpm deploy     # Cloudflare, through wrangler
 
 - gpui compiles its Metal shaders at runtime here (`runtime_shaders`, on by default), so a full Xcode install is not required. gpui_platform needs `font-kit`, or macOS draws no text.
 - CI tests the crate and builds the gallery on macOS, Windows and Linux, arm64 and x86_64. The capture tool needs macOS.
+
+## Credits & Acknowledgments
+
+`ely-gpui` is forked from and inspired by [Ely GPUI Components](https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components) by Zachary Zhang (`ZacharyZhang-NY`). We are grateful for the foundational architecture, design language, and component system created by the original author. `ely-gpui` builds forward on this foundation with modern tooling, the `cargo ely` CLI, parametric `ely-gpui.toml` design tokens, typed icon packs (`LucideIcon`, `HeroIcon`, `HugeIcon`), compile-time dead-asset eviction, and first-class cross-platform desktop support.
 
 ## License
 

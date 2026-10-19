@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     canvas::{
         FlowChart, Frame, Link, MindMap, Step, StepKind, Tool, ToolLayer, ToolPalette, Topic,
         Viewport,

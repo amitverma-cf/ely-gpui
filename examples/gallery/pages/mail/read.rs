@@ -1,4 +1,4 @@
-use ely_gpui_component::mail::{Contact, MailReader, MailThreadView, Message, QuotedText};
+use ely_gpui::mail::{Contact, MailReader, MailThreadView, Message, QuotedText};
 use gpui::{App, IntoElement, ParentElement, Styled, div, px};
 use jiff::{SignedDuration, Timestamp};
 

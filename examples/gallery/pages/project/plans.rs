@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     charts::BurndownChart,
     project::{Initiative, Load, MilestoneProgress, Roadmap, WorkloadView},
 };

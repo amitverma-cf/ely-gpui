@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::forms::{
+use ely_gpui::forms::{
     Calendar, CronEditor, DatePicker, DateRangePicker, DateTimePicker, DurationPicker, MonthPicker,
     QuarterPicker, RelativeDatePicker, RelativeRange, TimePicker, TimezoneSelect, WeekPicker,
     YearPicker,

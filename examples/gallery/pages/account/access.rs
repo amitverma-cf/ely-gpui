@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     account::{
         Account, AccountSwitcher, ApiKey, ApiKeyManager, Profile, ProfileCard, ProfileEditor,
         Session, SessionList, UserMenu, Workspace, WorkspaceSwitcher,

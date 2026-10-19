@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use ely_gpui_component::{
+use ely_gpui::{
     charts::NetworkGraph,
     data_display::{PropertyGrid, PropertyGroup},
     documents::{

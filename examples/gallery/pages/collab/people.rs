@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     collab::{FollowMode, LiveIndicator, Peer, PresenceAvatars, RemoteCursor, RemoteSelection},
     forms::{Input, TextInput},
     theme::{ActiveTheme, TextSize},

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     files::{FileGrid, FileIcon, FileItem},
     forms::{DropZone, InlineEdit},
     lists::{DirEntry, SelectableList},

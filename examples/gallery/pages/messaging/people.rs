@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     data_display::Presence,
     messaging::{
         ClearAfter, Member, MemberList, OnlineStatus, Status, StatusSetter, UserProfileCard,

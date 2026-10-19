@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     finance::{
         BidAskBar, DomLadder, Level2Quotes, OrderBook, PriceChangeBadge, PriceText, QuoteCard,
         Side, SpreadIndicator, TickerTape, TimeAndSales, Trade,

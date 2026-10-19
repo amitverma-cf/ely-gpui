@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::Button,
     misc::{CsvImporter, ExportDialog, ExportFormat, ImportDialog, ImportField},
     theme::ActiveTheme,

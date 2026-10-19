@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     lists::{DropAt, Outline, Tree, TreeNode, TreeSelect},
     primitives::LucideIcon,
     theme::{ActiveTheme, Radius},

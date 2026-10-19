@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::project::{DatabaseView, PomodoroTimer, Status, TimeEntry, TimeTracker};
+use ely_gpui::project::{DatabaseView, PomodoroTimer, Status, TimeEntry, TimeTracker};
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 use web_time::Instant;
 

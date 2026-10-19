@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::{Choice, Select},
     i18n::{I18n, LOCALES},
     primitives::{Icon, LucideIcon},

@@ -1,4 +1,4 @@
-use ely_gpui_component::misc::{Calculator, Clock, Stopwatch, UnitConverter, WorldClock};
+use ely_gpui::misc::{Calculator, Clock, Stopwatch, UnitConverter, WorldClock};
 use gpui::{AnyElement, App, IntoElement, ParentElement, Styled, Window, div, px};
 use jiff::tz::TimeZone;
 

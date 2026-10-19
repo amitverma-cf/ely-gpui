@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     layout::{AppShell, Drawer, MasterDetail, Page, Sheet, Sidebar, h_stack},
     primitives::{Icon, LucideIcon, Place},

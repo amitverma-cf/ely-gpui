@@ -1,4 +1,4 @@
-use ely_gpui_component::forms::{NumberInput, ScrubInput, UnitInput};
+use ely_gpui::forms::{NumberInput, ScrubInput, UnitInput};
 use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{

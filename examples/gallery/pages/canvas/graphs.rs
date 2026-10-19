@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     canvas::{
         Board, Edge, Frame, Link, Node, NodeGraph, Port, Shape, ShapeKind, Viewport, Whiteboard,
     },

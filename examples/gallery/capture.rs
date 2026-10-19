@@ -4,7 +4,7 @@ use std::{
 };
 
 use anyhow::{Context as _, Result, bail};
-use ely_gpui_component::theme::Theme;
+use ely_gpui::theme::Theme;
 use gpui::{App, AsyncApp, Window, WindowHandle, px};
 
 use crate::{

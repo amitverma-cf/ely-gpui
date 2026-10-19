@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::{
         ExpressionInput, HotkeyInput, KeyValueInput, ListInput, MentionInput, PathInput,
         RegexInput, TagInput, expression_highlights, mention_highlights, regex_highlights,

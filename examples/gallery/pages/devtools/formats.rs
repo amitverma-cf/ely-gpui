@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     devtools::{JsonEditor, JsonViewer, XmlViewer, YamlViewer},
     editor::CodeEditor,
     forms::TextInput,

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     editor::{
         BranchIndicator, CursorPosition, Encoding, IndentSettings, LanguageMode, LineEnding,
         LspState, LspStatus, NotificationBell,

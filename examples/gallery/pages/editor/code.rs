@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, SegmentedControl},
     editor::{
         CodeEditor, CodeLens, CursorShape, Diagnostic, DiffHunk, GhostText, GitMark, InlayHint,

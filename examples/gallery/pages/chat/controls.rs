@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     chat::{
         BranchNavigator, ErrorMessage, FeedbackForm, MessageActions, MessageAvatar, MessageBubble,

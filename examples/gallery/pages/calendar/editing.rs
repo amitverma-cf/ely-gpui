@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     calendar::{AvailabilityPicker, EventDraft, EventEditor, Frequency, Recurrence, When},
     theme::{ActiveTheme, Radius},
 };

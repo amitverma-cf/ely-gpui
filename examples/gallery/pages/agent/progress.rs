@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     agent::{AgentPlan, AgentProgress, AgentState, AgentStatus, AgentStep, AgentStepList},
     buttons::{Button, ButtonVariant},
     chat::StepState,

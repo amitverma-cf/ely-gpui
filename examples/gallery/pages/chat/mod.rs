@@ -6,7 +6,7 @@ mod history;
 mod talk;
 mod welcome;
 
-use ely_gpui_component::feedback::{ToastViewport, Toaster};
+use ely_gpui::feedback::{ToastViewport, Toaster};
 use gpui::{AnyElement, App, IntoElement, ParentElement, Window, div};
 
 use super::Page;

@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::generative::{
+use ely_gpui::generative::{
     AudioGenerationPlayer, Outcome, Shot, TTSVoicePicker, VideoGenerationTimeline, Voice,
 };
 use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};

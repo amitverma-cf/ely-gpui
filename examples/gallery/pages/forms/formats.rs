@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::{EmailInput, InlineEdit, MaskedInput, PhoneInput, PinInput, UrlInput},
     typography::Caption,
 };

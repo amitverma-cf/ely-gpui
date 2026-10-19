@@ -57,7 +57,7 @@ pub fn init(cx: &mut App) -> anyhow::Result<()> {
     let missing = assets::missing(cx.asset_source().as_ref());
     if let Some(first) = missing.first() {
         anyhow::bail!(
-            "ely: the asset source lacks {} of Ely's files, first {first}; pass `ely_gpui_component::Assets`, or `Assets::before` your own, to `Application::with_assets`",
+            "ely: the asset source lacks {} of Ely's files, first {first}; pass `ely_gpui::Assets`, or `Assets::before` your own, to `Application::with_assets`",
             missing.len()
         );
     }

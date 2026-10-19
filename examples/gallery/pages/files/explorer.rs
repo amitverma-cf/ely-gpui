@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     files::{FileExplorer, FileView},
     lists::{DirEntry, FileTree},
 };

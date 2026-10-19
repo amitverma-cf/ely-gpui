@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     documents::{
         BlockData, BlockEditor, BlockKind, Checklist, MarkdownEditor, MarkdownMode, Media,
         RichTextEditor, markdown_highlights,

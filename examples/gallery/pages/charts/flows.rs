@@ -1,4 +1,4 @@
-use ely_gpui_component::charts::{
+use ely_gpui::charts::{
     Bullet, BulletChart, ChordDiagram, FunnelChart, GanttChart, NetworkGraph, ParallelCoordinates,
     ProgressChart, SankeyChart, Task,
 };

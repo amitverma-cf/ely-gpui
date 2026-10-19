@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     agent::{
         Checkpoint, CheckpointList, McpServer, McpServerList, Memory, MemoryPanel, RegisteredTool,
         SandboxState, SandboxStatus, ServerState, ToolAccess, ToolRegistry,

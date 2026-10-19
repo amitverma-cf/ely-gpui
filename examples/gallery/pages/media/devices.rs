@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use ely_gpui_component::{
+use ely_gpui::{
     media::{
         CameraPreview, Device, DeviceKind, DeviceSelector, MicLevelMeter, ModelViewer, Orbit,
         Recording, ScreenRecorderControls,

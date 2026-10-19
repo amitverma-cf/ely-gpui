@@ -1,6 +1,6 @@
 use std::hash::{DefaultHasher, Hash, Hasher};
 
-use ely_gpui_component::{forms::Slider, rendering::RenderSurface, theme::ActiveTheme};
+use ely_gpui::{forms::Slider, rendering::RenderSurface, theme::ActiveTheme};
 use gpui::{
     AnyElement, App, DevicePixels, Hsla, IntoElement, ParentElement, RenderImage, Rgba, Size,
     Styled, Window, div, px,

@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::media::{
+use ely_gpui::media::{
     AudioPlayer, AudioSpectrum, AudioWaveform, MediaControls, PlaybackSpeedControl, Playlist,
     Repeat, Track, VolumeControl,
 };

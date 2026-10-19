@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     canvas::{
         Brush, BrushSettings, Frame, HistoryPanel, InfiniteCanvas, Shape, ShapeKind, Tool,
         ToolLayer, ToolPalette, Viewport,

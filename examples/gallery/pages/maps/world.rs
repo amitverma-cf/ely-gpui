@@ -1,4 +1,4 @@
-use ely_gpui_component::maps::{
+use ely_gpui::maps::{
     ChoroplethLayer, ChoroplethMap, LatLon, MapView, MapViewport, WorldMap, read_geojson,
 };
 use gpui::{App, IntoElement, ParentElement, Styled, div, px};

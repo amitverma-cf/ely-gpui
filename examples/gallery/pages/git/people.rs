@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::TextInput,
     git::{
         Blame, BlameView, DiffStat, FileHistory, GitStatusBadge, PullRequest, PullRequestCard,

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     data_display::{DescriptionList, Tone},
     tables::{Cell, Column, DataTable, Row},
     typography::Caption,

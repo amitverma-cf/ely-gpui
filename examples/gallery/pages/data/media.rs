@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     data_display::{BeforeAfter, Carousel, Gallery, Watermark},
     overlays::Slide,

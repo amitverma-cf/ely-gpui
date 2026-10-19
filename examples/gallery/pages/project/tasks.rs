@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     documents::Checklist,
     forms::DatePicker,
     project::{
@@ -70,7 +70,7 @@ pub fn fields(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         .find(|task| task.key.as_ref() == "brief")
         .cloned()
         .expect("the brief is listed");
-    let edit = move |cx: &mut App, apply: &dyn Fn(&mut ely_gpui_component::project::Task)| {
+    let edit = move |cx: &mut App, apply: &dyn Fn(&mut ely_gpui::project::Task)| {
         change(&tasks, cx, |tasks| {
             let brief = tasks
                 .iter_mut()

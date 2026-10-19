@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{ButtonVariant, IconButton},
     feedback::Alert,
     layout::on_axis,

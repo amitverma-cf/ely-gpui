@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     editor::{
         CodeEditor, FileHits, FindOptions, FindWidget, Hit, SearchFilters, SearchPanel, find_all,
         passes,

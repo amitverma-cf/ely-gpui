@@ -1,4 +1,4 @@
-use ely_gpui_component::charts::{BoxPlot, Histogram, ViolinPlot, WaterfallChart};
+use ely_gpui::charts::{BoxPlot, Histogram, ViolinPlot, WaterfallChart};
 use gpui::{App, IntoElement, ParentElement, Styled, div, px};
 
 use crate::ui::{noise, section};

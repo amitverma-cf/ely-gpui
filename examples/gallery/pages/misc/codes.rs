@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use ely_gpui_component::misc::{Captcha, CaptchaState, QrCodeScanner};
+use ely_gpui::misc::{Captcha, CaptchaState, QrCodeScanner};
 use gpui::{App, IntoElement, ParentElement, RenderImage, Styled, Window, div, px};
 
 use crate::probe::probe;

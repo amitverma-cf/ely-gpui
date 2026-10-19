@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     debug::HexViewer,
     documents::{Favorite, Favorites},
     files::{

@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use ely_gpui_component::{
+use ely_gpui::{
     debug::{Flamegraph, NetworkInspector, ProfileFrame, Request, Span, TimelineProfiler},
     forms::{Input, TextInput},
 };

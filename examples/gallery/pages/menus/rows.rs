@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::ButtonVariant,
     menus::{ContextMenu, DropdownMenu, Menu, MenuItem, OverflowMenu, SplitButton},
     primitives::LucideIcon,

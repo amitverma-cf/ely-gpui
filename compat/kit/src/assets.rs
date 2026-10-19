@@ -1,4 +1,4 @@
-use ely_gpui_component::Assets;
+use ely_gpui::Assets;
 use gpui_kit::AssetSource;
 
 #[test]

@@ -1,4 +1,4 @@
-use ely_gpui_component::devtools::{
+use ely_gpui::devtools::{
     ColorContrastChecker, Container, ContainerList, ContainerState, Encoder, Pod, PodList,
     PodPhase, Reading, RegexTester, ResourceMonitor,
 };

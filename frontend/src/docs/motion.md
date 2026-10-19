@@ -1,6 +1,6 @@
 # Motion
 
-Ely's motion lives in `ely_gpui_component::motion`: four durations, a few easings, and components that move. Every one honors the theme's reduced motion.
+Ely's motion lives in `ely_gpui::motion`: four durations, a few easings, and components that move. Every one honors the theme's reduced motion.
 
 ## Durations and easings
 

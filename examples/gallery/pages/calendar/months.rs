@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     calendar::{CalendarMonthView, Event, EventCard, EventChip, YearView},
     forms::Calendar,
 };

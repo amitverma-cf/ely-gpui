@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     forms::IconPicker,
     primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize},

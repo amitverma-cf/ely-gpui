@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     mail::{Label, LabelPicker, SnoozePicker},
     theme::{ActiveTheme, Radius},
 };

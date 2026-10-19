@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::IconButton,
     forms::{Input, InputAddon, InputGroup, PasswordInput, SearchInput, TextInput},
     primitives::LucideIcon,

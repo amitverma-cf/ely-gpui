@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     canvas::{
         Artboard, Corner, Frame, Guide, InfiniteCanvas, MiniMap, Shape, ShapeKind, Viewport,
         ZoomControls,

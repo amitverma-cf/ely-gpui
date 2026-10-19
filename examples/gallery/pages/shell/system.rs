@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     shell::{TrayIcon, TrayItem, dock_badge, set_dock_badge},
     typography::Caption,

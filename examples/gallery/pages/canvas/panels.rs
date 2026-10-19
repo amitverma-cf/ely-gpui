@@ -1,4 +1,4 @@
-use ely_gpui_component::canvas::{
+use ely_gpui::canvas::{
     AlignmentToolbar, AssetPanel, Corner, Frame, InspectorPanel, LayerPanel, Shape, ShapeKind,
     aligned,
 };

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     layout::{Dock, DockPanel, DockSide, FloatingPanel, PaneGroup, Transform, Viewport, Workspace},
     primitives::LucideIcon,

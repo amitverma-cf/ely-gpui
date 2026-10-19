@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     agent::{ChangeState, FileChange, MultiFileDiffReview},
     collab::Decision,
     terminal::{CommandBlock, CommandState},
@@ -95,7 +95,7 @@ pub fn changes_section(window: &mut Window, cx: &mut App) -> impl IntoElement + 
             "agent-command",
             "~/ely",
             "cargo test --lib theme",
-            "\u{1b}[32m   Compiling\u{1b}[0m ely-gpui-component v0.9.0\n\u{1b}[32m    Finished\u{1b}[0m test profile in 8.4s\nrunning 12 tests\ntest theme::lift_keeps_hue ... \u{1b}[32mok\u{1b}[0m\ntest theme::dark_lifts_further ... \u{1b}[32mok\u{1b}[0m\n\ntest result: \u{1b}[32mok\u{1b}[0m. 12 passed; 0 failed",
+            "\u{1b}[32m   Compiling\u{1b}[0m ely-gpui v0.9.0\n\u{1b}[32m    Finished\u{1b}[0m test profile in 8.4s\nrunning 12 tests\ntest theme::lift_keeps_hue ... \u{1b}[32mok\u{1b}[0m\ntest theme::dark_lifts_further ... \u{1b}[32mok\u{1b}[0m\n\ntest result: \u{1b}[32mok\u{1b}[0m. 12 passed; 0 failed",
             CommandState::Done { code: 0, took: Duration::from_millis(9_200) },
         )),
     )

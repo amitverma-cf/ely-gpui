@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use ely_gpui_component::{
+use ely_gpui::{
     agent::{Permission, PermissionPrompt, ToolApprovalDialog, ToolCallCard, ToolCallGroup},
     buttons::{Button, ButtonVariant},
     chat::StepState,

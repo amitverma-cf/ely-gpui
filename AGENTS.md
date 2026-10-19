@@ -1,10 +1,10 @@
 # AGENTS.md
 
-Ely GPUI Component. A component library for GPUI, in light and dark.
+Ely GPUI. A component library for GPUI, in light and dark.
 
 ## Stack
 
-- Rust 1.95, edition 2024. One crate: `ely-gpui-component`.
+- Rust 1.95, edition 2024. One crate: `ely-gpui`.
 - gpui, gpui_platform and gpui_web from crates.io's `gpui-pre` snapshots at `=0.3.9`, the pin GPUI Kit holds; each keeps its crate name through `package`. gpui takes `stacker`, which keeps deep layouts off the stack's end; gpui_platform takes `font-kit`, without which macOS draws no text. Feature `runtime_shaders`, on by default, turns on gpui_platform's: machines without Xcode lack the Metal compiler.
 - Assets, embedded with `rust-embed`: Lucide 1.48.0 icons (ISC), Inter 4.1 (regular, medium, semibold, italic), JetBrains Mono 2.304 and IBM Plex Sans Regular (OFL). Plex sits unmodified, its name reserved, where gpui's svg renderer loads it: gpui_web answers `.SystemUIFont` with it, and svg text falls back to it on the web.
 - Catalog data: `emojis` (Unicode emoji), `isolang` (ISO 639, native names), `isocountry` (ISO 3166), `iso_currency` (ISO 4217, also minor units for money).
@@ -31,7 +31,7 @@ Ely GPUI Component. A component library for GPUI, in light and dark.
 - `python3 scripts/stories.py` writes `examples/gallery/stories.json`, every page's sections in drawing order with their components, for the site: the names in a title, and in its `SHOWN` table what a story draws beyond them. It fails on a section opened inside another and on a ticked entry with a home of its own that no story names. `scripts/check.sh` refuses a stale one.
 - `cargo test --lib --features test-support`, `cargo clippy --all-targets --features test-support -- -D warnings`, `cargo fmt --check`. `scripts/check.sh` runs them with the house rules and lints the gallery for wasm32.
 - `cargo test --manifest-path compat/kit/Cargo.toml --target-dir target/kit` runs Ely beside GPUI Kit in one window: Tab through both, each library's dialog over the other's fields, one asset source. `scripts/check.sh` first resolves it afresh and holds `gpui-kit` to the newest release `cargo search` names, so a Kit release that moves its gpui pin fails resolution there, naming `gpui-pre`; Ely's pin then follows. Its lockfile stays out of git.
-- `rm -rf target/debug/incremental target/kit/debug/incremental` and `cargo clean -p ely-gpui-component` after each task item keep the disk lean. Cargo keeps every old build of the crate and its tests under a new hash; by T25 they had filled the disk.
+- `rm -rf target/debug/incremental target/kit/debug/incremental` and `cargo clean -p ely-gpui` after each task item keep the disk lean. Cargo keeps every old build of the crate and its tests under a new hash; by T25 they had filled the disk.
 - `scripts/icons.sh <lucide-name>...` adds icons. Then add a line to `IconName` in `src/primitives/icon.rs`.
 - `python3 scripts/countries.py <ne_110m_admin_0_countries.geojson>` writes the bundled world; `python3 scripts/tiles.py <same file>` writes the gallery's map tiles.
 
@@ -57,7 +57,7 @@ Ely GPUI Component. A component library for GPUI, in light and dark.
 - `svg()` paints only with its own `text_color`. `Icon` always sets one.
 - Buttons stay out of focus on click (`prevent_default` on mouse down). Tab still reaches them.
 - The focus ring is a 1px focus-colored border (`FocusRing`). gpui paints shadows under the element, so a shadow ring floods transparent elements. Focusable elements keep a 1px border, transparent at rest.
-- `ely_gpui_component::init` binds Tab and Shift-Tab to `FocusNext` and `FocusPrev` under `ElyFocus`, the key context every `FocusScope` sets. gpui ranks a binding with no context at the deepest level, so a host's Tab in a deeper context, GPUI Kit's code editor among them, lost or won by which `init` ran last; under a context, the deeper one wins. Wrap the root in `FocusScope` with `.root()` and focus its handle. A root scope takes focus when the focused element leaves the tree, as a toast's or an alert's button does.
+- `ely_gpui::init` binds Tab and Shift-Tab to `FocusNext` and `FocusPrev` under `ElyFocus`, the key context every `FocusScope` sets. gpui ranks a binding with no context at the deepest level, so a host's Tab in a deeper context, GPUI Kit's code editor among them, lost or won by which `init` ran last; under a context, the deeper one wins. Wrap the root in `FocusScope` with `.root()` and focus its handle. A root scope takes focus when the focused element leaves the tree, as a toast's or an alert's button does.
 - The gallery scripts mouse input by posting `NSEvent`s to its own queue, so a press takes AppKit's path and reaches a native view over the window (`misc::WebView`). `Window::dispatch_event` reaches only gpui's listeners. gpui's normal window takes mouse moves from a tracking area, which only a real cursor feeds, so the harness sets the window's `acceptsMouseMovedEvents` for posted moves.
 - gpui starts a drag on the first move past its threshold, and only the moves after it reach `on_drag_move`. gpui 0.2.2's mac window replayed a held drag every 16 ms; gpui_macos replays only while `pressedMouseButtons` shows a real button, which posted events never set. So `Step::DragTo` posts each move twice, as the replay did: the second post of the first step reaches `on_drag_move`, where a component that anchors on its first drag move sets its anchor (Scrollbar, Knob, Split).
 - Every shot of a gpui window, a page's or a script's, waits three of its frames through `on_next_frame`: gpui presents without waiting on the GPU, and a heavy page's draw outlasts a fixed pause, so a shot could show the frame before the last step. A page's pauses stay, for work off the main thread such as pictures decoding. A covered window draws no frames, so its capture fails after 5 s instead of shooting a stale frame.

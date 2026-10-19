@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     collab::{AccessList, InviteInput, LinkAccess, Member, Role, ShareDialog},
     data_display::{Activity, ActivityFeed},

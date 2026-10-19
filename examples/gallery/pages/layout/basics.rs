@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     layout::{AspectRatio, Container, Masonry, SimpleGrid, ZStack, h_stack, v_stack},
     theme::{ActiveTheme, ContainerSize, Radius, TextSize},
     typography::Caption,

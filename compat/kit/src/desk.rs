@@ -1,4 +1,4 @@
-use ely_gpui_component::{buttons::Button, overlays::Dialog, primitives::FocusScope};
+use ely_gpui::{buttons::Button, overlays::Dialog, primitives::FocusScope};
 use gpui_kit::{
     AppContext, Bounds, Context, Entity, FocusHandle, IntoElement, KeyUpEvent, Keystroke,
     ParentElement, Render, Styled, TestAppContext, VisualTestContext, Window, WindowBounds,
@@ -64,9 +64,9 @@ pub fn open(cx: &mut TestAppContext, ely_last: bool) -> (Entity<Desk>, VisualTes
     cx.update(|cx| {
         if ely_last {
             gpui_kit::init(cx);
-            ely_gpui_component::init_for_tests(cx);
+            ely_gpui::init_for_tests(cx);
         } else {
-            ely_gpui_component::init_for_tests(cx);
+            ely_gpui::init_for_tests(cx);
             gpui_kit::init(cx);
         }
     });

@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     interaction::{Resizable, Rotatable, SelectionArea},
     layout::{Transform, Viewport},
     motion::Reorder,

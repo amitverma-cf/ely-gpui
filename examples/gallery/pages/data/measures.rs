@@ -1,4 +1,4 @@
-use ely_gpui_component::{
+use ely_gpui::{
     buttons::{Button, ButtonVariant},
     data_display::{Barcode, Comparison, Gauge, Meter, QrCode, Stars, UsageBar},
     theme::{ActiveTheme, IconSize, TextSize},
@@ -11,7 +11,7 @@ use crate::{
 };
 
 pub fn codes(cx: &mut App) -> impl IntoElement + use<> {
-    let qr = QrCode::new("https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components")
+    let qr = QrCode::new("https://github.com/amitverma-cf/ely-gpui")
         .expect("a short link fits a QR code");
     let label = Barcode::code128("ELY-2419").expect("printable ASCII");
     let retail = Barcode::ean13("400638133393").expect("twelve digits");
