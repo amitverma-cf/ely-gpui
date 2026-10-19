@@ -6,7 +6,7 @@ use std::{
 
 use gpui::{
     AnyElement, App, Asset, ElementId, InteractiveElement, IntoElement, ParentElement, Pixels,
-    RenderImage, RenderOnce, SharedString, Size, Styled, Window, div, img, px, size,
+    RenderImage, RenderOnce, SharedString, Size, Styled, Window, div, img, size,
 };
 use ratex_layout::{LayoutOptions, layout, to_display_list};
 use ratex_svg::{SvgOptions, render_to_svg};

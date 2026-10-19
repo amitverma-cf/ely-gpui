@@ -1,4 +1,4 @@
-use gpui::{App, Context, Focusable as _, ListOffset, ScrollStrategy, Window, px};
+use gpui::{App, Context, Focusable as _, ListOffset, Pixels, ScrollStrategy, Window};
 
 use super::{MarkdownDocument, Placement, cells};
 use crate::documents::{MarkdownMode, modes::joint};

@@ -5,7 +5,7 @@ use std::{
 
 use gpui::{
     App, Asset, ElementId, Hsla, IntoElement, ParentElement, Pixels, RenderImage, RenderOnce,
-    SharedString, Size, Styled, Window, div, img, px, size,
+    SharedString, Size, Styled, Window, div, img, size,
 };
 use mermaid_rs_renderer::{LayoutConfig, RenderOptions, Theme, render_strict};
 
