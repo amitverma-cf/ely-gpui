@@ -1,3 +1,4 @@
+#[cfg(test)]
 use gpui::{
     Context, IntoElement, Modifiers, MouseButton, MouseDownEvent, MouseMoveEvent, MouseUpEvent,
     ParentElement, Point, Render, TestAppContext, Window, div, point, prelude::*, px,

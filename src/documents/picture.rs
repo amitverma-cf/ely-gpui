@@ -6,8 +6,8 @@ use std::{
 use base64::Engine as _;
 use gpui::{
     AnyElement, App, Asset, ElementId, Hsla, Image, ImageAssetLoader, ImageFormat,
-    InteractiveElement, IntoElement, ParentElement, RenderImage, RenderOnce, Resource,
-    SMOOTH_SVG_SCALE_FACTOR, SharedString, Styled, Window, div, img, px,
+    InteractiveElement, IntoElement, ParentElement, Pixels, RenderImage, RenderOnce, Resource,
+    SMOOTH_SVG_SCALE_FACTOR, SharedString, Styled, Window, div, img,
 };
 
 use crate::{
@@ -191,10 +191,10 @@ fn picture(shown: Picture, window: &mut Window, cx: &mut App) -> AnyElement {
             let natural = image.size(0);
             // The picture's own height follows its ratio.
             let smooth = if svg { SMOOTH_SVG_SCALE_FACTOR } else { 1.0 };
-            let width = i32::from(natural.width) as f32 / smooth;
+            let width = Pixels::from(i32::from(natural.width) as f32 / smooth);
             div()
                 .debug_selector(|| "markdown-picture".into())
-                .w(px(width))
+                .w(width)
                 .max_w_full()
                 .child(img(image).size_full())
                 .into_any_element()

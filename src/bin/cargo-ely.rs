@@ -116,114 +116,12 @@ scan_sources = [
 
 [theme]
 preset = "ely"
-
-[theme.palette.light]
-bg = 0xfcfaf7
-surface = 0xf5f2ed
-sunken = 0xeeeae3
-overlay = 0xffffff
-hover = 0xe8e4dc
-active = 0xe0dbd2
-border = 0xded9d0
-border_strong = 0x9c978e
-fg = 0x181613
-fg_muted = 0x4a4742
-fg_subtle = 0x736f68
-fg_disabled = 0xbab4aa
-accent = 0x181613
-accent_hover = 0x2e2b26
-on_accent = 0xfcfaf7
-on_media = 0xffffff
-focus = 0x2b6cb0
-link = 0x1e5a9c
-selection = 0x2b6cb026
-success = 0x2e7d4a
-warning = 0x9c6516
-danger = 0xb33830
-info = 0x2b6cb0
-success_subtle = 0xeaf5ee
-warning_subtle = 0xfdf3e3
-danger_subtle = 0xfbeceb
-info_subtle = 0xedf4fc
-backdrop = 0x18161340
-media_backdrop = 0x000000e6
-shimmer = 0x1816130d
-glass = 0xfcfaf7b8
-shadow = 0x181613
-tooltip_bg = 0x181613
-tooltip_fg = 0xfcfaf7
-paper = 0xffffff
-ink = 0x181613
-
-[theme.palette.dark]
-bg = 0x252525
-surface = 0x2c2c2c
-sunken = 0x202020
-overlay = 0x323232
-hover = 0x383838
-active = 0x3f3f3f
-border = 0x3f3f3f
-border_strong = 0x555555
-fg = 0xf3f1f0
-fg_muted = 0xc4c2c0
-fg_subtle = 0xacaaa8
-fg_disabled = 0x5c5a58
-accent = 0xf3f1f0
-accent_hover = 0xd9d7d5
-on_accent = 0x252525
-on_media = 0xffffff
-focus = 0x69a1e8
-link = 0x7eb1f3
-selection = 0x69a1e84d
-success = 0x6bbc89
-warning = 0xe8b45e
-danger = 0xe5756e
-info = 0x77abec
-success_subtle = 0x182c1f
-warning_subtle = 0x342611
-danger_subtle = 0x3a1d1b
-info_subtle = 0x19273a
-backdrop = 0x00000080
-media_backdrop = 0x000000f8
-shimmer = 0xffffff10
-glass = 0x252525b8
-shadow = 0x000000
-tooltip_bg = 0x4a4a4a
-tooltip_fg = 0xf3f1f0
-paper = 0xf3f1f0
-ink = 0x181613
-
-[theme.tokens]
-base_rem = 16.0
-radius_sm = 4.0
-radius_md = 6.0
-radius_lg = 8.0
-radius_xl = 12.0
-text_xs = 11.0
-text_sm = 12.0
-text_base = 13.0
-text_md = 14.0
-text_lg = 16.0
-text_xl = 20.0
-text_xxl = 24.0
-text_display = 32.0
-control_height_sm = 24.0
-control_height_md = 28.0
-control_height_lg = 32.0
-control_padding_sm = 8.0
-control_padding_md = 12.0
-control_padding_lg = 16.0
-table_row_compact = 28.0
-table_row_standard = 36.0
-table_row_comfortable = 44.0
-sidebar_width_collapsed = 56.0
-sidebar_width_expanded = 240.0
-sheet_size = 380.0
-dialog_width = 440.0
-toast_width = 360.0
-titlebar_height = 38.0
-pane_min = 160.0
-hairline = 1.0
+# Customize theme colors or tokens by adding tables here:
+# [theme.palette.light]
+# bg = 0xfcfaf7
+# fg = 0x181613
+# [theme.tokens]
+# base_rem = 16.0
 
 [fonts]
 sans = {{ family = "Inter", files = [

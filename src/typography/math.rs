@@ -198,7 +198,7 @@ fn framed(svg: &str, width: f32, height: f32) -> Result<(String, Size<Pixels>), 
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"{left} {top} {w} {h}\" width=\"{w}\" height=\"{h}\">{}</svg>",
         &svg[open + 1..close]
     );
-    Ok((reframed, size(px(w), px(h))))
+    Ok((reframed, size(Pixels::from(w), Pixels::from(h))))
 }
 
 impl Latex {

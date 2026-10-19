@@ -56,7 +56,10 @@ impl Asset for Drawer {
             let svg = svg(&chart)?;
             let tree = usvg::Tree::from_data(svg.as_bytes(), &options())
                 .map_err(|error| SharedString::from(format!("{error}")))?;
-            let shape = size(px(tree.size().width()), px(tree.size().height()));
+            let shape = size(
+                Pixels::from(tree.size().width()),
+                Pixels::from(tree.size().height()),
+            );
             let picture = renderer
                 .render_single_frame(svg.as_bytes(), chart.scale as f32 / 100.0)
                 .map_err(|error| SharedString::from(format!("{error}")))?;
