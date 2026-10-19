@@ -56,9 +56,13 @@ export function ShowcaseApp() {
           </div>
         </dl>
         <div className="app-previews">
-          {app.previews.map((name, i) => (
-            <img key={name} src={`/showcase/${app.id}/${name}`} alt={`${app.name}, screenshot ${i + 1} of ${app.previews.length}`} loading={i ? "lazy" : "eager"} />
-          ))}
+          {app.previews.map((name, i) => {
+            const base = import.meta.env.BASE_URL || "/";
+            const prefix = base.endsWith("/") ? base : `${base}/`;
+            return (
+              <img key={name} src={`${prefix}showcase/${app.id}/${name}`} alt={`${app.name}, screenshot ${i + 1} of ${app.previews.length}`} loading={i ? "lazy" : "eager"} />
+            );
+          })}
         </div>
         {app.html && <div className="prose app-readme" dangerouslySetInnerHTML={{ __html: app.html }} />}
       </article>

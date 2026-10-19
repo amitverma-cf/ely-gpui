@@ -77,7 +77,9 @@ export function getComponentImageSrc(page: string, story: string, mode: string):
   if (key.length > 70) {
     key = key.slice(0, 70);
   }
-  return `/components/${key}-${mode}.webp`;
+  const base = import.meta.env.BASE_URL || "/";
+  const prefix = base.endsWith("/") ? base : `${base}/`;
+  return `${prefix}components/${key}-${mode}.webp`;
 }
 
 export const REPO = "https://github.com/amitverma-cf/ely-gpui";

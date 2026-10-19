@@ -58,4 +58,8 @@ export function counts(catalog: Catalog): [string, string, number][] {
   return Object.entries(catalog.categories).map(([key, label]) => [key, label, catalog.apps.filter((a) => a.category === key).length]);
 }
 
-export const cover = (app: App) => `/showcase/${app.id}/${app.previews[0]}`;
+export const cover = (app: App) => {
+  const base = import.meta.env.BASE_URL || "/";
+  const prefix = base.endsWith("/") ? base : `${base}/`;
+  return `${prefix}showcase/${app.id}/${app.previews[0]}`;
+};

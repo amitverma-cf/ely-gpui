@@ -39,8 +39,11 @@ const doc = createRoute({ getParentRoute: () => root, path: "/docs/$page", compo
 const showcase = createRoute({ getParentRoute: () => root, path: "/showcase", component: Showcase });
 const showcaseApp = createRoute({ getParentRoute: () => root, path: "/showcase/$app", component: ShowcaseApp });
 
+const basepath = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+
 const router = createRouter({
   routeTree: root.addChildren([home, index, chapter, story, docs, doc, showcase, showcaseApp]),
+  basepath,
   trailingSlash: "always",
   scrollRestoration: true,
 });
@@ -55,7 +58,9 @@ declare module "@tanstack/react-router" {
 if (typeof window !== "undefined" && "caches" in window) {
   const prefetchWasm = () => {
     caches.open("ely-gallery-wasm-v1").then(async (cache) => {
-      const wasmUrl = "/gallery/gallery_bg.wasm";
+      const base = import.meta.env.BASE_URL || "/";
+      const prefix = base.endsWith("/") ? base : `${base}/`;
+      const wasmUrl = `${prefix}gallery/gallery_bg.wasm`;
       const match = await cache.match(wasmUrl);
       if (!match) {
         fetch(wasmUrl)

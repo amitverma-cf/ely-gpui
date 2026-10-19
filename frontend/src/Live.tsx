@@ -18,7 +18,9 @@ export function Live({ page, story, title }: { page: string; story: string; titl
   const after = useRef<HTMLSpanElement>(null);
   // Each new frame opens in the current mode.
   const start = useMemo(() => mode(), [run]);
-  const src = (t: string) => `/gallery/index.html?page=${page}&story=${story}&theme=${t}`;
+  const base = import.meta.env.BASE_URL || "/";
+  const prefix = base.endsWith("/") ? base : `${base}/`;
+  const src = (t: string) => `${prefix}gallery/index.html?page=${page}&story=${story}&theme=${t}`;
 
   useEffect(() => {
     setState("starting");

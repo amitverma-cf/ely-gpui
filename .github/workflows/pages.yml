@@ -43,6 +43,8 @@ jobs:
 
       - name: Build frontend
         working-directory: frontend
+        env:
+          BASE_PATH: /ely-gpui/
         run: pnpm build
 
       - name: Setup Pages
