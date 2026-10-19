@@ -51,4 +51,27 @@ declare module "@tanstack/react-router" {
   }
 }
 
+// Background prefetch wasm binary into CacheStorage when browser is idle
+if (typeof window !== "undefined" && "caches" in window) {
+  const prefetchWasm = () => {
+    caches.open("ely-gallery-wasm-v1").then(async (cache) => {
+      const wasmUrl = "/gallery/gallery_bg.wasm";
+      const match = await cache.match(wasmUrl);
+      if (!match) {
+        fetch(wasmUrl)
+          .then((resp) => {
+            if (resp.ok) cache.put(wasmUrl, resp);
+          })
+          .catch(() => {});
+      }
+    }).catch(() => {});
+  };
+
+  if ("requestIdleCallback" in window) {
+    (window as any).requestIdleCallback(prefetchWasm, { timeout: 4000 });
+  } else {
+    setTimeout(prefetchWasm, 2000);
+  }
+}
+
 createRoot(document.getElementById("root")!).render(<RouterProvider router={router} />);

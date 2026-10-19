@@ -45,10 +45,79 @@
       addEventListener("message", ({ data }) => {
         if (data && data.ely === "theme") setTheme(data.theme);
       });
-      // Frames that fetch the wasm at once can fail one; the next try finds it cached.
+
+      // Accelerated wasm loader with in-memory parent sharing & CacheStorage persistence
+      async function getWasmModule() {
+        // 1. In-memory compiled module shared across same-origin iframe navigations
+        try {
+          if (window.parent && window.parent !== window && window.parent.__ELY_WASM_MODULE__) {
+            return window.parent.__ELY_WASM_MODULE__;
+          }
+        } catch (_) {}
+
+        const wasmUrl = new URL("./gallery_bg.wasm", import.meta.url).href;
+
+        // 2. CacheStorage persistence so 20MB is never re-downloaded on page refresh/revisit
+        if ("caches" in window) {
+          try {
+            const cache = await caches.open("ely-gallery-wasm-v1");
+            const cached = await cache.match(wasmUrl);
+            if (cached) {
+              const module = await WebAssembly.compileStreaming(cached.clone()).catch(async () => {
+                const buf = await cached.arrayBuffer();
+                return await WebAssembly.compile(buf);
+              });
+              if (module) {
+                try {
+                  if (window.parent && window.parent !== window) {
+                    window.parent.__ELY_WASM_MODULE__ = module;
+                  }
+                } catch (_) {}
+                return module;
+              }
+            }
+          } catch (e) {
+            console.warn("WASM cache load failed, falling back to network", e);
+          }
+        }
+
+        // 3. Network fetch + compile + populate cache
+        try {
+          const resp = await fetch(wasmUrl);
+          if (resp.ok) {
+            if ("caches" in window) {
+              caches.open("ely-gallery-wasm-v1").then((cache) => {
+                cache.put(wasmUrl, resp.clone()).catch(() => {});
+              });
+            }
+            const module = await WebAssembly.compileStreaming(resp.clone()).catch(async () => {
+              const buf = await resp.arrayBuffer();
+              return await WebAssembly.compile(buf);
+            });
+            if (module) {
+              try {
+                if (window.parent && window.parent !== window) {
+                  window.parent.__ELY_WASM_MODULE__ = module;
+                }
+              } catch (_) {}
+              return module;
+            }
+          }
+        } catch (e) {
+          console.warn("WASM fetch failed, using default init()", e);
+        }
+
+        return undefined;
+      }
+
       for (let attempt = 1; ; attempt++) {
         try {
-          await init();
+          const module = await getWasmModule();
+          if (module) {
+            await init(module);
+          } else {
+            await init();
+          }
           break;
         } catch (error) {
           console.warn(`gallery: start failed, try ${attempt}`, error);

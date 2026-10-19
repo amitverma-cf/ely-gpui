@@ -31,9 +31,13 @@ function gallery(): Plugin {
   return {
     name: "ely-gallery",
     configureServer(server) {
-      server.middlewares.use((req, _res, next) => {
+      server.middlewares.use((req, res, next) => {
         if (req.url) {
           const [path, query] = req.url.split("?");
+          if (path.endsWith(".wasm")) {
+            res.setHeader("Content-Type", "application/wasm");
+            res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+          }
           if (path === "/gallery" || path === "/gallery/") {
             req.url = "/gallery/index.html" + (query ? `?${query}` : "");
           }
@@ -46,6 +50,7 @@ function gallery(): Plugin {
 
 // The manifest lives beside the gallery, one folder up.
 export default defineConfig({
+  base: process.env.BASE_PATH || "/",
   plugins: [react(), docs(), gallery()],
   server: { fs: { allow: [".."] } },
 });

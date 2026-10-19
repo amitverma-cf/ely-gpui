@@ -6,7 +6,7 @@
     "gallery": "../scripts/web.sh public/gallery",
     "showcase": "node scripts/showcase.mjs",
     "dev": "pnpm showcase && vite",
-    "build": "pnpm showcase && tsc --noEmit && vite build",
+    "build": "pnpm showcase && tsc --noEmit && vite build && node scripts/postbuild.mjs",
     "preview": "vite preview",
     "local": "ELY_GALLERY_ASSETS=http://localhost:4173/gallery/assets/ pnpm gallery && pnpm build && vite preview --port 4173 --strictPort",
     "deploy": "wrangler deploy",
