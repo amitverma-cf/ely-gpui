@@ -56,6 +56,79 @@ fn mime_from_extension(ext: &str) -> &'static str {
     }
 }
 
+fn compress_image(
+    key: &str,
+    src: &Path,
+    mode: &str,
+    out_dir: &Path,
+    default_mime: &str,
+) -> (PathBuf, String) {
+    let media_out = out_dir.join("media");
+    let _ = fs::create_dir_all(&media_out);
+    match mode.to_ascii_lowercase().as_str() {
+        "png" | "optipng" => {
+            let dest = media_out.join(format!("{}.png", key));
+            if let Ok(img) = image::open(src)
+                && let Ok(file) = fs::File::create(&dest)
+            {
+                let writer = std::io::BufWriter::new(file);
+                let encoder = image::codecs::png::PngEncoder::new_with_quality(
+                    writer,
+                    image::codecs::png::CompressionType::Best,
+                    image::codecs::png::FilterType::Adaptive,
+                );
+                if img.write_with_encoder(encoder).is_ok() {
+                    if mode.eq_ignore_ascii_case("optipng") {
+                        let _ = std::process::Command::new("optipng")
+                            .arg("-quiet")
+                            .arg("-o5")
+                            .arg(&dest)
+                            .status();
+                    }
+                    if let (Ok(dest_meta), Ok(src_meta)) = (fs::metadata(&dest), fs::metadata(src))
+                        && dest_meta.len() >= src_meta.len()
+                    {
+                        let _ = fs::copy(src, &dest);
+                    }
+                    return (dest, "image/png".to_string());
+                }
+            }
+            (src.to_path_buf(), default_mime.to_string())
+        }
+        "jpeg" | "jpg" => {
+            let dest = media_out.join(format!("{}.jpg", key));
+            if let Ok(img) = image::open(src)
+                && let Ok(file) = fs::File::create(&dest)
+            {
+                let writer = std::io::BufWriter::new(file);
+                let encoder = image::codecs::jpeg::JpegEncoder::new_with_quality(writer, 85);
+                if img.write_with_encoder(encoder).is_ok() {
+                    return (dest, "image/jpeg".to_string());
+                }
+            }
+            (src.to_path_buf(), default_mime.to_string())
+        }
+        "webp" => {
+            let dest = media_out.join(format!("{}.webp", key));
+            let cwebp_ok = std::process::Command::new("cwebp")
+                .arg("-q")
+                .arg("85")
+                .arg(src)
+                .arg("-o")
+                .arg(&dest)
+                .status()
+                .map(|s| s.success())
+                .unwrap_or(false);
+            if cwebp_ok && dest.exists() {
+                return (dest, "image/webp".to_string());
+            }
+            let (fallback_dest, _) = compress_image(key, src, "png", out_dir, default_mime);
+            (fallback_dest, "image/png".to_string())
+        }
+        _ => (src.to_path_buf(), default_mime.to_string()),
+    }
+}
+
 pub fn generate_media(
     config: Option<&MediaConfig>,
     root_dir: &Path,
@@ -93,7 +166,12 @@ pub fn generate_media(
             .unwrap_or("")
             .to_string();
         let mime = mime_from_extension(&ext).to_string();
-        resolved_images.push((variant, entry.path.clone(), resolved, mime));
+        let (final_path, final_mime) = if let Some(ref comp) = entry.compress {
+            compress_image(key, &resolved, comp, out_dir, &mime)
+        } else {
+            (resolved, mime)
+        };
+        resolved_images.push((variant, entry.path.clone(), final_path, final_mime));
     }
 
     let mut resolved_videos: Vec<(String, String, PathBuf, bool)> = Vec::new();
