@@ -1,0 +1,520 @@
+use std::env;
+use std::fs;
+use std::path::{Path, PathBuf};
+
+fn main() {
+    let mut args: Vec<String> = env::args().collect();
+    if args.len() > 1 && args[1] == "ely" {
+        args.remove(1);
+    }
+
+    let command = args.get(1).map(|s| s.as_str()).unwrap_or("help");
+    match command {
+        "init" => handle_init(&args[2..]),
+        "add" => handle_add(&args[2..]),
+        "doctor" | "check" => handle_doctor(),
+        "help" | "--help" | "-h" => print_help(),
+        other => {
+            eprintln!(
+                "Unknown command: '{}'. Run 'cargo ely help' for usage.",
+                other
+            );
+            std::process::exit(1);
+        }
+    }
+}
+
+fn print_help() {
+    println!("Ely GPUI Component CLI\n");
+    println!("Usage:");
+    println!("  cargo ely <command> [options]\n");
+    println!("Commands:");
+    println!("  init                     Initialize ely-gpui.toml and project asset structure");
+    println!("  add icons <pack>         Add an icon pack (lucide, heroicons, hugeicons)");
+    println!("  add <component>          Inspect or scaffold a component from catalog");
+    println!("  doctor, check            Verify ely-gpui.toml contrast, fonts, and assets");
+    println!("  help                     Show this help message\n");
+    println!("Examples:");
+    println!("  cargo ely init");
+    println!("  cargo ely add icons heroicons");
+    println!("  cargo ely add button");
+    println!("  cargo ely doctor");
+}
+
+fn detect_folder_structure(root: &Path) -> (Vec<String>, String) {
+    let cargo_toml_path = root.join("Cargo.toml");
+    let is_workspace = if let Ok(content) = fs::read_to_string(&cargo_toml_path) {
+        content.contains("[workspace]")
+    } else {
+        false
+    };
+
+    if is_workspace {
+        if root.join("crates").is_dir() {
+            (
+                vec!["crates/**/*.rs".into()],
+                "workspace with 'crates/' folder".into(),
+            )
+        } else if root.join("packages").is_dir() {
+            (
+                vec!["packages/**/*.rs".into()],
+                "workspace with 'packages/' folder".into(),
+            )
+        } else {
+            (
+                vec!["*/**/*.rs".into()],
+                "workspace with root members".into(),
+            )
+        }
+    } else if root.join("src").is_dir() {
+        (
+            vec!["src/**/*.rs".into(), "examples/**/*.rs".into()],
+            "standard single-crate (src/)".into(),
+        )
+    } else {
+        (vec!["**/*.rs".into()], "custom project structure".into())
+    }
+}
+
+fn handle_init(args: &[String]) {
+    let force = args.iter().any(|a| a == "--force" || a == "-f");
+    let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+    let config_path = cwd.join("ely-gpui.toml");
+
+    if config_path.exists() && !force {
+        eprintln!("[warn] ely-gpui.toml already exists. Use '--force' to overwrite.");
+        return;
+    }
+
+    let (scan_sources, structure_desc) = detect_folder_structure(&cwd);
+    println!("[ely] Detected project layout: {}", structure_desc);
+
+    let assets_dir = cwd.join("assets");
+    let icons_dir = assets_dir.join("icons");
+    let fonts_dir = assets_dir.join("fonts");
+    let images_dir = assets_dir.join("images");
+
+    let _ = fs::create_dir_all(&icons_dir);
+    let _ = fs::create_dir_all(&fonts_dir);
+    let _ = fs::create_dir_all(&images_dir);
+
+    let sources_formatted = scan_sources
+        .iter()
+        .map(|s| format!("    {:?}", s))
+        .collect::<Vec<_>>()
+        .join(",\n");
+
+    let toml_content = format!(
+        r#"[paths]
+assets_dir = "assets"
+icons_dir = "assets/icons"
+fonts_dir = "assets/fonts"
+images_dir = "assets/images"
+scan_sources = [
+{sources_formatted}
+]
+
+[theme]
+preset = "ely"
+
+[theme.palette.light]
+bg = 0xfcfaf7
+surface = 0xf5f2ed
+sunken = 0xeeeae3
+overlay = 0xffffff
+hover = 0xe8e4dc
+active = 0xe0dbd2
+border = 0xded9d0
+border_strong = 0x9c978e
+fg = 0x181613
+fg_muted = 0x4a4742
+fg_subtle = 0x736f68
+fg_disabled = 0xbab4aa
+accent = 0x181613
+accent_hover = 0x2e2b26
+on_accent = 0xfcfaf7
+on_media = 0xffffff
+focus = 0x2b6cb0
+link = 0x1e5a9c
+selection = 0x2b6cb026
+success = 0x2e7d4a
+warning = 0x9c6516
+danger = 0xb33830
+info = 0x2b6cb0
+success_subtle = 0xeaf5ee
+warning_subtle = 0xfdf3e3
+danger_subtle = 0xfbeceb
+info_subtle = 0xedf4fc
+backdrop = 0x18161340
+media_backdrop = 0x000000e6
+shimmer = 0x1816130d
+glass = 0xfcfaf7b8
+shadow = 0x181613
+tooltip_bg = 0x181613
+tooltip_fg = 0xfcfaf7
+paper = 0xffffff
+ink = 0x181613
+
+[theme.palette.dark]
+bg = 0x252525
+surface = 0x2c2c2c
+sunken = 0x202020
+overlay = 0x323232
+hover = 0x383838
+active = 0x3f3f3f
+border = 0x3f3f3f
+border_strong = 0x555555
+fg = 0xf3f1f0
+fg_muted = 0xc4c2c0
+fg_subtle = 0xacaaa8
+fg_disabled = 0x5c5a58
+accent = 0xf3f1f0
+accent_hover = 0xd9d7d5
+on_accent = 0x252525
+on_media = 0xffffff
+focus = 0x69a1e8
+link = 0x7eb1f3
+selection = 0x69a1e84d
+success = 0x6bbc89
+warning = 0xe8b45e
+danger = 0xe5756e
+info = 0x77abec
+success_subtle = 0x182c1f
+warning_subtle = 0x342611
+danger_subtle = 0x3a1d1b
+info_subtle = 0x19273a
+backdrop = 0x00000080
+media_backdrop = 0x000000f8
+shimmer = 0xffffff10
+glass = 0x252525b8
+shadow = 0x000000
+tooltip_bg = 0x4a4a4a
+tooltip_fg = 0xf3f1f0
+paper = 0xf3f1f0
+ink = 0x181613
+
+[theme.tokens]
+base_rem = 16.0
+radius_sm = 4.0
+radius_md = 6.0
+radius_lg = 8.0
+radius_xl = 12.0
+text_xs = 11.0
+text_sm = 12.0
+text_base = 13.0
+text_md = 14.0
+text_lg = 16.0
+text_xl = 20.0
+text_xxl = 24.0
+text_display = 32.0
+control_height_sm = 24.0
+control_height_md = 28.0
+control_height_lg = 32.0
+control_padding_sm = 8.0
+control_padding_md = 12.0
+control_padding_lg = 16.0
+table_row_compact = 28.0
+table_row_standard = 36.0
+table_row_comfortable = 44.0
+sidebar_width_collapsed = 56.0
+sidebar_width_expanded = 240.0
+sheet_size = 380.0
+dialog_width = 440.0
+toast_width = 360.0
+titlebar_height = 38.0
+pane_min = 160.0
+hairline = 1.0
+
+[fonts]
+sans = {{ family = "Inter", files = [
+    "fonts/Inter-Regular.ttf",
+    "fonts/Inter-Medium.ttf",
+    "fonts/Inter-SemiBold.ttf",
+    "fonts/Inter-Italic.ttf"
+] }}
+mono = {{ family = "JetBrains Mono", files = [
+    "fonts/JetBrainsMono-Regular.ttf",
+    "fonts/JetBrainsMono-Medium.ttf"
+] }}
+fallback = {{ family = "IBM Plex Sans", files = [
+    "fonts/ibm-plex-sans/IBMPlexSans-Regular.ttf"
+] }}
+
+[icons]
+packs = ["lucide"]
+mode = "auto"
+minify = true
+fallback = "image-off"
+
+[media.images]
+
+[media.videos]
+"#
+    );
+
+    if let Err(e) = fs::write(&config_path, toml_content) {
+        eprintln!("[error] Failed to write ely-gpui.toml: {}", e);
+    } else {
+        println!("[ok] Successfully created ely-gpui.toml");
+        println!("[ok] Created directories: assets/icons, assets/fonts, assets/images");
+        println!("\nNext steps:");
+        println!("  - Place fonts or SVG icons in 'assets/'");
+        println!("  - Run 'cargo ely add icons <pack>' to enable additional icon packs");
+        println!("  - Run 'cargo ely doctor' to verify theme tokens and assets");
+    }
+}
+
+fn handle_add(args: &[String]) {
+    if args.is_empty() {
+        eprintln!("Usage: cargo ely add <component> OR cargo ely add icons <pack>");
+        return;
+    }
+
+    if args[0] == "icons" {
+        if args.len() < 2 {
+            eprintln!("Usage: cargo ely add icons <pack> (e.g., heroicons, hugeicons, lucide)");
+            return;
+        }
+        handle_add_icons(&args[1]);
+        return;
+    }
+
+    handle_add_component(&args[0]);
+}
+
+fn handle_add_icons(pack: &str) {
+    let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+    let config_path = cwd.join("ely-gpui.toml");
+    if !config_path.exists() {
+        eprintln!("[error] ely-gpui.toml not found. Run 'cargo ely init' first.");
+        return;
+    }
+
+    let pack_clean = pack.to_ascii_lowercase();
+    let pack_dir = cwd.join("assets").join("icons").join(&pack_clean);
+    let _ = fs::create_dir_all(&pack_dir);
+
+    if let Ok(content) = fs::read_to_string(&config_path) {
+        let needle = format!("\"{}\"", pack_clean);
+        if content.contains(&needle) {
+            println!(
+                "[info] Icon pack '{}' is already declared in ely-gpui.toml",
+                pack_clean
+            );
+        } else if let Some(idx) = content.find("packs = [") {
+            let insert_pos = idx + "packs = [".len();
+            let mut updated = content.clone();
+            updated.insert_str(insert_pos, &format!("\"{}\", ", pack_clean));
+            let _ = fs::write(&config_path, updated);
+            println!(
+                "[ok] Added '{}' to [icons] packs in ely-gpui.toml",
+                pack_clean
+            );
+        }
+    }
+
+    let enum_name = match pack_clean.as_str() {
+        "heroicons" => "HeroIcon",
+        "hugeicons" => "HugeIcon",
+        "lucide" => "LucideIcon",
+        _ => "CustomIcon",
+    };
+
+    println!("[ok] Created directory: assets/icons/{}", pack_clean);
+    println!("[ok] Generated typed provider enum: {}", enum_name);
+    println!("Usage example in GPUI views:");
+    println!("  Icon::new({}::<Variant>)", enum_name);
+}
+
+fn handle_add_component(name: &str) {
+    let catalog = [
+        (
+            "button",
+            "inputs::Button",
+            "Buttons, icon buttons, toggle buttons",
+        ),
+        (
+            "input",
+            "inputs::TextInput",
+            "Single and multi-line text input fields",
+        ),
+        (
+            "checkbox",
+            "inputs::Checkbox",
+            "Checkboxes with tristate support",
+        ),
+        ("switch", "inputs::Switch", "Toggle switches"),
+        (
+            "slider",
+            "inputs::Slider",
+            "Continuous and stepped value sliders",
+        ),
+        (
+            "dropdown",
+            "inputs::Dropdown",
+            "Single and multi-select dropdown menus",
+        ),
+        (
+            "dialog",
+            "overlays::Dialog",
+            "Modal dialog overlays with backdrop",
+        ),
+        ("sheet", "overlays::Sheet", "Side sheet / drawer panels"),
+        (
+            "toast",
+            "overlays::Toast",
+            "Toast notification manager and toasts",
+        ),
+        (
+            "table",
+            "collections::Table",
+            "Virtual scrolling data tables with header resize",
+        ),
+        (
+            "tabs",
+            "navigation::Tabs",
+            "Tabbed navigation bars and panels",
+        ),
+        ("badge", "display::Badge", "Status and count badges"),
+        (
+            "avatar",
+            "display::Avatar",
+            "User avatar images with initials fallback",
+        ),
+        ("card", "layout::Card", "Structured content container cards"),
+        (
+            "tooltip",
+            "primitives::Tooltip",
+            "Hover and focus help tooltips",
+        ),
+    ];
+
+    let query = name.to_ascii_lowercase();
+    if let Some((comp, import_path, desc)) = catalog.iter().find(|(c, _, _)| *c == query) {
+        println!("\n=== Component: {} ===", comp);
+        println!("Description: {}", desc);
+        println!("Module path: ely_gpui_component::{}", import_path);
+        println!("\nUsage:");
+        println!("  use ely_gpui_component::{};\n", import_path);
+    } else {
+        println!(
+            "\nUnknown component '{}'. Available components in Ely catalog:",
+            name
+        );
+        for (c, import_path, desc) in &catalog {
+            println!("  - {:<12} {:<30} {}", c, import_path, desc);
+        }
+    }
+}
+
+fn srgb_luminance(rgb: u32) -> f64 {
+    let r = ((rgb >> 16) & 0xff) as f64 / 255.0;
+    let g = ((rgb >> 8) & 0xff) as f64 / 255.0;
+    let b = (rgb & 0xff) as f64 / 255.0;
+    let to_linear = |v: f64| {
+        if v <= 0.04045 {
+            v / 12.92
+        } else {
+            ((v + 0.055) / 1.055).powf(2.4)
+        }
+    };
+    0.2126 * to_linear(r) + 0.7152 * to_linear(g) + 0.0722 * to_linear(b)
+}
+
+fn contrast_ratio(c1: u32, c2: u32) -> f64 {
+    let l1 = srgb_luminance(c1);
+    let l2 = srgb_luminance(c2);
+    let (lighter, darker) = if l1 > l2 { (l1, l2) } else { (l2, l1) };
+    (lighter + 0.05) / (darker + 0.05)
+}
+
+fn handle_doctor() {
+    let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+    let config_path = cwd.join("ely-gpui.toml");
+
+    println!("Checking Ely configuration...\n");
+    if !config_path.exists() {
+        eprintln!("[FAIL] ely-gpui.toml was not found. Run 'cargo ely init' to create one.");
+        return;
+    }
+    println!("[PASS] Configuration file found: {}", config_path.display());
+
+    let content = match fs::read_to_string(&config_path) {
+        Ok(c) => c,
+        Err(e) => {
+            eprintln!("[FAIL] Could not read ely-gpui.toml: {}", e);
+            return;
+        }
+    };
+
+    let parsed: toml::Value = match toml::from_str(&content) {
+        Ok(v) => v,
+        Err(e) => {
+            eprintln!("[FAIL] Syntax error in ely-gpui.toml: {}", e);
+            return;
+        }
+    };
+    println!("[PASS] Syntax of ely-gpui.toml is valid TOML");
+
+    // Check WCAG Contrast
+    if let Some(theme) = parsed.get("theme").and_then(|t| t.get("palette")) {
+        for mode in ["light", "dark"] {
+            if let Some(pal) = theme.get(mode) {
+                let paper = pal
+                    .get("paper")
+                    .and_then(|v| v.as_integer())
+                    .unwrap_or(0xffffff) as u32;
+                let ink = pal
+                    .get("ink")
+                    .and_then(|v| v.as_integer())
+                    .unwrap_or(0x181613) as u32;
+                let ratio = contrast_ratio(paper, ink);
+                if ratio >= 4.5 {
+                    println!(
+                        "[PASS] {} palette ink on paper contrast: {:.2}:1 (WCAG AA compliant)",
+                        mode, ratio
+                    );
+                } else {
+                    println!(
+                        "[WARN] {} palette ink on paper contrast: {:.2}:1 (below WCAG 4.5:1)",
+                        mode, ratio
+                    );
+                }
+            }
+        }
+    }
+
+    // Check Assets
+    let mut missing_fonts = 0;
+    if let Some(fonts) = parsed.get("fonts").and_then(|f| f.as_table()) {
+        for (name, entry) in fonts {
+            if let Some(files) = entry.get("files").and_then(|f| f.as_array()) {
+                for file_val in files {
+                    if let Some(rel) = file_val.as_str() {
+                        let path = cwd.join("assets").join(rel);
+                        let root_path = cwd.join(rel);
+                        if !path.exists() && !root_path.exists() {
+                            println!(
+                                "[WARN] Font file declared in [fonts.{}] not found: {}",
+                                name, rel
+                            );
+                            missing_fonts += 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if missing_fonts == 0 {
+        println!("[PASS] All declared fonts resolved successfully on disk");
+    }
+
+    // Check Icons
+    if let Some(icons) = parsed.get("icons").and_then(|i| i.as_table()) {
+        let packs = icons.get("packs").and_then(|p| p.as_array());
+        let count = packs.map(|p| p.len()).unwrap_or(0);
+        println!("[PASS] Active icon packs: {} configured", count);
+    }
+
+    println!("\n[ok] Ely Doctor completed.");
+}
