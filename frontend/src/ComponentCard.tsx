@@ -1,15 +1,19 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { type RegistryComponent, getStoryUrl } from "./data";
+import { useMode } from "./theme";
 
 export function ComponentCard({ item }: { item: RegistryComponent }) {
   const [copied, setCopied] = useState(false);
+  const [imgError, setImgError] = useState(false);
+  const mode = useMode();
   const target = getStoryUrl(item.chapter, item.display_name);
+  const imageSrc = `/components/${target.page}-${target.story}-${mode}.webp`;
 
   const copyCommand = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    navigator.clipboard.writeText(`cargo ely add ${item.name}`);
+    navigator.clipboard.writeText(`cargo ely add ${item.name.toLowerCase()}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -17,7 +21,17 @@ export function ComponentCard({ item }: { item: RegistryComponent }) {
   return (
     <div className="comp-card">
       <Link to="/components/$page/$story/" params={target} className="comp-card-preview" title={`Open ${item.display_name} demo`}>
-        <VisualPreview category={item.category} name={item.name} displayName={item.display_name} />
+        {!imgError ? (
+          <img
+            src={imageSrc}
+            alt={item.display_name}
+            className="comp-card-real-img"
+            onError={() => setImgError(true)}
+            loading="lazy"
+          />
+        ) : (
+          <VisualPreview category={item.category} name={item.name} displayName={item.display_name} />
+        )}
         <div className="comp-card-hover-overlay">
           <span className="comp-hover-badge">Open Interactive Demo →</span>
         </div>
@@ -28,15 +42,14 @@ export function ComponentCard({ item }: { item: RegistryComponent }) {
           <Link to="/components/$page/$story/" params={target} className="comp-card-title">
             {item.display_name}
           </Link>
-          <span className="comp-card-chap">Ch {String(item.chapter).padStart(2, "0")}</span>
+          <span className="comp-card-chap" title={item.chapter_title}>{item.chapter_title}</span>
         </div>
 
         <p className="comp-card-desc">{item.description}</p>
 
         <div className="comp-card-footer">
-          <code className="comp-card-type">{item.export_type}</code>
           <button type="button" className={`comp-copy-btn ${copied ? "copied" : ""}`} onClick={copyCommand} title={`Copy 'cargo ely add ${item.name}'`}>
-            {copied ? "✓ Copied" : "cargo ely add"}
+            {copied ? "✓ Copied command" : `cargo ely add ${item.name.toLowerCase()}`}
           </button>
         </div>
       </div>

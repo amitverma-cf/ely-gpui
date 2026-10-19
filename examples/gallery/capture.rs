@@ -34,6 +34,73 @@ pub fn run(
     .detach();
 }
 
+#[derive(serde::Deserialize)]
+struct StoriesManifest {
+    pages: Vec<PageManifest>,
+}
+
+#[derive(serde::Deserialize)]
+struct PageManifest {
+    slug: String,
+    stories: Vec<StoryManifest>,
+}
+
+#[derive(serde::Deserialize)]
+struct StoryManifest {
+    slug: String,
+}
+
+/// Captures all individual stories as cropped thumbnails into dir.
+pub fn run_stories(
+    window: WindowHandle<Gallery>,
+    dir: PathBuf,
+    only: Option<usize>,
+    cx: &mut App,
+) {
+    Theme::update(cx, |theme| theme.reduced_motion = true);
+    cx.spawn(async move |cx| {
+        let outcome = shoot_all_stories(window, &dir, only, cx).await;
+        if let Err(error) = outcome.map(|()| cx.update(|cx| cx.quit())) {
+            log::error!("capture stories failed: {error:#}");
+            std::process::exit(1);
+        }
+    })
+    .detach();
+}
+
+async fn shoot_all_stories(
+    window: WindowHandle<Gallery>,
+    dir: &Path,
+    only: Option<usize>,
+    cx: &mut AsyncApp,
+) -> Result<()> {
+    std::fs::create_dir_all(dir).with_context(|| format!("create {}", dir.display()))?;
+    let manifest: StoriesManifest =
+        serde_json::from_str(include_str!("stories.json")).context("parse stories.json")?;
+    let gallery = window.update(cx, |_, window, _| number(window))??;
+
+    for (ix, page) in manifest.pages.iter().enumerate() {
+        if only.is_some_and(|p| p != ix) {
+            continue;
+        }
+        for story in &page.stories {
+            for (choice, name) in [(Choice::Light, "light"), (Choice::Dark, "dark")] {
+                window.update(cx, |gallery, window, cx| {
+                    gallery.select_story(ix, story.slug.clone().into(), cx);
+                    gallery.choose(choice, window, cx);
+                })?;
+                cx.background_executor()
+                    .timer(Duration::from_millis(100))
+                    .await;
+                let path = dir.join(format!("{}-{}-{name}.webp", page.slug, story.slug));
+                snapshot_cropped(gallery, &path)?;
+                log::info!("capture story: wrote {}", path.display());
+            }
+        }
+    }
+    Ok(())
+}
+
 async fn shoot_all(
     window: WindowHandle<Gallery>,
     dir: &Path,
@@ -124,9 +191,14 @@ fn take_posted_moves(window: &Window) -> Result<()> {
     Ok(())
 }
 
-#[cfg(not(target_os = "macos"))]
+#[cfg(target_os = "windows")]
 fn take_posted_moves(_: &Window) -> Result<()> {
-    bail!("capture needs macOS window APIs")
+    Ok(())
+}
+
+#[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
+fn take_posted_moves(_: &Window) -> Result<()> {
+    bail!("capture needs macOS or Windows window APIs")
 }
 
 /// This process's frontmost window above the normal level: a popover or menu.
@@ -163,14 +235,30 @@ pub fn popup_number() -> Result<u32> {
     u32::try_from(id).context("window number out of range")
 }
 
-#[cfg(not(target_os = "macos"))]
+#[cfg(target_os = "windows")]
 pub fn popup_number() -> Result<u32> {
-    bail!("capture needs macOS window APIs")
+    Ok(0)
 }
 
-#[cfg(not(target_os = "macos"))]
+#[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
+pub fn popup_number() -> Result<u32> {
+    bail!("capture needs macOS or Windows window APIs")
+}
+
+#[cfg(target_os = "windows")]
+pub fn number(window: &Window) -> Result<u32> {
+    use raw_window_handle::{HasWindowHandle, RawWindowHandle};
+    let handle = HasWindowHandle::window_handle(window)
+        .map_err(|error| anyhow::anyhow!("window has no native handle: {error:?}"))?;
+    let RawWindowHandle::Win32(win32) = handle.as_raw() else {
+        bail!("window is not a Win32 window");
+    };
+    Ok(win32.hwnd.get() as usize as u32)
+}
+
+#[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
 pub fn number(_: &Window) -> Result<u32> {
-    bail!("capture needs macOS window APIs")
+    bail!("capture needs macOS or Windows window APIs")
 }
 
 #[cfg(target_os = "macos")]
@@ -213,7 +301,186 @@ pub fn snapshot(number: u32, path: &Path) -> Result<()> {
     .with_context(|| format!("write {}", path.display()))
 }
 
-#[cfg(not(target_os = "macos"))]
+#[cfg(target_os = "windows")]
+pub fn snapshot(hwnd: u32, path: &Path) -> Result<()> {
+    use windows_sys::Win32::{
+        Foundation::{HWND, RECT},
+        Graphics::Gdi::{
+            BitBlt, CreateCompatibleBitmap, CreateCompatibleDC, DeleteDC, DeleteObject, GetDC,
+            GetDIBits, ReleaseDC, SelectObject, BITMAPINFO, BITMAPINFOHEADER, BI_RGB, DIB_RGB_COLORS,
+            HDC, SRCCOPY,
+        },
+        UI::WindowsAndMessaging::GetClientRect,
+    };
+
+    unsafe extern "system" {
+        fn PrintWindow(
+            hwnd: HWND,
+            hdcBlt: HDC,
+            nFlags: u32,
+        ) -> windows_sys::Win32::Foundation::BOOL;
+    }
+    const PW_RENDERFULLCONTENT: u32 = 2;
+
+    let hwnd = hwnd as usize as HWND;
+    unsafe {
+        let mut rect: RECT = std::mem::zeroed();
+        GetClientRect(hwnd, &mut rect);
+        let width = rect.right - rect.left;
+        let height = rect.bottom - rect.top;
+        if width <= 0 || height <= 0 {
+            bail!("invalid window dimensions: {width}x{height}");
+        }
+
+        let hdc_window = GetDC(hwnd);
+        let hdc_mem = CreateCompatibleDC(hdc_window);
+        let hbm = CreateCompatibleBitmap(hdc_window, width, height);
+        let old_bm = SelectObject(hdc_mem, hbm);
+
+        let printed = PrintWindow(hwnd, hdc_mem, PW_RENDERFULLCONTENT);
+        if printed == 0 {
+            BitBlt(hdc_mem, 0, 0, width, height, hdc_window, 0, 0, SRCCOPY);
+        }
+
+        let mut bi: BITMAPINFO = std::mem::zeroed();
+        bi.bmiHeader.biSize = std::mem::size_of::<BITMAPINFOHEADER>() as u32;
+        bi.bmiHeader.biWidth = width;
+        bi.bmiHeader.biHeight = -height;
+        bi.bmiHeader.biPlanes = 1;
+        bi.bmiHeader.biBitCount = 32;
+        bi.bmiHeader.biCompression = BI_RGB;
+
+        let mut bgra = vec![0u8; (width * height * 4) as usize];
+        GetDIBits(
+            hdc_mem,
+            hbm,
+            0,
+            height as u32,
+            bgra.as_mut_ptr() as _,
+            &mut bi,
+            DIB_RGB_COLORS,
+        );
+
+        SelectObject(hdc_mem, old_bm);
+        DeleteObject(hbm);
+        DeleteDC(hdc_mem);
+        ReleaseDC(hwnd, hdc_window);
+
+        let mut rgba = Vec::with_capacity((width * height * 4) as usize);
+        for chunk in bgra.chunks_exact(4) {
+            rgba.push(chunk[2]);
+            rgba.push(chunk[1]);
+            rgba.push(chunk[0]);
+            rgba.push(chunk[3]);
+        }
+
+        image::save_buffer(
+            path,
+            &rgba,
+            width as u32,
+            height as u32,
+            image::ColorType::Rgba8,
+        )
+        .with_context(|| format!("write {}", path.display()))?;
+    }
+    Ok(())
+}
+
+#[cfg(target_os = "windows")]
+pub fn snapshot_cropped(hwnd: u32, path: &Path) -> Result<()> {
+    use windows_sys::Win32::{
+        Foundation::{HWND, RECT},
+        Graphics::Gdi::{
+            BitBlt, CreateCompatibleBitmap, CreateCompatibleDC, DeleteDC, DeleteObject, GetDC,
+            GetDIBits, ReleaseDC, SelectObject, BITMAPINFO, BITMAPINFOHEADER, BI_RGB, DIB_RGB_COLORS,
+            HDC, SRCCOPY,
+        },
+        UI::WindowsAndMessaging::GetClientRect,
+    };
+
+    unsafe extern "system" {
+        fn PrintWindow(
+            hwnd: HWND,
+            hdcBlt: HDC,
+            nFlags: u32,
+        ) -> windows_sys::Win32::Foundation::BOOL;
+    }
+    const PW_RENDERFULLCONTENT: u32 = 2;
+
+    let hwnd = hwnd as usize as HWND;
+    unsafe {
+        let mut rect: RECT = std::mem::zeroed();
+        GetClientRect(hwnd, &mut rect);
+        let win_width = rect.right - rect.left;
+        let win_height = rect.bottom - rect.top;
+        if win_width <= 0 || win_height <= 0 {
+            bail!("invalid window dimensions: {win_width}x{win_height}");
+        }
+
+        let hdc_window = GetDC(hwnd);
+        let hdc_mem = CreateCompatibleDC(hdc_window);
+        let hbm = CreateCompatibleBitmap(hdc_window, win_width, win_height);
+        let old_bm = SelectObject(hdc_mem, hbm);
+
+        let printed = PrintWindow(hwnd, hdc_mem, PW_RENDERFULLCONTENT);
+        if printed == 0 {
+            BitBlt(hdc_mem, 0, 0, win_width, win_height, hdc_window, 0, 0, SRCCOPY);
+        }
+
+        let mut bi: BITMAPINFO = std::mem::zeroed();
+        bi.bmiHeader.biSize = std::mem::size_of::<BITMAPINFOHEADER>() as u32;
+        bi.bmiHeader.biWidth = win_width;
+        bi.bmiHeader.biHeight = -win_height;
+        bi.bmiHeader.biPlanes = 1;
+        bi.bmiHeader.biBitCount = 32;
+        bi.bmiHeader.biCompression = BI_RGB;
+
+        let mut bgra = vec![0u8; (win_width * win_height * 4) as usize];
+        GetDIBits(
+            hdc_mem,
+            hbm,
+            0,
+            win_height as u32,
+            bgra.as_mut_ptr() as _,
+            &mut bi,
+            DIB_RGB_COLORS,
+        );
+
+        SelectObject(hdc_mem, old_bm);
+        DeleteObject(hbm);
+        DeleteDC(hdc_mem);
+        ReleaseDC(hwnd, hdc_window);
+
+        let mut rgba = Vec::with_capacity((win_width * win_height * 4) as usize);
+        for chunk in bgra.chunks_exact(4) {
+            rgba.push(chunk[2]);
+            rgba.push(chunk[1]);
+            rgba.push(chunk[0]);
+            rgba.push(chunk[3]);
+        }
+
+        let dynamic = image::RgbaImage::from_raw(win_width as u32, win_height as u32, rgba)
+            .context("build rgba image")?;
+
+        let crop_x = 24.min(win_width as u32);
+        let crop_y = 56.min(win_height as u32);
+        let crop_w = 720.min(win_width as u32 - crop_x);
+        let crop_h = 360.min(win_height as u32 - crop_y);
+
+        let cropped = image::imageops::crop_imm(&dynamic, crop_x, crop_y, crop_w, crop_h).to_image();
+        let thumbnail = image::imageops::resize(&cropped, 480, 240, image::imageops::FilterType::Triangle);
+
+        thumbnail.save(path).with_context(|| format!("save {}", path.display()))?;
+    }
+    Ok(())
+}
+
+#[cfg(not(target_os = "windows"))]
+pub fn snapshot_cropped(num: u32, path: &Path) -> Result<()> {
+    snapshot(num, path)
+}
+
+#[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
 pub fn snapshot(_: u32, _: &Path) -> Result<()> {
-    bail!("capture needs macOS window APIs")
+    bail!("capture needs macOS or Windows window APIs")
 }

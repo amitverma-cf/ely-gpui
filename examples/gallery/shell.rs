@@ -68,6 +68,14 @@ impl Gallery {
         cx.notify();
     }
 
+    pub fn select_story(&mut self, page: usize, story: SharedString, cx: &mut Context<Self>) {
+        self.page = page;
+        self.story = Some(story);
+        self.scroll.set_offset(point(px(0.0), px(0.0)));
+        self.pass += 1;
+        cx.notify();
+    }
+
     /// Drops the page's state, so it draws as new.
     #[cfg(not(target_family = "wasm"))]
     pub fn fresh(&mut self, cx: &mut Context<Self>) {

@@ -156,6 +156,7 @@ struct Args {
     /// The page asked for, which a capture shoots alone.
     page: Option<usize>,
     capture: Option<PathBuf>,
+    capture_stories: Option<PathBuf>,
 }
 
 #[cfg(not(target_family = "wasm"))]
@@ -164,6 +165,7 @@ fn parse_args() -> Result<Args> {
         start: Start::default(),
         page: None,
         capture: None,
+        capture_stories: None,
     };
     let mut iter = std::env::args().skip(1);
     while let Some(flag) = iter.next() {
@@ -176,6 +178,7 @@ fn parse_args() -> Result<Args> {
             }
             "--story" => args.start.story = Some(value.into()),
             "--capture" => args.capture = Some(PathBuf::from(value)),
+            "--capture-stories" => args.capture_stories = Some(PathBuf::from(value)),
             "--narrow" => {
                 args.start.narrow = Some(
                     value
@@ -200,6 +203,7 @@ fn main() -> Result<()> {
         start,
         page,
         capture,
+        capture_stories,
     } = parse_args()?;
     // A script aims across its page; stories hold part.
     let scripted = start.narrow.is_none() && start.story.is_none();
@@ -213,7 +217,9 @@ fn main() -> Result<()> {
                     return cx.quit();
                 }
             };
-            if let Some(dir) = capture {
+            if let Some(dir) = capture_stories {
+                capture::run_stories(window, dir, page, cx);
+            } else if let Some(dir) = capture {
                 capture::run(window, dir, page, scripted, cx);
             }
         });

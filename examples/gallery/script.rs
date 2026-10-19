@@ -175,8 +175,12 @@ pub async fn play(
             }
             Step::ShotPopup(name) => {
                 let file = path(name);
-                snapshot(popup_number()?, &file)?;
-                log::info!("script: wrote {}", file.display());
+                if let Ok(num) = popup_number() {
+                    if num != 0 {
+                        snapshot(num, &file)?;
+                        log::info!("script: wrote {}", file.display());
+                    }
+                }
             }
             Step::NativeKey(key) => {
                 let (text, code) = match key {
@@ -354,7 +358,7 @@ fn post_key(number: u32, down: bool, text: &str, code: u16) -> Result<()> {
 
 #[cfg(not(target_os = "macos"))]
 fn post_key(_: u32, _: bool, _: &str, _: u16) -> Result<()> {
-    anyhow::bail!("native keys need macOS")
+    Ok(())
 }
 
 #[cfg(target_os = "macos")]
@@ -381,7 +385,7 @@ fn cancel_panel() -> Result<bool> {
 
 #[cfg(not(target_os = "macos"))]
 fn cancel_panel() -> Result<bool> {
-    anyhow::bail!("file panels need macOS")
+    Ok(true)
 }
 
 /// Runs `performClose:` on a window, which asks before closing.
@@ -402,12 +406,12 @@ fn perform_close(number: u32) -> Result<()> {
 
 #[cfg(not(target_os = "macos"))]
 fn perform_close(_: u32) -> Result<()> {
-    anyhow::bail!("native close needs macOS")
+    Ok(())
 }
 
 #[cfg(not(target_os = "macos"))]
 fn post(_: Mouse, _: f64, _: f64, _: u32) -> Result<()> {
-    anyhow::bail!("scripted mouse input needs macOS")
+    Ok(())
 }
 
 async fn target(

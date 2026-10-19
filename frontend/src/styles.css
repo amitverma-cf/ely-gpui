@@ -283,7 +283,9 @@ img.shot { display: block; max-width: 100%; height: auto; }
 .components-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
 .comp-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--overlay); transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease; }
 .comp-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.04); }
-.comp-card-preview { position: relative; height: 110px; background: var(--code); display: flex; align-items: center; justify-content: center; padding: 16px; border-bottom: 1px solid var(--line); overflow: hidden; text-decoration: none; }
+.comp-card-preview { position: relative; height: 130px; background: color-mix(in srgb, var(--code) 60%, var(--bg)); display: flex; align-items: center; justify-content: center; padding: 6px; border-bottom: 1px solid var(--line); overflow: hidden; text-decoration: none; }
+.comp-card-real-img { width: 100%; height: 100%; object-fit: contain; object-position: center top; border-radius: 4px; transition: transform 200ms ease; }
+.comp-card:hover .comp-card-real-img { transform: scale(1.02); }
 .comp-card-hover-overlay { position: absolute; inset: 0; background: color-mix(in srgb, var(--fg) 6%, transparent); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 160ms ease; }
 .comp-card:hover .comp-card-hover-overlay { opacity: 1; }
 .comp-hover-badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--fg); color: var(--bg); letter-spacing: 0.02em; }
@@ -291,11 +293,10 @@ img.shot { display: block; max-width: 100%; height: auto; }
 .comp-card-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .comp-card-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .comp-card-title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; color: var(--fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.comp-card-chap { font: 400 11px/1 var(--mono); color: var(--faint); }
+.comp-card-chap { font: 400 11px/1 var(--mono); color: var(--faint); max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-shrink: 0; }
 .comp-card-desc { font-size: 12.5px; line-height: 18px; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 36px; }
-.comp-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
-.comp-card-type { font: 400 11px/1 var(--mono); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 130px; }
-.comp-copy-btn { font: 400 11px/1 var(--mono); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); transition: all 120ms ease; cursor: pointer; }
+.comp-card-footer { display: flex; align-items: center; margin-top: auto; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
+.comp-copy-btn { font: 400 11px/1 var(--mono); padding: 5px 10px; border-radius: 6px; border: 1px solid var(--line); color: var(--muted); background: var(--bg); transition: all 120ms ease; cursor: pointer; width: 100%; text-align: center; }
 .comp-copy-btn:hover { color: var(--fg); border-color: var(--fg); }
 .comp-copy-btn.copied { color: #10b981; border-color: #10b981; background: color-mix(in srgb, #10b981 10%, transparent); }
 
