@@ -147,47 +147,121 @@ pub fn generate_icons(
     code.push_str("}\n\n");
 
     // 3. HeroIcon and HugeIcon provider enums
+    let hero_dir = icons_dir.join("heroicons");
+    let mut hero_icons = Vec::new();
+    if hero_dir.exists()
+        && let Ok(entries) = fs::read_dir(&hero_dir)
+    {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.extension().and_then(|s| s.to_str()) == Some("svg")
+                && let Some(stem) = path.file_stem().and_then(|s| s.to_str())
+            {
+                hero_icons.push((to_pascal_case(stem), stem.to_string(), path));
+            }
+        }
+    }
+    hero_icons.sort_by(|a, b| a.0.cmp(&b.0));
+
     code.push_str("/// Heroicons pack.\n");
     code.push_str("#[allow(dead_code)]\n");
     code.push_str("#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n");
-    code.push_str("pub enum HeroIcon {\n    Sparkles,\n    Search,\n    Check,\n}\n\n");
-    code.push_str("#[allow(dead_code)]\n");
-    code.push_str("impl IconAsset for HeroIcon {\n");
-    code.push_str("    fn path(self) -> &'static str {\n");
-    code.push_str("        match self {\n");
-    code.push_str("            HeroIcon::Sparkles => \"icons/sparkles.svg\",\n");
-    code.push_str("            HeroIcon::Search => \"icons/search.svg\",\n");
-    code.push_str("            HeroIcon::Check => \"icons/check.svg\",\n");
-    code.push_str("        }\n");
-    code.push_str("    }\n");
-    code.push_str("    fn name(self) -> &'static str {\n");
-    code.push_str("        match self {\n");
-    code.push_str("            HeroIcon::Sparkles => \"sparkles\",\n");
-    code.push_str("            HeroIcon::Search => \"search\",\n");
-    code.push_str("            HeroIcon::Check => \"check\",\n");
-    code.push_str("        }\n");
-    code.push_str("    }\n");
-    code.push_str("}\n\n");
+    if hero_icons.is_empty() {
+        code.push_str("pub enum HeroIcon {\n    Sparkles,\n    Search,\n    Check,\n    ChevronRight,\n    Plus,\n    XMark,\n}\n\n");
+        code.push_str("#[allow(dead_code)]\nimpl IconAsset for HeroIcon {\n");
+        code.push_str("    fn path(self) -> &'static str {\n");
+        code.push_str("        match self {\n");
+        code.push_str("            HeroIcon::Sparkles => \"icons/sparkles.svg\",\n");
+        code.push_str("            HeroIcon::Search => \"icons/search.svg\",\n");
+        code.push_str("            HeroIcon::Check => \"icons/check.svg\",\n");
+        code.push_str("            HeroIcon::ChevronRight => \"icons/chevron-right.svg\",\n");
+        code.push_str("            HeroIcon::Plus => \"icons/plus.svg\",\n");
+        code.push_str("            HeroIcon::XMark => \"icons/x-mark.svg\",\n");
+        code.push_str("        }\n    }\n");
+        code.push_str("    fn name(self) -> &'static str {\n");
+        code.push_str("        match self {\n");
+        code.push_str("            HeroIcon::Sparkles => \"sparkles\",\n");
+        code.push_str("            HeroIcon::Search => \"search\",\n");
+        code.push_str("            HeroIcon::Check => \"check\",\n");
+        code.push_str("            HeroIcon::ChevronRight => \"chevron-right\",\n");
+        code.push_str("            HeroIcon::Plus => \"plus\",\n");
+        code.push_str("            HeroIcon::XMark => \"x-mark\",\n");
+        code.push_str("        }\n    }\n}\n\n");
+    } else {
+        code.push_str("pub enum HeroIcon {\n");
+        for (variant, stem, _) in &hero_icons {
+            code.push_str(&format!("    /// `{stem}.svg`\n    {variant},\n"));
+        }
+        code.push_str("}\n\n#[allow(dead_code)]\nimpl IconAsset for HeroIcon {\n");
+        code.push_str("    fn path(self) -> &'static str {\n        match self {\n");
+        for (variant, stem, _) in &hero_icons {
+            code.push_str(&format!(
+                "            HeroIcon::{variant} => \"icons/heroicons/{stem}.svg\",\n"
+            ));
+        }
+        code.push_str("        }\n    }\n");
+        code.push_str("    fn name(self) -> &'static str {\n        match self {\n");
+        for (variant, stem, _) in &hero_icons {
+            code.push_str(&format!("            HeroIcon::{variant} => {:?},\n", stem));
+        }
+        code.push_str("        }\n    }\n}\n\n");
+    }
+
+    let huge_dir = icons_dir.join("hugeicons");
+    let mut huge_icons = Vec::new();
+    if huge_dir.exists()
+        && let Ok(entries) = fs::read_dir(&huge_dir)
+    {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.extension().and_then(|s| s.to_str()) == Some("svg")
+                && let Some(stem) = path.file_stem().and_then(|s| s.to_str())
+            {
+                huge_icons.push((to_pascal_case(stem), stem.to_string(), path));
+            }
+        }
+    }
+    huge_icons.sort_by(|a, b| a.0.cmp(&b.0));
 
     code.push_str("/// Hugeicons pack.\n");
     code.push_str("#[allow(dead_code)]\n");
     code.push_str("#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n");
-    code.push_str("pub enum HugeIcon {\n    AiChat01,\n    CodeBrowser,\n}\n\n");
-    code.push_str("#[allow(dead_code)]\n");
-    code.push_str("impl IconAsset for HugeIcon {\n");
-    code.push_str("    fn path(self) -> &'static str {\n");
-    code.push_str("        match self {\n");
-    code.push_str("            HugeIcon::AiChat01 => \"icons/bot.svg\",\n");
-    code.push_str("            HugeIcon::CodeBrowser => \"icons/code.svg\",\n");
-    code.push_str("        }\n");
-    code.push_str("    }\n");
-    code.push_str("    fn name(self) -> &'static str {\n");
-    code.push_str("        match self {\n");
-    code.push_str("            HugeIcon::AiChat01 => \"bot\",\n");
-    code.push_str("            HugeIcon::CodeBrowser => \"code\",\n");
-    code.push_str("        }\n");
-    code.push_str("    }\n");
-    code.push_str("}\n\n");
+    if huge_icons.is_empty() {
+        code.push_str("pub enum HugeIcon {\n    AiChat01,\n    CodeBrowser,\n    CursorPointer01,\n    Folder01,\n}\n\n");
+        code.push_str("#[allow(dead_code)]\nimpl IconAsset for HugeIcon {\n");
+        code.push_str("    fn path(self) -> &'static str {\n");
+        code.push_str("        match self {\n");
+        code.push_str("            HugeIcon::AiChat01 => \"icons/bot.svg\",\n");
+        code.push_str("            HugeIcon::CodeBrowser => \"icons/code.svg\",\n");
+        code.push_str("            HugeIcon::CursorPointer01 => \"icons/mouse-pointer.svg\",\n");
+        code.push_str("            HugeIcon::Folder01 => \"icons/folder.svg\",\n");
+        code.push_str("        }\n    }\n");
+        code.push_str("    fn name(self) -> &'static str {\n");
+        code.push_str("        match self {\n");
+        code.push_str("            HugeIcon::AiChat01 => \"bot\",\n");
+        code.push_str("            HugeIcon::CodeBrowser => \"code\",\n");
+        code.push_str("            HugeIcon::CursorPointer01 => \"mouse-pointer\",\n");
+        code.push_str("            HugeIcon::Folder01 => \"folder\",\n");
+        code.push_str("        }\n    }\n}\n\n");
+    } else {
+        code.push_str("pub enum HugeIcon {\n");
+        for (variant, stem, _) in &huge_icons {
+            code.push_str(&format!("    /// `{stem}.svg`\n    {variant},\n"));
+        }
+        code.push_str("}\n\n#[allow(dead_code)]\nimpl IconAsset for HugeIcon {\n");
+        code.push_str("    fn path(self) -> &'static str {\n        match self {\n");
+        for (variant, stem, _) in &huge_icons {
+            code.push_str(&format!(
+                "            HugeIcon::{variant} => \"icons/hugeicons/{stem}.svg\",\n"
+            ));
+        }
+        code.push_str("        }\n    }\n");
+        code.push_str("    fn name(self) -> &'static str {\n        match self {\n");
+        for (variant, stem, _) in &huge_icons {
+            code.push_str(&format!("            HugeIcon::{variant} => {:?},\n", stem));
+        }
+        code.push_str("        }\n    }\n}\n\n");
+    }
 
     // 4. Pruned and minified embedded icons table
     code.push_str("#[allow(dead_code)]\n");
@@ -204,6 +278,36 @@ pub fn generate_icons(
             };
             code.push_str(&format!(
                 "    (\"icons/{stem}.svg\", {:?}.as_bytes()),\n",
+                final_svg
+            ));
+        }
+    }
+    for (variant, stem, path) in &hero_icons {
+        if (embed_all || used_icons.contains(variant))
+            && let Ok(content) = fs::read_to_string(path)
+        {
+            let final_svg = if minify {
+                minify_svg(&content)
+            } else {
+                content
+            };
+            code.push_str(&format!(
+                "    (\"icons/heroicons/{stem}.svg\", {:?}.as_bytes()),\n",
+                final_svg
+            ));
+        }
+    }
+    for (variant, stem, path) in &huge_icons {
+        if (embed_all || used_icons.contains(variant))
+            && let Ok(content) = fs::read_to_string(path)
+        {
+            let final_svg = if minify {
+                minify_svg(&content)
+            } else {
+                content
+            };
+            code.push_str(&format!(
+                "    (\"icons/hugeicons/{stem}.svg\", {:?}.as_bytes()),\n",
                 final_svg
             ));
         }
