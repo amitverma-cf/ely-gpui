@@ -23,3 +23,18 @@ The example opens a titled window in dark mode. Its button cross-fades every com
 ## Changing state from a press
 
 `Button::on_click` takes a closure over `&ClickEvent`, `&mut Window` and `&mut App`. To change a view's own state, capture the view with `cx.entity()` in `render`, update it in the closure, and call `cx.notify()`. The [first window](/docs/#a-first-window) counts presses that way. A change made outside `render` without `cx.notify()` draws nothing.
+
+## Desktop shell layout
+
+For full desktop applications with structured window regions, use `AppLayout`:
+
+```rust
+use ely_gpui::layout::AppLayout;
+
+AppLayout::new()
+    .header(title_bar)
+    .sidebar(navigation_sidebar)
+    .sidebar_right(inspector_panel)
+    .footer(status_bar)
+    .child(main_content_view)
+```

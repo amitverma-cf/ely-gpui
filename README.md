@@ -66,23 +66,53 @@ minify = true     # minifies SVGs at compilation
 logo = { path = "logo.png", compress = "optipng" }
 ```
 
-## CLI (`cargo ely`)
+## CLI (`cargo ely`) & Plug-and-Play Components
 
-Ely ships with a development CLI tool to scaffold projects, add components, and inspect configuration:
+Ely follows a plug-and-play architecture (similar to shadcn/ui): components are scaffolded directly into your application's `src/components/` directory as pure, fully editable Rust code. You own your components.
 
 ```sh
 # Initialize ely-gpui.toml and asset directories (detects workspace vs single-crate layout)
 cargo ely init
 
-# Add an icon pack and scaffold provider directory
-cargo ely add icons heroicons
+# List available components in the registry with categories and dependencies
+cargo ely list
 
-# Inspect component catalog and usage
+# Scaffold an editable component into src/components/ (auto-resolves dependencies)
 cargo ely add button
+cargo ely add command_palette
+
+# Download official upstream icon packs (lucide, heroicons, hugeicons)
+cargo ely add icons heroicons
 
 # Verify theme contrast compliance, font paths, and asset resolution
 cargo ely doctor
 ```
+
+## Built-in Theme Presets
+
+Ely ships with carefully tuned, WCAG AA compliant light and dark presets:
+- `ely` (warm paper & ink, default)
+- `zinc` (neutral modern technical gray)
+- `slate` (cool bluish slate)
+- `nord` (arctic oceanic frost)
+- `catppuccin` (Latte & Macchiato pastel hues)
+- `tokyo-night` (Day & Storm neon indigo)
+
+Choose a preset in `ely-gpui.toml`:
+```toml
+[theme]
+preset = "nord"
+```
+
+Or switch dynamically at runtime:
+```rust
+Theme::set_preset("tokyo-night", cx);
+```
+
+## High-Level Layout & Command Overlays
+
+- **`AppLayout`**: Desktop shell layout organizing titlebar header, left primary sidebar, right inspector panel, scrollable body, and status bar.
+- **`CommandPalette`**: Fast modal quick-search and command execution overlay (<kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd>) with keyboard navigation, grouped items, and shortcut badges.
 
 ## Typed Provider Icons & Dead Asset Eviction
 

@@ -117,6 +117,7 @@ fn render(window: &mut Window, cx: &mut App) -> AnyElement {
         .child(shells::sheet(window, cx))
         .child(shells::page(cx))
         .child(shells::app_shell(cx))
+        .child(shells::app_layout(cx))
         .child(shells::master_detail(cx))
         .child(systems::dock(window, cx))
         .child(systems::dock_zones(cx))

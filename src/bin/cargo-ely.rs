@@ -16,6 +16,7 @@ fn main() {
     let command = args.get(1).map(|s| s.as_str()).unwrap_or("help");
     match command {
         "init" => handle_init(&args[2..]),
+        "list" => handle_list(&args[2..]),
         "add" => handle_add(&args[2..]),
         "doctor" | "check" => handle_doctor(),
         "help" | "--help" | "-h" => print_help(),
@@ -35,14 +36,17 @@ fn print_help() {
     println!("  cargo ely <command> [options]\n");
     println!("Commands:");
     println!("  init                     Initialize ely-gpui.toml and project asset structure");
+    println!("  list [--json]            List all available components in the registry");
     println!("  add icons <pack>         Add an icon pack (lucide, heroicons, hugeicons)");
-    println!("  add <component>          Inspect or scaffold a component from catalog");
+    println!("  add <component>          Scaffold an editable component into src/components/");
     println!("  doctor, check            Verify ely-gpui.toml contrast, fonts, and assets");
     println!("  help                     Show this help message\n");
     println!("Examples:");
     println!("  cargo ely init");
-    println!("  cargo ely add icons heroicons");
+    println!("  cargo ely list");
     println!("  cargo ely add button");
+    println!("  cargo ely add command_palette");
+    println!("  cargo ely add icons heroicons");
     println!("  cargo ely doctor");
 }
 
@@ -167,9 +171,15 @@ fallback = "image-off"
     }
 }
 
+fn handle_list(args: &[String]) {
+    let as_json = args.iter().any(|a| a == "--json");
+    component::list_components(as_json);
+}
+
 fn handle_add(args: &[String]) {
     if args.is_empty() {
         eprintln!("Usage: cargo ely add <component> OR cargo ely add icons <pack>");
+        eprintln!("Run 'cargo ely list' to see all available components.");
         return;
     }
 

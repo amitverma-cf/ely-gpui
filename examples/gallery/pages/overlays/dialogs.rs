@@ -1,7 +1,9 @@
 use ely_gpui::{
     buttons::{Button, ButtonVariant},
     forms::{Input, TextInput},
-    overlays::{AlertDialog, ConfirmDialog, Dialog, PromptDialog},
+    overlays::{
+        AlertDialog, CommandGroup, CommandItem, CommandPalette, ConfirmDialog, Dialog, PromptDialog,
+    },
     primitives::Severity,
     theme::ActiveTheme,
     typography::Caption,
@@ -171,6 +173,117 @@ pub fn dialogs(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             .child(opener(&open, "fullscreen", "Release notes", Open::Fullscreen)),
         cx,
     ))
+    .children(overlay)
+}
+
+pub fn command_palette(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
+    let open = keep("palette-open", || false, window, cx);
+    let chosen = keep("palette-chosen", || None::<SharedString>, window, cx);
+    let is_open = *open.read(cx);
+
+    let overlay = if is_open {
+        let (open_close, chosen_set) = (open.clone(), chosen.clone());
+        let open_for_close = open_close.clone();
+        let close_fn = move |_: &mut Window, cx: &mut App| set(&open_for_close, false, cx);
+        let make_item = |id: &'static str,
+                         label: &'static str,
+                         shortcut: Option<&'static str>,
+                         chosen_ref: Entity<Option<SharedString>>,
+                         open_ref: Entity<bool>| {
+            let item = CommandItem::new(id, label);
+            let item = if let Some(s) = shortcut {
+                item.shortcut(s)
+            } else {
+                item
+            };
+            item.on_select(move |_window, cx| {
+                set(&chosen_ref, Some(label.into()), cx);
+                set(&open_ref, false, cx);
+            })
+        };
+
+        Some(
+            CommandPalette::new("gallery-command-palette", close_fn)
+                .placeholder("Type a command or search...")
+                .group(CommandGroup::new(
+                    "Navigation",
+                    vec![
+                        make_item(
+                            "nav-home",
+                            "Go to Dashboard",
+                            Some("⌘D"),
+                            chosen_set.clone(),
+                            open_close.clone(),
+                        ),
+                        make_item(
+                            "nav-settings",
+                            "Open Settings",
+                            Some("⌘,"),
+                            chosen_set.clone(),
+                            open_close.clone(),
+                        ),
+                        make_item(
+                            "nav-docs",
+                            "Read Documentation",
+                            None,
+                            chosen_set.clone(),
+                            open_close.clone(),
+                        ),
+                    ],
+                ))
+                .group(CommandGroup::new(
+                    "Theme & Appearance",
+                    vec![
+                        make_item(
+                            "theme-dark",
+                            "Switch to Dark Mode",
+                            None,
+                            chosen_set.clone(),
+                            open_close.clone(),
+                        ),
+                        make_item(
+                            "theme-preset",
+                            "Cycle Theme Presets",
+                            Some("⌘T"),
+                            chosen_set.clone(),
+                            open_close.clone(),
+                        ),
+                        make_item(
+                            "theme-contrast",
+                            "Toggle High Contrast",
+                            None,
+                            chosen_set.clone(),
+                            open_close.clone(),
+                        ),
+                    ],
+                ))
+                .into_any_element(),
+        )
+    } else {
+        None
+    };
+
+    let caption = chosen.read(cx).clone().map_or(
+        "Modal command palette with search, group headers, and shortcut badges.".into(),
+        |c| format!("Last selected: {c}"),
+    );
+
+    let open_btn = {
+        let open = open.clone();
+        probe(
+            "command-palette-open",
+            Button::new("command-palette-open", "Open Command Palette")
+                .primary()
+                .on_click(move |_, _, cx| set(&open, true, cx)),
+        )
+    };
+
+    section(
+        "CommandPalette",
+        "Fast modal quick-search and command execution overlay with keyboard navigation.",
+        cx,
+    )
+    .child(specimen(caption, row().child(open_btn), cx))
     .children(overlay)
 }
 

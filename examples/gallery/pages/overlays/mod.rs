@@ -79,6 +79,7 @@ fn render(window: &mut Window, cx: &mut App) -> AnyElement {
         .child(anchored::popovers(window, cx))
         .child(anchored::hover_card(cx))
         .child(dialogs::dialogs(window, cx))
+        .child(dialogs::command_palette(window, cx))
         .child(guides::lightbox(window, cx))
         .child(guides::tour(window, cx))
         .child(guides::toolbar(window, cx))

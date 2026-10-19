@@ -1,0 +1,142 @@
+{
+  "$schema": "https://elygpui.com/schema/registry.json",
+  "version": "1.0.0",
+  "components": [
+    {
+      "name": "button",
+      "category": "inputs",
+      "file": "button.rs",
+      "export_type": "Button",
+      "description": "Buttons, icon buttons, toggle buttons, and button groups",
+      "dependencies": []
+    },
+    {
+      "name": "input",
+      "category": "inputs",
+      "file": "text_input.rs",
+      "export_type": "TextInput",
+      "description": "Single and multi-line text input fields with validation",
+      "dependencies": []
+    },
+    {
+      "name": "checkbox",
+      "category": "inputs",
+      "file": "checkbox.rs",
+      "export_type": "Checkbox",
+      "description": "Checkboxes with tristate and indeterminate support",
+      "dependencies": []
+    },
+    {
+      "name": "switch",
+      "category": "inputs",
+      "file": "switch.rs",
+      "export_type": "Switch",
+      "description": "Smooth sliding toggle switches with animated thumb",
+      "dependencies": []
+    },
+    {
+      "name": "slider",
+      "category": "inputs",
+      "file": "slider.rs",
+      "export_type": "Slider",
+      "description": "Continuous and stepped value sliders with tooltips",
+      "dependencies": []
+    },
+    {
+      "name": "dropdown",
+      "category": "inputs",
+      "file": "dropdown.rs",
+      "export_type": "Dropdown",
+      "description": "Single and multi-select dropdown menus with search",
+      "dependencies": []
+    },
+    {
+      "name": "badge",
+      "category": "display",
+      "file": "badge.rs",
+      "export_type": "Badge",
+      "description": "Status, count, and variant badge indicators",
+      "dependencies": []
+    },
+    {
+      "name": "avatar",
+      "category": "display",
+      "file": "avatar.rs",
+      "export_type": "Avatar",
+      "description": "User avatar images with fallback initials and status dot",
+      "dependencies": []
+    },
+    {
+      "name": "tooltip",
+      "category": "primitives",
+      "file": "tooltip.rs",
+      "export_type": "Tooltip",
+      "description": "Hover and focus help tooltips with smart positioning",
+      "dependencies": []
+    },
+    {
+      "name": "app_layout",
+      "category": "layout",
+      "file": "app_layout.rs",
+      "export_type": "AppLayout",
+      "description": "Desktop shell layout with header, primary sidebar, inspector, content, and footer",
+      "dependencies": []
+    },
+    {
+      "name": "card",
+      "category": "layout",
+      "file": "surface.rs",
+      "export_type": "Card",
+      "description": "Structured content container cards with header, body, and footer",
+      "dependencies": []
+    },
+    {
+      "name": "dialog",
+      "category": "overlays",
+      "file": "dialog.rs",
+      "export_type": "Dialog",
+      "description": "Modal dialog overlays with backdrop scrim and focus trapping",
+      "dependencies": ["button"]
+    },
+    {
+      "name": "command_palette",
+      "category": "overlays",
+      "file": "command_palette.rs",
+      "export_type": "CommandPalette",
+      "description": "Modal command palette and quick search dialog with keyboard navigation",
+      "dependencies": ["badge", "input"]
+    },
+    {
+      "name": "sheet",
+      "category": "overlays",
+      "file": "sheet.rs",
+      "export_type": "Sheet",
+      "description": "Side sheet and drawer panels anchored to viewport edges",
+      "dependencies": []
+    },
+    {
+      "name": "toast",
+      "category": "overlays",
+      "file": "toast.rs",
+      "export_type": "Toast",
+      "description": "Toast notification manager, viewport, and auto-dismiss toasts",
+      "dependencies": []
+    },
+    {
+      "name": "table",
+      "category": "collections",
+      "file": "table.rs",
+      "export_type": "Table",
+      "description": "Virtual scrolling data tables with header resizing and sort indicators",
+      "dependencies": []
+    },
+    {
+      "name": "tabs",
+      "category": "navigation",
+      "file": "tabs.rs",
+      "export_type": "Tabs",
+      "description": "Tabbed navigation bars and multi-panel switchers",
+      "dependencies": []
+    }
+  ]
+}

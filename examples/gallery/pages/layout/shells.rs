@@ -199,6 +199,52 @@ pub fn app_shell(cx: &App) -> impl IntoElement + use<> {
     )
 }
 
+pub fn app_layout(cx: &App) -> impl IntoElement + use<> {
+    let theme = cx.theme();
+    let bar = |text: &'static str| {
+        h_stack()
+            .h(theme.control_height(ControlSize::Sm))
+            .px_3()
+            .text_size(theme.text_size(TextSize::Xs))
+            .text_color(theme.colors.fg_muted)
+            .child(text)
+    };
+    section(
+        "AppLayout",
+        "Desktop shell with header, primary navigation, inspector, content and footer.",
+        cx,
+    )
+    .child(
+        frame(640.0, 260.0, cx).child(
+            ely_gpui::layout::AppLayout::new()
+                .header(
+                    bar("ely-gpui — Desktop Shell")
+                        .border_b_1()
+                        .border_color(theme.colors.border),
+                )
+                .sidebar(Sidebar::new("layout-sidebar", false).child(nav(false, cx)))
+                .sidebar_right(
+                    div()
+                        .w(px(140.0))
+                        .h_full()
+                        .border_l_1()
+                        .border_color(theme.colors.border)
+                        .bg(theme.colors.surface)
+                        .p_3()
+                        .child(Caption::new("Inspector panel")),
+                )
+                .footer(
+                    bar("Ready · UTF-8 · 0 errors")
+                        .border_t_1()
+                        .border_color(theme.colors.border),
+                )
+                .child(div().p_4().child(Paragraph::new(
+                    "AppLayout organizes the entire application window structure.",
+                ))),
+        ),
+    )
+}
+
 pub fn master_detail(cx: &App) -> impl IntoElement + use<> {
     let items = [
         "Quarterly review",

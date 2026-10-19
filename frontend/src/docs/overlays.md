@@ -19,6 +19,19 @@ Dialogs, popovers, menus, tooltips and toasts draw over the page. Dialogs, popov
 
 Escape, a press on the scrim and a fullscreen dialog's close button all run `on_close`. Tab stays inside the dialog, and focus returns to what held it before, on every way out. The card fits the window; its body scrolls and its actions stay. `AlertDialog`, `ConfirmDialog` and `PromptDialog` build on `Dialog`.
 
+## Command palette
+
+`CommandPalette::new(id, on_close)` opens a modal quick-search and action launcher over a backdrop scrim.
+
+| Call | Does |
+| --- | --- |
+| `.placeholder(text)` | Search field placeholder text. |
+| `.query(text)` | Sets the active search filter query string. |
+| `.group(CommandGroup::new(heading, items))` | Adds a section of grouped items with a category heading. |
+| `.on_query_change(handler)` | Callback triggered whenever search text changes. |
+
+Each `CommandItem::new(id, title)` supports `.description(text)`, `.shortcut("⌘D")`, `.icon(LucideIcon::Variant)`, and `.on_select(move |window, cx| ..)`. <kbd>Up</kbd> and <kbd>Down</kbd> navigate items, <kbd>Enter</kbd> runs the selected action, and <kbd>Escape</kbd> closes the palette.
+
 ## Popovers
 
 `Popover::new(id, label, content)` is a button that opens a panel under it, or over it when only above has room. A press outside or Escape closes it, and Tab stays inside. `content` runs only while the panel is open. `Popover::with_opener` opens the panel from an element of the app's own.

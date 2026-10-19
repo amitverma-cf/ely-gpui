@@ -27,13 +27,17 @@ gpui_platform = { package = "gpui-pre-platform", version = "=0.3.9", features = 
 
 Ely's default feature, `runtime_shaders`, turns on the same feature in `gpui_platform`, so GPUI compiles its Metal shaders at run time. With `default-features = false` the build runs `xcrun metal` instead, which needs Xcode's Metal compiler.
 
-## CLI tool
+## CLI tool & component generator
 
-Install the `cargo-ely` binary to scaffold configuration manifests, add icons, and inspect diagnostics:
+Install the `cargo-ely` binary to scaffold configuration manifests, download icon packs, list components, and generate plug-and-play components directly into your codebase:
 
 ```sh
 cargo install --path .
 cargo ely init
+cargo ely list
+cargo ely add button
+cargo ely add command_palette
+cargo ely add icons heroicons
 cargo ely doctor
 ```
 
