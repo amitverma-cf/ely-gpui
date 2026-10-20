@@ -1898,9 +1898,8 @@
       "export_type": "Divider",
       "description": "Part of Divider",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::primitives::Divider",
-      "files": 1,
       "unit": "primitives/divider.rs"
     },
     {
@@ -2101,9 +2100,8 @@
       "export_type": "FocusScope",
       "description": "Part of FocusScope",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::primitives::FocusScope",
-      "files": 1,
       "unit": "primitives/focus.rs"
     },
     {
@@ -2485,9 +2483,8 @@
       "export_type": "Ellipsis",
       "description": "Part of Ellipsis: typography::Ellipsis; gpui's .truncate() holds only in a block of fixed width",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::typography::Ellipsis",
-      "files": 1,
       "unit": "typography/fit.rs"
     },
     {
@@ -2754,9 +2751,8 @@
       "export_type": "Latex",
       "description": "prove: TeX subset",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::typography::Latex",
-      "files": 1,
       "unit": "typography/math.rs"
     },
     {
@@ -2830,9 +2826,8 @@
       "export_type": "h_stack",
       "description": "Part of h_stack",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::layout::h_stack",
-      "files": 1,
       "unit": "layout/stack.rs"
     },
     {
@@ -3059,9 +3054,8 @@
       "export_type": "ZStack",
       "description": "Part of ZStack",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::layout::ZStack",
-      "files": 1,
       "unit": "layout/stack.rs"
     },
     {
@@ -3270,9 +3264,8 @@
       "export_type": "Card",
       "description": "Part of Card",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::layout::Card",
-      "files": 1,
       "unit": "layout/surface.rs"
     },
     {
@@ -3286,9 +3279,8 @@
       "export_type": "Card",
       "description": "Part of Card",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::layout::Card",
-      "files": 1,
       "unit": "layout/surface.rs"
     },
     {
@@ -3317,9 +3309,8 @@
       "export_type": "Panel",
       "description": "Part of Panel",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::layout::Panel",
-      "files": 1,
       "unit": "layout/surface.rs"
     },
     {
@@ -3348,9 +3339,8 @@
       "export_type": "Section",
       "description": "Part of Section",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::layout::Section",
-      "files": 1,
       "unit": "layout/surface.rs"
     },
     {
@@ -3485,9 +3475,8 @@
       "export_type": "Page",
       "description": "Part of Page",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::layout::Page",
-      "files": 1,
       "unit": "layout/page.rs"
     },
     {
@@ -3501,9 +3490,8 @@
       "export_type": "Page",
       "description": "Part of Page",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::layout::Page",
-      "files": 1,
       "unit": "layout/page.rs"
     },
     {
@@ -3633,9 +3621,8 @@
       "export_type": "PaneGroup",
       "description": "Part of PaneGroup",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::layout::PaneGroup",
-      "files": 1,
       "unit": "layout/panes.rs"
     },
     {
@@ -7589,9 +7576,8 @@
       "export_type": "Spinner",
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::motion::Spinner",
-      "files": 1,
       "unit": "motion/spinner.rs"
     },
     {
@@ -7605,9 +7591,8 @@
       "export_type": "Spinner",
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::motion::Spinner",
-      "files": 1,
       "unit": "motion/spinner.rs"
     },
     {
@@ -7621,9 +7606,8 @@
       "export_type": "Spinner",
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::motion::Spinner",
-      "files": 1,
       "unit": "motion/spinner.rs"
     },
     {
@@ -7637,9 +7621,8 @@
       "export_type": "Spinner",
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::motion::Spinner",
-      "files": 1,
       "unit": "motion/spinner.rs"
     },
     {
@@ -7653,9 +7636,8 @@
       "export_type": "Spinner",
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::motion::Spinner",
-      "files": 1,
       "unit": "motion/spinner.rs"
     },
     {
@@ -7669,9 +7651,8 @@
       "export_type": "Spinner",
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::motion::Spinner",
-      "files": 1,
       "unit": "motion/spinner.rs"
     },
     {
@@ -7685,9 +7666,8 @@
       "export_type": "Spinner",
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::motion::Spinner",
-      "files": 1,
       "unit": "motion/spinner.rs"
     },
     {
@@ -7806,9 +7786,8 @@
       "export_type": "ProgressRing",
       "description": "Part of ProgressRing: motion::ProgressRing",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::motion::ProgressRing",
-      "files": 1,
       "unit": "motion/progress.rs"
     },
     {
@@ -12056,9 +12035,8 @@
       "export_type": "PaneGroup",
       "description": "Part of PaneGroup: layout::PaneGroup, a Terminal per pane",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::layout::PaneGroup",
-      "files": 1,
       "unit": "layout/panes.rs"
     },
     {
@@ -14042,9 +14020,8 @@
       "export_type": "Latex",
       "description": "Part of Latex: typography::Latex",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::typography::Latex",
-      "files": 1,
       "unit": "typography/math.rs"
     },
     {
@@ -20670,9 +20647,8 @@
       "export_type": "Reorder",
       "description": "Part of Reorder: motion::Reorder",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::motion::Reorder",
-      "files": 1,
       "unit": "motion/reorder.rs"
     },
     {
@@ -20686,9 +20662,8 @@
       "export_type": "Pressable",
       "description": "Part of Pressable: primitives::Pressable",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::primitives::Pressable",
-      "files": 1,
       "unit": "primitives/pressable.rs"
     },
     {
@@ -20914,9 +20889,8 @@
       "export_type": "FocusRing",
       "description": "Part of FocusRing: primitives::FocusRing",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::primitives::FocusRing",
-      "files": 1,
       "unit": "primitives/focus.rs"
     },
     {
@@ -21082,9 +21056,8 @@
       "export_type": "Platform",
       "description": "Part of Platform: theme::Platform, the theme's platform: the window buttons Ely draws, the title bar, key caps",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::theme::Platform",
-      "files": 1,
       "unit": "theme/platform.rs"
     },
     {
@@ -21098,9 +21071,8 @@
       "export_type": "IconTheme",
       "description": "Part of IconTheme: primitives::IconTheme, an owner's rules by name and extension over file_icon",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::primitives::IconTheme",
-      "files": 1,
       "unit": "primitives/files.rs"
     },
     {
@@ -21130,9 +21102,8 @@
       "export_type": "I18n",
       "description": "Part of I18n: i18n::I18n, a gpui global: the shown locale and one catalog per locale",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::i18n::I18n",
-      "files": 1,
       "unit": "i18n/mod.rs"
     },
     {
@@ -21146,9 +21117,8 @@
       "export_type": "I18n",
       "description": "Part of I18n: I18n::text, a message with its {name} arguments filled",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::i18n::I18n",
-      "files": 1,
       "unit": "i18n/mod.rs"
     },
     {
@@ -21162,9 +21132,8 @@
       "export_type": "I18n",
       "description": "Part of I18n: I18n::text, a message with its {name} arguments filled",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::i18n::I18n",
-      "files": 1,
       "unit": "i18n/mod.rs"
     },
     {
@@ -21178,9 +21147,8 @@
       "export_type": "Locale",
       "description": "Part of Locale: Locale::number and Locale::date, CLDR's separators, right-to-left sign and short dates",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::i18n::Locale",
-      "files": 1,
       "unit": "i18n/locale.rs"
     },
     {
@@ -21194,9 +21162,8 @@
       "export_type": "Locale",
       "description": "Part of Locale: Locale::number and Locale::date, CLDR's separators, right-to-left sign and short dates",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::i18n::Locale",
-      "files": 1,
       "unit": "i18n/locale.rs"
     },
     {
@@ -21254,9 +21221,8 @@
       "export_type": "Theme",
       "description": "Part of Theme: Theme::set_color_blind_safe: chart hues fitted to stay apart under Machado's simulated protanopia, deuteranopia and tritanopia, each 3:1 on its page",
       "dependencies": [],
-      "status": "feature",
+      "status": "core",
       "import": "ely_gpui::theme::Theme",
-      "files": 1,
       "unit": "theme/mod.rs"
     },
     {

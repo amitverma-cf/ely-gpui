@@ -223,3 +223,39 @@ pub fn scaffold_components(
     println!("Import from `crate::ui::...`; the code is yours to edit.");
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use std::collections::BTreeSet;
+
+    use super::*;
+
+    #[test]
+    fn the_registry_counts_agree_and_every_copyable_entry_has_its_files() {
+        let registry = load_registry(None).unwrap();
+        let units: serde_json::Value = serde_json::from_str(EMBEDDED).unwrap();
+        let units = units["units"].as_object().unwrap();
+        assert_eq!(registry.total_components, registry.components.len());
+        let listed: usize = registry.chapters.iter().map(|c| c.component_count).sum();
+        assert_eq!(
+            listed,
+            registry.components.len(),
+            "chapters list every entry"
+        );
+        let names: BTreeSet<_> = registry.components.iter().map(|c| &c.name).collect();
+        assert_eq!(names.len(), registry.components.len(), "names are unique");
+        for c in &registry.components {
+            if c.status == "component" || c.status == "feature" {
+                let unit = c
+                    .unit
+                    .as_ref()
+                    .unwrap_or_else(|| panic!("{} has no unit", c.name));
+                assert!(
+                    units.contains_key(unit),
+                    "{} names {unit}, not in the graph",
+                    c.name
+                );
+            }
+        }
+    }
+}

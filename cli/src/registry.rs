@@ -121,10 +121,11 @@ impl Context<'_> {
                     .rsplit_once('/')
                     .map_or(("", unit.as_str()), |(d, f)| (d, f));
                 let core = CORE.contains(&f.mp[0].as_str());
-                let status = if feature {
-                    "feature"
-                } else if core {
+                // A part of something the crate keeps is the crate's too.
+                let status = if core {
                     "core"
+                } else if feature {
+                    "feature"
                 } else {
                     "component"
                 };
