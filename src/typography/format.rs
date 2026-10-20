@@ -187,7 +187,7 @@ pub fn took(spent: std::time::Duration) -> String {
 const DIGITS: usize = 6;
 
 /// Places after the point that show every multiple of `step` exactly: none for whole steps, four for 0.0025.
-pub(crate) fn decimals(step: f64) -> usize {
+pub fn decimals(step: f64) -> usize {
     assert!(
         step.is_finite() && step > 0.0,
         "a step is positive, not {step}"
@@ -221,7 +221,7 @@ pub fn relative(then: Timestamp, now: Timestamp) -> String {
 }
 
 /// The rounded distance: count, unit, and whether ahead; none under 45 s.
-pub(crate) fn span(then: Timestamp, now: Timestamp) -> Option<(u64, &'static str, bool)> {
+pub fn span(then: Timestamp, now: Timestamp) -> Option<(u64, &'static str, bool)> {
     let delta = now.as_second() - then.as_second();
     let seconds = delta.unsigned_abs();
     if seconds < 45 {
@@ -244,7 +244,7 @@ pub(crate) fn span(then: Timestamp, now: Timestamp) -> Option<(u64, &'static str
 }
 
 /// The system's zone; an unknown one logs once, naming `user`, and reads as jiff's unknown zone.
-pub(crate) fn system_zone(user: &str) -> TimeZone {
+pub fn system_zone(user: &str) -> TimeZone {
     TimeZone::try_system().unwrap_or_else(|error| {
         static TOLD: AtomicBool = AtomicBool::new(false);
         if !TOLD.swap(true, Ordering::Relaxed) {

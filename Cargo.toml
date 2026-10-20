@@ -153,8 +153,3 @@ path = "examples/docs/render.rs"
 [[example]]
 name = "docs_config"
 path = "examples/docs/config.rs"
-
-[[bin]]
-name = "cargo-ely"
-path = "src/bin/cargo-ely.rs"
-

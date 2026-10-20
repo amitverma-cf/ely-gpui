@@ -9,7 +9,7 @@ use crate::theme::{ActiveTheme, IconSize};
 
 include!(concat!(env!("OUT_DIR"), "/ely_icons.rs"));
 
-pub(crate) fn embedded_icon(path: &str) -> Option<&'static [u8]> {
+pub fn embedded_icon(path: &str) -> Option<&'static [u8]> {
     EMBEDDED_ICONS
         .iter()
         .find(|(p, _)| *p == path)

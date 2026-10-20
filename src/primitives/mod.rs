@@ -20,22 +20,22 @@ mod tests;
 
 pub use crate::assets::{ImageAsset, VideoAsset};
 pub use backdrop::{Backdrop, Place};
-pub(crate) use caret::{caret_bar, caret_width};
+pub use caret::{caret_bar, caret_width};
 pub use disclosure::Disclosure;
 pub use divider::Divider;
 pub use files::IconTheme;
-pub(crate) use files::{file_icon, icon_theme};
-pub(crate) use focus::{
+pub use files::{file_icon, icon_theme};
+pub use focus::{
     CONTEXT as FOCUS_CONTEXT, Takeover, give_back, hand_back, hold_focus, lent, tab_stop,
     take_focus,
 };
 pub use focus::{FocusNext, FocusPrev, FocusRing, FocusScope};
 pub use ghost::DragGhost;
-pub(crate) use held::hold;
-pub(crate) use icon::embedded_icon;
+pub use held::hold;
+pub use icon::embedded_icon;
 pub use icon::{HeroIcon, HugeIcon, Icon, IconAsset, LucideIcon};
 pub use image::Image;
-pub(crate) use image::{checked_ratio, framed};
+pub use image::{checked_ratio, framed};
 pub use layer::{Raised, raise};
 pub use measure::{IntersectionObserver, Measure};
 pub use pressable::Pressable;

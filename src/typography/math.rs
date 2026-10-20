@@ -96,7 +96,7 @@ struct Formula {
 }
 
 /// A typeset formula: its picture and logical size.
-pub(crate) type Typeset = Result<(Arc<RenderImage>, Size<Pixels>), MathError>;
+pub type Typeset = Result<(Arc<RenderImage>, Size<Pixels>), MathError>;
 
 enum Typesetter {}
 
@@ -224,7 +224,7 @@ fn formula(
 }
 
 /// `source` typeset at `font` in `window`; None while it loads.
-pub(crate) fn typeset(
+pub fn typeset(
     id: impl Into<ElementId>,
     (source, display): (&SharedString, bool),
     font: Pixels,
@@ -251,7 +251,7 @@ impl RenderOnce for Latex {
 }
 
 /// A formula that did not typeset: why, then its source.
-pub(crate) fn failed(error: &MathError, source: &str, cx: &App) -> AnyElement {
+pub fn failed(error: &MathError, source: &str, cx: &App) -> AnyElement {
     let theme = cx.theme();
     div()
         .debug_selector(|| "latex-error".into())

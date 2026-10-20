@@ -45,7 +45,7 @@ fn key<A: Asset>(source: &A::Source) -> Key {
 }
 
 /// An element's asset; the last holder to leave frees it.
-pub(crate) struct Held<A: Asset> {
+pub struct Held<A: Asset> {
     source: Option<A::Source>,
 }
 
@@ -71,7 +71,7 @@ impl<A: Asset> Held<A> {
 }
 
 /// `source` as `A` for element `id`; the previous released.
-pub(crate) fn hold<A: Asset>(
+pub fn hold<A: Asset>(
     id: impl Into<ElementId>,
     source: &A::Source,
     image: impl Fn(&A::Output) -> Option<Arc<RenderImage>>,

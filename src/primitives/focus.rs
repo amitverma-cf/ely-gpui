@@ -9,7 +9,7 @@ use crate::theme::ActiveTheme;
 actions!(ely, [FocusNext, FocusPrev]);
 
 /// The key context of every `FocusScope`; Tab and Shift-Tab bind under it.
-pub(crate) const CONTEXT: &str = "ElyFocus";
+pub const CONTEXT: &str = "ElyFocus";
 
 /// Focus-colored border while focused. Give the element a 1px border.
 pub trait FocusRing: InteractiveElement + Sized {
@@ -166,7 +166,7 @@ fn dropped_overlay(window: &Window, cx: &mut App) -> Option<FocusHandle> {
 }
 
 /// Focus an overlay holds while open, and what it held before.
-pub(crate) struct Takeover {
+pub struct Takeover {
     pub focus: FocusHandle,
     previous: Option<FocusHandle>,
     taken: bool,
@@ -175,7 +175,7 @@ pub(crate) struct Takeover {
 }
 
 /// Keyed focus for an overlay; focused on its first render, and again whenever the focused element leaves the tree.
-pub(crate) fn take_focus(
+pub fn take_focus(
     key: impl Into<gpui::ElementId>,
     window: &mut Window,
     cx: &mut App,
@@ -211,7 +211,7 @@ pub(crate) fn take_focus(
 }
 
 /// Whether an open overlay holds the window's focus.
-pub(crate) fn lent(window: &Window, cx: &App) -> bool {
+pub fn lent(window: &Window, cx: &App) -> bool {
     cx.try_global::<Holders>().is_some_and(|holders| {
         (holders.0.iter())
             .any(|holder| holder.takeover.upgrade().is_some() && holder.focus.is_focused(window))
@@ -219,7 +219,7 @@ pub(crate) fn lent(window: &Window, cx: &App) -> bool {
 }
 
 /// Returns focus to whatever held it before the overlay opened.
-pub(crate) fn give_back(state: &Entity<Takeover>, window: &mut Window, cx: &mut App) {
+pub fn give_back(state: &Entity<Takeover>, window: &mut Window, cx: &mut App) {
     let closed = state.downgrade();
     cx.default_global::<Holders>()
         .0
@@ -238,14 +238,14 @@ pub(crate) fn give_back(state: &Entity<Takeover>, window: &mut Window, cx: &mut 
 }
 
 /// A mode's own focus, where focus was before the mode took it, and whether the mode was on last frame.
-pub(crate) struct Held {
+pub struct Held {
     pub focus: FocusHandle,
     previous: Option<FocusHandle>,
     was_on: bool,
 }
 
 /// The focus a mode keyed `key` holds: turned on while focus is elsewhere, it takes focus so Escape reaches it.
-pub(crate) fn hold_focus(
+pub fn hold_focus(
     key: impl Into<ElementId>,
     on: bool,
     window: &mut Window,
@@ -270,7 +270,7 @@ pub(crate) fn hold_focus(
 }
 
 /// Hands focus back to where it was before the mode took it.
-pub(crate) fn hand_back(held: &Entity<Held>, window: &mut Window, cx: &mut App) {
+pub fn hand_back(held: &Entity<Held>, window: &mut Window, cx: &mut App) {
     if let Some(previous) = held.update(cx, |held, _| held.previous.take()) {
         log::info!("focus: handed back after a mode");
         window.focus(&previous, cx);
@@ -278,12 +278,7 @@ pub(crate) fn hand_back(held: &Entity<Held>, window: &mut Window, cx: &mut App) 
 }
 
 /// A focus handle kept for `id`, a Tab stop while enabled.
-pub(crate) fn tab_stop(
-    id: ElementId,
-    enabled: bool,
-    window: &mut Window,
-    cx: &mut App,
-) -> FocusHandle {
+pub fn tab_stop(id: ElementId, enabled: bool, window: &mut Window, cx: &mut App) -> FocusHandle {
     window
         .use_keyed_state(id, cx, |_, cx| cx.focus_handle())
         .read(cx)

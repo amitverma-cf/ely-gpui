@@ -1,0 +1,22 @@
+[package]
+name = "cargo-ely"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT"
+publish = false
+description = "Adds Ely GPUI components, icons and fonts to your project as source you own."
+
+[[bin]]
+name = "cargo-ely"
+path = "src/main.rs"
+
+[dependencies]
+proc-macro2 = { version = "1", features = ["span-locations"] }
+quote = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+syn = { version = "2", features = ["full", "visit", "parsing", "printing"] }
+toml = "0.8"
+
+[workspace]

@@ -92,7 +92,7 @@ fn dot(center: Point<Pixels>, radius: Pixels, color: Hsla, window: &mut Window) 
     window.paint_quad(fill(Bounds::new(corner, size(side, side)), color).corner_radii(radius));
 }
 
-pub(crate) fn arc(
+pub fn arc(
     center: Point<Pixels>,
     radius: Pixels,
     from: f32,

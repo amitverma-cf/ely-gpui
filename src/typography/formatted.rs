@@ -184,7 +184,7 @@ impl RelativeTime {
 }
 
 /// Redraws the view each tick while `id` stays on screen.
-pub(crate) fn fresh(id: impl Into<ElementId>, window: &mut Window, cx: &mut App) {
+pub fn fresh(id: impl Into<ElementId>, window: &mut Window, cx: &mut App) {
     window.use_keyed_state(id, cx, |window, cx| -> Task<()> {
         cx.spawn_in(window, async move |ticker, cx| {
             loop {
@@ -199,7 +199,7 @@ pub(crate) fn fresh(id: impl Into<ElementId>, window: &mut Window, cx: &mut App)
 }
 
 /// `then` against `now`, in the shown locale.
-pub(crate) fn relative_text(cx: &App, then: Timestamp, now: Timestamp) -> SharedString {
+pub fn relative_text(cx: &App, then: Timestamp, now: Timestamp) -> SharedString {
     let Some((count, unit, future)) = format::span(then, now) else {
         return i18n::text(cx, "time.now", &[]);
     };

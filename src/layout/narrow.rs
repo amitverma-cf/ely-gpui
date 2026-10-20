@@ -8,7 +8,7 @@ use gpui::{
 use crate::theme::{ActiveTheme, TextSize};
 
 /// `text` set in `size` and `weight`, in pixels.
-pub(crate) fn text_width(
+pub fn text_width(
     text: &SharedString,
     size: TextSize,
     weight: FontWeight,
@@ -34,7 +34,7 @@ pub(crate) fn text_width(
 }
 
 /// Keeps `width` at the parent's width; a change redraws once.
-pub(crate) fn measure_width(width: Entity<Pixels>) -> impl IntoElement {
+pub fn measure_width(width: Entity<Pixels>) -> impl IntoElement {
     canvas(
         move |bounds: Bounds<Pixels>, window, cx| {
             if *width.read(cx) != bounds.size.width {

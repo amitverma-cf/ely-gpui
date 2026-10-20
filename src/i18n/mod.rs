@@ -75,7 +75,7 @@ impl I18n {
     }
 
     /// The locale's own message for `key`, nothing when its catalog lacks it.
-    pub(crate) fn find(&self, key: &str) -> Option<&'static str> {
+    pub fn find(&self, key: &str) -> Option<&'static str> {
         self.catalogs
             .iter()
             .find(|(tag, _)| *tag == self.locale.tag)

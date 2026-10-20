@@ -396,7 +396,7 @@ const ZH_CN: &[(&str, &str)] = &[
 ];
 
 /// Ely's message for `key`; English if unshipped, fails if unknown.
-pub(crate) fn builtin(locale: &str, key: &str) -> &'static str {
+pub fn builtin(locale: &str, key: &str) -> &'static str {
     let table = if locale == "zh-CN" { ZH_CN } else { EN };
     table
         .iter()

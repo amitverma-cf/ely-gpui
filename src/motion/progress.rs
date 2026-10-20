@@ -19,12 +19,7 @@ struct Glide {
 }
 
 /// Keeps `value`'s last change; returns where to glide from, and the change's number.
-pub(crate) fn follow(
-    id: &ElementId,
-    value: f32,
-    window: &mut Window,
-    cx: &mut App,
-) -> (f32, usize) {
+pub fn follow(id: &ElementId, value: f32, window: &mut Window, cx: &mut App) -> (f32, usize) {
     let state = window.use_keyed_state((id.clone(), "glide"), cx, |_, _| Glide {
         from: value,
         to: value,

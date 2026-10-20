@@ -75,7 +75,7 @@ fn shift(start: &[f32], ix: usize, delta: f32, floor: f32) -> Vec<f32> {
 }
 
 /// Weights are finite and non-negative, with a finite, positive sum.
-pub(crate) fn check_weights(weights: &[f32]) -> anyhow::Result<f32> {
+pub fn check_weights(weights: &[f32]) -> anyhow::Result<f32> {
     anyhow::ensure!(
         weights
             .iter()

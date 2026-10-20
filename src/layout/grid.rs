@@ -5,13 +5,13 @@ use gpui::{
 use smallvec::SmallVec;
 
 /// Columns for `width`, each at least `min`, `gap` apart.
-pub(crate) fn columns_for(width: Pixels, min: Pixels, gap: Pixels) -> u16 {
+pub fn columns_for(width: Pixels, min: Pixels, gap: Pixels) -> u16 {
     let fit = ((width + gap) / (min + gap)).floor();
     fit.clamp(1.0, f32::from(u16::MAX)) as u16
 }
 
 /// How many items `item` wide with `gap` between fit across `width`, at least one, and the inset that centers them.
-pub(crate) fn fit(width: Pixels, item: Pixels, gap: Pixels) -> (usize, Pixels) {
+pub fn fit(width: Pixels, item: Pixels, gap: Pixels) -> (usize, Pixels) {
     let count = columns_for(width, item, gap) as usize;
     let used = (item + gap) * count as f32 - gap;
     (count, ((width - used) / 2.0).max(Pixels::ZERO))

@@ -15,7 +15,7 @@ use crate::{motion, theme::ActiveTheme};
 const IDLE: Duration = Duration::from_millis(900);
 
 /// Sets `scroll`'s offset along `axis` whole so `item`, as painted, sits inside the box, its start first when it is longer; true when it moved.
-pub(crate) fn bring_into_view(scroll: &ScrollHandle, item: Bounds<Pixels>, axis: Axis) -> bool {
+pub fn bring_into_view(scroll: &ScrollHandle, item: Bounds<Pixels>, axis: Axis) -> bool {
     let (frame, offset) = (scroll.bounds(), scroll.offset());
     let ((start, end), (first, last)) = match axis {
         Axis::Horizontal => ((item.left(), item.right()), (frame.left(), frame.right())),
@@ -38,7 +38,7 @@ pub(crate) fn bring_into_view(scroll: &ScrollHandle, item: Bounds<Pixels>, axis:
 }
 
 /// A canvas over a Tab stop in a scroll box: when the stop takes focus, it brings its painted box into view along `axis`, once per focus. A new `id` reveals again.
-pub(crate) fn reveal_when_focused(
+pub fn reveal_when_focused(
     id: impl Into<ElementId>,
     scroll: &ScrollHandle,
     focus: &FocusHandle,

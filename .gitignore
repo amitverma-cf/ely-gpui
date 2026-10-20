@@ -5,3 +5,4 @@ node_modules/
 /compat/kit/Cargo.lock
 /compat/kit/target/
 /docs/
+/cli/target/

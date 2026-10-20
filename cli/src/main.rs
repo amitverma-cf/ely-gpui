@@ -2,10 +2,11 @@ use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-#[path = "cargo_ely/component.rs"]
 mod component;
-#[path = "cargo_ely/icons.rs"]
+mod graph;
 mod icons;
+mod install;
+mod registry;
 
 fn main() {
     let mut args: Vec<String> = env::args().collect();
@@ -19,6 +20,16 @@ fn main() {
         "list" => handle_list(&args[2..]),
         "add" => handle_add(&args[2..]),
         "doctor" | "check" => handle_doctor(),
+        "registry" => {
+            let root = args
+                .get(2)
+                .map(PathBuf::from)
+                .unwrap_or_else(|| PathBuf::from("."));
+            if let Err(e) = registry::generate(&root) {
+                eprintln!("[error] {e}");
+                std::process::exit(1);
+            }
+        }
         "help" | "--help" | "-h" => print_help(),
         other => {
             eprintln!(
@@ -208,7 +219,7 @@ fn handle_add(args: &[String]) {
         return;
     }
 
-    handle_add_component(&args[0]);
+    handle_add_component(args);
 }
 
 fn handle_add_icons(pack: &str) {
@@ -264,13 +275,26 @@ fn handle_add_icons(pack: &str) {
     println!("  Icon::new({}::<Variant>)", enum_name);
 }
 
-fn handle_add_component(name: &str) {
+fn handle_add_component(args: &[String]) {
+    let mut opts = install::Options {
+        from: None,
+        dir: PathBuf::from("src/ui"),
+        force: false,
+    };
+    let mut names = vec![];
+    let mut it = args.iter();
+    while let Some(a) = it.next() {
+        match a.as_str() {
+            "--from" => opts.from = it.next().map(PathBuf::from),
+            "--dir" => opts.dir = it.next().map(PathBuf::from).unwrap_or(opts.dir),
+            "--force" => opts.force = true,
+            other => names.push(other.to_string()),
+        }
+    }
     let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
-    if let Err(e) = component::scaffold_component(name, &cwd) {
-        eprintln!("[error] {}", e);
-        println!(
-            "\nRun 'cargo ely list' to see all 44 chapters, or 'cargo ely list search <name>' to find components."
-        );
+    if let Err(e) = component::scaffold_components(&names, &cwd, &opts) {
+        eprintln!("[error] {e}");
+        std::process::exit(1);
     }
 }
 

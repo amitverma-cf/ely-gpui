@@ -37,7 +37,7 @@ impl IconTheme {
         cx.refresh_windows();
     }
 
-    pub(crate) fn file(&self, name: &str) -> LucideIcon {
+    pub fn file(&self, name: &str) -> LucideIcon {
         let name = name.to_lowercase();
         let extension = name.rsplit_once('.').map(|(_, extension)| extension);
         self.names
@@ -51,12 +51,12 @@ impl IconTheme {
 static ELY: LazyLock<IconTheme> = LazyLock::new(IconTheme::default);
 
 /// The owner's icon theme, or Ely's map alone.
-pub(crate) fn icon_theme(cx: &App) -> &IconTheme {
+pub fn icon_theme(cx: &App) -> &IconTheme {
     cx.try_global::<IconTheme>().unwrap_or(&ELY)
 }
 
 /// The icon a file's name suggests, under the owner's icon theme.
-pub(crate) fn file_icon(name: &str, cx: &App) -> LucideIcon {
+pub fn file_icon(name: &str, cx: &App) -> LucideIcon {
     icon_theme(cx).file(name)
 }
 

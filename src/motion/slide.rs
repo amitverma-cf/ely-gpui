@@ -5,10 +5,10 @@ use gpui::{
 use super::spring;
 
 /// Start and length of an item along the axis a marker slides on.
-pub(crate) type Span = (Pixels, Pixels);
+pub type Span = (Pixels, Pixels);
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Axis {
+pub enum Axis {
     Horizontal,
     Vertical,
 }
@@ -31,7 +31,7 @@ impl Axis {
 
 /// Where a sliding marker's items sit, and where it last stood.
 #[derive(Default)]
-pub(crate) struct Slide {
+pub struct Slide {
     origin: Pixels,
     spans: Vec<Option<Span>>,
     from: Option<Span>,
@@ -40,14 +40,14 @@ pub(crate) struct Slide {
 }
 
 /// A marker's trip: from the last choice to this one, keyed by `generation`.
-pub(crate) struct Marker {
+pub struct Marker {
     pub from: Span,
     pub to: Span,
     pub generation: u64,
 }
 
 /// The slide over `values` with `selected` chosen; no marker until it is measured, or if it is not there.
-pub(crate) fn slide(
+pub fn slide(
     id: impl Into<ElementId>,
     values: &[SharedString],
     selected: &SharedString,
@@ -86,7 +86,7 @@ pub(crate) fn slide(
 }
 
 /// Records item `ix`'s span; place it as an absolute child that fills the item.
-pub(crate) fn measure_item(state: Entity<Slide>, ix: usize, axis: Axis) -> impl IntoElement {
+pub fn measure_item(state: Entity<Slide>, ix: usize, axis: Axis) -> impl IntoElement {
     canvas(
         move |bounds: Bounds<Pixels>, window, cx| {
             let span = Some(axis.span(bounds, state.read(cx).origin));
@@ -107,7 +107,7 @@ pub(crate) fn measure_item(state: Entity<Slide>, ix: usize, axis: Axis) -> impl 
 }
 
 /// Records where the container starts; place it as an absolute child that fills it.
-pub(crate) fn measure_origin(state: Entity<Slide>, axis: Axis) -> impl IntoElement {
+pub fn measure_origin(state: Entity<Slide>, axis: Axis) -> impl IntoElement {
     canvas(
         move |bounds: Bounds<Pixels>, window, cx| {
             let start = axis.start(bounds);
@@ -128,7 +128,7 @@ pub(crate) fn measure_origin(state: Entity<Slide>, axis: Axis) -> impl IntoEleme
 }
 
 /// A marker's span at `t` of its trip, overshooting a little.
-pub(crate) fn glide(from: Span, to: Span, t: f32) -> Span {
+pub fn glide(from: Span, to: Span, t: f32) -> Span {
     let s = spring(t);
     let lerp = |a: Pixels, b: Pixels| a + (b - a) * s;
     (lerp(from.0, to.0), lerp(from.1, to.1))

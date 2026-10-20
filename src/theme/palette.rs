@@ -153,7 +153,7 @@ pub const HUE_NAMES: [&str; 8] = [
 ];
 
 /// Chart hues each 3:1 on its mode's page that stay apart for protanopia, deuteranopia and tritanopia; `HUE_NAMES` still name them.
-pub(crate) fn color_blind_chart(mode: Mode) -> [Hsla; 8] {
+pub fn color_blind_chart(mode: Mode) -> [Hsla; 8] {
     match mode {
         Mode::Light => c8([
             0x0240b1, 0x08a399, 0xcd8017, 0x844954, 0xa276e3, 0x184606, 0xb84f10, 0x20789d,

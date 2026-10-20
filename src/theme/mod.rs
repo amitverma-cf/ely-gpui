@@ -18,7 +18,7 @@ mod syntax;
 mod tokens;
 mod tooling;
 
-pub(crate) mod baked {
+pub mod baked {
     include!(concat!(env!("OUT_DIR"), "/ely_baked.rs"));
 }
 
@@ -99,7 +99,7 @@ impl ActiveTheme for App {
 }
 
 impl Theme {
-    pub(crate) fn init(cx: &mut App) {
+    pub fn init(cx: &mut App) {
         let mode = match baked::BAKED_DEFAULT_MODE {
             "dark" => Mode::Dark,
             "light" => Mode::Light,

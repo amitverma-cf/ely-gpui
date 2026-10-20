@@ -16,17 +16,17 @@ pub use copy::CopyableText;
 pub use effects::{GradientText, ShimmerText, Typewriter};
 pub use emoji::Emoji;
 pub use fit::{Ellipsis, EllipsisTooltip, MiddleEllipsis};
-pub(crate) use fit::{LEADING, text_width};
+pub use fit::{LEADING, text_width};
 pub use format::DurationStyle;
-pub(crate) use formatted::fresh;
+pub use formatted::fresh;
 pub use formatted::{
     CurrencyText, DateTimeText, DurationText, FileSizeText, NumberText, PercentText, PluralText,
     RelativeTime,
 };
 pub use inline::{Blockquote, Code, Highlight, Kbd, KbdCombo};
 pub use link::{ExternalLink, Link};
-pub(crate) use math::failed;
-pub(crate) use math::typeset;
+pub use math::failed;
+pub use math::typeset;
 pub use math::{Latex, MathError, formula_svg};
 pub use rolling::AnimatedNumber;
 pub use select::SelectableText;

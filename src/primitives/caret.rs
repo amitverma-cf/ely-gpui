@@ -5,12 +5,12 @@ fn snap(logical: Pixels, least: f32, scale: f32) -> Pixels {
 }
 
 /// The width a caret paints at: whole device pixels, at least one.
-pub(crate) fn caret_width(width: Pixels, scale: f32) -> Pixels {
+pub fn caret_width(width: Pixels, scale: f32) -> Pixels {
     snap(width, 1.0, scale)
 }
 
 /// A caret bar at `origin`, `width` wide, snapped whole to device pixels so it keeps one width.
-pub(crate) fn caret_bar(
+pub fn caret_bar(
     origin: Point<Pixels>,
     width: Pixels,
     height: Pixels,
