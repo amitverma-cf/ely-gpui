@@ -81,7 +81,13 @@ async fn shoot_all_stories(
     let manifest: StoriesManifest =
         serde_json::from_str(include_str!("stories.json")).context("parse stories.json")?;
     let gallery = window.update(cx, |_, window, _| number(window))??;
-
+    // Pictures that load off the main thread, a diagram among them, need longer than the default.
+    let settle = Duration::from_millis(
+        std::env::var("ELY_CAPTURE_SETTLE")
+            .ok()
+            .and_then(|ms| ms.parse().ok())
+            .unwrap_or(100),
+    );
     for (ix, page) in manifest.pages.iter().enumerate() {
         if only.is_some_and(|p| p != ix) {
             continue;
@@ -94,9 +100,7 @@ async fn shoot_all_stories(
                     gallery.select_story(ix, story.slug.clone().into(), cx);
                     gallery.choose(choice, window, cx);
                 })?;
-                cx.background_executor()
-                    .timer(Duration::from_millis(100))
-                    .await;
+                cx.background_executor().timer(settle).await;
                 snapshot_cropped(gallery, &path)?;
                 log::info!("capture story: wrote {}", path.display());
             }

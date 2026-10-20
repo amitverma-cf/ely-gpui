@@ -75,18 +75,18 @@ export const registryChapters: RegistryChapter[] = registryManifest.chapters;
 /** Every component in the registry, whatever its status. */
 export const componentCount = registryComponents.length;
 
-/** The component's isometric miniature, drawn for the shown mode. */
-export function getMiniatureSrc(name: string, mode: string): string {
-  const base = import.meta.env.BASE_URL || "/";
-  const prefix = base.endsWith("/") ? base : `${base}/`;
-  return `${prefix}components/svg/${name.replace(/[^a-z0-9_]/g, "_")}.${mode}.svg`;
-}
-
+/** The story that draws the component: its own chapter's first, else any chapter's. */
 export function getStoryUrl(chapterNumber: number, componentName: string): { page: string; story: string } {
-  const ch = chapters.find((c) => c.number === chapterNumber);
-  if (!ch) return { page: "primitives", story: "box-view" };
-  const s = ch.stories.find((st) => st.components.includes(componentName)) || ch.stories[0];
-  return { page: ch.slug, story: s ? s.slug : ch.stories[0].slug };
+  const plain = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const draws = (st: { components: string[] }) => st.components.some((n) => plain(n) === plain(componentName));
+  const own = chapters.find((c) => c.number === chapterNumber);
+  const ownStory = own?.stories.find(draws);
+  if (own && ownStory) return { page: own.slug, story: ownStory.slug };
+  for (const c of chapters) {
+    const found = c.stories.find(draws);
+    if (found) return { page: c.slug, story: found.slug };
+  }
+  throw new Error(`no story draws ${componentName}`);
 }
 
 export function getComponentImageSrc(page: string, story: string, mode: string): string {

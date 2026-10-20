@@ -112,8 +112,12 @@ pub fn elements(tree: &Tree) -> Vec<(Mp, String, String)> {
         }
         for item in &m.ast.items {
             let (ident, vis, attrs) = match item {
-                Item::Struct(i) => (i.ident.to_string(), &i.vis, &i.attrs),
-                Item::Enum(i) => (i.ident.to_string(), &i.vis, &i.attrs),
+                Item::Struct(i) if i.generics.params.is_empty() => {
+                    (i.ident.to_string(), &i.vis, &i.attrs)
+                }
+                Item::Enum(i) if i.generics.params.is_empty() => {
+                    (i.ident.to_string(), &i.vis, &i.attrs)
+                }
                 _ => continue,
             };
             let public = matches!(vis, Visibility::Public(_))

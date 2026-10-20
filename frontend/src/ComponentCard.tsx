@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { type RegistryComponent, getComponentImageSrc, getMiniatureSrc, getStoryUrl } from "./data";
+import { type RegistryComponent, getComponentImageSrc, getStoryUrl } from "./data";
 import { useMode } from "./theme";
 
 const STATUS: Record<string, string> = {
@@ -13,12 +13,10 @@ const STATUS: Record<string, string> = {
 
 export function ComponentCard({ item }: { item: RegistryComponent }) {
   const [copied, setCopied] = useState(false);
-  // The miniature first, then the story's capture, then a drawn stand-in.
-  const [stage, setStage] = useState(0);
+  const [imgError, setImgError] = useState(false);
   const mode = useMode();
   const target = getStoryUrl(item.chapter, item.display_name);
   const imageSrc = getComponentImageSrc(target.page, target.story, mode);
-  const miniature = getMiniatureSrc(item.name, mode);
   const copyable = item.status === "component" || item.status === "feature";
 
   const copyCommand = (e: React.MouseEvent) => {
@@ -32,12 +30,12 @@ export function ComponentCard({ item }: { item: RegistryComponent }) {
   return (
     <div className="comp-card">
       <Link to="/components/$page/$story/" params={target} className="comp-card-preview" title={`Open ${item.display_name} demo`}>
-        {stage < 2 && (
+        {!imgError && (
           <img
-            src={stage === 0 ? miniature : imageSrc}
+            src={imageSrc}
             alt={item.display_name}
             className="comp-card-real-img"
-            onError={() => setStage(stage + 1)}
+            onError={() => setImgError(true)}
             loading="lazy"
           />
         )}

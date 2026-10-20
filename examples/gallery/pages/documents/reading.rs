@@ -2,9 +2,9 @@ use std::rc::Rc;
 
 use ely_gpui::{
     documents::{
-        Chapter, DocPage, DocumentViewer, EpubReader, Footnote, Glossary, MarkdownRenderer,
-        PageHit, PageNote, PrintPreview, PrintSettings, ReadingProgress, RichTextEditor,
-        TooltipTerm, ZenMode, markdown_highlights, outline,
+        Chapter, Diagram, DocPage, DocumentViewer, EpubReader, Footnote, Glossary,
+        MarkdownRenderer, PageHit, PageNote, PrintPreview, PrintSettings, ReadingProgress,
+        RichTextEditor, TooltipTerm, ZenMode, markdown_highlights, outline,
     },
     editor::FindWidget,
     forms::TextInput,
@@ -24,6 +24,7 @@ use crate::{
 
 const PAGES: [&str; 2] = [asset!("pages/lift-1.png"), asset!("pages/lift-2.png")];
 const SLIDES: [&str; 2] = [asset!("pages/slide-1.png"), asset!("pages/slide-2.png")];
+const DIAGRAM: &str = "flowchart LR\n  Draft --> Review{Review}\n  Review -->|approved| Ship\n  Review -->|changes| Draft";
 const WORDS: &str = include_str!("../../assets/pages/lift.json");
 
 const GUIDE: &str = "# Lift\n\nA lift blends a color toward white.\n\n## In light\n\nPaper white under ink near black; accents at half a lift.\n\n## In dark\n\nWarm charcoal under off-white text; accents lift further, so they read with the same weight.\n\n### Surfaces\n\nA card sits one lift above the page, a menu one above the card.\n\n## In motion\n\nHover, press and focus are lifts of the accent, eased on one scale of durations.\n\n## Closing\n\nWhatever the hue, a step of lift means the same step of emphasis.";
@@ -168,6 +169,14 @@ pub fn reading(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                     ),
             ),
             ),
+        )
+        .child(
+            section(
+                "Diagram",
+                "A Mermaid diagram drawn from its source, in the theme's colors; a source that does not parse shows why, and the source beside it.",
+                cx,
+            )
+            .child(div().w(px(560.)).child(Diagram::new("read-diagram", DIAGRAM))),
         )
         .child(
             section(

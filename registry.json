@@ -1,7 +1,7 @@
 {
   "$schema": "https://elygpui.com/schema/registry.json",
   "version": "2.0.0",
-  "total_components": 1296,
+  "total_components": 1294,
   "total_chapters": 44,
   "chapters": [
     {
@@ -171,7 +171,7 @@
       "title": "Window & Shell",
       "summary": "Title bars, rails, tabs, and the windows around an app.",
       "source_dir": "src/shell",
-      "component_count": 39,
+      "component_count": 38,
       "components": [
         "TitleBar",
         "ColumnShell",
@@ -180,6 +180,7 @@
         "TrafficLights",
         "WindowDragRegion",
         "WindowResizeBorder",
+        "ResizeBorder",
         "NativeMenu",
         "MenuBar",
         "JumpList",
@@ -209,9 +210,7 @@
         "CrashReporter",
         "OfflineIndicator",
         "ZoomControl",
-        "ResizeBorder",
-        "Vibrancy",
-        "Hosted"
+        "Vibrancy"
       ]
     },
     {
@@ -448,7 +447,7 @@
       "title": "Feedback",
       "summary": "What the app tells you: toasts, notifications, alerts and the states a view can be in.",
       "source_dir": "src/feedback",
-      "component_count": 27,
+      "component_count": 26,
       "components": [
         "Toast",
         "Snackbar",
@@ -468,15 +467,14 @@
         "Offline",
         "ErrorBoundary",
         "Result",
+        "ResultView",
         "ConfirmationCard",
         "SavingIndicator",
         "SyncStatus",
         "ConnectionStatus",
         "Countdown",
         "Timer",
-        "ResultView",
-        "Suspense",
-        "AsyncView"
+        "Suspense"
       ]
     },
     {
@@ -485,7 +483,7 @@
       "title": "Loading & Motion",
       "summary": "Waiting, shown honestly, and the motion everything else moves with.",
       "source_dir": "src/motion",
-      "component_count": 37,
+      "component_count": 38,
       "components": [
         "Spinner",
         "DotsLoader",
@@ -506,6 +504,7 @@
         "ProgressRing",
         "LoadingOverlay",
         "LazyLoad",
+        "AsyncView",
         "RefreshIndicator",
         "TypingIndicator",
         "Transition",
@@ -704,6 +703,7 @@
         "VolumeProfile",
         "RenkoChart",
         "PointAndFigure",
+        "PointFigureChart",
         "MultiChartLayout",
         "ChartSync",
         "Ticker",
@@ -756,8 +756,7 @@
         "CurrencyConverter",
         "CryptoWalletCard",
         "TransactionList",
-        "Candle Countdown",
-        "PointFigureChart"
+        "Candle Countdown"
       ]
     },
     {
@@ -938,6 +937,7 @@
         "MarkdownRenderer",
         "DocumentOutline",
         "ReadingProgress",
+        "Diagram",
         "DocumentViewer",
         "PDFViewer",
         "PageThumbnailList",
@@ -960,8 +960,7 @@
         "TemplatePicker",
         "TrashBin",
         "VersionHistory",
-        "PageHistoryDiff",
-        "Diagram"
+        "PageHistoryDiff"
       ]
     },
     {
@@ -985,15 +984,15 @@
         "CommentMarker",
         "CommentSidebar",
         "Annotation",
+        "AnnotatedText",
         "SuggestionMode",
         "TrackChanges",
         "ShareDialog",
         "InviteInput",
         "PermissionSelect",
         "AccessList",
-        "ActivityLog",
-        "AnnotatedText",
-        "LinkAccess"
+        "LinkAccess",
+        "ActivityLog"
       ]
     },
     {
@@ -1297,7 +1296,7 @@
       "title": "Calendar",
       "summary": "Days, weeks, months and years, and what happens in them.",
       "source_dir": "src/calendar",
-      "component_count": 19,
+      "component_count": 18,
       "components": [
         "CalendarMonthView",
         "MiniCalendar",
@@ -1316,8 +1315,7 @@
         "AvailabilityPicker",
         "YearView",
         "EventCard",
-        "EventChip",
-        "CalendarDays"
+        "EventChip"
       ]
     },
     {
@@ -1367,6 +1365,7 @@
         "ZoomControls",
         "ZoomIndicator",
         "ToolPalette",
+        "ToolLayer",
         "SelectionBox",
         "TransformHandles",
         "SnapIndicator",
@@ -1400,8 +1399,7 @@
         "Connector Line",
         "MindMap",
         "Whiteboard",
-        "StickyNote",
-        "ToolLayer"
+        "StickyNote"
       ]
     },
     {
@@ -1462,6 +1460,7 @@
         "MetricsChart",
         "ResourceGauge",
         "UptimeBar",
+        "HealthCheck",
         "ServiceStatus",
         "HealthCheck Indicator",
         "AlertList",
@@ -1473,8 +1472,7 @@
         "ProcessTable",
         "MapView",
         "GeoHeatmap",
-        "WorldMap",
-        "HealthCheck"
+        "WorldMap"
       ]
     },
     {
@@ -1555,6 +1553,7 @@
         "Hotspot",
         "FeatureHighlight",
         "NewBadge",
+        "SetupChecklist",
         "InlineHelp",
         "EmptyStateWithAction",
         "HelpPanel",
@@ -1562,8 +1561,7 @@
         "KeyboardShortcutCheatsheet",
         "WhatsNewDialog",
         "FeedbackWidget",
-        "ContactSupport",
-        "SetupChecklist"
+        "ContactSupport"
       ]
     },
     {
@@ -1686,6 +1684,7 @@
         "Survey",
         "Quiz",
         "Flashcard",
+        "Flashcards",
         "ChangeLog Viewer",
         "LicenseViewer",
         "Terms",
@@ -1699,8 +1698,7 @@
         "IframeEmbed",
         "EmbedCard",
         "PrintButton",
-        "ShareSheet",
-        "Flashcards"
+        "ShareSheet"
       ]
     },
     {
@@ -3777,6 +3775,22 @@
       "status": "native"
     },
     {
+      "name": "resize_border",
+      "display_name": "ResizeBorder",
+      "chapter": 4,
+      "chapter_title": "Window & Shell",
+      "category": "shell",
+      "source_dir": "src/shell",
+      "file": "frame.rs",
+      "export_type": "ResizeBorder",
+      "description": "resize margin, hairline and shadow for a client-drawn window",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::shell::ResizeBorder",
+      "files": 2,
+      "unit": "shell/frame.rs"
+    },
+    {
       "name": "native_menu",
       "display_name": "NativeMenu",
       "chapter": 4,
@@ -4226,22 +4240,6 @@
       "unit": "shell/status.rs"
     },
     {
-      "name": "resize_border",
-      "display_name": "ResizeBorder",
-      "chapter": 4,
-      "chapter_title": "Window & Shell",
-      "category": "shell",
-      "source_dir": "src/shell",
-      "file": "frame.rs",
-      "export_type": "ResizeBorder",
-      "description": "Resize margin, hairline and shadow for a client-drawn window; else a plain box",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::shell::ResizeBorder",
-      "files": 2,
-      "unit": "shell/frame.rs"
-    },
-    {
       "name": "vibrancy",
       "display_name": "Vibrancy",
       "chapter": 4,
@@ -4256,22 +4254,6 @@
       "import": "crate::ui::shell::Vibrancy",
       "files": 2,
       "unit": "shell/vibrancy.rs"
-    },
-    {
-      "name": "hosted",
-      "display_name": "Hosted",
-      "chapter": 4,
-      "chapter_title": "Window & Shell",
-      "category": "shell",
-      "source_dir": "src/shell",
-      "file": "windows.rs",
-      "export_type": "Hosted",
-      "description": "A window whose content is one component",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::shell::Hosted",
-      "files": 7,
-      "unit": "shell/windows.rs"
     },
     {
       "name": "button",
@@ -7407,6 +7389,22 @@
       "unit": "git/merging.rs"
     },
     {
+      "name": "result_view",
+      "display_name": "ResultView",
+      "chapter": 10,
+      "chapter_title": "Feedback",
+      "category": "feedback",
+      "source_dir": "src/feedback",
+      "file": "result.rs",
+      "export_type": "ResultView",
+      "description": "where a task ended: a ring and a check or an X that draw themselves, a title, a line and actions",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::feedback::ResultView",
+      "files": 9,
+      "unit": "feedback/result.rs"
+    },
+    {
       "name": "confirmation_card",
       "display_name": "ConfirmationCard",
       "chapter": 10,
@@ -7503,22 +7501,6 @@
       "unit": "feedback/clock.rs"
     },
     {
-      "name": "result_view",
-      "display_name": "ResultView",
-      "chapter": 10,
-      "chapter_title": "Feedback",
-      "category": "feedback",
-      "source_dir": "src/feedback",
-      "file": "result.rs",
-      "export_type": "ResultView",
-      "description": "Where a task ended: a ring and a check or an X that draw themselves, a title, a line and actions",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::feedback::ResultView",
-      "files": 9,
-      "unit": "feedback/result.rs"
-    },
-    {
       "name": "suspense",
       "display_name": "Suspense",
       "chapter": 10,
@@ -7531,22 +7513,6 @@
       "dependencies": [],
       "status": "component",
       "import": "crate::ui::feedback::Suspense",
-      "files": 9,
-      "unit": "feedback/suspense.rs"
-    },
-    {
-      "name": "async_view",
-      "display_name": "AsyncView",
-      "chapter": 10,
-      "chapter_title": "Feedback",
-      "category": "feedback",
-      "source_dir": "src/feedback",
-      "file": "suspense.rs",
-      "export_type": "AsyncView",
-      "description": "Loads a value off the main thread and shows it through a `Suspense`: a spinner while it loads, then `show`'s view of it, or the error with Try again",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::feedback::AsyncView",
       "files": 9,
       "unit": "feedback/suspense.rs"
     },
@@ -7834,6 +7800,22 @@
       "status": "core",
       "import": "ely_gpui::motion::LazyLoad",
       "unit": "motion/overlay.rs"
+    },
+    {
+      "name": "async_view",
+      "display_name": "AsyncView",
+      "chapter": 11,
+      "chapter_title": "Loading & Motion",
+      "category": "motion",
+      "source_dir": "src/feedback",
+      "file": "suspense.rs",
+      "export_type": "AsyncView",
+      "description": "Loads a value off the main thread and shows it through a `Suspense`: a spinner while it loads, then `show`'s view of it, or the error with Try again",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::feedback::AsyncView",
+      "files": 9,
+      "unit": "feedback/suspense.rs"
     },
     {
       "name": "refresh_indicator",
@@ -10169,6 +10151,22 @@
       "unit": "finance/renko.rs"
     },
     {
+      "name": "point_figure_chart",
+      "display_name": "PointFigureChart",
+      "chapter": 16,
+      "chapter_title": "Finance",
+      "category": "finance",
+      "source_dir": "src/finance",
+      "file": "renko.rs",
+      "export_type": "PointFigureChart",
+      "description": "prices as columns of Xs where they rose and Os where they fell",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::finance::PointFigureChart",
+      "files": 22,
+      "unit": "finance/renko.rs"
+    },
+    {
       "name": "multi_chart_layout",
       "display_name": "MultiChartLayout",
       "chapter": 16,
@@ -11015,22 +11013,6 @@
       "import": "crate::ui::feedback::Countdown",
       "files": 6,
       "unit": "feedback/clock.rs"
-    },
-    {
-      "name": "point_figure_chart",
-      "display_name": "PointFigureChart",
-      "chapter": 16,
-      "chapter_title": "Finance",
-      "category": "finance",
-      "source_dir": "src/finance",
-      "file": "renko.rs",
-      "export_type": "PointFigureChart",
-      "description": "Prices as columns of Xs where they rose and Os where they fell, a new column each time they turn by the reversal",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::finance::PointFigureChart",
-      "files": 22,
-      "unit": "finance/renko.rs"
     },
     {
       "name": "code_editor",
@@ -13082,6 +13064,22 @@
       "unit": "documents/reading.rs"
     },
     {
+      "name": "diagram",
+      "display_name": "Diagram",
+      "chapter": 21,
+      "chapter_title": "Documents",
+      "category": "documents",
+      "source_dir": "src/documents",
+      "file": "diagram.rs",
+      "export_type": "Diagram",
+      "description": "a Mermaid diagram; a failure shows why and the source",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::documents::Diagram",
+      "files": 103,
+      "unit": "documents/diagram.rs"
+    },
+    {
       "name": "document_viewer",
       "display_name": "DocumentViewer",
       "chapter": 21,
@@ -13450,22 +13448,6 @@
       "unit": "documents/history.rs"
     },
     {
-      "name": "diagram",
-      "display_name": "Diagram",
-      "chapter": 21,
-      "chapter_title": "Documents",
-      "category": "documents",
-      "source_dir": "src/documents",
-      "file": "diagram.rs",
-      "export_type": "Diagram",
-      "description": "A Mermaid diagram; a failure shows why and the source",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::documents::Diagram",
-      "files": 103,
-      "unit": "documents/diagram.rs"
-    },
-    {
       "name": "presence_avatars",
       "display_name": "PresenceAvatars",
       "chapter": 22,
@@ -13674,6 +13656,22 @@
       "unit": "collab/annotate.rs"
     },
     {
+      "name": "annotated_text",
+      "display_name": "AnnotatedText",
+      "chapter": 22,
+      "chapter_title": "Collaboration",
+      "category": "collab",
+      "source_dir": "src/collab",
+      "file": "annotate.rs",
+      "export_type": "AnnotatedText",
+      "description": "text with stretches people marked, each washed in its author's color, notes shown on rest",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::collab::AnnotatedText",
+      "files": 126,
+      "unit": "collab/annotate.rs"
+    },
+    {
       "name": "suggestion_mode",
       "display_name": "SuggestionMode",
       "chapter": 22,
@@ -13770,6 +13768,22 @@
       "unit": "collab/share.rs"
     },
     {
+      "name": "link_access",
+      "display_name": "LinkAccess",
+      "chapter": 22,
+      "chapter_title": "Collaboration",
+      "category": "collab",
+      "source_dir": "src/collab",
+      "file": "share.rs",
+      "export_type": "LinkAccess",
+      "description": "who a link lets in, at a role, and the link to copy",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::collab::LinkAccess",
+      "files": 130,
+      "unit": "collab/share.rs"
+    },
+    {
       "name": "activity_log",
       "display_name": "ActivityLog",
       "chapter": 22,
@@ -13784,38 +13798,6 @@
       "import": "crate::ui::data_display::ActivityFeed",
       "files": 5,
       "unit": "data_display/feed.rs"
-    },
-    {
-      "name": "annotated_text",
-      "display_name": "AnnotatedText",
-      "chapter": 22,
-      "chapter_title": "Collaboration",
-      "category": "collab",
-      "source_dir": "src/collab",
-      "file": "annotate.rs",
-      "export_type": "AnnotatedText",
-      "description": "Text with stretches people marked, each washed in its author's color and noted ones underlined: resting on a noted one shows the note and who left it; a press picks one",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::collab::AnnotatedText",
-      "files": 126,
-      "unit": "collab/annotate.rs"
-    },
-    {
-      "name": "link_access",
-      "display_name": "LinkAccess",
-      "chapter": 22,
-      "chapter_title": "Collaboration",
-      "category": "collab",
-      "source_dir": "src/collab",
-      "file": "share.rs",
-      "export_type": "LinkAccess",
-      "description": "Who a link lets in: only the people added, or anyone who has it, at a role; and the link to copy",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::collab::LinkAccess",
-      "files": 130,
-      "unit": "collab/share.rs"
     },
     {
       "name": "chat_container",
@@ -16466,7 +16448,7 @@
       "source_dir": "src/media",
       "file": "model.rs",
       "export_type": "ModelViewer",
-      "description": "A 3D model the host renders, a frame for each view, in the view's shape",
+      "description": "a 3D model the host renders, orbited by drag or arrows",
       "dependencies": [],
       "status": "component",
       "import": "crate::ui::media::ModelViewer",
@@ -17690,22 +17672,6 @@
       "unit": "calendar/chip.rs"
     },
     {
-      "name": "calendar_days",
-      "display_name": "CalendarDays",
-      "chapter": 30,
-      "chapter_title": "Calendar",
-      "category": "calendar",
-      "source_dir": "src/calendar",
-      "file": "days.rs",
-      "export_type": "CalendarDays",
-      "description": "`DAYS` days under their names: their whole days above, their hours below, where a drag makes an event and a drag on an event's lower edge moves its end",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::calendar::CalendarDays",
-      "files": 35,
-      "unit": "calendar/days.rs"
-    },
-    {
       "name": "priority_indicator",
       "display_name": "PriorityIndicator",
       "chapter": 31,
@@ -18159,6 +18125,22 @@
       "import": "crate::ui::canvas::ToolPalette",
       "files": 16,
       "unit": "canvas/palette.rs"
+    },
+    {
+      "name": "tool_layer",
+      "display_name": "ToolLayer",
+      "chapter": 32,
+      "chapter_title": "Canvas & Design",
+      "category": "canvas",
+      "source_dir": "src/canvas",
+      "file": "tools.rs",
+      "export_type": "ToolLayer",
+      "description": "a layer over an InfiniteCanvas where its tools work",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::canvas::ToolLayer",
+      "files": 27,
+      "unit": "canvas/tools.rs"
     },
     {
       "name": "selection_box",
@@ -18685,22 +18667,6 @@
       "description": "StickyNote component in Canvas & Design",
       "dependencies": [],
       "status": "unmapped"
-    },
-    {
-      "name": "tool_layer",
-      "display_name": "ToolLayer",
-      "chapter": 32,
-      "chapter_title": "Canvas & Design",
-      "category": "canvas",
-      "source_dir": "src/canvas",
-      "file": "tools.rs",
-      "export_type": "ToolLayer",
-      "description": "A layer over an InfiniteCanvas where its tools work",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::canvas::ToolLayer",
-      "files": 27,
-      "unit": "canvas/tools.rs"
     },
     {
       "name": "connection_manager",
@@ -19343,6 +19309,22 @@
       "unit": "dashboard/status.rs"
     },
     {
+      "name": "health_check",
+      "display_name": "HealthCheck",
+      "chapter": 34,
+      "chapter_title": "Dashboard & Monitoring",
+      "category": "dashboard",
+      "source_dir": "src/dashboard",
+      "file": "status.rs",
+      "export_type": "HealthCheck",
+      "description": "a health check's state as a dot and a word, with when it last ran and how long it took",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::dashboard::HealthCheck",
+      "files": 4,
+      "unit": "dashboard/status.rs"
+    },
+    {
       "name": "service_status",
       "display_name": "ServiceStatus",
       "chapter": 34,
@@ -19530,22 +19512,6 @@
       "import": "crate::ui::maps::WorldMap",
       "files": 18,
       "unit": "maps/world.rs"
-    },
-    {
-      "name": "health_check",
-      "display_name": "HealthCheck",
-      "chapter": 34,
-      "chapter_title": "Dashboard & Monitoring",
-      "category": "dashboard",
-      "source_dir": "src/dashboard",
-      "file": "status.rs",
-      "export_type": "HealthCheck",
-      "description": "A health check's state as a dot and a word, with when it last ran and how long it took",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::dashboard::HealthCheck",
-      "files": 4,
-      "unit": "dashboard/status.rs"
     },
     {
       "name": "settings_layout",
@@ -20348,6 +20314,22 @@
       "unit": "data_display/badge.rs"
     },
     {
+      "name": "setup_checklist",
+      "display_name": "SetupChecklist",
+      "chapter": 37,
+      "chapter_title": "Onboarding & Help",
+      "category": "onboarding",
+      "source_dir": "src/onboarding",
+      "file": "checklist.rs",
+      "export_type": "SetupChecklist",
+      "description": "first things to do in a new app, with a bar in as many parts as tasks",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::onboarding::SetupChecklist",
+      "files": 8,
+      "unit": "onboarding/checklist.rs"
+    },
+    {
       "name": "inline_help",
       "display_name": "InlineHelp",
       "chapter": 37,
@@ -20474,22 +20456,6 @@
       "import": "crate::ui::onboarding::ContactSupport",
       "files": 20,
       "unit": "onboarding/support.rs"
-    },
-    {
-      "name": "setup_checklist",
-      "display_name": "SetupChecklist",
-      "chapter": 37,
-      "chapter_title": "Onboarding & Help",
-      "category": "onboarding",
-      "source_dir": "src/onboarding",
-      "file": "checklist.rs",
-      "export_type": "SetupChecklist",
-      "description": "First things to do in a new app: how many are done, in words and a bar in as many parts; each task with its line and Start while not done, done ones struck through",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::onboarding::SetupChecklist",
-      "files": 8,
-      "unit": "onboarding/checklist.rs"
     },
     {
       "name": "draggable",
@@ -21578,6 +21544,22 @@
       "unit": "misc/quiz.rs"
     },
     {
+      "name": "flashcards",
+      "display_name": "Flashcards",
+      "chapter": 42,
+      "chapter_title": "Misc",
+      "category": "misc",
+      "source_dir": "src/misc",
+      "file": "flashcards.rs",
+      "export_type": "Flashcards",
+      "description": "cards with a question on the front and its answer on the back, one at a time",
+      "dependencies": [],
+      "status": "component",
+      "import": "crate::ui::misc::Flashcards",
+      "files": 5,
+      "unit": "misc/flashcards.rs"
+    },
+    {
       "name": "change_log_viewer",
       "display_name": "ChangeLog Viewer",
       "chapter": 42,
@@ -21797,22 +21779,6 @@
       "import": "crate::ui::buttons::ShareButton",
       "files": 4,
       "unit": "buttons/share.rs"
-    },
-    {
-      "name": "flashcards",
-      "display_name": "Flashcards",
-      "chapter": 42,
-      "chapter_title": "Misc",
-      "category": "misc",
-      "source_dir": "src/misc",
-      "file": "flashcards.rs",
-      "export_type": "Flashcards",
-      "description": "Cards with a question on the front and its answer on the back, one at a time: a press on the card turns it, and Previous and Next go round the deck, front up",
-      "dependencies": [],
-      "status": "component",
-      "import": "crate::ui::misc::Flashcards",
-      "files": 5,
-      "unit": "misc/flashcards.rs"
     },
     {
       "name": "inspector_overlay",
