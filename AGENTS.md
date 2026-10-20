@@ -6,7 +6,7 @@ Ely GPUI. A component library for GPUI, in light and dark.
 
 - Rust 1.95, edition 2024. One crate: `ely-gpui`.
 - gpui, gpui_platform and gpui_web from crates.io's `gpui-pre` snapshots at `=0.3.9`, the pin GPUI Kit holds; each keeps its crate name through `package`. gpui takes `stacker`, which keeps deep layouts off the stack's end; gpui_platform takes `font-kit`, without which macOS draws no text. Feature `runtime_shaders`, on by default, turns on gpui_platform's: machines without Xcode lack the Metal compiler.
-- Assets, embedded with `rust-embed`: Lucide 1.48.0 icons (ISC), Inter 4.1 (regular, medium, semibold, italic), JetBrains Mono 2.304 and IBM Plex Sans Regular (OFL). Plex sits unmodified, its name reserved, where gpui's svg renderer loads it: gpui_web answers `.SystemUIFont` with it, and svg text falls back to it on the web.
+- Assets, which the crate does not bundle: `cargo ely init` downloads them into the project's `assets/` from pinned upstream sources (SHA-256 in `cli/src/fetch.rs`) and `build.rs` bakes in what `ely-gpui.toml` names. Lucide 1.48.0 icons (ISC), Inter 4.1 (regular, medium, semibold, italic), JetBrains Mono 2.304 and IBM Plex Sans Regular (OFL). Plex sits unmodified, its name reserved, where gpui's svg renderer loads it: gpui_web answers `.SystemUIFont` with it, and svg text falls back to it on the web.
 - Catalog data: `emojis` (Unicode emoji), `isolang` (ISO 639, native names), `isocountry` (ISO 3166), `iso_currency` (ISO 4217, also minor units for money).
 - Codes: `qrcode` (QR) and `barcoders` (Code 128, EAN-13), both MIT OR Apache-2.0, default features off. `rqrr` 0.11 ((MIT OR Apache-2.0) AND ISC, default features off) reads QR codes from the host's frames.
 - macOS extras (tray icon, Dock badge) call AppKit through `cocoa` 0.26 and `objc` 0.2, the crates gpui already links.
@@ -32,7 +32,8 @@ Ely GPUI. A component library for GPUI, in light and dark.
 - `cargo test --lib --features test-support`, `cargo clippy --all-targets --features test-support -- -D warnings`, `cargo fmt --check`. `scripts/check.sh` runs them with the house rules and lints the gallery for wasm32.
 - `cargo test --manifest-path compat/kit/Cargo.toml --target-dir target/kit` runs Ely beside GPUI Kit in one window: Tab through both, each library's dialog over the other's fields, one asset source. `scripts/check.sh` first resolves it afresh and holds `gpui-kit` to the newest release `cargo search` names, so a Kit release that moves its gpui pin fails resolution there, naming `gpui-pre`; Ely's pin then follows. Its lockfile stays out of git.
 - `rm -rf target/debug/incremental target/kit/debug/incremental` and `cargo clean -p ely-gpui` after each task item keep the disk lean. Cargo keeps every old build of the crate and its tests under a new hash; by T25 they had filled the disk.
-- `scripts/icons.sh <lucide-name>...` adds icons. Then add a line to `IconName` in `src/primitives/icon.rs`.
+- `cli/` is `cargo-ely`, a crate of its own with its own workspace: `cargo install --path cli`. `cargo ely init` writes `ely-gpui.toml` and `.cargo/config.toml` (`ELY_CONFIG_PATH`, which the crate's build script requires: it fails without it) and fetches fonts and Lucide; `add <component>` copies a component's files into `src/ui` as source; `add icons <pack>` fetches a pack; `list`, `doctor`.
+- `cargo run --manifest-path cli/Cargo.toml -- registry .` rebuilds `registry.json` from `examples/gallery/stories.json`, the task notes and the source; `--check` fails when it is stale, as `scripts/check.sh` does. `node frontend/scripts/miniatures.mjs` writes one isometric SVG per component, light and dark, into `frontend/public/components/svg`; `--check` likewise.
 - `python3 scripts/countries.py <ne_110m_admin_0_countries.geojson>` writes the bundled world; `python3 scripts/tiles.py <same file>` writes the gallery's map tiles.
 
 ## Layout
@@ -244,6 +245,9 @@ Ely GPUI. A component library for GPUI, in light and dark.
 - A logger of input lays its canvas before what it holds, so its capture listeners run first and see what a child stops. Key downs come through `App::intercept_keystrokes`, which runs before bindings, and a key context on its box tells it focus is inside (`tooling::EventLogger`). It also hears a lone modifier's release as a keystroke, which the logger skips.
 
 ## Decisions
+
+- 2026-10-21: components are source, not a library. The crate keeps what everything imports (theme, motion, primitives, i18n, layout, typography); the other chapters are copied by `cargo ely add` into the project's `src/ui`, imports rewritten from the real `use` graph (`cli/src/graph.rs`), each file's hash kept in `ely.lock` so an update spares edits. Core items copied code uses are `pub`, not `pub(crate)`.
+- 2026-10-21: fonts, icons and data files are not bundled. The crate's build script reads the project's `ely-gpui.toml` through `ELY_CONFIG_PATH` (set by `cargo ely init` in `.cargo/config.toml`, and by this repo's own) and embeds only the configured fonts, the icons the project's code and the core modules name, and `[media.files]`; `HeroIcon` and `HugeIcon` have no variants until their pack is fetched. `registry.json` entries carry a status (component, feature, core, native, blocked, host, unmapped) and, for copyable ones, the file and its closure.
 
 - 2026-09-24: official gpui 0.2.2 over the `gpui-pre` snapshot. Older API, first-party publisher.
 - 2026-09-24: one crate. Revisit if an incremental check passes 90 seconds.

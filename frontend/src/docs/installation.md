@@ -27,30 +27,28 @@ gpui_platform = { package = "gpui-pre-platform", version = "=0.3.9", features = 
 
 Ely's default feature, `runtime_shaders`, turns on the same feature in `gpui_platform`, so GPUI compiles its Metal shaders at run time. With `default-features = false` the build runs `xcrun metal` instead, which needs Xcode's Metal compiler.
 
-## CLI tool & component generator
+## The `cargo ely` tool
 
-Install the `cargo-ely` binary to scaffold configuration manifests, download icon packs, list components, and generate plug-and-play components directly into your codebase:
+`cargo ely` sets a project up and copies components into it as source. From a clone of the repository:
 
 ```sh
-cargo install --path .
+cargo install --path cli
+cd your-project
 cargo ely init
-cargo ely list
 cargo ely add button
-cargo ely add command_palette
-cargo ely add icons heroicons
-cargo ely doctor
 ```
 
-## Workspace configuration
+`init` writes `ely-gpui.toml` and `.cargo/config.toml`, and downloads Inter, JetBrains Mono, IBM Plex Sans and the Lucide icons into `assets/`, each checked against a pinned checksum. See [the CLI guide](/docs/#the-cli) for every command.
 
-Create `ely-gpui.toml` at your workspace root to define design tokens, paths, media, and icon pruning:
+## Project configuration
+
+`ely-gpui.toml` at the project root defines design tokens, paths, media and icon pruning. The build reads it through `ELY_CONFIG_PATH`, which `init` sets in `.cargo/config.toml`:
 
 ```toml
 [paths]
 scan_sources = ["src/**/*.rs"]
 
 [icons]
-packs = ["lucide", "heroicons", "hugeicons"]
 mode = "auto"
 ```
 
@@ -68,6 +66,7 @@ A window opens with a counter and a Press button. From a clone of the repository
 
 | Symptom | Cause and fix |
 | --- | --- |
+| Build error: `ely: ELY_CONFIG_PATH is not set` | The project has no `ely-gpui.toml` for the build to read. Run `cargo ely init`. |
 | `init` error: `ely: the asset source lacks N of Ely's files, first <path>: <reason>` | The app's source cannot load every file Ely bundles. Pass `Assets`, or `Assets::before(yours)` when the app has a source of its own. |
 | `init` error: `ely: embedded fonts failed to register` | GPUI's text system refused Ely's fonts. File a bug with the log. |
 | Windows open with no text on macOS | `gpui_platform` lacks the `font-kit` feature. |

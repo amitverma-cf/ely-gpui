@@ -1,14 +1,14 @@
 # Icons, fonts and assets
 
-`Assets` embeds Ely's icons and fonts in the binary. Pass it to `with_assets`, or `Assets::before(other)` to serve Ely's files first and every other path from another source; `init` checks that each of Ely's files loads through the app's source, then registers the fonts.
+`Assets` serves the icons, fonts and data files the build baked in from your `ely-gpui.toml`; none of them live in the library. `cargo ely init` downloads Inter, JetBrains Mono, IBM Plex Sans and Lucide into your `assets/`, and only what you declare or use reaches the binary. Pass it to `with_assets`, or `Assets::before(other)` to serve Ely's files first and every other path from another source; `init` checks that each of Ely's files loads through the app's source, then registers the fonts.
 
 ## Icons
 
-Ely supports typed icon provider enums (`LucideIcon`, `HeroIcon`, `HugeIcon`). Rather than using loose string paths, each provider enum implements `IconAsset`: `LucideIcon::Check` is `icons/lucide/check.svg`, and `name()` returns the icon name, `check`. Unreferenced icons are evicted at compilation time by `build.rs` based on AST scanning.
+Ely has typed icon enums (`LucideIcon`, `HeroIcon`, `HugeIcon`), each implementing `IconAsset`: `LucideIcon::Check` is `icons/check.svg`, and `name()` returns `check`. `HeroIcon` and `HugeIcon` have variants once their pack is on disk. `build.rs` scans your sources and the library's core modules, and embeds only the icons they name.
 
 | Call | Does |
 | --- | --- |
-| `Icon::new(icon)` | Draws the icon (e.g. `LucideIcon::Check`, `HeroIcon::Sparkles`, `HugeIcon::AiChat01`) at `IconSize::Md` in `fg`. |
+| `Icon::new(icon)` | Draws the icon (e.g. `LucideIcon::Check`) at `IconSize::Md` in `fg`. |
 | `Icon::from_path(path)` | Draws an SVG from the application's asset source with the same defaults. |
 | `.size(IconSize::Xl)` | `Xs` to `Xxl`, from the theme's icon sizes. |
 | `.color(color)` | Any color; components pass theme colors. |
@@ -19,14 +19,14 @@ GPUI's `svg()` paints with its own text color alone, so `Icon` always sets one.
 
 ## Adding icon packs
 
-Declare icon packs in `ely-gpui.toml` or add them via `cargo ely`:
+A pack in `assets/icons` is what makes its enum exist:
 
 ```sh
 cargo ely add icons heroicons
 cargo ely add icons hugeicons
 ```
 
-At build time, `build.rs` parses your source files and only bakes referenced SVGs into the binary.
+The build embeds only the SVGs your code names; the rest of the pack stays on disk.
 
 ## File icons
 
@@ -42,7 +42,7 @@ A name rule beats an extension rule, and both beat Ely's map.
 
 ## Fonts
 
-`init` registers seven fonts from `Assets`: Inter Regular, Medium, SemiBold and Italic; JetBrains Mono Regular and Medium; IBM Plex Sans Regular. The theme draws text in Inter and code in JetBrains Mono, set by its `font_family` and `mono_family` fields. On the web, GPUI answers the system UI font with IBM Plex Sans, and text inside SVGs falls back to it.
+`init` registers the seven fonts `cargo ely init` downloaded, served from `Assets`: Inter Regular, Medium, SemiBold and Italic; JetBrains Mono Regular and Medium; IBM Plex Sans Regular. The theme draws text in Inter and code in JetBrains Mono, set by its `font_family` and `mono_family` fields. On the web, GPUI answers the system UI font with IBM Plex Sans, and text inside SVGs falls back to it.
 
 ## An app's own assets
 

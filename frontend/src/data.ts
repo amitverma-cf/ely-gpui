@@ -21,7 +21,8 @@ export const chapters: Chapter[] = manifest.pages.map((c) => ({
   stories: c.stories.map((s) => ({ ...s, name: s.title.split(/ \/ | · | → | \(/)[0].trim() })),
 }));
 
-export const componentCount = new Set(chapters.flatMap((c) => c.stories.flatMap((s) => s.components))).size;
+/** Components the gallery shows live, one story each. */
+export const liveCount = new Set(chapters.flatMap((c) => c.stories.flatMap((s) => s.components))).size;
 
 /** Every story in reading order, for paging and search. */
 export const all = chapters.flatMap((chapter) => chapter.stories.map((story) => ({ chapter, story })));
@@ -50,6 +51,12 @@ export interface RegistryComponent {
   export_type: string;
   description: string;
   dependencies: string[];
+  /** `component` and `feature` copy with `cargo ely add`; the rest say where else they live. */
+  status: "component" | "feature" | "core" | "native" | "blocked" | "host" | "unmapped";
+  unit?: string;
+  import?: string;
+  /** Files `cargo ely add` copies for it. */
+  files?: number;
 }
 
 export interface RegistryChapter {
@@ -62,8 +69,18 @@ export interface RegistryChapter {
   components: string[];
 }
 
-export const registryComponents: RegistryComponent[] = registryManifest.components;
+export const registryComponents = registryManifest.components as RegistryComponent[];
 export const registryChapters: RegistryChapter[] = registryManifest.chapters;
+
+/** Every component in the registry, whatever its status. */
+export const componentCount = registryComponents.length;
+
+/** The component's isometric miniature, drawn for the shown mode. */
+export function getMiniatureSrc(name: string, mode: string): string {
+  const base = import.meta.env.BASE_URL || "/";
+  const prefix = base.endsWith("/") ? base : `${base}/`;
+  return `${prefix}components/svg/${name.replace(/[^a-z0-9_]/g, "_")}.${mode}.svg`;
+}
 
 export function getStoryUrl(chapterNumber: number, componentName: string): { page: string; story: string } {
   const ch = chapters.find((c) => c.number === chapterNumber);

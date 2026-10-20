@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { all, chapters, componentCount, REPO } from "../data";
+import { all, chapters, componentCount, liveCount, REPO } from "../data";
 import { Iso, useStill } from "../iso/Iso";
 import { BEAT, strike } from "../iso/marimba";
 import { app, bars, calendar, candles, chat, editor } from "../iso/models";
@@ -96,7 +96,7 @@ export function Home() {
         <Iso model={APP} label="A miniature app growing cell by cell" className="hero-iso" />
         <h1>Components for GPUI.</h1>
         <p>
-          {componentCount} components in {chapters.length} chapters, live in the browser.
+          {componentCount} components in {chapters.length} chapters, {liveCount} of them live in the browser.
         </p>
         <Link to="/components/" className="button">
           Browse

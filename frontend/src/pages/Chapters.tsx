@@ -28,7 +28,7 @@ export function Chapters() {
   useEffect(() => {
     document.title = activeChapter !== null
       ? `${registryChapters.find((c) => Number(c.number) === Number(activeChapter))?.title} · Components · Ely`
-      : "Components (1,280) · Ely";
+      : `Components (${registryComponents.length.toLocaleString("en-US")}) · Ely`;
   }, [activeChapter]);
 
   // Filter components by search query or chapter
