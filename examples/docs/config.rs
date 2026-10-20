@@ -1,7 +1,7 @@
 use ely_gpui::{
     Assets,
     assets::Image,
-    primitives::{FocusScope, HeroIcon, HugeIcon, Icon, LucideIcon},
+    primitives::{FocusScope, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize},
 };
 use gpui::{
@@ -55,22 +55,6 @@ impl Render for ConfigDemo {
                             .gap_2()
                             .child(Icon::new(LucideIcon::Sparkles).size(IconSize::Md))
                             .child("LucideIcon::Sparkles"),
-                    )
-                    .child(
-                        div()
-                            .flex()
-                            .items_center()
-                            .gap_2()
-                            .child(Icon::new(HeroIcon::Sparkles).size(IconSize::Md))
-                            .child("HeroIcon::Sparkles"),
-                    )
-                    .child(
-                        div()
-                            .flex()
-                            .items_center()
-                            .gap_2()
-                            .child(Icon::new(HugeIcon::AiChat01).size(IconSize::Md))
-                            .child("HugeIcon::AiChat01"),
                     ),
             )
             .child(

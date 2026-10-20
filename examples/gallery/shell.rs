@@ -68,6 +68,8 @@ impl Gallery {
         cx.notify();
     }
 
+    /// Opens one story of a page, for the native capture harness.
+    #[cfg(not(target_family = "wasm"))]
     pub fn select_story(&mut self, page: usize, story: SharedString, cx: &mut Context<Self>) {
         self.page = page;
         self.story = Some(story);

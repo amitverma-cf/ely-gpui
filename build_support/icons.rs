@@ -1,12 +1,18 @@
 use std::collections::HashSet;
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 pub fn to_pascal_case(name: &str) -> String {
     let mut result = String::new();
     for part in name.split(['-', '_']) {
         if part.is_empty() {
             continue;
+        }
+        // `arrow-down-0-1` and `arrow-down-01` are two icons: a digit after a digit takes an underscore.
+        if part.starts_with(|c: char| c.is_ascii_digit())
+            && result.ends_with(|c: char| c.is_ascii_digit())
+        {
+            result.push('_');
         }
         let mut chars = part.chars();
         if let Some(first) = chars.next() {
@@ -19,8 +25,7 @@ pub fn to_pascal_case(name: &str) -> String {
 
 pub fn scan_used_icons(sources: &[String], root_dir: &Path) -> HashSet<String> {
     let mut used = HashSet::new();
-    let re =
-        regex::Regex::new(r"(?:LucideIcon|HeroIcon|HugeIcon|LucideIcon)::([A-Za-z0-9_]+)").unwrap();
+    let re = regex::Regex::new(r"(?:LucideIcon|HeroIcon|HugeIcon)::([A-Za-z0-9_]+)").unwrap();
 
     for pattern in sources {
         let clean_path = pattern
@@ -29,6 +34,7 @@ pub fn scan_used_icons(sources: &[String], root_dir: &Path) -> HashSet<String> {
             .replace("**", "");
         let target_dir = root_dir.join(&clean_path);
         if target_dir.exists() {
+            println!("cargo:rerun-if-changed={}", target_dir.display());
             for entry in walkdir::WalkDir::new(&target_dir).into_iter().flatten() {
                 if entry.path().extension().and_then(|s| s.to_str()) == Some("rs")
                     && let Ok(content) = fs::read_to_string(entry.path())
@@ -63,6 +69,62 @@ pub fn minify_svg(raw: &str) -> String {
     tag_re.replace_all(&collapsed, "><").trim().to_string()
 }
 
+/// One icon pack on disk: its enum, where its SVGs sit, and the asset path they answer to.
+struct Pack {
+    enum_name: &'static str,
+    doc: &'static str,
+    dir: PathBuf,
+    prefix: &'static str,
+}
+
+/// `(variant, file stem, path)` for each SVG in the pack, by variant.
+fn read_pack(dir: &Path) -> Vec<(String, String, PathBuf)> {
+    let mut icons = Vec::new();
+    if let Ok(entries) = fs::read_dir(dir) {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.extension().and_then(|s| s.to_str()) == Some("svg")
+                && let Some(stem) = path.file_stem().and_then(|s| s.to_str())
+            {
+                icons.push((to_pascal_case(stem), stem.to_string(), path));
+            }
+        }
+    }
+    icons.sort_by(|a, b| a.0.cmp(&b.0));
+    icons
+}
+
+/// The enum, its `ALL`, `path` and `name`, and its `IconAsset`; an uninstalled pack has no variants.
+fn provider(code: &mut String, pack: &Pack, icons: &[(String, String, PathBuf)]) {
+    let name = pack.enum_name;
+    let variants = |f: &dyn Fn(&str, &str) -> String| -> String {
+        icons.iter().map(|(v, s, _)| f(v, s)).collect()
+    };
+    code.push_str(&format!("/// {}\n", pack.doc));
+    code.push_str("#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n");
+    code.push_str(&format!("pub enum {name} {{\n"));
+    code.push_str(&variants(&|v, s| format!("    /// `{s}.svg`\n    {v},\n")));
+    code.push_str("}\n\n");
+    code.push_str(&format!("impl {name} {{\n"));
+    code.push_str(&format!("    pub const ALL: &'static [{name}] = &[\n"));
+    code.push_str(&variants(&|v, _| format!("        {name}::{v},\n")));
+    code.push_str("    ];\n\n");
+    code.push_str("    pub fn path(self) -> &'static str {\n        match self {\n");
+    code.push_str(&variants(&|v, s| {
+        format!("            {name}::{v} => \"{}{s}.svg\",\n", pack.prefix)
+    }));
+    code.push_str("        }\n    }\n\n");
+    code.push_str("    pub fn name(self) -> &'static str {\n        match self {\n");
+    code.push_str(&variants(&|v, s| {
+        format!("            {name}::{v} => {s:?},\n")
+    }));
+    code.push_str("        }\n    }\n}\n\n");
+    code.push_str(&format!("impl IconAsset for {name} {{\n"));
+    code.push_str("    fn path(self) -> &'static str { self.path() }\n");
+    code.push_str("    fn name(self) -> &'static str { self.name() }\n");
+    code.push_str("}\n\n");
+}
+
 pub fn generate_icons(
     icons_dir: &Path,
     sources: &[String],
@@ -71,249 +133,60 @@ pub fn generate_icons(
     mode: &str,
     minify: bool,
 ) {
-    let mut lucide_icons = Vec::new();
-    if icons_dir.exists()
-        && let Ok(entries) = fs::read_dir(icons_dir)
-    {
-        for entry in entries.flatten() {
-            let path = entry.path();
-            if path.extension().and_then(|s| s.to_str()) == Some("svg")
-                && let Some(stem) = path.file_stem().and_then(|s| s.to_str())
-            {
-                let variant = to_pascal_case(stem);
-                lucide_icons.push((variant, stem.to_string(), path));
-            }
-        }
-    }
-
-    lucide_icons.sort_by(|a, b| a.0.cmp(&b.0));
-
-    let used_icons = scan_used_icons(sources, root_dir);
-
-    let mut code = String::new();
-    code.push_str("// Auto-generated icons from ely-gpui.toml. Do not edit.\n\n");
-
-    // 1. LucideIcon enum
-    code.push_str("/// Lucide icons bundled with Ely.\n");
-    code.push_str("#[allow(dead_code)]\n");
-    code.push_str("#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n");
-    code.push_str("pub enum LucideIcon {\n");
-    for (variant, stem, _) in &lucide_icons {
-        code.push_str(&format!("    /// `{stem}.svg`\n"));
-        code.push_str(&format!("    {variant},\n"));
-    }
-    code.push_str("}\n\n");
-
-    // LucideIcon methods
-    code.push_str("#[allow(dead_code)]\n");
-    code.push_str("impl LucideIcon {\n");
-    code.push_str("    pub const ALL: &'static [LucideIcon] = &[\n");
-    for (variant, _, _) in &lucide_icons {
-        code.push_str(&format!("        LucideIcon::{variant},\n"));
-    }
-    code.push_str("    ];\n\n");
-
-    code.push_str("    pub fn path(self) -> &'static str {\n");
-    code.push_str("        match self {\n");
-    for (variant, stem, _) in &lucide_icons {
-        code.push_str(&format!(
-            "            LucideIcon::{variant} => \"icons/{stem}.svg\",\n"
-        ));
-    }
-    code.push_str("        }\n");
-    code.push_str("    }\n\n");
-
-    code.push_str("    pub fn name(self) -> &'static str {\n");
-    code.push_str("        match self {\n");
-    for (variant, stem, _) in &lucide_icons {
-        code.push_str(&format!(
-            "            LucideIcon::{variant} => {:?},\n",
-            stem
-        ));
-    }
-    code.push_str("        }\n");
-    code.push_str("    }\n");
-    code.push_str("}\n\n");
-
-    // 2. IconAsset trait
+    let packs = [
+        Pack {
+            enum_name: "LucideIcon",
+            doc: "Lucide icons: those the code names are embedded.",
+            dir: icons_dir.to_path_buf(),
+            prefix: "icons/",
+        },
+        Pack {
+            enum_name: "HeroIcon",
+            doc: "Heroicons, when `cargo ely add icons heroicons` has fetched them.",
+            dir: icons_dir.join("heroicons"),
+            prefix: "icons/heroicons/",
+        },
+        Pack {
+            enum_name: "HugeIcon",
+            doc: "Hugeicons, when `cargo ely add icons hugeicons` has fetched them.",
+            dir: icons_dir.join("hugeicons"),
+            prefix: "icons/hugeicons/",
+        },
+    ];
+    let used = scan_used_icons(sources, root_dir);
+    let mut code = String::from("// Auto-generated icons from ely-gpui.toml. Do not edit.\n\n");
     code.push_str("pub trait IconAsset: Copy + Send + Sync + 'static {\n");
     code.push_str("    fn path(self) -> &'static str;\n");
     code.push_str("    fn name(self) -> &'static str;\n");
     code.push_str("}\n\n");
 
-    code.push_str("impl IconAsset for LucideIcon {\n");
-    code.push_str("    fn path(self) -> &'static str { self.path() }\n");
-    code.push_str("    fn name(self) -> &'static str { self.name() }\n");
-    code.push_str("}\n\n");
-
-    // 3. HeroIcon and HugeIcon provider enums
-    let hero_dir = icons_dir.join("heroicons");
-    let mut hero_icons = Vec::new();
-    if hero_dir.exists()
-        && let Ok(entries) = fs::read_dir(&hero_dir)
-    {
-        for entry in entries.flatten() {
-            let path = entry.path();
-            if path.extension().and_then(|s| s.to_str()) == Some("svg")
-                && let Some(stem) = path.file_stem().and_then(|s| s.to_str())
-            {
-                hero_icons.push((to_pascal_case(stem), stem.to_string(), path));
+    let mut table = String::new();
+    for pack in &packs {
+        let icons = read_pack(&pack.dir);
+        provider(&mut code, pack, &icons);
+        for (variant, stem, path) in &icons {
+            if mode != "all" && !used.contains(variant) {
+                continue;
             }
-        }
-    }
-    hero_icons.sort_by(|a, b| a.0.cmp(&b.0));
-
-    code.push_str("/// Heroicons pack.\n");
-    code.push_str("#[allow(dead_code)]\n");
-    code.push_str("#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n");
-    if hero_icons.is_empty() {
-        code.push_str("pub enum HeroIcon {\n    Sparkles,\n    Search,\n    Check,\n    ChevronRight,\n    Plus,\n    XMark,\n}\n\n");
-        code.push_str("#[allow(dead_code)]\nimpl IconAsset for HeroIcon {\n");
-        code.push_str("    fn path(self) -> &'static str {\n");
-        code.push_str("        match self {\n");
-        code.push_str("            HeroIcon::Sparkles => \"icons/sparkles.svg\",\n");
-        code.push_str("            HeroIcon::Search => \"icons/search.svg\",\n");
-        code.push_str("            HeroIcon::Check => \"icons/check.svg\",\n");
-        code.push_str("            HeroIcon::ChevronRight => \"icons/chevron-right.svg\",\n");
-        code.push_str("            HeroIcon::Plus => \"icons/plus.svg\",\n");
-        code.push_str("            HeroIcon::XMark => \"icons/x-mark.svg\",\n");
-        code.push_str("        }\n    }\n");
-        code.push_str("    fn name(self) -> &'static str {\n");
-        code.push_str("        match self {\n");
-        code.push_str("            HeroIcon::Sparkles => \"sparkles\",\n");
-        code.push_str("            HeroIcon::Search => \"search\",\n");
-        code.push_str("            HeroIcon::Check => \"check\",\n");
-        code.push_str("            HeroIcon::ChevronRight => \"chevron-right\",\n");
-        code.push_str("            HeroIcon::Plus => \"plus\",\n");
-        code.push_str("            HeroIcon::XMark => \"x-mark\",\n");
-        code.push_str("        }\n    }\n}\n\n");
-    } else {
-        code.push_str("pub enum HeroIcon {\n");
-        for (variant, stem, _) in &hero_icons {
-            code.push_str(&format!("    /// `{stem}.svg`\n    {variant},\n"));
-        }
-        code.push_str("}\n\n#[allow(dead_code)]\nimpl IconAsset for HeroIcon {\n");
-        code.push_str("    fn path(self) -> &'static str {\n        match self {\n");
-        for (variant, stem, _) in &hero_icons {
-            code.push_str(&format!(
-                "            HeroIcon::{variant} => \"icons/heroicons/{stem}.svg\",\n"
+            let Ok(content) = fs::read_to_string(path) else {
+                continue;
+            };
+            let svg = if minify {
+                minify_svg(&content)
+            } else {
+                content
+            };
+            table.push_str(&format!(
+                "    (\"{}{stem}.svg\", {svg:?}.as_bytes()),\n",
+                pack.prefix
             ));
         }
-        code.push_str("        }\n    }\n");
-        code.push_str("    fn name(self) -> &'static str {\n        match self {\n");
-        for (variant, stem, _) in &hero_icons {
-            code.push_str(&format!("            HeroIcon::{variant} => {:?},\n", stem));
-        }
-        code.push_str("        }\n    }\n}\n\n");
     }
-
-    let huge_dir = icons_dir.join("hugeicons");
-    let mut huge_icons = Vec::new();
-    if huge_dir.exists()
-        && let Ok(entries) = fs::read_dir(&huge_dir)
-    {
-        for entry in entries.flatten() {
-            let path = entry.path();
-            if path.extension().and_then(|s| s.to_str()) == Some("svg")
-                && let Some(stem) = path.file_stem().and_then(|s| s.to_str())
-            {
-                huge_icons.push((to_pascal_case(stem), stem.to_string(), path));
-            }
-        }
-    }
-    huge_icons.sort_by(|a, b| a.0.cmp(&b.0));
-
-    code.push_str("/// Hugeicons pack.\n");
-    code.push_str("#[allow(dead_code)]\n");
-    code.push_str("#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n");
-    if huge_icons.is_empty() {
-        code.push_str("pub enum HugeIcon {\n    AiChat01,\n    CodeBrowser,\n    CursorPointer01,\n    Folder01,\n}\n\n");
-        code.push_str("#[allow(dead_code)]\nimpl IconAsset for HugeIcon {\n");
-        code.push_str("    fn path(self) -> &'static str {\n");
-        code.push_str("        match self {\n");
-        code.push_str("            HugeIcon::AiChat01 => \"icons/bot.svg\",\n");
-        code.push_str("            HugeIcon::CodeBrowser => \"icons/code.svg\",\n");
-        code.push_str("            HugeIcon::CursorPointer01 => \"icons/mouse-pointer.svg\",\n");
-        code.push_str("            HugeIcon::Folder01 => \"icons/folder.svg\",\n");
-        code.push_str("        }\n    }\n");
-        code.push_str("    fn name(self) -> &'static str {\n");
-        code.push_str("        match self {\n");
-        code.push_str("            HugeIcon::AiChat01 => \"bot\",\n");
-        code.push_str("            HugeIcon::CodeBrowser => \"code\",\n");
-        code.push_str("            HugeIcon::CursorPointer01 => \"mouse-pointer\",\n");
-        code.push_str("            HugeIcon::Folder01 => \"folder\",\n");
-        code.push_str("        }\n    }\n}\n\n");
-    } else {
-        code.push_str("pub enum HugeIcon {\n");
-        for (variant, stem, _) in &huge_icons {
-            code.push_str(&format!("    /// `{stem}.svg`\n    {variant},\n"));
-        }
-        code.push_str("}\n\n#[allow(dead_code)]\nimpl IconAsset for HugeIcon {\n");
-        code.push_str("    fn path(self) -> &'static str {\n        match self {\n");
-        for (variant, stem, _) in &huge_icons {
-            code.push_str(&format!(
-                "            HugeIcon::{variant} => \"icons/hugeicons/{stem}.svg\",\n"
-            ));
-        }
-        code.push_str("        }\n    }\n");
-        code.push_str("    fn name(self) -> &'static str {\n        match self {\n");
-        for (variant, stem, _) in &huge_icons {
-            code.push_str(&format!("            HugeIcon::{variant} => {:?},\n", stem));
-        }
-        code.push_str("        }\n    }\n}\n\n");
-    }
-
-    // 4. Pruned and minified embedded icons table
-    code.push_str("#[allow(dead_code)]\n");
+    code.push_str(
+        "/// The icons the code uses, minified; the rest of each pack stays out of the binary.\n",
+    );
     code.push_str("pub const EMBEDDED_ICONS: &[(&str, &[u8])] = &[\n");
-    let embed_all = mode == "all";
-    for (variant, stem, path) in &lucide_icons {
-        if (embed_all || used_icons.contains(variant))
-            && let Ok(content) = fs::read_to_string(path)
-        {
-            let final_svg = if minify {
-                minify_svg(&content)
-            } else {
-                content
-            };
-            code.push_str(&format!(
-                "    (\"icons/{stem}.svg\", {:?}.as_bytes()),\n",
-                final_svg
-            ));
-        }
-    }
-    for (variant, stem, path) in &hero_icons {
-        if (embed_all || used_icons.contains(variant))
-            && let Ok(content) = fs::read_to_string(path)
-        {
-            let final_svg = if minify {
-                minify_svg(&content)
-            } else {
-                content
-            };
-            code.push_str(&format!(
-                "    (\"icons/heroicons/{stem}.svg\", {:?}.as_bytes()),\n",
-                final_svg
-            ));
-        }
-    }
-    for (variant, stem, path) in &huge_icons {
-        if (embed_all || used_icons.contains(variant))
-            && let Ok(content) = fs::read_to_string(path)
-        {
-            let final_svg = if minify {
-                minify_svg(&content)
-            } else {
-                content
-            };
-            code.push_str(&format!(
-                "    (\"icons/hugeicons/{stem}.svg\", {:?}.as_bytes()),\n",
-                final_svg
-            ));
-        }
-    }
+    code.push_str(&table);
     code.push_str("];\n");
-
-    let dest = out_dir.join("ely_icons.rs");
-    fs::write(&dest, code).expect("failed to write ely_icons.rs");
+    fs::write(out_dir.join("ely_icons.rs"), code).expect("failed to write ely_icons.rs");
 }

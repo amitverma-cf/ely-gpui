@@ -11,7 +11,6 @@ use build_support::media::MediaConfig;
 use build_support::tokens::ThemeConfig;
 
 #[derive(Debug, Deserialize, Default)]
-#[allow(dead_code)]
 struct Config {
     paths: Option<PathsConfig>,
     theme: Option<ThemeConfig>,
@@ -21,66 +20,59 @@ struct Config {
 }
 
 #[derive(Debug, Deserialize, Default)]
-#[allow(dead_code)]
 struct PathsConfig {
     assets_dir: Option<String>,
     icons_dir: Option<String>,
-    fonts_dir: Option<String>,
-    images_dir: Option<String>,
     scan_sources: Option<Vec<String>>,
 }
 
 #[derive(Debug, Deserialize, Default)]
-#[allow(dead_code)]
 struct IconsConfig {
-    packs: Option<Vec<String>>,
     mode: Option<String>,
     minify: Option<bool>,
-    fallback: Option<String>,
 }
 
-fn find_config_file() -> Option<PathBuf> {
-    if let Ok(path) = env::var("ELY_CONFIG_PATH") {
-        let p = PathBuf::from(path);
-        if p.exists() {
-            return Some(p);
-        }
+/// The modules `cargo ely add` never copies; keep in step with the CLI's `CORE`.
+const CORE_MODULES: &[&str] = &[
+    "i18n",
+    "layout",
+    "motion",
+    "primitives",
+    "theme",
+    "typography",
+];
+
+/// The project's `ely-gpui.toml`, named by `ELY_CONFIG_PATH`, which `cargo ely init` sets.
+fn find_config_file() -> PathBuf {
+    let Some(path) = env::var_os("ELY_CONFIG_PATH") else {
+        panic!(
+            "ely: ELY_CONFIG_PATH is not set, so there is no ely-gpui.toml to bake fonts, icons and tokens from.
+             Run `cargo ely init` in your project, or add to .cargo/config.toml:
+             
+    [env]
+    ELY_CONFIG_PATH = {{ value = \"ely-gpui.toml\", relative = true }}"
+        );
+    };
+    let path = PathBuf::from(path);
+    if !path.is_file() {
+        panic!(
+            "ely: ELY_CONFIG_PATH names {}, which is not a file",
+            path.display()
+        );
     }
-    let manifest_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
-    let mut curr = manifest_dir.as_path();
-    loop {
-        let candidate = curr.join("ely-gpui.toml");
-        if candidate.exists() {
-            return Some(candidate);
-        }
-        match curr.parent() {
-            Some(parent) => curr = parent,
-            None => break,
-        }
-    }
-    None
+    path
 }
 
 fn main() {
-    println!("cargo:rerun-if-changed=ely-gpui.toml");
     println!("cargo:rerun-if-env-changed=ELY_CONFIG_PATH");
 
     let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
-    let manifest_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
-
     let config_path = find_config_file();
-    let config: Config = if let Some(path) = &config_path {
-        println!("cargo:rerun-if-changed={}", path.display());
-        let content = fs::read_to_string(path).expect("failed to read ely-gpui.toml");
-        toml::from_str(&content).expect("failed to parse ely-gpui.toml")
-    } else {
-        Config::default()
-    };
+    println!("cargo:rerun-if-changed={}", config_path.display());
+    let content = fs::read_to_string(&config_path).expect("failed to read ely-gpui.toml");
+    let config: Config = toml::from_str(&content).expect("failed to parse ely-gpui.toml");
 
-    let root_dir = config_path
-        .as_deref()
-        .and_then(|p| p.parent())
-        .unwrap_or(&manifest_dir);
+    let root_dir = config_path.parent().expect("ely-gpui.toml has a folder");
 
     let assets_dir = config
         .paths
@@ -106,11 +98,22 @@ fn main() {
         .map(|d| root_dir.join(d))
         .unwrap_or_else(|| root_dir.join("assets/icons"));
 
-    let scan_sources = config
+    let mut scan_sources = config
         .paths
         .as_ref()
         .and_then(|p| p.scan_sources.clone())
         .unwrap_or_else(|| vec!["src".into(), "examples".into()]);
+    // The modules that stay in this crate draw icons of their own, whatever the project uses.
+    let manifest_dir = PathBuf::from(env::var("CARGO_MANIFEST_DIR").expect("cargo sets it"));
+    for core in CORE_MODULES {
+        scan_sources.push(
+            manifest_dir
+                .join("src")
+                .join(core)
+                .to_string_lossy()
+                .into_owned(),
+        );
+    }
 
     let icon_mode = config
         .icons

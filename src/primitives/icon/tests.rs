@@ -4,10 +4,20 @@ use super::{FoundIcons, Icon, LucideIcon, found};
 use crate::theme::{ActiveTheme, Theme};
 
 #[test]
-fn every_icon_ships_in_the_bundle() {
-    for icon in LucideIcon::ALL {
+fn every_embedded_icon_loads_and_the_ones_the_core_draws_are_among_them() {
+    for (path, bytes) in super::EMBEDDED_ICONS {
+        let loaded = gpui::AssetSource::load(&crate::Assets, path)
+            .unwrap()
+            .unwrap();
+        assert_eq!(&*loaded, *bytes, "{path}");
+    }
+    for icon in [
+        LucideIcon::Check,
+        LucideIcon::CircleAlert,
+        LucideIcon::ChevronRight,
+    ] {
         assert!(
-            crate::Assets::get(icon.path()).is_some(),
+            super::embedded_icon(icon.path()).is_some(),
             "{icon:?} missing at {}",
             icon.path()
         );

@@ -1,16 +1,20 @@
 use std::sync::{Arc, LazyLock};
 
-use gpui::{App, ElementId, IntoElement, RenderOnce, Window};
+use gpui::{App, AssetSource, ElementId, IntoElement, RenderOnce, Window};
 use isocountry::CountryCode;
 use serde_json::Value;
 
 use super::{ChoroplethLayer, ChoroplethMap, Feature, MapView, read_geojson};
+
 use crate::Assets;
 
 /// Natural Earth's 110m countries, read once from the bundle: each keeps its name and, but for two, its ISO 3166 alpha-2 code as `iso`.
 pub(crate) static COUNTRIES: LazyLock<Arc<[Feature]>> = LazyLock::new(|| {
-    let file = Assets::get("maps/countries.geojson").expect("the world's countries are bundled");
-    let text = std::str::from_utf8(&file.data).expect("the countries are UTF-8");
+    let file = Assets
+        .load("maps/countries.geojson")
+        .expect("the world's countries read")
+        .expect("the world's countries are declared under [media.files] in ely-gpui.toml");
+    let text = std::str::from_utf8(&file).expect("the countries are UTF-8");
     read_geojson(text)
         .expect("the bundled countries read")
         .into()

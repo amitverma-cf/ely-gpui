@@ -13,11 +13,9 @@ pub struct FontsConfig {
 }
 
 #[derive(Debug, Deserialize, Default, Clone)]
-#[allow(dead_code)]
 pub struct FontEntry {
     pub family: Option<String>,
     pub files: Option<Vec<String>>,
-    pub system: Option<bool>,
 }
 
 pub fn generate_fonts(
@@ -99,14 +97,12 @@ pub fn generate_fonts(
     }
     code.push_str("];\n\n");
 
-    code.push_str("#[allow(dead_code)]\n");
     code.push_str("pub const FONT_NAMES: &[&str] = &[\n");
     for (rel_path, _) in &resolved_fonts {
         code.push_str(&format!("    \"{}\",\n", rel_path));
     }
     code.push_str("];\n\n");
 
-    code.push_str("#[allow(dead_code)]\n");
     code.push_str("pub fn embedded_font(path: &str) -> Option<&'static [u8]> {\n");
     code.push_str("    match path {\n");
     for (rel_path, abs_path) in &resolved_fonts {

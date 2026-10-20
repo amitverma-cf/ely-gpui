@@ -27,7 +27,6 @@ pub struct ThemePaletteConfig {
 }
 
 #[derive(Debug, Deserialize, Default)]
-#[allow(dead_code)]
 pub struct TokensConfig {
     pub base_rem: Option<f32>,
     pub radius_sm: Option<f32>,
@@ -102,7 +101,6 @@ pub fn generate_tokens(
         "pub const BAKED_COLOR_BLIND_SAFE: bool = {};\n",
         color_blind_safe
     ));
-    code.push_str("#[allow(dead_code)]\n");
     code.push_str(&format!("pub const BAKED_DENSITY: &str = {:?};\n", density));
     code.push_str(&format!(
         "pub const BAKED_DENSITY_STR: &str = {:?};\n",
@@ -124,7 +122,6 @@ pub fn generate_tokens(
         "pub const BAKED_FONT_MONO: &str = {:?};\n",
         font_mono
     ));
-    code.push_str("#[allow(dead_code)]\n");
     code.push_str(&format!(
         "pub const BAKED_PALETTE_NAME: &str = {:?};\n",
         palette_name
@@ -373,15 +370,11 @@ pub fn generate_tokens(
     ];
     for (name, const_name) in presets {
         let (p_l, p_d) = get_preset_palettes(name);
-        code.push_str("#[allow(dead_code)]\n");
         emit_palette_instance(&format!("{}_LIGHT", const_name), &p_l, &mut code);
-        code.push_str("#[allow(dead_code)]\n");
         emit_palette_instance(&format!("{}_DARK", const_name), &p_d, &mut code);
     }
 
-    code.push_str("#[allow(dead_code)]\n");
     code.push_str("pub const BAKED_PRESET_NAMES: &[&str] = &[\"ely\", \"zinc\", \"slate\", \"nord\", \"catppuccin\", \"tokyo-night\"];\n\n");
-    code.push_str("#[allow(dead_code)]\n");
     code.push_str("pub fn get_baked_preset(name: &str, dark: bool) -> Option<BakedPalette> {\n");
     code.push_str("    let clean = name.to_ascii_lowercase().replace('-', \"_\");\n");
     code.push_str("    match (clean.as_str(), dark) {\n");

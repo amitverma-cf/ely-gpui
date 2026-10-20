@@ -6,7 +6,14 @@ fn one_source_serves_both_libraries() {
     let kit = gpui_kit::assets::Assets;
     let both = Assets::before(gpui_kit::assets::Assets);
     let ely = Assets.list("").unwrap();
-    assert!(ely.len() > 300, "Ely bundles {} files", ely.len());
+    assert!(
+        ely.iter().any(|path| path.starts_with("fonts/")),
+        "Ely serves its fonts"
+    );
+    assert!(
+        ely.iter().any(|path| path.starts_with("icons/")),
+        "Ely serves the icons its code names"
+    );
     for path in &ely {
         let served = both.load(path).unwrap().expect("Ely's file loads");
         assert_eq!(

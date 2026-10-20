@@ -1,14 +1,20 @@
 use std::borrow::Cow;
 
 use gpui::{App, AssetSource, Result, SharedString};
-use rust_embed::RustEmbed;
 
 include!(concat!(env!("OUT_DIR"), "/ely_fonts.rs"));
 include!(concat!(env!("OUT_DIR"), "/ely_media.rs"));
 
-/// Icons and fonts. Pass to `Application::with_assets`, alone or through `Assets::before`.
-#[derive(RustEmbed)]
-#[folder = "assets"]
+/// Every path the build baked in: the icons the code uses, the configured fonts, images and files.
+fn paths() -> impl Iterator<Item = &'static str> {
+    crate::primitives::EMBEDDED_ICONS
+        .iter()
+        .map(|(path, _)| *path)
+        .chain(FONT_NAMES.iter().copied())
+        .chain(MEDIA_NAMES.iter().copied())
+}
+
+/// Icons, fonts and files baked in from `ely-gpui.toml`. Pass to `Application::with_assets`, alone or through `Assets::before`.
 pub struct Assets;
 
 impl AssetSource for Assets {
@@ -19,14 +25,11 @@ impl AssetSource for Assets {
         if let Some(bytes) = embedded_font(path) {
             return Ok(Some(Cow::Borrowed(bytes)));
         }
-        if let Some(bytes) = embedded_media(path) {
-            return Ok(Some(Cow::Borrowed(bytes)));
-        }
-        Ok(Self::get(path).map(|file| file.data))
+        Ok(embedded_media(path).map(Cow::Borrowed))
     }
 
     fn list(&self, path: &str) -> Result<Vec<SharedString>> {
-        Ok(Self::iter()
+        Ok(paths()
             .filter(|name| name.starts_with(path))
             .map(SharedString::from)
             .collect())
@@ -71,8 +74,8 @@ impl<T: AssetSource> AssetSource for Before<T> {
 
 /// Ely's files the source cannot load, each with the reason.
 pub(crate) fn missing(source: &dyn AssetSource) -> Vec<String> {
-    Assets::iter()
-        .filter_map(|path| match source.load(&path) {
+    paths()
+        .filter_map(|path| match source.load(path) {
             Ok(Some(_)) => None,
             Ok(None) => Some(format!("{path}: not found")),
             Err(error) => Some(format!("{path}: {error}")),

@@ -32,7 +32,7 @@ pub use focus::{
 pub use focus::{FocusNext, FocusPrev, FocusRing, FocusScope};
 pub use ghost::DragGhost;
 pub use held::hold;
-pub use icon::embedded_icon;
+pub use icon::{EMBEDDED_ICONS, embedded_icon};
 pub use icon::{HeroIcon, HugeIcon, Icon, IconAsset, LucideIcon};
 pub use image::Image;
 pub use image::{checked_ratio, framed};

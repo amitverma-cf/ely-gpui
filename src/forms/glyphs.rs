@@ -5,7 +5,7 @@ use gpui::{App, ElementId, IntoElement, RenderOnce, SharedString, Window};
 
 use super::picks::{Grid, Pick, finder, grid, rows};
 use crate::{
-    primitives::{Icon, LucideIcon},
+    primitives::{Icon, LucideIcon, embedded_icon},
     theme::{ActiveTheme, ControlSize, IconSize, TextSize},
     typography::Emoji,
 };
@@ -55,6 +55,8 @@ impl RenderOnce for IconPicker {
             LucideIcon::ALL
                 .iter()
                 .copied()
+                // Only icons the build embedded draw; `mode = "all"` in ely-gpui.toml embeds every one.
+                .filter(|icon| embedded_icon(icon.path()).is_some())
                 .filter(|icon| icon.name().replace('-', " ").contains(&query))
                 .collect(),
         );

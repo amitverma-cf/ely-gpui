@@ -1,0 +1,4 @@
+# Ely's build script bakes fonts, icons and tokens from this file. A project that uses
+# Ely sets the same key (`cargo ely init` writes it).
+[env]
+ELY_CONFIG_PATH = { value = "ely-gpui.toml", relative = true }

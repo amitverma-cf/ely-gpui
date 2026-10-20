@@ -1,7 +1,6 @@
 [paths]
 assets_dir = "assets"
 icons_dir = "assets/icons"
-fonts_dir = "assets/fonts"
 scan_sources = ["src/**/*.rs", "examples/**/*.rs"]
 
 [theme]
@@ -137,13 +136,14 @@ fallback = { family = "IBM Plex Sans", files = [
 ] }
 
 [icons]
-packs = ["lucide"]
 mode = "auto"
 minify = true
-fallback = "image-off"
 
 [media.images]
 logo = { path = "logo.png", compress = "optipng" }
 
 [media.videos]
 
+
+[media.files]
+countries = { path = "maps/countries.geojson" }
