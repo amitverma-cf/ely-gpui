@@ -1,30 +1,33 @@
-use std::{path::Path, rc::Rc, sync::Arc};
+use std::{ops::Range, path::Path, rc::Rc, sync::Arc};
 
 use gpui::{
-    AnyElement, App, ElementId, Entity, FontStyle, FontWeight, HighlightStyle, InteractiveText,
-    IntoElement, ParentElement, Pixels, RenderOnce, SharedString, StrikethroughStyle, Styled,
-    StyledText, UnderlineStyle, Window, div, prelude::*, relative,
+    AnyElement, App, ElementId, Entity, FontWeight, HighlightStyle, InteractiveText, IntoElement,
+    ParentElement, RenderOnce, SharedString, Styled, StyledText, TextLayout, Window, div,
+    prelude::*, relative,
 };
 
 use super::{
     contents::anchor,
     diagram::Diagram,
-    picture::Picture,
+    picture::{Picture, Pictures},
     tree::{Inline, Node, Style, parse},
 };
 use crate::{
     editor::{code_colors, code_colors_with},
     navigation::{Anchor, Sections},
     primitives::FocusRing as _,
-    theme::{ActiveTheme, Palette, Radius, TextSize},
+    theme::{ActiveTheme, Radius, TextSize},
     typography::{Latex, failed},
 };
 
 mod blocks;
+mod math_text;
 mod point;
+mod style;
 mod table;
 
 pub(crate) use point::{OnPoint, Place, Pointed, point_lines};
+use style::highlight;
 pub(crate) use table::{CellAt, OpenCell};
 
 pub(crate) type OnLink = Rc<dyn Fn(&str, &mut Window, &mut App)>;
@@ -42,6 +45,9 @@ pub struct MarkdownRenderer {
     sections: Option<Entity<Sections>>,
     code: Option<DrawCode>,
     base: Option<Arc<Path>>,
+    /// Drawn instead of the source when given.
+    blocks: Option<Rc<[Node]>>,
+    pictures: Option<Rc<Pictures>>,
 }
 
 impl MarkdownRenderer {
@@ -54,7 +60,22 @@ impl MarkdownRenderer {
             sections: None,
             code: None,
             base: None,
+            blocks: None,
+            pictures: None,
         }
+    }
+
+    /// Blocks made elsewhere, such as a mail's HTML.
+    pub fn blocks(id: impl Into<ElementId>, blocks: Rc<[Node]>) -> Self {
+        let mut this = Self::new(id, "");
+        this.blocks = Some(blocks);
+        this
+    }
+
+    /// Pictures the owner holds, by address; read first.
+    pub fn pictures(mut self, pictures: Rc<Pictures>) -> Self {
+        self.pictures = Some(pictures);
+        self
     }
 
     /// The folder relative picture addresses start from.
@@ -94,6 +115,7 @@ impl MarkdownRenderer {
 /// What an owner hands its drawing: pictures' folder and presses.
 pub(crate) struct Hooks<'a> {
     pub base: &'a Option<Arc<Path>>,
+    pub pictures: &'a Option<Rc<Pictures>>,
     pub on_link: &'a Option<OnLink>,
     pub on_heading: &'a Option<OnHeading>,
     pub on_point: &'a Option<OnPoint>,
@@ -115,59 +137,40 @@ pub(crate) fn heading_step(level: u8) -> f32 {
     }
 }
 
-/// How one inline style draws.
-fn highlight(style: &Style, colors: &Palette, rule: Pixels) -> HighlightStyle {
-    match style {
-        Style::Strong => HighlightStyle {
-            font_weight: Some(HEAVY),
-            ..HighlightStyle::default()
-        },
-        Style::Emphasis => HighlightStyle {
-            font_style: Some(FontStyle::Italic),
-            ..HighlightStyle::default()
-        },
-        Style::Strike => HighlightStyle {
-            strikethrough: Some(StrikethroughStyle {
-                thickness: rule,
-                color: Some(colors.fg_muted),
-            }),
-            ..HighlightStyle::default()
-        },
-        Style::Code | Style::Math => HighlightStyle {
-            background_color: Some(colors.sunken),
-            color: Some(if *style == Style::Math {
-                colors.syntax.function
-            } else {
-                colors.fg
-            }),
-            ..HighlightStyle::default()
-        },
-        Style::Link => HighlightStyle {
-            color: Some(colors.link),
-            underline: Some(UnderlineStyle {
-                thickness: rule,
-                color: Some(colors.link.opacity(0.4)),
-                wavy: false,
-            }),
-            ..HighlightStyle::default()
-        },
-        Style::Footnote => HighlightStyle {
-            color: Some(colors.fg_subtle),
-            ..HighlightStyle::default()
-        },
-        Style::Underline => HighlightStyle {
-            underline: Some(UnderlineStyle {
-                thickness: rule,
-                color: None,
-                wavy: false,
-            }),
-            ..HighlightStyle::default()
-        },
-        Style::Mark => HighlightStyle {
-            background_color: Some(colors.warning_subtle),
-            ..HighlightStyle::default()
-        },
-    }
+/// Highlights laid over a text's own.
+type Over = Vec<(Range<usize>, HighlightStyle)>;
+
+/// `inline` as text; hidden ranges lose highlight, `over` adds some.
+fn drawn_text(
+    inline: &Inline,
+    (hidden, over): (&[Range<usize>], Over),
+    links: Option<ElementId>,
+    on_link: &Option<OnLink>,
+    cx: &App,
+) -> (AnyElement, TextLayout) {
+    let theme = cx.theme();
+    let colors = &theme.colors;
+    let rule = theme.underline_thickness();
+    let styles: Vec<_> = (inline.styles.iter())
+        .filter(|(range, _)| !hidden.contains(range))
+        .map(|(range, style)| (range.clone(), highlight(style, colors, rule)))
+        .chain(over)
+        .collect();
+    let styled = StyledText::new(inline.text.clone()).with_highlights(crate::editor::stack(styles));
+    let layout = styled.layout().clone();
+    let drawn = match links {
+        None => styled.into_any_element(),
+        Some(id) => {
+            let (ranges, urls): (Vec<_>, Vec<_>) = inline.links.iter().cloned().unzip();
+            let on_link = on_link.clone();
+            InteractiveText::new(id, styled)
+                .on_click(ranges, move |ix, window, cx| {
+                    open_link(&on_link, &urls[ix], window, cx)
+                })
+                .into_any_element()
+        }
+    };
+    (drawn, layout)
 }
 
 /// Draws nodes under one owner's ids and hooks.
@@ -198,30 +201,21 @@ impl Draw<'_> {
     }
 
     fn inline(&self, inline: &Inline, cx: &App) -> AnyElement {
-        let theme = cx.theme();
-        let colors = &theme.colors;
-        let rule = theme.underline_thickness();
-        let styles: Vec<_> = inline
-            .styles
-            .iter()
-            .map(|(range, style)| (range.clone(), highlight(style, colors, rule)))
-            .collect();
-        let styled =
-            StyledText::new(inline.text.clone()).with_highlights(crate::editor::stack(styles));
-        let layout = styled.layout().clone();
-        let drawn = match inline.links.is_empty() {
-            true => styled.into_any_element(),
-            false => {
-                let (ranges, urls): (Vec<_>, Vec<_>) = inline.links.iter().cloned().unzip();
-                let on_link = self.hooks.on_link.clone();
-                InteractiveText::new(self.key("links"), styled)
-                    .on_click(ranges, move |ix, window, cx| {
-                        open_link(&on_link, &urls[ix], window, cx)
-                    })
-                    .into_any_element()
-            }
-        };
-        self.point_text(drawn, layout, inline)
+        let links = (!inline.links.is_empty()).then(|| self.key("links"));
+        if !inline.styles.iter().any(|(_, style)| *style == Style::Math) {
+            let (drawn, layout) =
+                drawn_text(inline, (&[], Vec::new()), links, self.hooks.on_link, cx);
+            let at = move |position| {
+                layout
+                    .index_for_position(position)
+                    .unwrap_or_else(|near| near)
+            };
+            return self.point_text(drawn, at, inline);
+        }
+        let on_link = self.hooks.on_link.clone();
+        let (drawn, at) =
+            math_text::MathText::new(self.key("math"), inline.clone(), links, on_link);
+        self.point_text(drawn.into_any_element(), at, inline)
     }
 
     fn nodes(&self, nodes: &[Node], cx: &App) -> Vec<AnyElement> {
@@ -345,6 +339,11 @@ impl Draw<'_> {
                     alt: alt.clone(),
                     url: url.clone(),
                     base: self.hooks.base.clone(),
+                    held: self
+                        .hooks
+                        .pictures
+                        .as_ref()
+                        .and_then(|held| held.get(url).cloned()),
                 });
                 let drawn = match link.clone() {
                     None => picture.into_any_element(),
@@ -420,11 +419,19 @@ pub(crate) fn draw_nodes(
 impl RenderOnce for MarkdownRenderer {
     fn render(self, _: &mut Window, cx: &mut App) -> impl IntoElement {
         let theme = cx.theme();
-        let nodes = parse(&self.source);
+        let parsed;
+        let nodes: &[Node] = match &self.blocks {
+            Some(blocks) => blocks,
+            None => {
+                parsed = parse(&self.source);
+                &parsed
+            }
+        };
         let draw = Draw {
             id: &self.id,
             hooks: Hooks {
                 base: &self.base,
+                pictures: &self.pictures,
                 on_link: &self.on_link,
                 on_heading: &None,
                 on_point: &None,
@@ -446,7 +453,7 @@ impl RenderOnce for MarkdownRenderer {
             .gap_3()
             .text_size(theme.text_size(self.size))
             .line_height(theme.text_size(self.size) * 1.6)
-            .children(draw.nodes(&nodes, cx))
+            .children(draw.nodes(nodes, cx))
     }
 }
 

@@ -1,8 +1,8 @@
 use std::rc::Rc;
 
 use gpui::{
-    App, Context, ElementId, Entity, InteractiveElement, IntoElement, ParentElement, RenderOnce,
-    SharedString, Styled, Window, div, prelude::*,
+    AnyElement, App, Context, ElementId, Entity, InteractiveElement, IntoElement, ParentElement,
+    RenderOnce, SharedString, Styled, Subscription, Window, div, prelude::*,
 };
 use jiff::{Timestamp, tz::TimeZone};
 
@@ -10,28 +10,43 @@ use super::{reader::Contact, send::ScheduleSend, signature::signature_block};
 use crate::{
     buttons::{Button, ButtonVariant, IconButton},
     chat::{Attachment, AttachmentChip},
-    forms::{Choice, Input, OnValue, Run, TagInput, TextInput, is_email},
+    forms::{Choice, Input, InputEvent, OnValue, Run, TagInput, TextInput, is_email},
+    i18n::text,
     primitives::LucideIcon,
     theme::{ActiveTheme, ControlSize, TextSize},
 };
 
-/// What a composer hands over: the addresses, the subject and the words.
+/// The addresses and subject; the owner keeps the words.
 #[derive(Clone, Debug, PartialEq)]
 pub struct Draft {
     pub to: Vec<SharedString>,
     pub cc: Vec<SharedString>,
     pub bcc: Vec<SharedString>,
     pub subject: SharedString,
-    pub body: SharedString,
 }
 
 type OnDraft = Rc<dyn Fn(&Draft, &mut Window, &mut App)>;
 type OnDraftAt = Rc<dyn Fn(&Draft, Timestamp, &mut Window, &mut App)>;
 
-/// Whether a message can go: someone to send to, and every address an address.
-fn ready(to: &[SharedString], cc: &[SharedString], bcc: &[SharedString]) -> bool {
-    let mut all = to.iter().chain(cc).chain(bcc).peekable();
-    all.peek().is_some() && all.all(|address| is_email(address))
+/// Someone to send to, and every address passes `check`.
+fn ready(draft: &Draft, check: fn(&str) -> bool) -> bool {
+    let mut all = draft
+        .to
+        .iter()
+        .chain(&draft.cc)
+        .chain(&draft.bcc)
+        .peekable();
+    all.peek().is_some() && all.all(|address| check(address))
+}
+
+/// The tags, then the typed words if new.
+fn with_typed(tags: &[SharedString], typed: &SharedString) -> Vec<SharedString> {
+    let typed = typed.trim().trim_end_matches(',').trim();
+    let mut all = tags.to_vec();
+    if !typed.is_empty() && !tags.iter().any(|tag| tag.as_ref() == typed) {
+        all.push(typed.to_owned().into());
+    }
+    all
 }
 
 /// Which field of addresses.
@@ -42,50 +57,74 @@ enum Field {
     Bcc,
 }
 
-/// The message being written: the owner's start it came from, the addresses, whether Cc and Bcc show, and the subject and words.
+/// The owner's addresses and subject a draft starts from.
+type Seed = (
+    Vec<SharedString>,
+    Vec<SharedString>,
+    Vec<SharedString>,
+    SharedString,
+);
+
+/// The addresses, typed words, and subject being written.
 struct Composing {
-    seed: (Vec<SharedString>, SharedString),
+    seed: Seed,
     to: Vec<SharedString>,
     cc: Vec<SharedString>,
     bcc: Vec<SharedString>,
+    /// Typed in To, Cc and Bcc, not yet added.
+    typed: [SharedString; 3],
     copies: bool,
     subject: Entity<TextInput>,
-    body: Entity<TextInput>,
+    on_change: Option<OnDraft>,
+    _subject: Subscription,
 }
 
 impl Composing {
-    /// Starts over from the owner's addresses and subject, with no words.
-    fn fill(&mut self, (to, subject): (Vec<SharedString>, SharedString), cx: &mut Context<Self>) {
+    /// Starts over from the owner's addresses and subject.
+    fn fill(&mut self, (to, cc, bcc, subject): Seed, cx: &mut Context<Self>) {
         self.to = to;
-        self.cc.clear();
-        self.bcc.clear();
-        self.copies = false;
+        self.copies = !cc.is_empty() || !bcc.is_empty();
+        self.cc = cc;
+        self.bcc = bcc;
+        self.typed = Default::default();
         self.subject
             .update(cx, |input, cx| input.set_text(subject.to_string(), cx));
-        self.body.update(cx, |input, cx| input.set_text("", cx));
     }
 
     fn draft(&self, cx: &App) -> Draft {
         Draft {
-            to: self.to.clone(),
-            cc: self.cc.clone(),
-            bcc: self.bcc.clone(),
+            to: with_typed(&self.to, &self.typed[0]),
+            cc: with_typed(&self.cc, &self.typed[1]),
+            bcc: with_typed(&self.bcc, &self.typed[2]),
             subject: self.subject.read(cx).text().trim().to_string().into(),
-            body: self.body.read(cx).text().to_string().into(),
         }
+    }
+
+    /// Tells the owner the draft as it now stands.
+    fn changed(&self, window: &mut Window, cx: &mut Context<Self>) {
+        if let Some(on_change) = self.on_change.clone() {
+            on_change(&self.draft(cx), window, cx);
+        }
+        cx.notify();
     }
 }
 
-/// A message to write: To, and Cc and Bcc once asked for, as fields that suggest contacts and mark what is not an address; the subject and the words; the files, each with a way off; and the signature under the words. Send goes once there is someone to send to, now or at a time; Discard lets it go. A new start from the owner begins it over.
+/// Addresses, subject, the owner's editor, files, signature, Send.
 #[derive(IntoElement)]
 pub struct MailComposer {
     id: ElementId,
+    body: AnyElement,
     contacts: Vec<Contact>,
     to: Vec<SharedString>,
+    cc: Vec<SharedString>,
+    bcc: Vec<SharedString>,
     subject: SharedString,
+    busy: bool,
+    check: fn(&str) -> bool,
     signature: Option<SharedString>,
     files: Vec<Attachment>,
     zone: Option<TimeZone>,
+    on_change: Option<OnDraft>,
     on_send: Option<OnDraft>,
     on_schedule: Option<OnDraftAt>,
     on_discard: Option<Run>,
@@ -94,15 +133,22 @@ pub struct MailComposer {
 }
 
 impl MailComposer {
-    pub fn new(id: impl Into<ElementId>) -> Self {
+    /// `body` is the owner's editor for the words.
+    pub fn new(id: impl Into<ElementId>, body: impl IntoElement) -> Self {
         Self {
             id: id.into(),
+            body: body.into_any_element(),
             contacts: Vec::new(),
             to: Vec::new(),
+            cc: Vec::new(),
+            bcc: Vec::new(),
             subject: SharedString::default(),
+            busy: false,
+            check: is_email,
             signature: None,
             files: Vec::new(),
             zone: None,
+            on_change: None,
             on_send: None,
             on_schedule: None,
             on_discard: None,
@@ -123,9 +169,39 @@ impl MailComposer {
         self
     }
 
+    /// The copies it starts with; Cc and Bcc then show.
+    pub fn cc(mut self, addresses: impl IntoIterator<Item = impl Into<SharedString>>) -> Self {
+        self.cc = addresses.into_iter().map(Into::into).collect();
+        self
+    }
+
+    /// The blind copies it starts with; both show.
+    pub fn bcc(mut self, addresses: impl IntoIterator<Item = impl Into<SharedString>>) -> Self {
+        self.bcc = addresses.into_iter().map(Into::into).collect();
+        self
+    }
+
     /// The subject it starts with.
     pub fn subject(mut self, subject: impl Into<SharedString>) -> Self {
         self.subject = subject.into();
+        self
+    }
+
+    /// Something is under way; Send waits.
+    pub fn busy(mut self, busy: bool) -> Self {
+        self.busy = busy;
+        self
+    }
+
+    /// What counts as an address; `is_email` otherwise.
+    pub fn check(mut self, check: fn(&str) -> bool) -> Self {
+        self.check = check;
+        self
+    }
+
+    /// Gets the draft after each edit.
+    pub fn on_change(mut self, handler: impl Fn(&Draft, &mut Window, &mut App) + 'static) -> Self {
+        self.on_change = Some(Rc::new(handler));
         self
     }
 
@@ -183,30 +259,41 @@ impl MailComposer {
 
 impl RenderOnce for MailComposer {
     fn render(self, window: &mut Window, cx: &mut App) -> impl IntoElement {
-        let seed = (self.to.clone(), self.subject.clone());
+        let seed = (
+            self.to.clone(),
+            self.cc.clone(),
+            self.bcc.clone(),
+            self.subject.clone(),
+        );
         let state = window.use_keyed_state(
             (self.id.clone(), "draft"),
             cx,
             |window, cx: &mut Context<Composing>| {
-                let subject = cx.new(|cx| TextInput::new(window, cx).placeholder("Subject"));
-                let body = cx.new(|cx| {
-                    TextInput::new(window, cx)
-                        .multi_line(6, 16)
-                        .placeholder("Write your message")
-                });
+                let placeholder = text(cx, "mail.compose.subject", &[]);
+                let subject = cx.new(|cx| TextInput::new(window, cx).placeholder(placeholder));
+                let typing =
+                    cx.subscribe_in(&subject, window, |composing, _, event, window, cx| {
+                        if *event == InputEvent::Changed {
+                            composing.changed(window, cx);
+                        }
+                    });
                 let mut composing = Composing {
                     seed: seed.clone(),
                     to: Vec::new(),
                     cc: Vec::new(),
                     bcc: Vec::new(),
+                    typed: Default::default(),
                     copies: false,
                     subject,
-                    body,
+                    on_change: None,
+                    _subject: typing,
                 };
                 composing.fill(seed.clone(), cx);
                 composing
             },
         );
+        let on_change = self.on_change.clone();
+        state.update(cx, |composing, _| composing.on_change = on_change);
         if state.read(cx).seed != seed {
             log::info!("mail composer {}: started over", self.id);
             state.update(cx, |composing, cx| {
@@ -216,8 +303,10 @@ impl RenderOnce for MailComposer {
         }
         let now = state.read(cx);
         let (to, cc, bcc, copies) = (now.to.clone(), now.cc.clone(), now.bcc.clone(), now.copies);
-        let (subject, body) = (now.subject.clone(), now.body.clone());
-        let can_send = ready(&to, &cc, &bcc);
+        let subject = now.subject.clone();
+        let check = self.check;
+        let can_send = ready(&now.draft(cx), check) && !self.busy;
+        let people = text(cx, "mail.compose.people", &[]);
         let choices: Vec<Choice> = self
             .contacts
             .iter()
@@ -226,7 +315,12 @@ impl RenderOnce for MailComposer {
         let theme = cx.theme();
         let colors = &theme.colors;
         let row = |label: &'static str, field: Field, tags: Vec<SharedString>| {
-            let owner = state.clone();
+            let (owner, typist) = (state.clone(), state.clone());
+            let shown = match field {
+                Field::To => text(cx, "mail.compose.to", &[]),
+                Field::Cc => text(cx, "mail.compose.cc", &[]),
+                Field::Bcc => text(cx, "mail.compose.bcc", &[]),
+            };
             div()
                 .debug_selector(move || format!("composer-{label}"))
                 .flex()
@@ -238,15 +332,21 @@ impl RenderOnce for MailComposer {
                         .w_10()
                         .text_size(theme.text_size(TextSize::Sm))
                         .text_color(colors.fg_muted)
-                        .child(label),
+                        .child(shown),
                 )
                 .child(
                     div().flex_1().min_w_0().child(
                         TagInput::new((self.id.clone(), label), tags)
-                            .placeholder("Add people")
-                            .check(is_email)
+                            .placeholder(people.clone())
+                            .check(check)
                             .suggestions(choices.clone())
-                            .on_change(move |next, _, cx| {
+                            .on_typing(move |typed, window, cx| {
+                                typist.update(cx, |composing, cx| {
+                                    composing.typed[field as usize] = typed;
+                                    composing.changed(window, cx);
+                                })
+                            })
+                            .on_change(move |next, window, cx| {
                                 log::info!("mail composer: {label} holds {}", next.len());
                                 owner.update(cx, |composing, cx| {
                                     match field {
@@ -254,7 +354,7 @@ impl RenderOnce for MailComposer {
                                         Field::Cc => composing.cc = next,
                                         Field::Bcc => composing.bcc = next,
                                     }
-                                    cx.notify();
+                                    composing.changed(window, cx);
                                 })
                             }),
                     ),
@@ -262,16 +362,19 @@ impl RenderOnce for MailComposer {
         };
         let showing = state.clone();
         let copies_button = (!copies).then(|| {
-            Button::new((self.id.clone(), "copies"), "Cc Bcc")
-                .variant(ButtonVariant::Ghost)
-                .size(ControlSize::Sm)
-                .on_click(move |_, _, cx| {
-                    log::info!("mail composer: shows Cc and Bcc");
-                    showing.update(cx, |composing, cx| {
-                        composing.copies = true;
-                        cx.notify();
-                    })
+            Button::new(
+                (self.id.clone(), "copies"),
+                text(cx, "mail.compose.copies", &[]),
+            )
+            .variant(ButtonVariant::Ghost)
+            .size(ControlSize::Sm)
+            .on_click(move |_, _, cx| {
+                log::info!("mail composer: shows Cc and Bcc");
+                showing.update(cx, |composing, cx| {
+                    composing.copies = true;
+                    cx.notify();
                 })
+            })
         });
         let files = self.files.iter().map(|file| {
             let chip = AttachmentChip::new(
@@ -313,7 +416,7 @@ impl RenderOnce for MailComposer {
         let attach = self.on_attach.map(|attach| {
             IconButton::new((self.id.clone(), "attach"), LucideIcon::Paperclip)
                 .variant(ButtonVariant::Ghost)
-                .tooltip("Attach files")
+                .tooltip(text(cx, "mail.compose.attach", &[]))
                 .on_click(move |_, window, cx| {
                     log::info!("mail composer: attach");
                     attach(window, cx)
@@ -322,7 +425,7 @@ impl RenderOnce for MailComposer {
         let discard = self.on_discard.map(|discard| {
             IconButton::new((self.id.clone(), "discard"), LucideIcon::Trash2)
                 .variant(ButtonVariant::Ghost)
-                .tooltip("Discard")
+                .tooltip(text(cx, "mail.compose.discard", &[]))
                 .on_click(move |_, window, cx| {
                     log::info!("mail composer: discard");
                     discard(window, cx)
@@ -334,15 +437,15 @@ impl RenderOnce for MailComposer {
             .flex_col()
             .gap_3()
             .child(
-                row("To", Field::To, to)
+                row("to", Field::To, to)
                     .children(copies_button.map(|button| div().flex_none().child(button))),
             )
             .when(copies, |form| {
-                form.child(row("Cc", Field::Cc, cc))
-                    .child(row("Bcc", Field::Bcc, bcc))
+                form.child(row("cc", Field::Cc, cc))
+                    .child(row("bcc", Field::Bcc, bcc))
             })
             .child(Input::new(&subject))
-            .child(Input::new(&body))
+            .child(self.body)
             .when(!self.files.is_empty(), |form| {
                 form.child(div().flex().flex_wrap().gap_2().children(files))
             })
@@ -371,16 +474,40 @@ impl RenderOnce for MailComposer {
 mod tests {
     use super::*;
 
+    fn draft(to: &[&str], cc: &[&str], bcc: &[&str]) -> Draft {
+        let list = |all: &[&str]| {
+            all.iter()
+                .map(|one| SharedString::from(one.to_string()))
+                .collect()
+        };
+        Draft {
+            to: list(to),
+            cc: list(cc),
+            bcc: list(bcc),
+            subject: SharedString::default(),
+        }
+    }
+
     #[test]
     fn a_message_goes_once_someone_holds_an_address() {
-        let ben: SharedString = "ben@atrium.studio".into();
-        let bad: SharedString = "ben@".into();
-        assert!(!ready(&[], &[], &[]), "nobody to send to");
-        assert!(ready(std::slice::from_ref(&ben), &[], &[]));
+        let ben = "ben@atrium.studio";
+        assert!(!ready(&draft(&[], &[], &[]), is_email), "nobody to send to");
+        assert!(ready(&draft(&[ben], &[], &[]), is_email));
         assert!(
-            ready(&[], &[], std::slice::from_ref(&ben)),
+            ready(&draft(&[], &[], &[ben]), is_email),
             "a blind copy alone"
         );
-        assert!(!ready(&[ben], &[bad], &[]), "an address that is not one");
+        assert!(
+            !ready(&draft(&[ben], &["ben@"], &[]), is_email),
+            "an address that is not one"
+        );
+    }
+
+    #[test]
+    fn typed_words_join_once() {
+        let tags = [SharedString::from("a@b.c")];
+        assert_eq!(with_typed(&tags, &" a@b.c, ".into()), tags);
+        assert_eq!(with_typed(&tags, &"d@e.f,".into()), ["a@b.c", "d@e.f"]);
+        assert_eq!(with_typed(&tags, &"  ".into()), tags);
     }
 }

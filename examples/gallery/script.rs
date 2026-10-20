@@ -175,11 +175,11 @@ pub async fn play(
             }
             Step::ShotPopup(name) => {
                 let file = path(name);
-                if let Ok(num) = popup_number() {
-                    if num != 0 {
-                        snapshot(num, &file)?;
-                        log::info!("script: wrote {}", file.display());
-                    }
+                if let Ok(num) = popup_number()
+                    && num != 0
+                {
+                    snapshot(num, &file)?;
+                    log::info!("script: wrote {}", file.display());
                 }
             }
             Step::NativeKey(key) => {

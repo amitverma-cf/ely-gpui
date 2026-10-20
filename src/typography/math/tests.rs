@@ -117,8 +117,11 @@ fn flush(cx: &mut gpui::VisualTestContext) {
 /// Whether `source`'s picture sits in the asset cache.
 fn cached(source: &str, cx: &mut gpui::VisualTestContext) -> bool {
     cx.update(|window, cx| {
-        let latex = Latex::parse("probe", source).expect("parses");
-        let (formula, _) = latex.formula(window, cx);
+        let font = cx
+            .theme()
+            .text_size(TextSize::Lg)
+            .to_pixels(window.rem_size());
+        let formula = super::formula((&source.to_string().into(), false), font, window, cx);
         cx.has_asset::<Typesetter>(&formula)
     })
 }
@@ -255,4 +258,19 @@ fn drawn_fallback_text_stays_inside_the_frame() {
             "{source}: {framed} of {all} pixels"
         );
     }
+}
+
+#[test]
+fn a_picture_spans_its_formula_not_a_point_rescale() {
+    let formula = super::Formula {
+        source: "x^2+y^2=r^2".into(),
+        display: false,
+        rgba: 0xff,
+        font: 1600,
+        scale: 100,
+    };
+    let (_, width, _) = super::laid(&formula).expect("laid");
+    let (_, shape) = super::svg(&formula).expect("framed");
+    let ratio = shape.width.as_f32() / width;
+    assert!((0.95..1.05).contains(&ratio), "{} for {width}", shape.width);
 }

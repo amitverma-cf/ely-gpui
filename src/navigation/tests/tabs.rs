@@ -180,3 +180,111 @@ fn tabs_whose_choice_closed_mark_none_and_arrows_start_at_the_ends(cx: &mut Test
     cx.simulate_keystrokes("left");
     assert_eq!(view.read_with(cx, |view, _| view.chosen.clone()), "c");
 }
+
+struct Sheets {
+    chosen: SharedString,
+    clicked: Option<SharedString>,
+    width: f32,
+    long: bool,
+}
+
+impl Render for Sheets {
+    fn render(&mut self, _: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
+        let view = cx.entity();
+        let tail = if self.long {
+            "W".repeat(40)
+        } else {
+            String::new()
+        };
+        let tabs = (0..30).map(|ix| Choice::new(format!("s{ix}"), format!("Sheet {ix}{tail}")));
+        div()
+            .w(px(self.width))
+            .child(
+                Tabs::new("sheets", tabs, self.chosen.clone()).on_change(move |value, _, cx| {
+                    view.update(cx, |view, _| view.clicked = Some(value.clone()))
+                }),
+            )
+    }
+}
+
+/// The tab number a click at `x` picks.
+fn picked_at(x: f32, view: &gpui::Entity<Sheets>, cx: &mut VisualTestContext) -> usize {
+    view.update(cx, |view, _| view.clicked = None);
+    click_at(x, cx);
+    let clicked = view
+        .read_with(cx, |view, _| view.clicked.clone())
+        .expect("a tab is picked");
+    clicked[1..].parse().expect("a tab number")
+}
+
+#[gpui::test]
+fn a_wide_strip_scrolls_its_chosen_tab_in_and_the_wheel_reaches_the_rest(cx: &mut TestAppContext) {
+    setup(cx);
+    let (view, cx) = cx.add_window_view(|_, _| Sheets {
+        chosen: "s29".into(),
+        clicked: None,
+        width: 300.0,
+        long: false,
+    });
+    settle(cx);
+    assert!(
+        picked_at(10.0, &view, cx) > 20,
+        "the strip starts at its last tab"
+    );
+    cx.simulate_event(ScrollWheelEvent {
+        position: point(px(60.0), px(16.0)),
+        delta: ScrollDelta::Pixels(point(px(0.0), px(5000.0))),
+        modifiers: Modifiers::none(),
+        touch_phase: TouchPhase::Moved,
+    });
+    view.update(cx, |_, cx| cx.notify());
+    settle(cx);
+    assert_eq!(
+        picked_at(10.0, &view, cx),
+        0,
+        "the wheel scrolls back to the first tab"
+    );
+    view.update(cx, |view, cx| {
+        view.chosen = "s25".into();
+        cx.notify();
+    });
+    settle(cx);
+    assert!(picked_at(10.0, &view, cx) > 15, "a new choice scrolls in");
+}
+
+#[gpui::test]
+fn a_strip_that_narrows_keeps_its_chosen_tab_in_view(cx: &mut TestAppContext) {
+    setup(cx);
+    let (view, cx) = cx.add_window_view(|_, _| Sheets {
+        chosen: "s29".into(),
+        clicked: None,
+        width: 700.0,
+        long: false,
+    });
+    settle(cx);
+    view.update(cx, |view, cx| {
+        view.width = 250.0;
+        cx.notify();
+    });
+    settle(cx);
+    assert!(picked_at(10.0, &view, cx) > 25, "the strip shows its end");
+    view.update(cx, |view, _| view.clicked = None);
+    click_at(245.0, cx);
+    let clicked = view.read_with(cx, |view, _| view.clicked.clone());
+    assert_eq!(clicked, None, "the chosen tab ends the strip");
+}
+
+#[gpui::test]
+fn a_long_chosen_tab_fits_the_strip(cx: &mut TestAppContext) {
+    setup(cx);
+    let (_view, cx) = cx.add_window_view(|_, _| Sheets {
+        chosen: "s29".into(),
+        clicked: None,
+        width: 250.0,
+        long: true,
+    });
+    settle(cx);
+    let tab = cx.debug_bounds("tab-29").expect("the chosen tab");
+    assert!(tab.left() >= px(0.0), "starts in view: {tab:?}");
+    assert!(tab.right() <= px(250.0), "ends in view: {tab:?}");
+}

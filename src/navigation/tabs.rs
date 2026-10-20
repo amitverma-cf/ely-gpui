@@ -2,8 +2,8 @@ use std::rc::Rc;
 
 use gpui::{
     Animation, AnimationExt, AnyElement, App, ElementId, FontWeight, InteractiveElement,
-    IntoElement, MouseButton, ParentElement, Pixels, Point, RenderOnce, Role, SharedString,
-    StatefulInteractiveElement, Styled, Window, div, prelude::*,
+    IntoElement, MouseButton, ParentElement, Pixels, Point, RenderOnce, Role, ScrollHandle,
+    SharedString, StatefulInteractiveElement, Styled, Window, canvas, div, prelude::*,
 };
 
 use crate::{
@@ -108,6 +108,16 @@ impl RenderOnce for Tabs {
             window,
             cx,
         );
+        // The chosen tab scrolls in per choice and width.
+        let scroll = window
+            .use_keyed_state((self.id.clone(), "scroll"), cx, |_, _| ScrollHandle::new())
+            .read(cx)
+            .clone();
+        let followed = window.use_keyed_state((self.id.clone(), "followed"), cx, |_, _| {
+            None::<(SharedString, Pixels)>
+        });
+        let follow =
+            (axis == Axis::Horizontal).then(|| (followed, self.selected.clone(), scroll.clone()));
         let focus = tab_stop((self.id.clone(), "focus").into(), true, window, cx);
         let focused = focus.is_focused(window);
         let tabs = Rc::new(self.tabs);
@@ -172,6 +182,7 @@ impl RenderOnce for Tabs {
                 let value = tab.value.clone();
                 div()
                     .id(("tab", ix))
+                    .debug_selector(move || format!("tab-{ix}"))
                     .role(Role::Tab)
                     .aria_selected(on)
                     .aria_label(tab.label.clone())
@@ -221,7 +232,10 @@ impl RenderOnce for Tabs {
                     .when(compact, |item| {
                         item.tooltip(Tooltip::text(tab.label.clone()))
                     })
-                    .when(!compact, |item| item.child(tab.label.clone()))
+                    .when(axis == Axis::Horizontal, |item| item.max_w_full())
+                    .when(!compact, |item| {
+                        item.child(div().min_w_0().truncate().child(tab.label.clone()))
+                    })
                     .when_some(tab.note.clone().filter(|_| !compact), |item, note| {
                         item.child(div().text_color(colors.fg_subtle).child(note))
                     })
@@ -236,6 +250,9 @@ impl RenderOnce for Tabs {
             .relative()
             .flex()
             .when(axis == Axis::Vertical, |strip| strip.flex_col())
+            .when(axis == Axis::Horizontal, |strip| {
+                strip.min_w_0().overflow_x_scroll().track_scroll(&scroll)
+            })
             .gap_1()
             .border_color(colors.border)
             .map(|strip| match placement {
@@ -270,10 +287,28 @@ impl RenderOnce for Tabs {
                     key_pick(to, window, cx);
                 }
             })
+            // Items first: a child's index is its tab's.
+            .children(items)
             .child(measure_width(strip_width))
             .child(measure_origin(state, axis))
             .children(indicator)
-            .children(items);
+            .children(follow.map(|(followed, selected, scroll)| {
+                canvas(
+                    move |_, window, cx| {
+                        let now = (selected, scroll.bounds().size.width);
+                        if now.1 <= Pixels::ZERO || followed.read(cx).as_ref() == Some(&now) {
+                            return;
+                        }
+                        followed.update(cx, |followed, _| *followed = Some(now));
+                        if let Some(ix) = chosen {
+                            scroll.scroll_to_item(ix);
+                            window.request_animation_frame();
+                        }
+                    },
+                    |_, _, _, _| {},
+                )
+                .absolute()
+            }));
         let panel = self.panel.map(|panel| {
             div().flex_1().min_w_0().child(panel).with_animation(
                 ("tab-panel", turn),
@@ -282,7 +317,7 @@ impl RenderOnce for Tabs {
                 move |panel, t| if turn == 0 { panel } else { panel.opacity(t) },
             )
         });
-        let frame = div().id(self.id).flex().gap_4();
+        let frame = div().id(self.id).flex().min_w_0().gap_4();
         match placement {
             TabPlacement::Top => frame.flex_col().child(strip).children(panel),
             TabPlacement::Bottom => frame.flex_col().children(panel).child(strip),

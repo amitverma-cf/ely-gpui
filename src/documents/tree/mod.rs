@@ -6,7 +6,7 @@ use super::markdown::{span, tree, walk};
 
 mod blocks;
 mod emoji;
-mod html;
+pub(crate) mod html;
 mod html_block;
 mod sources;
 mod stack;
@@ -318,12 +318,14 @@ impl<'a> Reader<'a> {
         }
     }
 
-    /// Text split at its images; lone `$$` math is block.
+    /// Text splits at images; a lone formula is block.
     fn paragraph(&self, node: &mdast::Node, children: &[mdast::Node], out: &mut Vec<Node>) {
         if let [mdast::Node::InlineMath(math)] = children
-            && self.source[span(node)].starts_with("$$")
+            && ["$$", "\\["]
+                .iter()
+                .any(|open| self.source[span(&children[0])].starts_with(open))
         {
-            return out.push(Node::Math(math.value.clone()));
+            return out.push(Node::Math(math.value.trim().to_string()));
         }
         let mut run = Run {
             table: matches!(node, mdast::Node::TableCell(_)),

@@ -51,12 +51,7 @@ struct StoryManifest {
 }
 
 /// Captures all individual stories as cropped thumbnails into dir.
-pub fn run_stories(
-    window: WindowHandle<Gallery>,
-    dir: PathBuf,
-    only: Option<usize>,
-    cx: &mut App,
-) {
+pub fn run_stories(window: WindowHandle<Gallery>, dir: PathBuf, only: Option<usize>, cx: &mut App) {
     Theme::update(cx, |theme| theme.reduced_motion = true);
     cx.spawn(async move |cx| {
         let outcome = shoot_all_stories(window, &dir, only, cx).await;
@@ -315,9 +310,9 @@ pub fn snapshot(hwnd: u32, path: &Path) -> Result<()> {
     use windows_sys::Win32::{
         Foundation::{HWND, RECT},
         Graphics::Gdi::{
-            BitBlt, CreateCompatibleBitmap, CreateCompatibleDC, DeleteDC, DeleteObject, GetDC,
-            GetDIBits, ReleaseDC, SelectObject, BITMAPINFO, BITMAPINFOHEADER, BI_RGB, DIB_RGB_COLORS,
-            HDC, SRCCOPY,
+            BI_RGB, BITMAPINFO, BITMAPINFOHEADER, BitBlt, CreateCompatibleBitmap,
+            CreateCompatibleDC, DIB_RGB_COLORS, DeleteDC, DeleteObject, GetDC, GetDIBits, HDC,
+            ReleaseDC, SRCCOPY, SelectObject,
         },
         UI::WindowsAndMessaging::GetClientRect,
     };
@@ -400,9 +395,9 @@ pub fn snapshot_cropped(hwnd: u32, path: &Path) -> Result<()> {
     use windows_sys::Win32::{
         Foundation::{HWND, RECT},
         Graphics::Gdi::{
-            BitBlt, CreateCompatibleBitmap, CreateCompatibleDC, DeleteDC, DeleteObject, GetDC,
-            GetDIBits, ReleaseDC, SelectObject, BITMAPINFO, BITMAPINFOHEADER, BI_RGB, DIB_RGB_COLORS,
-            HDC, SRCCOPY,
+            BI_RGB, BITMAPINFO, BITMAPINFOHEADER, BitBlt, CreateCompatibleBitmap,
+            CreateCompatibleDC, DIB_RGB_COLORS, DeleteDC, DeleteObject, GetDC, GetDIBits, HDC,
+            ReleaseDC, SRCCOPY, SelectObject,
         },
         UI::WindowsAndMessaging::GetClientRect,
     };
@@ -433,7 +428,9 @@ pub fn snapshot_cropped(hwnd: u32, path: &Path) -> Result<()> {
 
         let printed = PrintWindow(hwnd, hdc_mem, PW_RENDERFULLCONTENT);
         if printed == 0 {
-            BitBlt(hdc_mem, 0, 0, win_width, win_height, hdc_window, 0, 0, SRCCOPY);
+            BitBlt(
+                hdc_mem, 0, 0, win_width, win_height, hdc_window, 0, 0, SRCCOPY,
+            );
         }
 
         let mut bi: BITMAPINFO = std::mem::zeroed();
@@ -476,10 +473,14 @@ pub fn snapshot_cropped(hwnd: u32, path: &Path) -> Result<()> {
         let crop_w = 720.min(win_width as u32 - crop_x);
         let crop_h = 360.min(win_height as u32 - crop_y);
 
-        let cropped = image::imageops::crop_imm(&dynamic, crop_x, crop_y, crop_w, crop_h).to_image();
-        let thumbnail = image::imageops::resize(&cropped, 480, 240, image::imageops::FilterType::Triangle);
+        let cropped =
+            image::imageops::crop_imm(&dynamic, crop_x, crop_y, crop_w, crop_h).to_image();
+        let thumbnail =
+            image::imageops::resize(&cropped, 480, 240, image::imageops::FilterType::Triangle);
 
-        thumbnail.save(path).with_context(|| format!("save {}", path.display()))?;
+        thumbnail
+            .save(path)
+            .with_context(|| format!("save {}", path.display()))?;
     }
     Ok(())
 }

@@ -6,7 +6,7 @@ use std::{
 
 use gpui::{
     AnyElement, App, Asset, ElementId, InteractiveElement, IntoElement, ParentElement, Pixels,
-    RenderImage, RenderOnce, SharedString, Size, Styled, Window, div, img, size,
+    RenderImage, RenderOnce, SharedString, Size, Styled, Window, div, img, px, size,
 };
 use ratex_layout::{LayoutOptions, layout, to_display_list};
 use ratex_svg::{SvgOptions, render_to_svg};
@@ -96,7 +96,7 @@ struct Formula {
 }
 
 /// A typeset formula: its picture and logical size.
-type Typeset = Result<(Arc<RenderImage>, Size<Pixels>), MathError>;
+pub(crate) type Typeset = Result<(Arc<RenderImage>, Size<Pixels>), MathError>;
 
 enum Typesetter {}
 
@@ -166,7 +166,9 @@ fn laid(formula: &Formula) -> Result<(String, f32, f32), MathError> {
         (list.width * font, (list.height + list.depth) * font, svg)
     })?;
     let (width, height, svg) = typeset;
-    Ok((svg, width as f32, height as f32))
+    let (width, height) = (width as f32, height as f32);
+    // RaTeX sizes its svg in pt; px keeps one unit.
+    Ok((wrapped(&svg, [0.0, 0.0, width, height])?, width, height))
 }
 
 /// Runs RaTeX's layout; a panic becomes an error.
@@ -187,41 +189,57 @@ fn framed(svg: &str, width: f32, height: f32) -> Result<(String, Size<Pixels>), 
     let top = ink.top().min(0.0);
     let right = ink.right().max(width);
     let bottom = ink.bottom().max(height);
+    let (w, h) = (right - left, bottom - top);
+    Ok((wrapped(svg, [left, top, w, h])?, size(px(w), px(h))))
+}
+
+/// `svg` in a px root viewing `[left, top, w, h]`.
+fn wrapped(svg: &str, [left, top, w, h]: [f32; 4]) -> Result<String, MathError> {
     let open = svg
         .find('>')
         .ok_or_else(|| MathError::said("RaTeX wrote no svg tag"))?;
     let close = svg
         .rfind("</svg>")
         .ok_or_else(|| MathError::said("RaTeX left the svg open"))?;
-    let (w, h) = (right - left, bottom - top);
-    let reframed = format!(
+    Ok(format!(
         "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"{left} {top} {w} {h}\" width=\"{w}\" height=\"{h}\">{}</svg>",
         &svg[open + 1..close]
-    );
-    Ok((reframed, size(Pixels::from(w), Pixels::from(h))))
+    ))
 }
 
-impl Latex {
-    /// The asset key this formula draws from in `window`.
-    fn formula(&self, window: &Window, cx: &App) -> (Formula, Pixels) {
-        let theme = cx.theme();
-        let font = theme.text_size(self.size).to_pixels(window.rem_size());
-        let formula = Formula {
-            source: self.source.clone(),
-            display: self.display,
-            rgba: u32::from(theme.colors.fg.to_rgb()),
-            font: (font.as_f32() * 100.0).round() as u32,
-            scale: (window.scale_factor() * 100.0).round() as u32,
-        };
-        (formula, font)
+/// The asset key for `source` at `font` in `window`.
+fn formula(
+    (source, display): (&SharedString, bool),
+    font: Pixels,
+    window: &Window,
+    cx: &App,
+) -> Formula {
+    Formula {
+        source: source.clone(),
+        display,
+        rgba: u32::from(cx.theme().colors.fg.to_rgb()),
+        font: (font.as_f32() * 100.0).round() as u32,
+        scale: (window.scale_factor() * 100.0).round() as u32,
     }
+}
+
+/// `source` typeset at `font` in `window`; None while it loads.
+pub(crate) fn typeset(
+    id: impl Into<ElementId>,
+    (source, display): (&SharedString, bool),
+    font: Pixels,
+    window: &mut Window,
+    cx: &mut App,
+) -> Option<Typeset> {
+    let formula = formula((source, display), font, window, cx);
+    let picture = |typeset: &Typeset| typeset.as_ref().ok().map(|(image, _)| image.clone());
+    hold::<Typesetter>(id, &formula, picture, window, cx)
 }
 
 impl RenderOnce for Latex {
     fn render(self, window: &mut Window, cx: &mut App) -> impl IntoElement {
-        let (formula, font) = self.formula(window, cx);
-        let picture = |typeset: &Typeset| typeset.as_ref().ok().map(|(image, _)| image.clone());
-        match hold::<Typesetter>(self.id, &formula, picture, window, cx) {
+        let font = cx.theme().text_size(self.size).to_pixels(window.rem_size());
+        match typeset(self.id, (&self.source, self.display), font, window, cx) {
             Some(Ok((picture, shape))) => img(picture)
                 .w(shape.width)
                 .h(shape.height)

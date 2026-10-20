@@ -1,5 +1,7 @@
 use std::ops::Range;
 
+mod tex;
+
 use gpui::App;
 use markdown::{Constructs, ParseOptions, mdast};
 use unicode_segmentation::UnicodeSegmentation;
@@ -20,19 +22,35 @@ pub(crate) fn options() -> ParseOptions {
 
 /// `text` as a syntax tree.
 pub(crate) fn tree(text: &str) -> mdast::Node {
-    markdown::to_mdast(text, &options()).expect("markdown without MDX always parses")
+    parsed(text, &options())
+}
+
+fn parsed(text: &str, options: &ParseOptions) -> mdast::Node {
+    let swapped = tex::swapped(text, options);
+    let mut root =
+        markdown::to_mdast(&swapped.text, options).expect("markdown without MDX always parses");
+    tex::mend(&mut root, &swapped);
+    root
+}
+
+/// An inline formula's TeX: inside `$` runs or `\(` pairs.
+pub(crate) fn math_inside(source: &str, whole: Range<usize>) -> Range<usize> {
+    match source[whole.clone()].starts_with('$') {
+        true => crate::documents::tree::inside(source, whole, '$'),
+        false => whole.start + 2..whole.end - 2,
+    }
 }
 
 /// How a whole file parses: front matter too.
-pub fn file_options() -> ParseOptions {
+pub(crate) fn file_options() -> ParseOptions {
     let mut options = options();
     options.constructs.frontmatter = true;
     options
 }
 
 /// A whole file as a syntax tree.
-pub(crate) fn file_tree(text: &str) -> mdast::Node {
-    markdown::to_mdast(text, &file_options()).expect("markdown without MDX always parses")
+pub fn file_tree(text: &str) -> mdast::Node {
+    parsed(text, &file_options())
 }
 
 /// The bytes of the source a parsed node spans.

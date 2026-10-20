@@ -20,7 +20,7 @@ pub fn to_pascal_case(name: &str) -> String {
 pub fn scan_used_icons(sources: &[String], root_dir: &Path) -> HashSet<String> {
     let mut used = HashSet::new();
     let re =
-        regex::Regex::new(r"(?:LucideIcon|HeroIcon|HugeIcon|IconName)::([A-Za-z0-9_]+)").unwrap();
+        regex::Regex::new(r"(?:LucideIcon|HeroIcon|HugeIcon|LucideIcon)::([A-Za-z0-9_]+)").unwrap();
 
     for pattern in sources {
         let clean_path = pattern
