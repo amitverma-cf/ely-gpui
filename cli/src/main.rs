@@ -3,10 +3,15 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 mod component;
+mod deps;
+mod fetch;
 mod graph;
 mod icons;
 mod install;
+mod items;
+mod notes;
 mod registry;
+mod rewrite;
 
 fn main() {
     let mut args: Vec<String> = env::args().collect();
@@ -21,11 +26,13 @@ fn main() {
         "add" => handle_add(&args[2..]),
         "doctor" | "check" => handle_doctor(),
         "registry" => {
+            let check = args.iter().any(|a| a == "--check");
             let root = args
-                .get(2)
-                .map(PathBuf::from)
-                .unwrap_or_else(|| PathBuf::from("."));
-            if let Err(e) = registry::generate(&root) {
+                .iter()
+                .skip(2)
+                .find(|a| !a.starts_with("--"))
+                .map_or_else(|| PathBuf::from("."), PathBuf::from);
+            if let Err(e) = registry::generate(&root, check) {
                 eprintln!("[error] {e}");
                 std::process::exit(1);
             }
@@ -64,7 +71,7 @@ fn print_help() {
 fn detect_folder_structure(root: &Path) -> (Vec<String>, String) {
     let cargo_toml_path = root.join("Cargo.toml");
     let is_workspace = if let Ok(content) = fs::read_to_string(&cargo_toml_path) {
-        content.contains("[workspace]")
+        content.contains("[workspace]") && content.contains("members")
     } else {
         false
     };
@@ -98,40 +105,86 @@ fn detect_folder_structure(root: &Path) -> (Vec<String>, String) {
 
 fn handle_init(args: &[String]) {
     let force = args.iter().any(|a| a == "--force" || a == "-f");
-    let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
-    let config_path = cwd.join("ely-gpui.toml");
-
-    if config_path.exists() && !force {
-        eprintln!("[warn] ely-gpui.toml already exists. Use '--force' to overwrite.");
-        return;
+    let assets = !args.iter().any(|a| a == "--no-assets");
+    if let Err(e) = init(force, assets) {
+        eprintln!("[error] {e}");
+        std::process::exit(1);
     }
+}
 
-    let (scan_sources, structure_desc) = detect_folder_structure(&cwd);
-    println!("[ely] Detected project layout: {}", structure_desc);
+fn init(force: bool, assets: bool) -> Result<(), String> {
+    let cwd = env::current_dir().map_err(|e| e.to_string())?;
+    if !cwd.join("Cargo.toml").is_file() {
+        return Err("no Cargo.toml here; run this in your Rust project".into());
+    }
+    let config_path = cwd.join("ely-gpui.toml");
+    if config_path.exists() && !force {
+        println!("[info] ely-gpui.toml already exists (--force rewrites it)");
+    } else {
+        let (scan_sources, layout) = detect_folder_structure(&cwd);
+        println!("[ely] Project layout: {layout}");
+        let sources = scan_sources
+            .iter()
+            .map(|s| format!("    {s:?}"))
+            .collect::<Vec<_>>()
+            .join(
+                ",
+",
+            );
+        fs::write(&config_path, config_template(&sources))
+            .map_err(|e| format!("ely-gpui.toml: {e}"))?;
+        println!("[ok] Wrote ely-gpui.toml");
+    }
+    let cargo = cwd.join(".cargo").join("config.toml");
+    let existing = fs::read_to_string(&cargo).unwrap_or_default();
+    if existing.contains("ELY_CONFIG_PATH") {
+        println!("[info] .cargo/config.toml already names ely-gpui.toml");
+    } else {
+        let line = "ELY_CONFIG_PATH = { value = \"ely-gpui.toml\", relative = true }";
+        let updated = if existing.contains("[env]") {
+            existing.replacen(
+                "[env]",
+                &format!(
+                    "[env]
+{line}"
+                ),
+                1,
+            )
+        } else {
+            format!(
+                "{existing}
+# Ely bakes fonts, icons and tokens from this file at build time.
+[env]
+{line}
+"
+            )
+        };
+        fs::create_dir_all(cargo.parent().unwrap()).map_err(|e| e.to_string())?;
+        fs::write(&cargo, updated.trim_start()).map_err(|e| format!(".cargo/config.toml: {e}"))?;
+        println!("[ok] .cargo/config.toml points the build at ely-gpui.toml");
+    }
+    if assets {
+        let fonts = fetch::fonts(&cwd.join("assets").join("fonts"))?;
+        println!("[ok] Fonts: {fonts} new files in assets/fonts");
+        let icons = fetch::lucide(&cwd.join("assets").join("icons"))?;
+        println!(
+            "[ok] Lucide: {icons} files in assets/icons (the build embeds only the ones your code uses)"
+        );
+    }
+    println!(
+        "
+Next: cargo ely add button   (then `mod ui;` in your crate)"
+    );
+    Ok(())
+}
 
-    let assets_dir = cwd.join("assets");
-    let icons_dir = assets_dir.join("icons");
-    let fonts_dir = assets_dir.join("fonts");
-    let images_dir = assets_dir.join("images");
-
-    let _ = fs::create_dir_all(&icons_dir);
-    let _ = fs::create_dir_all(&fonts_dir);
-    let _ = fs::create_dir_all(&images_dir);
-
-    let sources_formatted = scan_sources
-        .iter()
-        .map(|s| format!("    {:?}", s))
-        .collect::<Vec<_>>()
-        .join(",\n");
-
-    let toml_content = format!(
+fn config_template(sources: &str) -> String {
+    format!(
         r#"[paths]
 assets_dir = "assets"
 icons_dir = "assets/icons"
-fonts_dir = "assets/fonts"
-images_dir = "assets/images"
 scan_sources = [
-{sources_formatted}
+{sources}
 ]
 
 [theme]
@@ -139,7 +192,6 @@ preset = "ely"
 # Customize theme colors or tokens by adding tables here:
 # [theme.palette.light]
 # bg = 0xfcfaf7
-# fg = 0x181613
 # [theme.tokens]
 # base_rem = 16.0
 
@@ -159,27 +211,16 @@ fallback = {{ family = "IBM Plex Sans", files = [
 ] }}
 
 [icons]
-packs = ["lucide"]
 mode = "auto"
 minify = true
-fallback = "image-off"
 
 [media.images]
 
 [media.videos]
-"#
-    );
 
-    if let Err(e) = fs::write(&config_path, toml_content) {
-        eprintln!("[error] Failed to write ely-gpui.toml: {}", e);
-    } else {
-        println!("[ok] Successfully created ely-gpui.toml");
-        println!("[ok] Created directories: assets/icons, assets/fonts, assets/images");
-        println!("\nNext steps:");
-        println!("  - Place fonts or SVG icons in 'assets/'");
-        println!("  - Run 'cargo ely add icons <pack>' to enable additional icon packs");
-        println!("  - Run 'cargo ely doctor' to verify theme tokens and assets");
-    }
+[media.files]
+"#
+    )
 }
 
 fn handle_list(args: &[String]) {
@@ -200,7 +241,10 @@ fn handle_list(args: &[String]) {
         Some(non_flags.join(" "))
     };
 
-    component::list_components(filter.as_deref(), as_json);
+    if let Err(e) = component::list_components(filter.as_deref(), as_json) {
+        eprintln!("[error] {e}");
+        std::process::exit(1);
+    }
 }
 
 fn handle_add(args: &[String]) {
@@ -223,56 +267,37 @@ fn handle_add(args: &[String]) {
 }
 
 fn handle_add_icons(pack: &str) {
-    let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
-    let config_path = cwd.join("ely-gpui.toml");
-    if !config_path.exists() {
-        eprintln!("[error] ely-gpui.toml not found. Run 'cargo ely init' first.");
-        return;
+    if let Err(e) = add_icons(pack) {
+        eprintln!("[error] {e}");
+        std::process::exit(1);
     }
+}
 
-    let pack_clean = pack.to_ascii_lowercase();
-    let pack_dir = cwd.join("assets").join("icons").join(&pack_clean);
-    let _ = fs::create_dir_all(&pack_dir);
-
-    if let Ok(content) = fs::read_to_string(&config_path) {
-        let needle = format!("\"{}\"", pack_clean);
-        if content.contains(&needle) {
-            println!(
-                "[info] Icon pack '{}' is already declared in ely-gpui.toml",
-                pack_clean
-            );
-        } else if let Some(idx) = content.find("packs = [") {
-            let insert_pos = idx + "packs = [".len();
-            let mut updated = content.clone();
-            updated.insert_str(insert_pos, &format!("\"{}\", ", pack_clean));
-            let _ = fs::write(&config_path, updated);
-            println!(
-                "[ok] Added '{}' to [icons] packs in ely-gpui.toml",
-                pack_clean
-            );
+/// The pack's SVGs into `assets/icons`; the build embeds only the icons the code names.
+fn add_icons(pack: &str) -> Result<(), String> {
+    let cwd = env::current_dir().map_err(|e| e.to_string())?;
+    if !cwd.join("ely-gpui.toml").is_file() {
+        return Err("ely-gpui.toml not found. Run 'cargo ely init' first.".into());
+    }
+    let pack = pack.to_ascii_lowercase();
+    let icons = cwd.join("assets").join("icons");
+    let (dir, enum_name) = match pack.as_str() {
+        "lucide" => (icons, "LucideIcon"),
+        "heroicons" => (icons.join("heroicons"), "HeroIcon"),
+        "hugeicons" => (icons.join("hugeicons"), "HugeIcon"),
+        other => {
+            return Err(format!(
+                "unknown icon pack '{other}': lucide, heroicons or hugeicons"
+            ));
         }
-    }
-
-    let enum_name = match pack_clean.as_str() {
-        "heroicons" => "HeroIcon",
-        "hugeicons" => "HugeIcon",
-        "lucide" => "LucideIcon",
-        _ => "CustomIcon",
     };
-
-    println!("[ok] Created directory: assets/icons/{}", pack_clean);
-    println!("[ok] Generated typed provider enum: {}", enum_name);
-
-    match icons::download_icon_pack(&pack_clean, &pack_dir) {
-        Ok(count) => println!(
-            "[ok] Downloaded {} SVG icons into assets/icons/{}",
-            count, pack_clean
-        ),
-        Err(e) => eprintln!("[warn] Icon download warning: {}", e),
-    }
-
-    println!("\nUsage example in GPUI views:");
-    println!("  Icon::new({}::<Variant>)", enum_name);
+    let count = icons::download_icon_pack(&pack, &dir)?;
+    println!(
+        "[ok] {count} icons in {}",
+        dir.strip_prefix(&cwd).unwrap_or(&dir).display()
+    );
+    println!("Use them as Icon::new({enum_name}::<Variant>)");
+    Ok(())
 }
 
 fn handle_add_component(args: &[String]) {
@@ -401,11 +426,20 @@ fn handle_doctor() {
     }
 
     // Check Icons
-    if let Some(icons) = parsed.get("icons").and_then(|i| i.as_table()) {
-        let packs = icons.get("packs").and_then(|p| p.as_array());
-        let count = packs.map(|p| p.len()).unwrap_or(0);
-        println!("[PASS] Active icon packs: {} configured", count);
-    }
+    let icons = cwd.join("assets").join("icons");
+    let count = ["", "heroicons", "hugeicons"]
+        .iter()
+        .filter(|pack| {
+            fs::read_dir(icons.join(pack)).is_ok_and(|d| {
+                d.flatten()
+                    .any(|e| e.path().extension().is_some_and(|x| x == "svg"))
+            })
+        })
+        .count();
+    println!("[PASS] Icon packs on disk: {count}");
 
-    println!("\n[ok] Ely Doctor completed.");
+    println!(
+        "
+[ok] Ely Doctor completed."
+    );
 }

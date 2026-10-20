@@ -21,6 +21,13 @@ rustup target list --installed | grep -qx wasm32-unknown-unknown || {
 RUSTC_BOOTSTRAP=1 ELY_GALLERY_ASSETS=https://example.invalid/ \
   cargo clippy --example gallery --target wasm32-unknown-unknown -- -D warnings
 python3 scripts/stories.py --check
+# The CLI beside the library: its own lints and tests, then the registry and miniatures it feeds.
+cli="--manifest-path cli/Cargo.toml"
+cargo fmt $cli --check
+cargo clippy $cli --all-targets --target-dir target/cli -- -D warnings
+cargo test $cli --target-dir target/cli --quiet
+cargo run $cli --target-dir target/cli --quiet -- registry . --check
+node frontend/scripts/miniatures.mjs --check
 fail=0
 files=$(git ls-files -co --exclude-standard '*.rs')
 multi=$(awk 'FNR==1{prev=0} /^[[:space:]]*\/\// {if(prev) print FILENAME":"FNR; prev=1; next} {prev=0}' $files)

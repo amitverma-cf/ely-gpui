@@ -1,5 +1,4 @@
-//! Reads the library's source and works out which file needs which, by resolving every `crate::`
-//! path through the modules' own declarations and re-exports.
+//! Resolves every `crate::` path through the library's modules to a per-file dependency graph.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
@@ -291,9 +290,12 @@ pub struct Needs {
     pub crates: BTreeSet<String>,
     /// Units whose types this file implements methods or traits for.
     pub extends: BTreeSet<String>,
+    /// Data files the code loads by path, such as `maps/countries.geojson`.
+    pub assets: BTreeSet<String>,
 }
 
 struct Collect {
+    assets: BTreeSet<String>,
     aliases: BTreeMap<String, Vec<String>>,
     paths: Vec<Vec<String>>,
 }
@@ -310,6 +312,19 @@ impl<'ast> Visit<'ast> for Collect {
         }
     }
 
+    fn visit_lit_str(&mut self, lit: &'ast syn::LitStr) {
+        let value = lit.value();
+        let data = ["maps/"].iter().any(|dir| value.starts_with(dir))
+            && value
+                .rsplit('.')
+                .next()
+                .is_some_and(|ext| ext.len() <= 8 && !ext.contains('/'))
+            && !value.contains(char::is_whitespace);
+        if data {
+            self.assets.insert(value);
+        }
+    }
+
     fn visit_path(&mut self, p: &'ast syn::Path) {
         let segs: Vec<String> = p.segments.iter().map(|s| s.ident.to_string()).collect();
         self.paths.push(segs);
@@ -321,6 +336,7 @@ impl<'ast> Visit<'ast> for Collect {
 pub fn needs(tree: &Tree, mp: &Mp) -> Needs {
     let module = &tree.mods[mp];
     let mut collect = Collect {
+        assets: BTreeSet::new(),
         aliases: BTreeMap::new(),
         paths: vec![],
     };
@@ -344,6 +360,7 @@ pub fn needs(tree: &Tree, mp: &Mp) -> Needs {
         core: BTreeSet::new(),
         crates: BTreeSet::new(),
         extends: BTreeSet::new(),
+        assets: collect.assets.clone(),
     };
     for item in &body {
         let Item::Impl(imp) = item else { continue };
