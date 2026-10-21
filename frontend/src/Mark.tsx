@@ -1,14 +1,13 @@
-import { mark, points } from "./iso/mark";
+import { GHOST, HEIGHT, INK, WIDTH, runs } from "./wordmark";
 
-const { width, height, polygons } = mark(0.12);
+const rects = (rows: string[]) => runs(rows).map((r) => <rect key={`${r.x}-${r.y}`} x={r.x} y={r.y} width={r.width} height={1} opacity={r.opacity} />);
 
-/** The E in blocks, in the page's iso colors. */
+/** MOK in torn block characters; the accent copy of the torn rows jitters unless motion is reduced. */
 export function Mark() {
   return (
-    <svg className="mark" viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
-      {polygons.map((p, i) => (
-        <polygon key={i} className={p.accent ? `${p.face} accent` : p.face} points={points(p.points)} />
-      ))}
+    <svg className="mark" viewBox={`0 0 ${WIDTH} ${HEIGHT}`} role="img" aria-label="Mok" shapeRendering="crispEdges">
+      <g className="ghost">{rects(GHOST)}</g>
+      <g className="ink">{rects(INK)}</g>
     </svg>
   );
 }

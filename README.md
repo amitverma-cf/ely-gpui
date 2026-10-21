@@ -9,6 +9,17 @@ Every component runs in the native gallery (`cargo run --example gallery`), and 
 
 Status: early. `TASKS.md` tracks every component, chapter by chapter. To help, see `CONTRIBUTING.md`.
 
+## Run the gallery
+
+```sh
+git clone https://github.com/amitverma-cf/mok-gpui
+cd mok-gpui
+cargo run --manifest-path cli/Cargo.toml -- init   # once: fetches the fonts and Lucide icons into assets/
+cargo run --example gallery
+```
+
+The fonts and icons are not in git. Without the `init` step the build stops and tells you to run it. The website is `cd frontend && pnpm install && pnpm dev`.
+
 ## Use
 
 Mok works like shadcn/ui: the `mok-gpui` crate holds the foundation (theme, motion, primitives, i18n, layout, typography), and `cargo mok` copies each component into your project as source you own. Fonts and icons are not bundled: `init` downloads them into your `assets/`, and the build embeds only what you use.
