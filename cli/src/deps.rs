@@ -7,7 +7,7 @@ use std::process::Command;
 
 use serde_json::Value;
 
-use crate::install::{DEFAULT_SOURCE, Options, Registry};
+use crate::source::{DEFAULT_SOURCE, Options, Registry};
 
 /// Keys of the dependencies a project's manifest already names, as code spells them.
 fn present(root: &Path) -> BTreeSet<String> {

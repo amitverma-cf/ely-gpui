@@ -175,9 +175,9 @@ fn find<'a>(registry: &'a Registry, name: &str) -> Option<&'a RegistryComponent>
 pub fn scaffold_components(
     names: &[String],
     project_root: &Path,
-    opts: &crate::install::Options,
+    opts: &crate::source::Options,
 ) -> Result<(), String> {
-    let source = crate::install::source_root(opts.from.as_deref())?;
+    let source = crate::source::source_root(opts.from.as_deref())?;
     let registry = load_registry(Some(&source))?;
     let mut units = vec![];
     for name in names {
@@ -214,7 +214,7 @@ pub fn scaffold_components(
     if units.is_empty() {
         return Ok(());
     }
-    let opts = crate::install::Options {
+    let opts = crate::source::Options {
         from: Some(source),
         dir: opts.dir.clone(),
         force: opts.force,

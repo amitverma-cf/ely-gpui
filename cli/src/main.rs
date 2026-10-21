@@ -9,9 +9,13 @@ mod graph;
 mod icons;
 mod install;
 mod items;
+mod lock;
 mod notes;
 mod registry;
 mod rewrite;
+mod source;
+mod sync;
+mod update;
 
 fn main() {
     let mut args: Vec<String> = env::args().collect();
@@ -24,6 +28,7 @@ fn main() {
         "init" => handle_init(&args[2..]),
         "list" => handle_list(&args[2..]),
         "add" => handle_add(&args[2..]),
+        "update" => handle_update(&args[2..]),
         "doctor" | "check" => handle_doctor(),
         "registry" => {
             let check = args.iter().any(|a| a == "--check");
@@ -56,7 +61,8 @@ fn print_help() {
     println!("  init                     Initialize mok-gpui.toml and project asset structure");
     println!("  list [--json]            List all available components in the registry");
     println!("  add icons <pack>         Add an icon pack (lucide, heroicons, hugeicons)");
-    println!("  add <component>          Scaffold an editable component into src/components/");
+    println!("  add <component>          Copy a component and what it needs into src/ui");
+    println!("  update [--dry-run]       Bring copied components up to date, keeping your edits");
     println!("  doctor, check            Verify mok-gpui.toml contrast, fonts, and assets");
     println!("  help                     Show this help message\n");
     println!("Examples:");
@@ -300,8 +306,36 @@ fn add_icons(pack: &str) -> Result<(), String> {
     Ok(())
 }
 
+fn handle_update(args: &[String]) {
+    let mut opts = source::Options {
+        from: None,
+        dir: PathBuf::from("src/ui"),
+        force: false,
+    };
+    let mut dry = false;
+    let mut it = args.iter();
+    while let Some(a) = it.next() {
+        match a.as_str() {
+            "--from" => opts.from = it.next().map(PathBuf::from),
+            "--force" => opts.force = true,
+            "--dry-run" => dry = true,
+            other => {
+                eprintln!(
+                    "[error] unknown option '{other}'; update takes --from, --dry-run and --force"
+                );
+                std::process::exit(1);
+            }
+        }
+    }
+    let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+    if let Err(e) = update::update(&cwd, &opts, dry) {
+        eprintln!("[error] {e}");
+        std::process::exit(1);
+    }
+}
+
 fn handle_add_component(args: &[String]) {
-    let mut opts = install::Options {
+    let mut opts = source::Options {
         from: None,
         dir: PathBuf::from("src/ui"),
         force: false,
