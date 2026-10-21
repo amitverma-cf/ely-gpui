@@ -1,5 +1,7 @@
 # Mok GPUI (`mok-gpui`)
 
+![Mok GPUI: components for GPUI](frontend/public/og.png)
+
 Mok GPUI began as a fork of [ELY-Open-Source/Ely-GPUI-Components](https://github.com/ELY-Open-Source/Ely-GPUI-Components) (MIT) and is now a separate project with its own crate, CLI and site; it is not affiliated with it. The live site at https://elygpui.com shows upstream's components, not this project's.
 
 A component library for [GPUI](https://www.gpui.rs), the Rust UI framework behind Zed.
