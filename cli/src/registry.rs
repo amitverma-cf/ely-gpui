@@ -344,7 +344,6 @@ pub fn generate(repo: &Path, check: bool) -> Result<(), String> {
     );
     let total = components.len();
     let registry = json!({
-        "$schema": "https://elygpui.com/schema/registry.json",
         "version": "2.0.0",
         "total_components": total,
         "total_chapters": chapters.len(),

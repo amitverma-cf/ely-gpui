@@ -50,7 +50,7 @@ function gallery(): Plugin {
 
 // The manifest lives beside the gallery, one folder up.
 export default defineConfig({
-  base: process.env.BASE_PATH || (process.env.GITHUB_ACTIONS ? "/ely-gpui/" : "/"),
+  base: process.env.BASE_PATH || "/",
   plugins: [react(), docs(), gallery()],
   server: { fs: { allow: [".."] } },
 });

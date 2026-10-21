@@ -1,9 +1,11 @@
 # Ely GPUI (`ely-gpui`)
 
+This project is based on [ELY-Open-Source/Ely-GPUI-Components](https://github.com/ELY-Open-Source/Ely-GPUI-Components). The live site at https://elygpui.com shows that upstream version, not this fork, so it may differ from what is here.
+
 A component library for [GPUI](https://www.gpui.rs), the Rust UI framework behind Zed.
 Every component ships in light and dark. The palette is warm and quiet. Color carries meaning, not decoration.
 
-Every component runs live at https://elygpui.com, compiled to WebAssembly.
+Every component runs in the native gallery (`cargo run --example gallery`), and `frontend/` is a website that browses all of them with a real capture of each.
 
 Status: early. `TASKS.md` tracks every component, chapter by chapter. To help, see `CONTRIBUTING.md`.
 
