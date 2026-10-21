@@ -11,7 +11,8 @@ Thanks for helping. Bugs, component requests and pull requests are all welcome.
 
 - Rust 1.95 with `rustup target add wasm32-unknown-unknown`. No full Xcode needed: gpui compiles its shaders at runtime.
 - For the website: Node 24 and pnpm 11.
-- Development happens on macOS; the capture tool needs it.
+- Development happens on macOS or Windows; macOS also plays the capture's scripted states.
+- The fonts and Lucide icons are not in git. Once, after cloning, fetch them: `cargo run --manifest-path cli/Cargo.toml -- init`. A build without them stops and says so.
 
 ```sh
 cargo run --example gallery              # every chapter, light and dark

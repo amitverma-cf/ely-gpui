@@ -137,8 +137,7 @@ fn index(dest: &Path, units: &BTreeSet<String>, chapters: &BTreeSet<String>) -> 
     fs::write(dest.join("mod.rs"), out).map_err(|e| e.to_string())
 }
 
-/// The files as the source now makes them, formatted as the project formats, by unit.
-/// The chapters' index comes back under the unit `mod.rs`.
+/// The files as the source now makes them, formatted, by unit; the chapters' index is `mod.rs`.
 pub fn render(
     root: &Path,
     source: &Path,
@@ -242,7 +241,6 @@ pub fn apply(
                     .map_err(|e| e.to_string())?;
                 fs::write(&dest, text).map_err(|e| format!("{}: {e}", dest.display()))?;
             }
-            // What mok wrote is the next merge's ancestor, unless the file was left as it was.
             if !matches!(action, Action::Kept | Action::Foreign | Action::Saved) {
                 lock.write_base(&key, new)?;
                 lock.files.insert(key.clone(), unit.clone());
