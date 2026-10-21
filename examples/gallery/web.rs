@@ -46,7 +46,7 @@ fn read(search: &str) -> Result<Start> {
     if !(assets.starts_with("https://") || assets.starts_with("http://") || assets.starts_with('/'))
         || !assets.ends_with('/')
     {
-        bail!("ELY_GALLERY_ASSETS is an address ending in /, not {assets}");
+        bail!("MOK_GALLERY_ASSETS is an address ending in /, not {assets}");
     }
     let mut start = Start::default();
     let params = UrlSearchParams::new_with_str(search).map_err(js)?;
@@ -115,7 +115,7 @@ pub fn start() {
         });
 }
 
-/// Sets Ely's mode from the host, even before opening.
+/// Sets Mok's mode from the host, even before opening.
 #[wasm_bindgen]
 pub fn set_theme(theme: &str) -> Result<(), JsError> {
     let choice = choice(theme).map_err(|error| JsError::new(&format!("{error:#}")))?;

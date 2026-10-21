@@ -1,4 +1,6 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{Timestamp, civil::date, tz::TimeZone};
+use mok_gpui::{
     data_display::Tone,
     finance::{
         Earnings, EarningsCalendar, EconomicCalendar, MarketHeatmap, MarketOverview, MarketStatus,
@@ -9,8 +11,6 @@ use ely_gpui::{
     tables::{Cell, Column, FilterRule, Row, Test},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{Timestamp, civil::date, tz::TimeZone};
 
 use super::markets::day;
 use crate::{
@@ -20,7 +20,7 @@ use crate::{
 
 /// The demo's symbols: letters, name, where each trades, last close, and a seed for its day.
 const SYMBOLS: [(&str, &str, &str, f64, u64); 8] = [
-    ("ELY", "Ely Systems", "NASDAQ", 184.9, 41),
+    ("MOK", "Mok Systems", "NASDAQ", 184.9, 41),
     ("NOVA", "Nova Energy", "NYSE", 62.6, 43),
     ("ORBIT", "Orbit Freight", "NYSE", 128.9, 47),
     ("PINE", "Pine Foods", "NASDAQ", 27.7, 53),
@@ -47,7 +47,7 @@ fn watches() -> Vec<Watch> {
 }
 
 pub fn watch(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
-    let chosen = keep("finance-watched", || SharedString::from("ELY"), window, cx);
+    let chosen = keep("finance-watched", || SharedString::from("MOK"), window, cx);
     let field = window.use_keyed_state("finance-symbol", cx, |window, cx| {
         TextInput::new(window, cx).placeholder("Search symbols")
     });
@@ -97,7 +97,7 @@ pub fn watch(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
 pub fn heatmap(cx: &mut App) -> impl IntoElement + use<> {
     let tiles = [
         ("SOLACE", 920.0, 0.0212),
-        ("ELY", 780.0, 0.0124),
+        ("MOK", 780.0, 0.0124),
         ("ORBIT", 410.0, -0.0203),
         ("NOVA", 380.0, -0.0081),
         ("QUILL", 260.0, 0.0041),
@@ -306,8 +306,8 @@ pub fn calendars(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
     let earnings = [
         (
             date(2026, 9, 28),
-            "ELY",
-            "Ely Systems",
+            "MOK",
+            "Mok Systems",
             false,
             1.84,
             Some(1.97),
@@ -354,8 +354,8 @@ pub fn calendars(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
         story(
             (15, 42),
             "Wire",
-            "Ely Systems lifts its outlook as cloud orders climb",
-            &["ELY"],
+            "Mok Systems lifts its outlook as cloud orders climb",
+            &["MOK"],
             Some(true),
         ),
         story(

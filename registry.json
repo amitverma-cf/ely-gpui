@@ -7,7 +7,7 @@
       "number": 1,
       "name": "primitives",
       "title": "Primitives",
-      "summary": "The smallest parts. Most are gpui itself; Ely adds the rest.",
+      "summary": "The smallest parts. Most are gpui itself; Mok adds the rest.",
       "source_dir": "src/primitives",
       "component_count": 37,
       "components": [
@@ -1799,7 +1799,7 @@
       "description": "Icon component in Primitives",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::Icon",
+      "import": "mok_gpui::primitives::Icon",
       "unit": "primitives/icon.rs"
     },
     {
@@ -1853,7 +1853,7 @@
       "description": "loading, failed, placeholder over img()",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::Image",
+      "import": "mok_gpui::primitives::Image",
       "unit": "primitives/image.rs"
     },
     {
@@ -1881,7 +1881,7 @@
       "description": "Hairline rule, across or down",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::Divider",
+      "import": "mok_gpui::primitives::Divider",
       "unit": "primitives/divider.rs"
     },
     {
@@ -1896,7 +1896,7 @@
       "description": "Part of Divider",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::Divider",
+      "import": "mok_gpui::primitives::Divider",
       "unit": "primitives/divider.rs"
     },
     {
@@ -1953,7 +1953,7 @@
       "description": "Full-window scrim",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::Backdrop",
+      "import": "mok_gpui::primitives::Backdrop",
       "unit": "primitives/backdrop.rs"
     },
     {
@@ -2068,7 +2068,7 @@
       "description": "Focus-colored border while focused",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::FocusRing",
+      "import": "mok_gpui::primitives::FocusRing",
       "unit": "primitives/focus.rs"
     },
     {
@@ -2083,7 +2083,7 @@
       "description": "Owns Tab and Shift-Tab for its subtree",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::FocusScope",
+      "import": "mok_gpui::primitives::FocusScope",
       "unit": "primitives/focus.rs"
     },
     {
@@ -2098,7 +2098,7 @@
       "description": "Part of FocusScope",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::FocusScope",
+      "import": "mok_gpui::primitives::FocusScope",
       "unit": "primitives/focus.rs"
     },
     {
@@ -2139,7 +2139,7 @@
       "description": "press state, long press",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::Pressable",
+      "import": "mok_gpui::primitives::Pressable",
       "unit": "primitives/pressable.rs"
     },
     {
@@ -2167,7 +2167,7 @@
       "description": "A div that reports its bounds whenever they change, then draws once more so what the report changed shows",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::Measure",
+      "import": "mok_gpui::primitives::Measure",
       "unit": "primitives/measure.rs"
     },
     {
@@ -2182,7 +2182,7 @@
       "description": "A div that reports when it enters or leaves the visible area, then draws once more so what the report changed shows",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::IntersectionObserver",
+      "import": "mok_gpui::primitives::IntersectionObserver",
       "unit": "primitives/measure.rs"
     },
     {
@@ -2210,7 +2210,7 @@
       "description": "owns Tooltip: delay, follow mouse, rich content",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::TooltipTrigger",
+      "import": "mok_gpui::primitives::TooltipTrigger",
       "unit": "primitives/tooltip.rs"
     },
     {
@@ -2225,7 +2225,7 @@
       "description": "A chevron that points right when shut and down when open, turning on each change and still on first paint",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::Disclosure",
+      "import": "mok_gpui::primitives::Disclosure",
       "unit": "primitives/disclosure.rs"
     },
     {
@@ -2240,7 +2240,7 @@
       "description": "What follows the pointer while a tab or panel drags",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::DragGhost",
+      "import": "mok_gpui::primitives::DragGhost",
       "unit": "primitives/ghost.rs"
     },
     {
@@ -2255,7 +2255,7 @@
       "description": "Tooltip body for gpui's `.tooltip()`",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::Tooltip",
+      "import": "mok_gpui::primitives::Tooltip",
       "unit": "primitives/tooltip.rs"
     },
     {
@@ -2270,7 +2270,7 @@
       "description": "A help mark, ?, whose tip shows on hover",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::HelpTooltip",
+      "import": "mok_gpui::primitives::HelpTooltip",
       "unit": "primitives/tooltip.rs"
     },
     {
@@ -2285,7 +2285,7 @@
       "description": "H1 to H6",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Heading",
+      "import": "mok_gpui::typography::Heading",
       "unit": "typography/text.rs"
     },
     {
@@ -2300,7 +2300,7 @@
       "description": "Title component in Typography",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Title",
+      "import": "mok_gpui::typography::Title",
       "unit": "typography/text.rs"
     },
     {
@@ -2315,7 +2315,7 @@
       "description": "Subtitle component in Typography",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Subtitle",
+      "import": "mok_gpui::typography::Subtitle",
       "unit": "typography/text.rs"
     },
     {
@@ -2330,7 +2330,7 @@
       "description": "Paragraph component in Typography",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Paragraph",
+      "import": "mok_gpui::typography::Paragraph",
       "unit": "typography/text.rs"
     },
     {
@@ -2345,7 +2345,7 @@
       "description": "Label component in Typography",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Label",
+      "import": "mok_gpui::typography::Label",
       "unit": "typography/text.rs"
     },
     {
@@ -2360,7 +2360,7 @@
       "description": "Caption component in Typography",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Caption",
+      "import": "mok_gpui::typography::Caption",
       "unit": "typography/text.rs"
     },
     {
@@ -2375,7 +2375,7 @@
       "description": "Small upper-case eyebrow above a heading",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Overline",
+      "import": "mok_gpui::typography::Overline",
       "unit": "typography/text.rs"
     },
     {
@@ -2390,7 +2390,7 @@
       "description": "Monospace fragment on a quiet fill",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Code",
+      "import": "mok_gpui::typography::Code",
       "unit": "typography/inline.rs"
     },
     {
@@ -2405,7 +2405,7 @@
       "description": "⌘ / Ctrl by platform",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Kbd",
+      "import": "mok_gpui::typography::Kbd",
       "unit": "typography/inline.rs"
     },
     {
@@ -2420,7 +2420,7 @@
       "description": "A chord sequence such as `\"cmd-k cmd-s\"`",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::KbdCombo",
+      "import": "mok_gpui::typography::KbdCombo",
       "unit": "typography/inline.rs"
     },
     {
@@ -2435,7 +2435,7 @@
       "description": "Quoted passage behind a rule",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Blockquote",
+      "import": "mok_gpui::typography::Blockquote",
       "unit": "typography/inline.rs"
     },
     {
@@ -2450,7 +2450,7 @@
       "description": "Text with marked ranges, as for search matches",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Highlight",
+      "import": "mok_gpui::typography::Highlight",
       "unit": "typography/inline.rs"
     },
     {
@@ -2481,7 +2481,7 @@
       "description": "Part of Ellipsis: typography::Ellipsis; gpui's .truncate() holds only in a block of fixed width",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Ellipsis",
+      "import": "mok_gpui::typography::Ellipsis",
       "unit": "typography/fit.rs"
     },
     {
@@ -2509,7 +2509,7 @@
       "description": "One line in the text style around it, cut in the middle when its box is too narrow, so both ends stay: paths, file names, hashes",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::MiddleEllipsis",
+      "import": "mok_gpui::typography::MiddleEllipsis",
       "unit": "typography/fit.rs"
     },
     {
@@ -2524,7 +2524,7 @@
       "description": "Truncates at the end; the full text shows on hover only when cut",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::EllipsisTooltip",
+      "import": "mok_gpui::typography::EllipsisTooltip",
       "unit": "typography/fit.rs"
     },
     {
@@ -2539,7 +2539,7 @@
       "description": "Inline link that runs `on_click`; `ExternalLink` opens an address",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Link",
+      "import": "mok_gpui::typography::Link",
       "unit": "typography/link.rs"
     },
     {
@@ -2554,7 +2554,7 @@
       "description": "Link that leaves the app, marked with an arrow",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::ExternalLink",
+      "import": "mok_gpui::typography::ExternalLink",
       "unit": "typography/link.rs"
     },
     {
@@ -2569,7 +2569,7 @@
       "description": "\"3 minutes ago\", kept fresh while on screen",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::RelativeTime",
+      "import": "mok_gpui::typography::RelativeTime",
       "unit": "typography/formatted.rs"
     },
     {
@@ -2584,7 +2584,7 @@
       "description": "A moment, strftime pattern, in the system zone unless told",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::DateTimeText",
+      "import": "mok_gpui::typography::DateTimeText",
       "unit": "typography/formatted.rs"
     },
     {
@@ -2599,7 +2599,7 @@
       "description": "Grouped digits at fixed precision",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::NumberText",
+      "import": "mok_gpui::typography::NumberText",
       "unit": "typography/formatted.rs"
     },
     {
@@ -2614,7 +2614,7 @@
       "description": "Amount in an ISO 4217 currency",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::CurrencyText",
+      "import": "mok_gpui::typography::CurrencyText",
       "unit": "typography/formatted.rs"
     },
     {
@@ -2629,7 +2629,7 @@
       "description": "Ratio as percent",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::PercentText",
+      "import": "mok_gpui::typography::PercentText",
       "unit": "typography/formatted.rs"
     },
     {
@@ -2644,7 +2644,7 @@
       "description": "Bytes in KB, MB, GB; or KiB with `binary`",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::FileSizeText",
+      "import": "mok_gpui::typography::FileSizeText",
       "unit": "typography/formatted.rs"
     },
     {
@@ -2659,7 +2659,7 @@
       "description": "Seconds as a clock or a compact span",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::DurationText",
+      "import": "mok_gpui::typography::DurationText",
       "unit": "typography/formatted.rs"
     },
     {
@@ -2674,7 +2674,7 @@
       "description": "Count with the right noun",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::PluralText",
+      "import": "mok_gpui::typography::PluralText",
       "unit": "typography/formatted.rs"
     },
     {
@@ -2689,7 +2689,7 @@
       "description": "Text with a copy button that confirms with a check",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::CopyableText",
+      "import": "mok_gpui::typography::CopyableText",
       "unit": "typography/copy.rs"
     },
     {
@@ -2704,7 +2704,7 @@
       "description": "prove: selection over StyledText layout",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::SelectableText",
+      "import": "mok_gpui::typography::SelectableText",
       "unit": "typography/select.rs"
     },
     {
@@ -2719,7 +2719,7 @@
       "description": "shortcodes",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Emoji",
+      "import": "mok_gpui::typography::Emoji",
       "unit": "typography/emoji.rs"
     },
     {
@@ -2734,7 +2734,7 @@
       "description": "prove: TeX subset",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Latex",
+      "import": "mok_gpui::typography::Latex",
       "unit": "typography/math.rs"
     },
     {
@@ -2749,7 +2749,7 @@
       "description": "prove: TeX subset",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Latex",
+      "import": "mok_gpui::typography::Latex",
       "unit": "typography/math.rs"
     },
     {
@@ -2764,7 +2764,7 @@
       "description": "Number that rolls its digits, or counts, to each new value",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::AnimatedNumber",
+      "import": "mok_gpui::typography::AnimatedNumber",
       "unit": "typography/rolling.rs"
     },
     {
@@ -2779,7 +2779,7 @@
       "description": "Reveals text one grapheme at a time, with a blinking caret",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Typewriter",
+      "import": "mok_gpui::typography::Typewriter",
       "unit": "typography/effects.rs"
     },
     {
@@ -2794,7 +2794,7 @@
       "description": "per-glyph tonal ramp",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::GradientText",
+      "import": "mok_gpui::typography::GradientText",
       "unit": "typography/effects.rs"
     },
     {
@@ -2809,7 +2809,7 @@
       "description": "A band of light that sweeps the text while it waits",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::ShimmerText",
+      "import": "mok_gpui::typography::ShimmerText",
       "unit": "typography/effects.rs"
     },
     {
@@ -2824,7 +2824,7 @@
       "description": "Part of h_stack",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::h_stack",
+      "import": "mok_gpui::layout::h_stack",
       "unit": "layout/stack.rs"
     },
     {
@@ -2839,7 +2839,7 @@
       "description": "Row with children centered on the cross axis",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::h_stack",
+      "import": "mok_gpui::layout::h_stack",
       "unit": "layout/stack.rs"
     },
     {
@@ -2854,7 +2854,7 @@
       "description": "Column",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::v_stack",
+      "import": "mok_gpui::layout::v_stack",
       "unit": "layout/stack.rs"
     },
     {
@@ -2914,7 +2914,7 @@
       "description": "Equal columns: as many as fit at `min` width each",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::SimpleGrid",
+      "import": "mok_gpui::layout::SimpleGrid",
       "unit": "layout/grid.rs"
     },
     {
@@ -2929,7 +2929,7 @@
       "description": "Columns fill shortest first, so uneven items pack tight",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Masonry",
+      "import": "mok_gpui::layout::Masonry",
       "unit": "layout/grid.rs"
     },
     {
@@ -2957,7 +2957,7 @@
       "description": "Centered column with a readable maximum width",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Container",
+      "import": "mok_gpui::layout::Container",
       "unit": "layout/stack.rs"
     },
     {
@@ -2972,7 +2972,7 @@
       "description": "Keeps width to height at `ratio`; width fills the parent",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::AspectRatio",
+      "import": "mok_gpui::layout::AspectRatio",
       "unit": "layout/stack.rs"
     },
     {
@@ -3052,7 +3052,7 @@
       "description": "Part of ZStack",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::ZStack",
+      "import": "mok_gpui::layout::ZStack",
       "unit": "layout/stack.rs"
     },
     {
@@ -3067,7 +3067,7 @@
       "description": "Layers: the first child sets the size, the rest cover it",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::ZStack",
+      "import": "mok_gpui::layout::ZStack",
       "unit": "layout/stack.rs"
     },
     {
@@ -3082,7 +3082,7 @@
       "description": "Scroll region with overlay scrollbars that show while in use",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::ScrollArea",
+      "import": "mok_gpui::layout::ScrollArea",
       "unit": "layout/scroll.rs"
     },
     {
@@ -3097,7 +3097,7 @@
       "description": "Overlay thumb for a `ScrollHandle`; drag it to scroll",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Scrollbar",
+      "import": "mok_gpui::layout::Scrollbar",
       "unit": "layout/scroll.rs"
     },
     {
@@ -3112,7 +3112,7 @@
       "description": "Soft shade at each edge where content continues",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::ScrollShadow",
+      "import": "mok_gpui::layout::ScrollShadow",
       "unit": "layout/scroll_aids.rs"
     },
     {
@@ -3127,7 +3127,7 @@
       "description": "Floating button that eases back to the top once the reader has gone far",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::ScrollToTop",
+      "import": "mok_gpui::layout::ScrollToTop",
       "unit": "layout/scroll_aids.rs"
     },
     {
@@ -3142,7 +3142,7 @@
       "description": "A section whose header pins to the top of `handle`'s viewport",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::StickyHeader",
+      "import": "mok_gpui::layout::StickyHeader",
       "unit": "layout/scroll_aids.rs"
     },
     {
@@ -3157,7 +3157,7 @@
       "description": "horizontal, vertical, nested",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::SplitPane",
+      "import": "mok_gpui::layout::SplitPane",
       "unit": "layout/split.rs"
     },
     {
@@ -3172,7 +3172,7 @@
       "description": "Thin divider with a wide grab area",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::resize_handle",
+      "import": "mok_gpui::layout::resize_handle",
       "unit": "layout/split.rs"
     },
     {
@@ -3187,7 +3187,7 @@
       "description": "Region that opens and closes by animating its measured height",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Collapsible",
+      "import": "mok_gpui::layout::Collapsible",
       "unit": "layout/collapse.rs"
     },
     {
@@ -3202,7 +3202,7 @@
       "description": "Stacked items that fold; one open at a time unless `multiple`",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Accordion",
+      "import": "mok_gpui::layout::Accordion",
       "unit": "layout/collapse.rs"
     },
     {
@@ -3217,7 +3217,7 @@
       "description": "One titled, foldable row of an `Accordion`",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::AccordionItem",
+      "import": "mok_gpui::layout::AccordionItem",
       "unit": "layout/collapse.rs"
     },
     {
@@ -3232,7 +3232,7 @@
       "description": "Flat surface: header, body, footer",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Card",
+      "import": "mok_gpui::layout::Card",
       "unit": "layout/surface.rs"
     },
     {
@@ -3247,7 +3247,7 @@
       "description": "Title row for a `Card`: title, note, one trailing action",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::CardHeader",
+      "import": "mok_gpui::layout::CardHeader",
       "unit": "layout/surface.rs"
     },
     {
@@ -3262,7 +3262,7 @@
       "description": "Part of Card",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Card",
+      "import": "mok_gpui::layout::Card",
       "unit": "layout/surface.rs"
     },
     {
@@ -3277,7 +3277,7 @@
       "description": "Part of Card",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Card",
+      "import": "mok_gpui::layout::Card",
       "unit": "layout/surface.rs"
     },
     {
@@ -3292,7 +3292,7 @@
       "description": "App region with a header bar: title and actions",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Panel",
+      "import": "mok_gpui::layout::Panel",
       "unit": "layout/surface.rs"
     },
     {
@@ -3307,7 +3307,7 @@
       "description": "Part of Panel",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Panel",
+      "import": "mok_gpui::layout::Panel",
       "unit": "layout/surface.rs"
     },
     {
@@ -3322,7 +3322,7 @@
       "description": "Titled block of a page, with an optional note and action",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Section",
+      "import": "mok_gpui::layout::Section",
       "unit": "layout/surface.rs"
     },
     {
@@ -3337,7 +3337,7 @@
       "description": "Part of Section",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Section",
+      "import": "mok_gpui::layout::Section",
       "unit": "layout/surface.rs"
     },
     {
@@ -3368,7 +3368,7 @@
       "description": "Named group of fields inside a hairline",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Fieldset",
+      "import": "mok_gpui::layout::Fieldset",
       "unit": "layout/surface.rs"
     },
     {
@@ -3383,7 +3383,7 @@
       "description": "Bordered region, no fill",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Frame",
+      "import": "mok_gpui::layout::Frame",
       "unit": "layout/surface.rs"
     },
     {
@@ -3398,7 +3398,7 @@
       "description": "Recessed region on the sunken tone",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Well",
+      "import": "mok_gpui::layout::Well",
       "unit": "layout/surface.rs"
     },
     {
@@ -3413,7 +3413,7 @@
       "description": "Side column that folds to an icon rail, width animated",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Sidebar",
+      "import": "mok_gpui::layout::Sidebar",
       "unit": "layout/sidebar.rs"
     },
     {
@@ -3428,7 +3428,7 @@
       "description": "Bottom panel with a grab handle; pull it down to dismiss",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Drawer",
+      "import": "mok_gpui::layout::Drawer",
       "unit": "layout/sheet.rs"
     },
     {
@@ -3443,7 +3443,7 @@
       "description": "Panel that slides in from an edge over a scrim",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Sheet",
+      "import": "mok_gpui::layout::Sheet",
       "unit": "layout/sheet.rs"
     },
     {
@@ -3458,7 +3458,7 @@
       "description": "Page header and content: title, note, actions, then the body",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Page",
+      "import": "mok_gpui::layout::Page",
       "unit": "layout/page.rs"
     },
     {
@@ -3473,7 +3473,7 @@
       "description": "Part of Page",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Page",
+      "import": "mok_gpui::layout::Page",
       "unit": "layout/page.rs"
     },
     {
@@ -3488,7 +3488,7 @@
       "description": "Part of Page",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Page",
+      "import": "mok_gpui::layout::Page",
       "unit": "layout/page.rs"
     },
     {
@@ -3503,7 +3503,7 @@
       "description": "Window frame: title bar, sidebar, content, status bar",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::AppShell",
+      "import": "mok_gpui::layout::AppShell",
       "unit": "layout/page.rs"
     },
     {
@@ -3518,7 +3518,7 @@
       "description": "desktop shell layout with header, sidebars and footer",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::AppLayout",
+      "import": "mok_gpui::layout::AppLayout",
       "unit": "layout/app_layout.rs"
     },
     {
@@ -3533,7 +3533,7 @@
       "description": "List on the left, the selected item on the right",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::MasterDetail",
+      "import": "mok_gpui::layout::MasterDetail",
       "unit": "layout/page.rs"
     },
     {
@@ -3548,7 +3548,7 @@
       "description": "Side docks around a center; panels move between docks and float",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Dock",
+      "import": "mok_gpui::layout::Dock",
       "unit": "layout/dock/mod.rs"
     },
     {
@@ -3563,7 +3563,7 @@
       "description": "DockPanel component in Layout",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::DockPanel",
+      "import": "mok_gpui::layout::DockPanel",
       "unit": "layout/dock/mod.rs"
     },
     {
@@ -3604,7 +3604,7 @@
       "description": "Panel that floats above the page; drag its title bar to move it",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::FloatingPanel",
+      "import": "mok_gpui::layout::FloatingPanel",
       "unit": "layout/floating.rs"
     },
     {
@@ -3619,7 +3619,7 @@
       "description": "Part of PaneGroup",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::PaneGroup",
+      "import": "mok_gpui::layout::PaneGroup",
       "unit": "layout/panes.rs"
     },
     {
@@ -3634,7 +3634,7 @@
       "description": "Editor-style split panes: split right or down, close, focus",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::PaneGroup",
+      "import": "mok_gpui::layout::PaneGroup",
       "unit": "layout/panes.rs"
     },
     {
@@ -3649,7 +3649,7 @@
       "description": "versioned layout snapshot",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Workspace",
+      "import": "mok_gpui::layout::Workspace",
       "unit": "layout/workspace.rs"
     },
     {
@@ -3664,7 +3664,7 @@
       "description": "Pan with a drag or the wheel; zoom with ⌘/Ctrl and the wheel",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::Viewport",
+      "import": "mok_gpui::layout::Viewport",
       "unit": "layout/viewport.rs"
     },
     {
@@ -7527,7 +7527,7 @@
       "description": "ring, dots, bars, pulse, orbit, wave; also the Button loading state (T05 LoadingButton) and T07a LoadMore → motion::Spinner, buttons::Button::loading, navigation::LoadMore",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Spinner",
+      "import": "mok_gpui::motion::Spinner",
       "unit": "motion/spinner.rs"
     },
     {
@@ -7542,7 +7542,7 @@
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Spinner",
+      "import": "mok_gpui::motion::Spinner",
       "unit": "motion/spinner.rs"
     },
     {
@@ -7557,7 +7557,7 @@
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Spinner",
+      "import": "mok_gpui::motion::Spinner",
       "unit": "motion/spinner.rs"
     },
     {
@@ -7572,7 +7572,7 @@
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Spinner",
+      "import": "mok_gpui::motion::Spinner",
       "unit": "motion/spinner.rs"
     },
     {
@@ -7587,7 +7587,7 @@
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Spinner",
+      "import": "mok_gpui::motion::Spinner",
       "unit": "motion/spinner.rs"
     },
     {
@@ -7602,7 +7602,7 @@
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Spinner",
+      "import": "mok_gpui::motion::Spinner",
       "unit": "motion/spinner.rs"
     },
     {
@@ -7617,7 +7617,7 @@
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Spinner",
+      "import": "mok_gpui::motion::Spinner",
       "unit": "motion/spinner.rs"
     },
     {
@@ -7632,7 +7632,7 @@
       "description": "Part of Spinner: motion::Spinner",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Spinner",
+      "import": "mok_gpui::motion::Spinner",
       "unit": "motion/spinner.rs"
     },
     {
@@ -7647,7 +7647,7 @@
       "description": "A placeholder in the shape of what is loading; it breathes until the content arrives",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Skeleton",
+      "import": "mok_gpui::motion::Skeleton",
       "unit": "motion/skeleton.rs"
     },
     {
@@ -7662,7 +7662,7 @@
       "description": "Lines of text to come; the last runs short",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::SkeletonText",
+      "import": "mok_gpui::motion::SkeletonText",
       "unit": "motion/skeleton.rs"
     },
     {
@@ -7677,7 +7677,7 @@
       "description": "A round avatar to come",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::SkeletonAvatar",
+      "import": "mok_gpui::motion::SkeletonAvatar",
       "unit": "motion/skeleton.rs"
     },
     {
@@ -7692,7 +7692,7 @@
       "description": "A card to come: who, a picture and a few lines",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::SkeletonCard",
+      "import": "mok_gpui::motion::SkeletonCard",
       "unit": "motion/skeleton.rs"
     },
     {
@@ -7707,7 +7707,7 @@
       "description": "A table to come: a header and rows of cells",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::SkeletonTable",
+      "import": "mok_gpui::motion::SkeletonTable",
       "unit": "motion/skeleton.rs"
     },
     {
@@ -7722,7 +7722,7 @@
       "description": "Sweeps a soft band of light across what it holds while that loads",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Shimmer",
+      "import": "mok_gpui::motion::Shimmer",
       "unit": "motion/skeleton.rs"
     },
     {
@@ -7737,7 +7737,7 @@
       "description": "determinate, indeterminate, segmented, buffered — also T06e UploadList → motion::ProgressBar, forms::UploadList",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::ProgressBar",
+      "import": "mok_gpui::motion::ProgressBar",
       "unit": "motion/progress.rs"
     },
     {
@@ -7752,7 +7752,7 @@
       "description": "Part of ProgressRing: motion::ProgressRing",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::ProgressRing",
+      "import": "mok_gpui::motion::ProgressRing",
       "unit": "motion/progress.rs"
     },
     {
@@ -7767,7 +7767,7 @@
       "description": "Progress as a ring that fills clockwise from the top and glides to each new value; the percent, or any content, can sit inside",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::ProgressRing",
+      "import": "mok_gpui::motion::ProgressRing",
       "unit": "motion/progress.rs"
     },
     {
@@ -7782,7 +7782,7 @@
       "description": "Veils what it holds with a spinner while `loading`; presses stop at the veil",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::LoadingOverlay",
+      "import": "mok_gpui::motion::LoadingOverlay",
       "unit": "motion/overlay.rs"
     },
     {
@@ -7797,7 +7797,7 @@
       "description": "Builds its content once it first scrolls into view; until then a skeleton holds its place",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::LazyLoad",
+      "import": "mok_gpui::motion::LazyLoad",
       "unit": "motion/overlay.rs"
     },
     {
@@ -7828,7 +7828,7 @@
       "description": "The mark at the top of a list that refreshes: an arrow that turns with the pull, a spinner while it works, a check when done",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::RefreshIndicator",
+      "import": "mok_gpui::motion::RefreshIndicator",
       "unit": "motion/overlay.rs"
     },
     {
@@ -7843,7 +7843,7 @@
       "description": "Someone is typing: three dots bob in a small bubble, beside who it is when named",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::TypingIndicator",
+      "import": "mok_gpui::motion::TypingIndicator",
       "unit": "motion/overlay.rs"
     },
     {
@@ -7858,7 +7858,7 @@
       "description": "fade, slide, scale, collapse → motion::Transition fades, rises and slides; collapse is layout::Collapsible; scale is blocked: gpui transforms only svgs",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Transition",
+      "import": "mok_gpui::motion::Transition",
       "unit": "motion/transition.rs"
     },
     {
@@ -7873,7 +7873,7 @@
       "description": "Children that enter one after another, `step` apart, each arriving once",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Stagger",
+      "import": "mok_gpui::motion::Stagger",
       "unit": "motion/transition.rs"
     },
     {
@@ -7888,7 +7888,7 @@
       "description": "Rows that fold open and fade in when they arrive, and fold away when the owner marks them gone",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::AnimatePresence",
+      "import": "mok_gpui::motion::AnimatePresence",
       "unit": "motion/list.rs"
     },
     {
@@ -7903,7 +7903,7 @@
       "description": "A column whose rows glide to their new places when the order changes: first, last, invert, play",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Flip",
+      "import": "mok_gpui::motion::Flip",
       "unit": "motion/list.rs"
     },
     {
@@ -7918,7 +7918,7 @@
       "description": "Rows reordered by dragging: the held row follows the pointer, the others glide aside, and on drop `on_reorder(from, to)` asks the owner to move row `from` to place `to`",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Reorder",
+      "import": "mok_gpui::motion::Reorder",
       "unit": "motion/reorder.rs"
     },
     {
@@ -7933,7 +7933,7 @@
       "description": "Runs its content past in a loop, right to left, at an even pace",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Marquee",
+      "import": "mok_gpui::motion::Marquee",
       "unit": "motion/effects.rs"
     },
     {
@@ -7948,7 +7948,7 @@
       "description": "motion::Ripple",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Ripple",
+      "import": "mok_gpui::motion::Ripple",
       "unit": "motion/particles.rs"
     },
     {
@@ -7963,7 +7963,7 @@
       "description": "A burst of paper pieces thrown up from the middle each time `bursts` grows; they tumble and fall in the chart's quiet colors",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Confetti",
+      "import": "mok_gpui::motion::Confetti",
       "unit": "motion/particles.rs"
     },
     {
@@ -7978,7 +7978,7 @@
       "description": "motion::Glow, motion::Pulse",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Glow",
+      "import": "mok_gpui::motion::Glow",
       "unit": "motion/effects.rs"
     },
     {
@@ -7993,7 +7993,7 @@
       "description": "motion::Glow, motion::Pulse",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Pulse",
+      "import": "mok_gpui::motion::Pulse",
       "unit": "motion/effects.rs"
     },
     {
@@ -8008,7 +8008,7 @@
       "description": "motion::Blink, motion::Flash",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Blink",
+      "import": "mok_gpui::motion::Blink",
       "unit": "motion/effects.rs"
     },
     {
@@ -8023,7 +8023,7 @@
       "description": "Tints what it holds for a moment each time `key` changes, then lets the tint fade: a cue that a value moved",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Flash",
+      "import": "mok_gpui::motion::Flash",
       "unit": "motion/effects.rs"
     },
     {
@@ -8038,7 +8038,7 @@
       "description": "Shakes what it holds side to side each time `key` changes, as a field refusing an entry",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Shake",
+      "import": "mok_gpui::motion::Shake",
       "unit": "motion/effects.rs"
     },
     {
@@ -8053,7 +8053,7 @@
       "description": "motion::ParticleBackground",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::ParticleBackground",
+      "import": "mok_gpui::motion::ParticleBackground",
       "unit": "motion/particles.rs"
     },
     {
@@ -8068,7 +8068,7 @@
       "description": "slow tonal drift → motion::AnimatedGradient",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::AnimatedGradient",
+      "import": "mok_gpui::motion::AnimatedGradient",
       "unit": "motion/particles.rs"
     },
     {
@@ -12017,7 +12017,7 @@
       "description": "Part of PaneGroup: layout::PaneGroup, a Terminal per pane",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::layout::PaneGroup",
+      "import": "mok_gpui::layout::PaneGroup",
       "unit": "layout/panes.rs"
     },
     {
@@ -14002,7 +14002,7 @@
       "description": "Part of Latex: typography::Latex",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::typography::Latex",
+      "import": "mok_gpui::typography::Latex",
       "unit": "typography/math.rs"
     },
     {
@@ -19825,7 +19825,7 @@
       "source_dir": "src/settings",
       "file": "importer.rs",
       "export_type": "ThemeImporter",
-      "description": "A VS Code color theme taken in, dropped or browsed for: its name and mode, how many colors it names, and Apply, the rest kept from Ely's palette of that mode",
+      "description": "A VS Code color theme taken in, dropped or browsed for: its name and mode, how many colors it names, and Apply, the rest kept from Mok's palette of that mode",
       "dependencies": [],
       "status": "component",
       "import": "crate::ui::settings::ThemeImporter",
@@ -20613,7 +20613,7 @@
       "description": "Part of Reorder: motion::Reorder",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::Reorder",
+      "import": "mok_gpui::motion::Reorder",
       "unit": "motion/reorder.rs"
     },
     {
@@ -20628,7 +20628,7 @@
       "description": "Part of Pressable: primitives::Pressable",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::Pressable",
+      "import": "mok_gpui::primitives::Pressable",
       "unit": "primitives/pressable.rs"
     },
     {
@@ -20855,7 +20855,7 @@
       "description": "Part of FocusRing: primitives::FocusRing",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::FocusRing",
+      "import": "mok_gpui::primitives::FocusRing",
       "unit": "primitives/focus.rs"
     },
     {
@@ -20883,7 +20883,7 @@
       "description": "Elevation component in Theme",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::theme::Elevation",
+      "import": "mok_gpui::theme::Elevation",
       "unit": "theme/elevation.rs"
     },
     {
@@ -20914,7 +20914,7 @@
       "description": "Damped spring",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::motion::curve::spring",
+      "import": "mok_gpui::motion::curve::spring",
       "unit": "motion/curve.rs"
     },
     {
@@ -21004,10 +21004,10 @@
       "source_dir": "src/theme",
       "file": "syntax.rs",
       "export_type": "syntax_themes",
-      "description": "Ely's code colors, a quiet set that keeps to the text's own inks, and a warm paper set",
+      "description": "Mok's code colors, a quiet set that keeps to the text's own inks, and a warm paper set",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::theme::syntax_themes",
+      "import": "mok_gpui::theme::syntax_themes",
       "unit": "theme/syntax.rs"
     },
     {
@@ -21022,7 +21022,7 @@
       "description": "Part of Platform: theme::Platform, the theme's platform: the window buttons Ely draws, the title bar, key caps",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::theme::Platform",
+      "import": "mok_gpui::theme::Platform",
       "unit": "theme/platform.rs"
     },
     {
@@ -21037,7 +21037,7 @@
       "description": "Part of IconTheme: primitives::IconTheme, an owner's rules by name and extension over file_icon",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::primitives::IconTheme",
+      "import": "mok_gpui::primitives::IconTheme",
       "unit": "primitives/files.rs"
     },
     {
@@ -21068,7 +21068,7 @@
       "description": "Part of I18n: i18n::I18n, a gpui global: the shown locale and one catalog per locale",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::i18n::I18n",
+      "import": "mok_gpui::i18n::I18n",
       "unit": "i18n/mod.rs"
     },
     {
@@ -21083,7 +21083,7 @@
       "description": "Part of I18n: I18n::text, a message with its {name} arguments filled",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::i18n::I18n",
+      "import": "mok_gpui::i18n::I18n",
       "unit": "i18n/mod.rs"
     },
     {
@@ -21098,7 +21098,7 @@
       "description": "Part of I18n: I18n::text, a message with its {name} arguments filled",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::i18n::I18n",
+      "import": "mok_gpui::i18n::I18n",
       "unit": "i18n/mod.rs"
     },
     {
@@ -21113,7 +21113,7 @@
       "description": "Part of Locale: Locale::number and Locale::date, CLDR's separators, right-to-left sign and short dates",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::i18n::Locale",
+      "import": "mok_gpui::i18n::Locale",
       "unit": "i18n/locale.rs"
     },
     {
@@ -21128,7 +21128,7 @@
       "description": "Part of Locale: Locale::number and Locale::date, CLDR's separators, right-to-left sign and short dates",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::i18n::Locale",
+      "import": "mok_gpui::i18n::Locale",
       "unit": "i18n/locale.rs"
     },
     {
@@ -21156,7 +21156,7 @@
       "description": "A link that shows only while focused and hands focus to `target`",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::i18n::SkipLink",
+      "import": "mok_gpui::i18n::SkipLink",
       "unit": "i18n/skip.rs"
     },
     {
@@ -21187,7 +21187,7 @@
       "description": "Part of Theme: Theme::set_color_blind_safe: chart hues fitted to stay apart under Machado's simulated protanopia, deuteranopia and tritanopia, each 3:1 on its page",
       "dependencies": [],
       "status": "core",
-      "import": "ely_gpui::theme::Theme",
+      "import": "mok_gpui::theme::Theme",
       "unit": "theme/mod.rs"
     },
     {

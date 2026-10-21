@@ -1,10 +1,10 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     menus::{Menu, MenuBar, MenuItem, PieItem, PieMenu, SearchableMenu},
     primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use super::rows::{ran, run};
 use crate::{

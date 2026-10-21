@@ -155,11 +155,11 @@ pub fn generate_media(
             in_root
         } else {
             panic!(
-                "ely: Image file '{}' for key '{}' declared in ely-gpui.toml was not found on disk.\n\
+                "mok: Image file '{}' for key '{}' declared in mok-gpui.toml was not found on disk.\n\
                  Searched locations:\n\
                    - {}\n\
                    - {}\n\
-                 Please verify the image exists or update your ely-gpui.toml [media.images] configuration.",
+                 Please verify the image exists or update your mok-gpui.toml [media.images] configuration.",
                 entry.path,
                 key,
                 in_assets.display(),
@@ -192,7 +192,7 @@ pub fn generate_media(
             in_root
         } else if should_embed {
             panic!(
-                "ely: Video file '{}' for key '{}' declared in ely-gpui.toml was not found on disk.\n\
+                "mok: Video file '{}' for key '{}' declared in mok-gpui.toml was not found on disk.\n\
                  Searched locations:\n\
                    - {}\n\
                    - {}\n\
@@ -218,11 +218,11 @@ pub fn generate_media(
             in_root
         } else {
             panic!(
-                "ely: file '{}' for key '{}' declared in ely-gpui.toml [media.files] was not found on disk.\n\
+                "mok: file '{}' for key '{}' declared in mok-gpui.toml [media.files] was not found on disk.\n\
                  Searched locations:\n\
                    - {}\n\
                    - {}\n\
-                 Run `cargo ely add` for the component that needs it, or fix the path.",
+                 Run `cargo mok add` for the component that needs it, or fix the path.",
                 entry.path,
                 key,
                 in_assets.display(),
@@ -392,6 +392,6 @@ pub fn generate_media(
     }
     code.push_str("];\n");
 
-    let dest = out_dir.join("ely_media.rs");
-    fs::write(dest, code).expect("failed to write ely_media.rs");
+    let dest = out_dir.join("mok_media.rs");
+    fs::write(dest, code).expect("failed to write mok_media.rs");
 }

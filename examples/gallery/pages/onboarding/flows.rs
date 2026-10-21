@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, prelude::*, px};
+use mok_gpui::{
     buttons::{Button, ButtonVariant, IconButton},
     data_display::{Badge, Tone},
     forms::{FormField, Input, TextInput},
@@ -9,7 +10,6 @@ use ely_gpui::{
     primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize},
 };
-use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, prelude::*, px};
 
 use crate::{
     probe::probe,

@@ -1,8 +1,8 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     forms::{Cascade, Cascader, Choice, Combobox, ListBox, MultiSelect, Select, TransferList},
     primitives::LucideIcon,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use super::text::field;
 use crate::{

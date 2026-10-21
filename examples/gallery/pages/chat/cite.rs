@@ -1,8 +1,8 @@
-use ely_gpui::chat::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::chat::{
     CitationBadge, DocumentChunkPreview, SearchProgress, Source, SourceList, StepState,
     WebResultCard,
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::{probe::probe, ui::section};
 

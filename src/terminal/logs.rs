@@ -289,8 +289,8 @@ mod tests {
     fn lines_show_from_a_level_up_and_by_query() {
         let lines = [
             line(LogLevel::Debug, "gpui", "frame"),
-            line(LogLevel::Info, "ely::terminal", "started \x1b[1mzsh\x1b[0m"),
-            line(LogLevel::Error, "ely::pty", "the program ended"),
+            line(LogLevel::Info, "mok::terminal", "started \x1b[1mzsh\x1b[0m"),
+            line(LogLevel::Error, "mok::pty", "the program ended"),
         ];
         assert_eq!(shown(&lines, LogLevel::Info, ""), [1, 2]);
         assert_eq!(

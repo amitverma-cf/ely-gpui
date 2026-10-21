@@ -4,7 +4,7 @@ use gpui::{TestAppContext, hsla};
 
 use super::{ActiveTheme, Mode, Palette, Syntax, Theme};
 
-/// An owner's palette serves its own mode; the other keeps Ely's, and none brings Ely's back.
+/// An owner's palette serves its own mode; the other keeps Mok's, and none brings Mok's back.
 #[gpui::test]
 fn an_owners_palette_serves_its_mode_alone(cx: &mut TestAppContext) {
     cx.update(Theme::init);

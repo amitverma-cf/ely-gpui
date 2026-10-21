@@ -1,4 +1,6 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, px};
+use jiff::{Timestamp, tz::TimeZone};
+use mok_gpui::{
     chat::{
         CapabilityCards, FollowUpSuggestions, MessageAvatar, MessageBubble, PromptInput, Role,
         StreamingMarkdown, SuggestionChips, WelcomeScreen,
@@ -9,8 +11,6 @@ use ely_gpui::{
     primitives::{LucideIcon, Severity},
     theme::{ActiveTheme, Radius},
 };
-use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, px};
-use jiff::{Timestamp, tz::TimeZone};
 
 use crate::{
     probe::probe,

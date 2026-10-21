@@ -114,7 +114,7 @@ fn prior_crlf_front_matter_press(cx: &mut TestAppContext) {
 
 #[gpui::test]
 fn prior_crlf_definition_press(cx: &mut TestAppContext) {
-    let source = "[ref]: https://ely.dev\r\n  \"title\"\r\n";
+    let source = "[ref]: https://mok.dev\r\n  \"title\"\r\n";
     let (document, cx) = open(source, MarkdownMode::Visual, cx);
     let events = heard(&document, cx);
     press_on(0, 10, MouseButton::Right, cx);

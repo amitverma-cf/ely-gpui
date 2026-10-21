@@ -10,7 +10,7 @@ pub const PAGE: Page = Page {
     number: 1,
     slug: "primitives",
     title: "Primitives",
-    summary: "The smallest parts. Most are gpui itself; Ely adds the rest.",
+    summary: "The smallest parts. Most are gpui itself; Mok adds the rest.",
     render,
     script: SCRIPT,
 };

@@ -121,12 +121,12 @@ fn a_secondary_press_moves_the_caret_and_opens_nothing(cx: &mut TestAppContext) 
 
 #[gpui::test]
 fn a_secondary_press_on_a_link_names_its_address(cx: &mut TestAppContext) {
-    let text = "Go [there](https://ely.dev) now\n";
+    let text = "Go [there](https://mok.dev) now\n";
     let (document, cx) = open(text, MarkdownMode::Visual, cx);
     let heard = heard(&document, cx);
     press_on(0, 4, MouseButton::Right, cx);
     let expected = DocumentTarget {
-        link: Some("https://ely.dev".into()),
+        link: Some("https://mok.dev".into()),
         ..target(text.find("here").unwrap(), TargetBlock::Paragraph)
     };
     assert_eq!(*heard.borrow(), [expected]);
@@ -256,7 +256,7 @@ fn an_html_block_press_lands_on_its_character(cx: &mut TestAppContext) {
 
 #[gpui::test]
 fn a_definition_press_lands_on_its_character(cx: &mut TestAppContext) {
-    let source = "[ref]: https://ely.dev\n";
+    let source = "[ref]: https://mok.dev\n";
     let (document, cx) = open(source, MarkdownMode::Visual, cx);
     let events = heard(&document, cx);
     press_on(0, 10, MouseButton::Right, cx);
@@ -356,7 +356,7 @@ author: person
 
 #[gpui::test]
 fn a_crlf_definition_presses_where_written(cx: &mut TestAppContext) {
-    let source = "[ref]: https://ely.dev
+    let source = "[ref]: https://mok.dev
   \"title\"
 ";
     let (document, cx) = open(source, MarkdownMode::Visual, cx);

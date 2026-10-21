@@ -1,12 +1,12 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{Timestamp, ToSpan};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     collab::{AccessList, InviteInput, LinkAccess, Member, Role, ShareDialog},
     data_display::{Activity, ActivityFeed},
     forms::is_email,
     primitives::LucideIcon,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{Timestamp, ToSpan};
 
 use crate::{
     probe::probe,

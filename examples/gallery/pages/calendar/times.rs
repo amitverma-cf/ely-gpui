@@ -1,6 +1,6 @@
-use ely_gpui::calendar::{CalendarDayView, CalendarWeekView, Event, TimezoneOverlay, When};
 use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 use jiff::{Timestamp, tz::TimeZone};
+use mok_gpui::calendar::{CalendarDayView, CalendarWeekView, Event, TimezoneOverlay, When};
 
 use super::{here, plan, quiet};
 use crate::{

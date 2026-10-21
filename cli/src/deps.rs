@@ -47,9 +47,9 @@ pub fn add_crates(
         need.extend(reg.crates_of.get(unit).into_iter().flatten().cloned());
     }
     let have = present(root);
-    if !have.contains("ely_gpui") {
+    if !have.contains("mok_gpui") {
         let mut cmd = Command::new("cargo");
-        cmd.current_dir(root).args(["add", "ely-gpui"]);
+        cmd.current_dir(root).args(["add", "mok-gpui"]);
         match &opts.from {
             Some(path) if path.join("Cargo.toml").is_file() => {
                 cmd.arg("--path")
@@ -59,7 +59,7 @@ pub fn add_crates(
                 cmd.args(["--git", DEFAULT_SOURCE]);
             }
         }
-        run(cmd, "ely-gpui")?;
+        run(cmd, "mok-gpui")?;
     }
     for name in need.iter().filter(|n| !have.contains(*n)) {
         let Some(spec) = reg.specs.get(name) else {
@@ -121,9 +121,9 @@ pub fn add_assets(
     if wanted.is_empty() {
         return Ok(());
     }
-    let config_path = root.join("ely-gpui.toml");
+    let config_path = root.join("mok-gpui.toml");
     let mut config = fs::read_to_string(&config_path)
-        .map_err(|_| "ely-gpui.toml not found; run `cargo ely init` first".to_string())?;
+        .map_err(|_| "mok-gpui.toml not found; run `cargo mok init` first".to_string())?;
     for file in wanted {
         let dest = root.join("assets").join(file);
         if !dest.is_file() {
@@ -155,7 +155,7 @@ pub fn add_assets(
 "
                 )),
             }
-            println!("[ok] ely-gpui.toml: [media.files] {key}");
+            println!("[ok] mok-gpui.toml: [media.files] {key}");
         }
     }
     fs::write(&config_path, config).map_err(|e| e.to_string())

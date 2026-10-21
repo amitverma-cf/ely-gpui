@@ -16,7 +16,7 @@ export function Story() {
   const [prev, next] = at < 0 ? [] : [all[at - 1], all[at + 1]];
 
   useEffect(() => {
-    if (chapter && found) document.title = `${found.name} · ${chapter.title} · Ely`;
+    if (chapter && found) document.title = `${found.name} · ${chapter.title} · Mok`;
   }, [chapter, found]);
 
   useEffect(() => {

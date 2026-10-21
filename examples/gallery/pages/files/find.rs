@@ -1,4 +1,8 @@
-use ely_gpui::{
+use gpui::{
+    App, InteractiveElement, IntoElement, ParentElement, SharedString, Styled, Window, div, px,
+};
+use jiff::{SignedDuration, Timestamp, ToSpan};
+use mok_gpui::{
     debug::HexViewer,
     documents::{Favorite, Favorites},
     files::{
@@ -9,10 +13,6 @@ use ely_gpui::{
     lists::DirEntry,
     overlays::Dialog,
 };
-use gpui::{
-    App, InteractiveElement, IntoElement, ParentElement, SharedString, Styled, Window, div, px,
-};
-use jiff::{SignedDuration, Timestamp, ToSpan};
 
 use crate::{
     probe::probe,

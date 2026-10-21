@@ -1,9 +1,9 @@
 use std::time::Duration;
 
-use ely_gpui::generative::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::generative::{
     AudioGenerationPlayer, Outcome, Shot, TTSVoicePicker, VideoGenerationTimeline, Voice,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

@@ -12,7 +12,7 @@ use super::{
 use crate::forms::structure::FORM_CONTEXT;
 
 actions!(
-    ely_input,
+    mok_input,
     [
         Backspace,
         Delete,
@@ -46,7 +46,7 @@ actions!(
     ]
 );
 
-const CONTEXT: &str = "ElyInput";
+const CONTEXT: &str = "MokInput";
 
 /// Binds the text keys. `init` calls it.
 pub(crate) fn bind_keys(cx: &mut App) {
@@ -377,7 +377,7 @@ impl TextInput {
 impl Render for TextInput {
     fn render(&mut self, _: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
         div()
-            .id("ely-text-input")
+            .id("mok-text-input")
             .role(Role::TextInput)
             .when_some(
                 [&self.label, &self.placeholder]

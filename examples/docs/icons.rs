@@ -1,14 +1,14 @@
 use std::{borrow::Cow, f32::consts::FRAC_PI_4};
 
-use ely_gpui::{
+use gpui::{
+    App, AppContext, AssetSource, Context, FocusHandle, IntoElement, ParentElement, Radians,
+    Render, SharedString, Styled, Window, WindowOptions, div,
+};
+use mok_gpui::{
     Assets,
     files::FileIcon,
     primitives::{FocusScope, Icon, IconTheme, LucideIcon},
     theme::{ActiveTheme, IconSize},
-};
-use gpui::{
-    App, AppContext, AssetSource, Context, FocusHandle, IntoElement, ParentElement, Radians,
-    Render, SharedString, Styled, Window, WindowOptions, div,
 };
 
 const CUSTOM_ICON: &str = "app-icons/mark.svg";
@@ -87,7 +87,7 @@ fn main() {
     gpui_platform::application()
         .with_assets(AppAssets)
         .run(|cx: &mut App| {
-            ely_gpui::init(cx).expect("Ely failed to start");
+            mok_gpui::init(cx).expect("Mok failed to start");
             IconTheme::default()
                 .name("Cargo.toml", LucideIcon::Package)
                 .apply(cx);

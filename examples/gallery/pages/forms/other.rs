@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     forms::{
         CodeInput, Combobox, EmojiPicker, FontPicker, IconPicker, JsonInput, NumberInput,
         SignaturePad, Stroke, code_highlights, json_highlights,
@@ -6,7 +7,6 @@ use ely_gpui::{
     primitives::LucideIcon,
     theme::ActiveTheme,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use super::text::field;
 use crate::{
@@ -47,7 +47,7 @@ pub fn code(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let json = field("input-json", window, cx, |input| {
         input
             .multi_line(4, 8)
-            .placeholder("{ \"name\": \"Ely\" }")
+            .placeholder("{ \"name\": \"Mok\" }")
             .highlighter(json_highlights)
     });
     section(

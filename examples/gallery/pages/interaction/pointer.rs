@@ -1,14 +1,14 @@
-use ely_gpui::{
+use gpui::{
+    App, Context, InteractiveElement, IntoElement, ParentElement, Render, SharedString,
+    StatefulInteractiveElement, Styled, Window, div, point, prelude::*, px, size,
+};
+use mok_gpui::{
     interaction::{Resizable, Rotatable, SelectionArea},
     layout::{Transform, Viewport},
     motion::Reorder,
     primitives::{FocusRing, Pressable},
     theme::{ActiveTheme, Elevation, Radius, TextSize},
     typography::format::plural,
-};
-use gpui::{
-    App, Context, InteractiveElement, IntoElement, ParentElement, Render, SharedString,
-    StatefulInteractiveElement, Styled, Window, div, point, prelude::*, px, size,
 };
 
 use crate::{
@@ -122,7 +122,7 @@ pub fn drag_and_drop(window: &mut Window, cx: &mut App) -> impl IntoElement + us
     });
     section(
         "Draggable · Droppable / DropTarget · DragOverlay / DragPreview · DragGhost",
-        "gpui's own drag and drop: on_drag carries a value and builds the view that follows the pointer, drag_over lights a lane, can_drop refuses the lane a chip left, and on_drop takes it. Ely adds nothing.",
+        "gpui's own drag and drop: on_drag carries a value and builds the view that follows the pointer, drag_over lights a lane, can_drop refuses the lane a chip left, and on_drop takes it. Mok adds nothing.",
         cx,
     )
     .child(div().flex().flex_wrap().gap_4().children(lanes))

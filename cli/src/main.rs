@@ -15,7 +15,7 @@ mod rewrite;
 
 fn main() {
     let mut args: Vec<String> = env::args().collect();
-    if args.len() > 1 && args[1] == "ely" {
+    if args.len() > 1 && args[1] == "mok" {
         args.remove(1);
     }
 
@@ -40,7 +40,7 @@ fn main() {
         "help" | "--help" | "-h" => print_help(),
         other => {
             eprintln!(
-                "Unknown command: '{}'. Run 'cargo ely help' for usage.",
+                "Unknown command: '{}'. Run 'cargo mok help' for usage.",
                 other
             );
             std::process::exit(1);
@@ -49,23 +49,23 @@ fn main() {
 }
 
 fn print_help() {
-    println!("Ely GPUI Component CLI\n");
+    println!("Mok GPUI Component CLI\n");
     println!("Usage:");
-    println!("  cargo ely <command> [options]\n");
+    println!("  cargo mok <command> [options]\n");
     println!("Commands:");
-    println!("  init                     Initialize ely-gpui.toml and project asset structure");
+    println!("  init                     Initialize mok-gpui.toml and project asset structure");
     println!("  list [--json]            List all available components in the registry");
     println!("  add icons <pack>         Add an icon pack (lucide, heroicons, hugeicons)");
     println!("  add <component>          Scaffold an editable component into src/components/");
-    println!("  doctor, check            Verify ely-gpui.toml contrast, fonts, and assets");
+    println!("  doctor, check            Verify mok-gpui.toml contrast, fonts, and assets");
     println!("  help                     Show this help message\n");
     println!("Examples:");
-    println!("  cargo ely init");
-    println!("  cargo ely list");
-    println!("  cargo ely add button");
-    println!("  cargo ely add command_palette");
-    println!("  cargo ely add icons heroicons");
-    println!("  cargo ely doctor");
+    println!("  cargo mok init");
+    println!("  cargo mok list");
+    println!("  cargo mok add button");
+    println!("  cargo mok add command_palette");
+    println!("  cargo mok add icons heroicons");
+    println!("  cargo mok doctor");
 }
 
 fn detect_folder_structure(root: &Path) -> (Vec<String>, String) {
@@ -117,12 +117,12 @@ fn init(force: bool, assets: bool) -> Result<(), String> {
     if !cwd.join("Cargo.toml").is_file() {
         return Err("no Cargo.toml here; run this in your Rust project".into());
     }
-    let config_path = cwd.join("ely-gpui.toml");
+    let config_path = cwd.join("mok-gpui.toml");
     if config_path.exists() && !force {
-        println!("[info] ely-gpui.toml already exists (--force rewrites it)");
+        println!("[info] mok-gpui.toml already exists (--force rewrites it)");
     } else {
         let (scan_sources, layout) = detect_folder_structure(&cwd);
-        println!("[ely] Project layout: {layout}");
+        println!("[mok] Project layout: {layout}");
         let sources = scan_sources
             .iter()
             .map(|s| format!("    {s:?}"))
@@ -132,15 +132,15 @@ fn init(force: bool, assets: bool) -> Result<(), String> {
 ",
             );
         fs::write(&config_path, config_template(&sources))
-            .map_err(|e| format!("ely-gpui.toml: {e}"))?;
-        println!("[ok] Wrote ely-gpui.toml");
+            .map_err(|e| format!("mok-gpui.toml: {e}"))?;
+        println!("[ok] Wrote mok-gpui.toml");
     }
     let cargo = cwd.join(".cargo").join("config.toml");
     let existing = fs::read_to_string(&cargo).unwrap_or_default();
-    if existing.contains("ELY_CONFIG_PATH") {
-        println!("[info] .cargo/config.toml already names ely-gpui.toml");
+    if existing.contains("MOK_CONFIG_PATH") {
+        println!("[info] .cargo/config.toml already names mok-gpui.toml");
     } else {
-        let line = "ELY_CONFIG_PATH = { value = \"ely-gpui.toml\", relative = true }";
+        let line = "MOK_CONFIG_PATH = { value = \"mok-gpui.toml\", relative = true }";
         let updated = if existing.contains("[env]") {
             existing.replacen(
                 "[env]",
@@ -153,7 +153,7 @@ fn init(force: bool, assets: bool) -> Result<(), String> {
         } else {
             format!(
                 "{existing}
-# Ely bakes fonts, icons and tokens from this file at build time.
+# Mok bakes fonts, icons and tokens from this file at build time.
 [env]
 {line}
 "
@@ -161,7 +161,7 @@ fn init(force: bool, assets: bool) -> Result<(), String> {
         };
         fs::create_dir_all(cargo.parent().unwrap()).map_err(|e| e.to_string())?;
         fs::write(&cargo, updated.trim_start()).map_err(|e| format!(".cargo/config.toml: {e}"))?;
-        println!("[ok] .cargo/config.toml points the build at ely-gpui.toml");
+        println!("[ok] .cargo/config.toml points the build at mok-gpui.toml");
     }
     if assets {
         let fonts = fetch::fonts(&cwd.join("assets").join("fonts"))?;
@@ -173,7 +173,7 @@ fn init(force: bool, assets: bool) -> Result<(), String> {
     }
     println!(
         "
-Next: cargo ely add button   (then `mod ui;` in your crate)"
+Next: cargo mok add button   (then `mod ui;` in your crate)"
     );
     Ok(())
 }
@@ -188,7 +188,7 @@ scan_sources = [
 ]
 
 [theme]
-preset = "ely"
+preset = "mok"
 # Customize theme colors or tokens by adding tables here:
 # [theme.palette.light]
 # bg = 0xfcfaf7
@@ -249,14 +249,14 @@ fn handle_list(args: &[String]) {
 
 fn handle_add(args: &[String]) {
     if args.is_empty() {
-        eprintln!("Usage: cargo ely add <component> OR cargo ely add icons <pack>");
-        eprintln!("Run 'cargo ely list' to see all available components.");
+        eprintln!("Usage: cargo mok add <component> OR cargo mok add icons <pack>");
+        eprintln!("Run 'cargo mok list' to see all available components.");
         return;
     }
 
     if args[0] == "icons" {
         if args.len() < 2 {
-            eprintln!("Usage: cargo ely add icons <pack> (e.g., heroicons, hugeicons, lucide)");
+            eprintln!("Usage: cargo mok add icons <pack> (e.g., heroicons, hugeicons, lucide)");
             return;
         }
         handle_add_icons(&args[1]);
@@ -276,8 +276,8 @@ fn handle_add_icons(pack: &str) {
 /// The pack's SVGs into `assets/icons`; the build embeds only the icons the code names.
 fn add_icons(pack: &str) -> Result<(), String> {
     let cwd = env::current_dir().map_err(|e| e.to_string())?;
-    if !cwd.join("ely-gpui.toml").is_file() {
-        return Err("ely-gpui.toml not found. Run 'cargo ely init' first.".into());
+    if !cwd.join("mok-gpui.toml").is_file() {
+        return Err("mok-gpui.toml not found. Run 'cargo mok init' first.".into());
     }
     let pack = pack.to_ascii_lowercase();
     let icons = cwd.join("assets").join("icons");
@@ -346,11 +346,11 @@ fn contrast_ratio(c1: u32, c2: u32) -> f64 {
 
 fn handle_doctor() {
     let cwd = env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
-    let config_path = cwd.join("ely-gpui.toml");
+    let config_path = cwd.join("mok-gpui.toml");
 
-    println!("Checking Ely configuration...\n");
+    println!("Checking Mok configuration...\n");
     if !config_path.exists() {
-        eprintln!("[FAIL] ely-gpui.toml was not found. Run 'cargo ely init' to create one.");
+        eprintln!("[FAIL] mok-gpui.toml was not found. Run 'cargo mok init' to create one.");
         return;
     }
     println!("[PASS] Configuration file found: {}", config_path.display());
@@ -358,7 +358,7 @@ fn handle_doctor() {
     let content = match fs::read_to_string(&config_path) {
         Ok(c) => c,
         Err(e) => {
-            eprintln!("[FAIL] Could not read ely-gpui.toml: {}", e);
+            eprintln!("[FAIL] Could not read mok-gpui.toml: {}", e);
             return;
         }
     };
@@ -366,11 +366,11 @@ fn handle_doctor() {
     let parsed: toml::Value = match toml::from_str(&content) {
         Ok(v) => v,
         Err(e) => {
-            eprintln!("[FAIL] Syntax error in ely-gpui.toml: {}", e);
+            eprintln!("[FAIL] Syntax error in mok-gpui.toml: {}", e);
             return;
         }
     };
-    println!("[PASS] Syntax of ely-gpui.toml is valid TOML");
+    println!("[PASS] Syntax of mok-gpui.toml is valid TOML");
 
     // Check WCAG Contrast
     if let Some(theme) = parsed.get("theme").and_then(|t| t.get("palette")) {
@@ -440,6 +440,6 @@ fn handle_doctor() {
 
     println!(
         "
-[ok] Ely Doctor completed."
+[ok] Mok Doctor completed."
     );
 }

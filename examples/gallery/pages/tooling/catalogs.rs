@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{AnyElement, App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     forms::IconPicker,
     primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, IconSize},
     tooling::{A11yChecker, DesignTokenViewer},
     typography::Code,
 };
-use gpui::{AnyElement, App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::probe::probe;
 use crate::ui::section;
@@ -56,7 +56,7 @@ pub fn sections(window: &mut Window, cx: &mut App) -> Vec<AnyElement> {
         .into_any_element(),
         section(
             "A11yChecker",
-            "The theme's contrast in the mode shown: each text color over the surfaces it sits on and each code color over the editor's at 4.5:1, the focus ring and the chart hues beside the page at 3:1, failures first. Ely's palettes pass in both modes, with high contrast and without.",
+            "The theme's contrast in the mode shown: each text color over the surfaces it sits on and each code color over the editor's at 4.5:1, the focus ring and the chart hues beside the page at 3:1, failures first. Mok's palettes pass in both modes, with high contrast and without.",
             cx,
         )
         .child(div().max_w(px(560.0)).child(A11yChecker::new()))

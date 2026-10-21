@@ -1,10 +1,10 @@
 use std::rc::Rc;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     debug::{Flamegraph, NetworkInspector, ProfileFrame, Request, Span, TimelineProfiler},
     forms::{Input, TextInput},
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::ui::{keep, section, set};
 
@@ -160,7 +160,7 @@ fn requests() -> Vec<Request> {
     vec![
         request(
             "GET",
-            "https://ely.dev/",
+            "https://mok.dev/",
             Some(200),
             "document",
             18_400,
@@ -170,7 +170,7 @@ fn requests() -> Vec<Request> {
         ),
         request(
             "GET",
-            "https://ely.dev/static/app.js",
+            "https://mok.dev/static/app.js",
             Some(200),
             "script",
             212_000,
@@ -180,7 +180,7 @@ fn requests() -> Vec<Request> {
         ),
         request(
             "GET",
-            "https://ely.dev/static/inter.woff2",
+            "https://mok.dev/static/inter.woff2",
             Some(304),
             "font",
             0,
@@ -190,17 +190,17 @@ fn requests() -> Vec<Request> {
         ),
         request(
             "GET",
-            "https://api.ely.dev/v1/quotes?symbol=ELY",
+            "https://api.mok.dev/v1/quotes?symbol=MOK",
             Some(200),
             "fetch",
             2_300,
             380.0,
             95.0,
-            Some("{ \"symbol\": \"ELY\", \"price\": 128.4, \"change\": 0.012 }"),
+            Some("{ \"symbol\": \"MOK\", \"price\": 128.4, \"change\": 0.012 }"),
         ),
         request(
             "POST",
-            "https://api.ely.dev/v1/orders",
+            "https://api.mok.dev/v1/orders",
             Some(503),
             "fetch",
             180,
@@ -210,7 +210,7 @@ fn requests() -> Vec<Request> {
         ),
         request(
             "GET",
-            "https://api.ely.dev/v1/stream",
+            "https://api.mok.dev/v1/stream",
             None,
             "fetch",
             0,

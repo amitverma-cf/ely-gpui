@@ -1,14 +1,14 @@
-use ely_gpui::{
+use gpui::{
+    App, AppContext, Context, Entity, FocusHandle, IntoElement, ParentElement, Render, Styled,
+    Window, WindowOptions, div,
+};
+use mok_gpui::{
     Assets,
     buttons::Button,
     feedback::{Toast, ToastViewport, Toaster},
     overlays::{Dialog, Popover},
     primitives::{FocusScope, Severity},
     theme::ActiveTheme,
-};
-use gpui::{
-    App, AppContext, Context, Entity, FocusHandle, IntoElement, ParentElement, Render, Styled,
-    Window, WindowOptions, div,
 };
 
 struct Layers {
@@ -78,7 +78,7 @@ fn main() {
     gpui_platform::application()
         .with_assets(Assets)
         .run(|cx: &mut App| {
-            ely_gpui::init(cx).expect("Ely failed to start");
+            mok_gpui::init(cx).expect("Mok failed to start");
             cx.open_window(WindowOptions::default(), |window, cx| {
                 cx.new(|cx| {
                     let focus = cx.focus_handle();

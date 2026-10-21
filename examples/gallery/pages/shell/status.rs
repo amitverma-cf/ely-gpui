@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     shell::{
         Connectivity, CrashReporter, OfflineIndicator, UpdateBanner, UpdateDialog, UpdateState,
@@ -6,7 +7,6 @@ use ely_gpui::{
     },
     theme::ActiveTheme,
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div};
 
 use super::chrome::window_frame;
 use crate::{
@@ -40,7 +40,7 @@ pub fn update_banner(cx: &App) -> impl IntoElement + use<> {
 }
 
 fn update_dialog() -> UpdateDialog {
-    UpdateDialog::new("Ely", "0.1.0", "0.2.0", UpdateState::Available)
+    UpdateDialog::new("Mok", "0.1.0", "0.2.0", UpdateState::Available)
         .note("Window chrome for macOS, Windows and Linux.")
         .note("Docks remember their layout across launches.")
         .note("Sticky headers stay inside their scroll area.")
@@ -72,15 +72,15 @@ pub fn update_window(cx: &App) -> impl IntoElement + use<> {
 
 const REPORT: &str = "Exception Type:  EXC_BAD_ACCESS (SIGSEGV)
 Crashed Thread:  0  main
-0   ely           0x0000000104a1c3f0 layout::dock::restore + 112
-1   ely           0x0000000104a1b9d4 workspace::apply + 88
-2   ely           0x0000000104a0f2a8 app::open_recent + 404
+0   mok           0x0000000104a1c3f0 layout::dock::restore + 112
+1   mok           0x0000000104a1b9d4 workspace::apply + 88
+2   mok           0x0000000104a0f2a8 app::open_recent + 404
 3   libdyld.dylib 0x000000018f2d4f28 start + 4";
 
 pub fn crash_reporter(cx: &App) -> impl IntoElement + use<> {
     let reporter = |details: bool| {
         CrashReporter::new(
-            "Ely",
+            "Mok",
             "The report says where it stopped. Sending it helps fix it.",
             REPORT,
         )
@@ -134,7 +134,7 @@ pub fn offline(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         probe(
             key,
             Button::new(key, label)
-                .size(ely_gpui::theme::ControlSize::Sm)
+                .size(mok_gpui::theme::ControlSize::Sm)
                 .variant(if current == choice {
                     ButtonVariant::Subtle
                 } else {
@@ -150,7 +150,7 @@ pub fn offline(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     })))
     .child(
         div()
-            .h(cx.theme().control_height(ely_gpui::theme::ControlSize::Lg))
+            .h(cx.theme().control_height(mok_gpui::theme::ControlSize::Lg))
             .flex()
             .items_center()
             .child(OfflineIndicator::new("connectivity-pill", current)),

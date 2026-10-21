@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, prelude::*, px};
+use mok_gpui::{
     buttons::{
         ActionBar, ActionSheet, BulkActionBar, Button, ButtonVariant, ConfirmButton, ConfirmMode,
         CopyButton, FloatingActionButton, QuickAction, QuickActions, ShareButton, back_button,
@@ -8,7 +9,6 @@ use ely_gpui::{
     theme::{ActiveTheme, ControlSize, Radius},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, prelude::*, px};
 
 use crate::{
     probe::probe,
@@ -105,7 +105,7 @@ pub fn small_buttons(cx: &App) -> impl IntoElement + use<> {
                 "copy",
                 probe(
                     "copy-button",
-                    CopyButton::new("copy-invite", "https://ely.dev/invite/7Q2"),
+                    CopyButton::new("copy-invite", "https://mok.dev/invite/7Q2"),
                 ),
                 cx,
             ))
@@ -114,8 +114,8 @@ pub fn small_buttons(cx: &App) -> impl IntoElement + use<> {
                 probe(
                     "share-button",
                     ShareButton::new("share-page")
-                        .text("Ely, components for GPUI")
-                        .url("https://github.com/amitverma-cf/ely-gpui"),
+                        .text("Mok, components for GPUI")
+                        .url("https://github.com/amitverma-cf/mok-gpui"),
                 ),
                 cx,
             ))

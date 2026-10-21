@@ -1,6 +1,7 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     data_display::BeforeAfter,
     generative::{
         ABCompareView, GenerationGrid, GenerationQueue, Job, JobState, Outcome, VariationPicker,
@@ -8,7 +9,6 @@ use ely_gpui::{
     },
     primitives::Image,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

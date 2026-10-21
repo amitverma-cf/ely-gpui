@@ -4,7 +4,7 @@ use gpui::{App, Global};
 
 use super::LucideIcon;
 
-/// Which icon a file shows: an owner's rules by name and by extension, laid over Ely's map. Without one, Ely's map alone.
+/// Which icon a file shows: an owner's rules by name and by extension, laid over Mok's map. Without one, Mok's map alone.
 #[derive(Clone, Default)]
 pub struct IconTheme {
     names: HashMap<String, LucideIcon>,
@@ -44,15 +44,15 @@ impl IconTheme {
             .get(&name)
             .or_else(|| extension.and_then(|extension| self.extensions.get(extension)))
             .copied()
-            .unwrap_or_else(|| ely_icon(extension))
+            .unwrap_or_else(|| mok_icon(extension))
     }
 }
 
-static ELY: LazyLock<IconTheme> = LazyLock::new(IconTheme::default);
+static MOK: LazyLock<IconTheme> = LazyLock::new(IconTheme::default);
 
-/// The owner's icon theme, or Ely's map alone.
+/// The owner's icon theme, or Mok's map alone.
 pub fn icon_theme(cx: &App) -> &IconTheme {
-    cx.try_global::<IconTheme>().unwrap_or(&ELY)
+    cx.try_global::<IconTheme>().unwrap_or(&MOK)
 }
 
 /// The icon a file's name suggests, under the owner's icon theme.
@@ -60,8 +60,8 @@ pub fn file_icon(name: &str, cx: &App) -> LucideIcon {
     icon_theme(cx).file(name)
 }
 
-/// Ely's icon for a file by its extension, in lower case.
-fn ely_icon(extension: Option<&str>) -> LucideIcon {
+/// Mok's icon for a file by its extension, in lower case.
+fn mok_icon(extension: Option<&str>) -> LucideIcon {
     match extension {
         Some(
             "rs" | "ts" | "tsx" | "js" | "jsx" | "py" | "go" | "swift" | "c" | "h" | "cpp" | "java"

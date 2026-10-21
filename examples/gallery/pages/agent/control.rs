@@ -1,6 +1,7 @@
 use std::rc::Rc;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px, rems};
+use mok_gpui::{
     agent::{AgentState, AgentStatus, CostBreakdown, HumanInputRequest},
     charts::{BarChart, Series},
     chat::{continue_button, stop_button},
@@ -9,7 +10,6 @@ use ely_gpui::{
     forms::TextInput,
     tables::{Cell, Column, DataTable, Row},
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px, rems};
 
 use crate::{
     probe::probe,

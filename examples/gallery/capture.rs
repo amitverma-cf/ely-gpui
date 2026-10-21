@@ -4,8 +4,8 @@ use std::{
 };
 
 use anyhow::{Context as _, Result, bail};
-use ely_gpui::theme::Theme;
 use gpui::{App, AsyncApp, Window, WindowHandle, px};
+use mok_gpui::theme::Theme;
 
 use crate::{
     pages, script,
@@ -83,7 +83,7 @@ async fn shoot_all_stories(
     let gallery = window.update(cx, |_, window, _| number(window))??;
     // Pictures that load off the main thread, a diagram among them, need longer than the default.
     let settle = Duration::from_millis(
-        std::env::var("ELY_CAPTURE_SETTLE")
+        std::env::var("MOK_CAPTURE_SETTLE")
             .ok()
             .and_then(|ms| ms.parse().ok())
             .unwrap_or(100),

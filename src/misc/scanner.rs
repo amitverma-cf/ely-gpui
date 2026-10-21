@@ -205,8 +205,8 @@ mod tests {
     #[test]
     fn a_frame_reads_as_the_code_it_shows() {
         assert_eq!(
-            read(&frame_of("https://example.com/ely")).as_deref(),
-            Some("https://example.com/ely")
+            read(&frame_of("https://example.com/mok")).as_deref(),
+            Some("https://example.com/mok")
         );
         let blank = image::RgbaImage::from_pixel(64, 64, image::Rgba([255; 4]));
         assert_eq!(

@@ -53,7 +53,7 @@ declare module "@tanstack/react-router" {
 // Background prefetch wasm binary into CacheStorage when browser is idle
 if (typeof window !== "undefined" && "caches" in window) {
   const prefetchWasm = () => {
-    caches.open("ely-gallery-wasm-v1").then(async (cache) => {
+    caches.open("mok-gallery-wasm-v1").then(async (cache) => {
       const base = import.meta.env.BASE_URL || "/";
       const prefix = base.endsWith("/") ? base : `${base}/`;
       const wasmUrl = `${prefix}gallery/gallery_bg.wasm`;

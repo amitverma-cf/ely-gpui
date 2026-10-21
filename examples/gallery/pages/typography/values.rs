@@ -1,12 +1,12 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, div, px};
+use jiff::{SignedDuration, Timestamp};
+use mok_gpui::{
     theme::TextSize,
     typography::{
         CopyableText, CurrencyText, DateTimeText, DurationStyle, DurationText, Emoji, FileSizeText,
         Latex, NumberText, PercentText, PluralText, RelativeTime, SelectableText,
     },
 };
-use gpui::{App, IntoElement, ParentElement, Styled, div, px};
-use jiff::{SignedDuration, Timestamp};
 
 use crate::{
     probe::probe,
@@ -170,7 +170,7 @@ pub fn copyable(cx: &App) -> impl IntoElement + use<> {
     )
     .child(probe(
         "copy-token",
-        CopyableText::new("token", "ely_live_4f9a2c81d7").mono(),
+        CopyableText::new("token", "mok_live_4f9a2c81d7").mono(),
     ))
 }
 

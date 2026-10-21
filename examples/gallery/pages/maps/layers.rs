@@ -1,7 +1,7 @@
-use ely_gpui::maps::{
+use gpui::{App, IntoElement, ParentElement, Styled, div, px};
+use mok_gpui::maps::{
     GeoHeatmap, GeoJsonLayer, LatLon, MapMarker, MapView, MapViewport, RouteLine, read_geojson,
 };
-use gpui::{App, IntoElement, ParentElement, Styled, div, px};
 
 use super::{ATTRIBUTION, tile};
 use crate::probe::probe;

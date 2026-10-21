@@ -1,6 +1,10 @@
 use std::path::PathBuf;
 
-use ely_gpui::{
+use gpui::{
+    App, AppContext as _, Axis, Entity, IntoElement, ParentElement, SharedString, Styled, Window,
+    div, prelude::*, px,
+};
+use mok_gpui::{
     editor::{FindOptions, FindWidget},
     forms::TextInput,
     layout::{PaneGroup, PaneId},
@@ -9,10 +13,6 @@ use ely_gpui::{
     terminal::{Launch, ShellChoice, ShellSelector, Terminal, TerminalToolbar},
     theme::{ActiveTheme, Radius},
 };
-use gpui::{
-    App, AppContext as _, Axis, Entity, IntoElement, ParentElement, SharedString, Styled, Window,
-    div, prelude::*, px,
-};
 
 use crate::{
     probe::probe,
@@ -20,7 +20,7 @@ use crate::{
 };
 
 /// A build's output as a terminal printed it, colors and all.
-const BUILD: &str = "\x1b[1;32m   Compiling\x1b[0m ely-gpui v0.1.0\r\n\x1b[1;33mwarning\x1b[0m\x1b[1m: unused variable: `spare`\x1b[0m\r\n  \x1b[1;34m-->\x1b[0m src/main.rs:47:9\r\n\x1b[1;33mwarning\x1b[0m\x1b[1m: field `hint` is never read\x1b[0m\r\n  \x1b[1;34m-->\x1b[0m src/palette.rs:12:5\r\n\x1b[1;32m    Finished\x1b[0m `dev` profile [unoptimized + debuginfo] target(s) in 4.21s\r\n\x1b[1;32m     Running\x1b[0m `target/debug/palette`\r\n\x1b[38;5;110m◆\x1b[0m 5 tints of accent, the last \x1b[38;2;232;243;252m██\x1b[0m #e8f3fc\r\n\x1b[2mdocs: https://github.com/amitverma-cf/ely-gpui\x1b[0m\r\n";
+const BUILD: &str = "\x1b[1;32m   Compiling\x1b[0m mok-gpui v0.1.0\r\n\x1b[1;33mwarning\x1b[0m\x1b[1m: unused variable: `spare`\x1b[0m\r\n  \x1b[1;34m-->\x1b[0m src/main.rs:47:9\r\n\x1b[1;33mwarning\x1b[0m\x1b[1m: field `hint` is never read\x1b[0m\r\n  \x1b[1;34m-->\x1b[0m src/palette.rs:12:5\r\n\x1b[1;32m    Finished\x1b[0m `dev` profile [unoptimized + debuginfo] target(s) in 4.21s\r\n\x1b[1;32m     Running\x1b[0m `target/debug/palette`\r\n\x1b[38;5;110m◆\x1b[0m 5 tints of accent, the last \x1b[38;2;232;243;252m██\x1b[0m #e8f3fc\r\n\x1b[2mdocs: https://github.com/amitverma-cf/mok-gpui\x1b[0m\r\n";
 
 #[cfg(not(target_os = "windows"))]
 const SHELLS: [(&str, &str); 3] = [

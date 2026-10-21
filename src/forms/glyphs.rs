@@ -55,7 +55,7 @@ impl RenderOnce for IconPicker {
             LucideIcon::ALL
                 .iter()
                 .copied()
-                // Only icons the build embedded draw; `mode = "all"` in ely-gpui.toml embeds every one.
+                // Only icons the build embedded draw; `mode = "all"` in mok-gpui.toml embeds every one.
                 .filter(|icon| embedded_icon(icon.path()).is_some())
                 .filter(|icon| icon.name().replace('-', " ").contains(&query))
                 .collect(),

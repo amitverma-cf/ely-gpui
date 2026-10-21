@@ -1,10 +1,10 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Window};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     forms::Choice,
     navigation::{Command, CommandPalette, QuickLauncher, QuickOpen, QuickSwitcher, SearchPalette},
     primitives::LucideIcon,
 };
-use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Window};
 
 use crate::{
     probe::{Opened, probe},
@@ -187,7 +187,7 @@ fn places() -> Vec<Choice> {
         Choice::new("standup", "Design standup")
             .icon(LucideIcon::MessageSquare)
             .note("Session"),
-        Choice::new("ely", "Ely GPUI Component")
+        Choice::new("mok", "Mok GPUI Component")
             .icon(LucideIcon::Box)
             .note("Project"),
         Choice::new("brand", "Brand guidelines")
@@ -196,7 +196,7 @@ fn places() -> Vec<Choice> {
         Choice::new("research", "User research")
             .icon(LucideIcon::MessageSquare)
             .note("Session"),
-        Choice::new("site", "ely.dev")
+        Choice::new("site", "mok.dev")
             .icon(LucideIcon::Globe)
             .note("Project"),
     ]

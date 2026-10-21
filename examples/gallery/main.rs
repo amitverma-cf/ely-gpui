@@ -16,7 +16,7 @@ macro_rules! asset {
 #[cfg(target_family = "wasm")]
 macro_rules! asset {
     ($name:literal) => {
-        concat!(env!("ELY_GALLERY_ASSETS"), $name)
+        concat!(env!("MOK_GALLERY_ASSETS"), $name)
     };
 }
 
@@ -46,11 +46,11 @@ use anyhow::bail;
 use anyhow::{Context as _, Result};
 #[cfg(not(target_family = "wasm"))]
 use assets::GalleryAssets;
-use ely_gpui::theme::{Mode, Theme};
 use gpui::{
     App, AppContext, Bounds, KeyBinding, Menu, MenuItem, SharedString, TitlebarOptions,
     WindowBounds, WindowHandle, WindowOptions, actions, point, px, size,
 };
+use mok_gpui::theme::{Mode, Theme};
 
 actions!(gallery, [Quit, About, LightMode, DarkMode, NewWindow]);
 
@@ -68,16 +68,16 @@ pub fn app_menus() -> Vec<Menu> {
     if cfg!(target_family = "wasm") {
         return vec![view];
     }
-    let ely = Menu {
-        name: "Ely".into(),
+    let mok = Menu {
+        name: "Mok".into(),
         items: vec![
-            MenuItem::action("About Ely", About),
+            MenuItem::action("About Mok", About),
             MenuItem::separator(),
-            MenuItem::action("Quit Ely", Quit),
+            MenuItem::action("Quit Mok", Quit),
         ],
         disabled: false,
     };
-    vec![ely, view]
+    vec![mok, view]
 }
 
 /// Menu bar and Dock menu, set before the window opens.
@@ -114,11 +114,11 @@ pub struct Start {
     pub failure: Option<SharedString>,
 }
 
-/// Sets Ely up and opens the gallery's window.
+/// Sets Mok up and opens the gallery's window.
 fn launch(start: Start, cx: &mut App) -> Result<WindowHandle<shell::Gallery>> {
-    ely_gpui::init(cx)?;
+    mok_gpui::init(cx)?;
     #[cfg(debug_assertions)]
-    ely_gpui::tooling::install_inspector(cx);
+    mok_gpui::tooling::install_inspector(cx);
     pages::bind_keys(cx);
     pages::install_i18n(cx);
     cx.bind_keys([KeyBinding::new("cmd-q", Quit, None)]);
@@ -131,7 +131,7 @@ fn launch(start: Start, cx: &mut App) -> Result<WindowHandle<shell::Gallery>> {
     let options = WindowOptions {
         window_bounds: Some(WindowBounds::Windowed(bounds)),
         titlebar: Some(TitlebarOptions {
-            title: Some("Ely".into()),
+            title: Some("Mok".into()),
             appears_transparent: true,
             traffic_light_position: Some(point(px(16.0), px(18.0))),
         }),

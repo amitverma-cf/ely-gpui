@@ -55,7 +55,7 @@ const fn locale(
     }
 }
 
-/// The locales Ely formats for, with CLDR's short numeric dates.
+/// The locales Mok formats for, with CLDR's short numeric dates.
 pub const LOCALES: [Locale; 7] = [
     locale(
         "en-US",
@@ -85,7 +85,7 @@ pub const LOCALES: [Locale; 7] = [
 ];
 
 impl Locale {
-    /// The locale with this tag; fails on one Ely does not list.
+    /// The locale with this tag; fails on one Mok does not list.
     pub fn of(tag: &str) -> Locale {
         *LOCALES
             .iter()

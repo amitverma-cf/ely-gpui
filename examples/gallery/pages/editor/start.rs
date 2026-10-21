@@ -1,6 +1,7 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::Button,
     editor::{
         Project, ProjectSwitcher, RecentProjects, Task, TaskRunner, TaskState, ThemePreview,
@@ -10,7 +11,6 @@ use ely_gpui::{
     theme::{ActiveTheme, Mode, Palette, Theme},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::ui::{keep, row, section, set};
 
@@ -24,7 +24,7 @@ fn projects() -> Vec<Project> {
     };
     vec![
         project(
-            "ely-gpui",
+            "mok-gpui",
             "~/Documents/GitHub/Ely-GPUI-Components",
             Some("main"),
             "now",
@@ -129,7 +129,7 @@ pub fn start(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     )
     .child(
         div().w(px(840.)).child(
-            WelcomePage::new("panels-welcome-page", "Ely Editor", "Quiet tools for careful code.")
+            WelcomePage::new("panels-welcome-page", "Mok Editor", "Quiet tools for careful code.")
                 .action(LucideIcon::FilePlus, "New file", Some("secondary-n"))
                 .action(LucideIcon::FolderOpen, "Open folder", Some("secondary-o"))
                 .action(LucideIcon::GitBranch, "Clone repository", None)
@@ -143,8 +143,8 @@ pub fn start(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     .child(
         row()
             .gap_6()
-            .child(div().w(px(260.)).child(ThemePreview::new("panels-light", "Ely Light", Palette::light(false)).selected(mode == Mode::Light).on_pick(|_, cx| Theme::set_mode(Mode::Light, cx))))
-            .child(div().w(px(260.)).child(ThemePreview::new("panels-dark", "Ely Dark", Palette::dark(false)).selected(mode == Mode::Dark).on_pick(|_, cx| Theme::set_mode(Mode::Dark, cx)))),
+            .child(div().w(px(260.)).child(ThemePreview::new("panels-light", "Mok Light", Palette::light(false)).selected(mode == Mode::Light).on_pick(|_, cx| Theme::set_mode(Mode::Light, cx))))
+            .child(div().w(px(260.)).child(ThemePreview::new("panels-dark", "Mok Dark", Palette::dark(false)).selected(mode == Mode::Dark).on_pick(|_, cx| Theme::set_mode(Mode::Dark, cx)))),
     )
     .child(
         div().w(px(840.)).child(

@@ -142,19 +142,19 @@ pub fn generate_icons(
         },
         Pack {
             enum_name: "HeroIcon",
-            doc: "Heroicons, when `cargo ely add icons heroicons` has fetched them.",
+            doc: "Heroicons, when `cargo mok add icons heroicons` has fetched them.",
             dir: icons_dir.join("heroicons"),
             prefix: "icons/heroicons/",
         },
         Pack {
             enum_name: "HugeIcon",
-            doc: "Hugeicons, when `cargo ely add icons hugeicons` has fetched them.",
+            doc: "Hugeicons, when `cargo mok add icons hugeicons` has fetched them.",
             dir: icons_dir.join("hugeicons"),
             prefix: "icons/hugeicons/",
         },
     ];
     let used = scan_used_icons(sources, root_dir);
-    let mut code = String::from("// Auto-generated icons from ely-gpui.toml. Do not edit.\n\n");
+    let mut code = String::from("// Auto-generated icons from mok-gpui.toml. Do not edit.\n\n");
     code.push_str("pub trait IconAsset: Copy + Send + Sync + 'static {\n");
     code.push_str("    fn path(self) -> &'static str;\n");
     code.push_str("    fn name(self) -> &'static str;\n");
@@ -165,7 +165,7 @@ pub fn generate_icons(
         let icons = read_pack(&pack.dir);
         if icons.is_empty() && pack.enum_name == "LucideIcon" {
             panic!(
-                "ely: no Lucide icons in {}. Run `cargo mok init` to download them.",
+                "mok: no Lucide icons in {}. Run `cargo mok init` to download them.",
                 pack.dir.display()
             );
         }
@@ -194,5 +194,5 @@ pub fn generate_icons(
     code.push_str("pub const EMBEDDED_ICONS: &[(&str, &[u8])] = &[\n");
     code.push_str(&table);
     code.push_str("];\n");
-    fs::write(out_dir.join("ely_icons.rs"), code).expect("failed to write ely_icons.rs");
+    fs::write(out_dir.join("mok_icons.rs"), code).expect("failed to write mok_icons.rs");
 }

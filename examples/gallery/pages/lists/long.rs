@@ -1,13 +1,13 @@
 use std::time::Duration;
 
-use ely_gpui::{
-    data_display::Avatar,
-    lists::{GroupedList, InfiniteList, ListItem, VirtualList},
-    theme::{ActiveTheme, AvatarSize, Radius},
-};
 use gpui::{
     App, InteractiveElement, IntoElement, ParentElement, SharedString, StatefulInteractiveElement,
     Styled, Window, div, px,
+};
+use mok_gpui::{
+    data_display::Avatar,
+    lists::{GroupedList, InfiniteList, ListItem, VirtualList},
+    theme::{ActiveTheme, AvatarSize, Radius},
 };
 
 use crate::ui::{keep, section, set};

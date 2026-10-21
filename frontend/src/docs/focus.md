@@ -1,10 +1,10 @@
 # Focus and keyboard
 
-Every Ely control that takes a press is a Tab stop. Focus moves with Tab and Shift-Tab, shows as a 1px ring, and comes back where it was when an overlay closes.
+Every Mok control that takes a press is a Tab stop. Focus moves with Tab and Shift-Tab, shows as a 1px ring, and comes back where it was when an overlay closes.
 
 ## What `init` binds
 
-`init` binds `tab` to the `FocusNext` action and `shift-tab` to `FocusPrev`, under `ElyFocus`, the key context every `FocusScope` sets. A `FocusScope` turns the two actions into focus moves. A context nested deeper keeps its own Tab, as a code editor that indents does, whichever library's `init` ran last.
+`init` binds `tab` to the `FocusNext` action and `shift-tab` to `FocusPrev`, under `MokFocus`, the key context every `FocusScope` sets. A `FocusScope` turns the two actions into focus moves. A context nested deeper keeps its own Tab, as a code editor that indents does, whichever library's `init` ran last.
 
 ## The root scope
 
@@ -18,7 +18,7 @@ Wrap each window's content in `FocusScope::new(&handle).root()` and focus `handl
 
 ## Make a control a Tab stop
 
-Four parts make a box a Tab stop that shows Ely's ring:
+Four parts make a box a Tab stop that shows Mok's ring:
 
 | Part | Why |
 | --- | --- |
@@ -40,4 +40,4 @@ A `Button` stays out of focus when clicked: it stops GPUI's focus on mouse down.
 
 ## Overlays
 
-Ely's dialogs, popovers, menus, palettes, sheets and lightbox take focus when they open and hand it back to what held it before, on every way they close. While open, they take focus back when the focused element leaves the tree. An app writes no focus code for them.
+Mok's dialogs, popovers, menus, palettes, sheets and lightbox take focus when they open and hand it back to what held it before, on every way they close. While open, they take focus back when the focused element leaves the tree. An app writes no focus code for them.

@@ -62,7 +62,7 @@ fn prefix_for(name: &str, chapters: &BTreeSet<String>) -> &'static str {
     if chapters.contains(name) {
         "crate::ui"
     } else {
-        "ely_gpui"
+        "mok_gpui"
     }
 }
 
@@ -88,7 +88,7 @@ fn rewrite_use(tree: &UseTree, chapters: &BTreeSet<String>) -> Option<Vec<String
         }
     }
     let mut out = vec![];
-    for (prefix, list) in [("ely_gpui", core), ("crate::ui", ui)] {
+    for (prefix, list) in [("mok_gpui", core), ("crate::ui", ui)] {
         match list.len() {
             0 => {}
             1 => out.push(format!("{prefix}::{}", list[0])),
@@ -310,7 +310,7 @@ mod tests {
     #[test]
     fn a_path_in_code_points_at_the_crate_or_the_copy() {
         let out = paths("crate::theme::Palette and crate::forms::Input", &chapters());
-        assert_eq!(out, "ely_gpui::theme::Palette and crate::ui::forms::Input");
+        assert_eq!(out, "mok_gpui::theme::Palette and crate::ui::forms::Input");
         assert_eq!(paths("my_crate::forms", &chapters()), "my_crate::forms");
     }
 
@@ -323,7 +323,7 @@ mod tests {
         assert_eq!(
             parts.unwrap(),
             [
-                "ely_gpui::{i18n, motion::Spinner}",
+                "mok_gpui::{i18n, motion::Spinner}",
                 "crate::ui::forms::Input"
             ]
         );

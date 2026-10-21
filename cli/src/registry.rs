@@ -1,4 +1,4 @@
-//! `cargo ely registry`: rebuilds `registry.json`, each entry pointing at the file that defines it.
+//! `cargo mok registry`: rebuilds `registry.json`, each entry pointing at the file that defines it.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
@@ -159,7 +159,7 @@ impl Context<'_> {
         if let Some(f) = found {
             let root = self.tree.mods.get(&vec![f.mp[0].clone()]);
             let head = if CORE.contains(&f.mp[0].as_str()) {
-                "ely_gpui"
+                "mok_gpui"
             } else {
                 "crate::ui"
             };
@@ -358,14 +358,14 @@ pub fn generate(repo: &Path, check: bool) -> Result<(), String> {
     if check {
         let current = fs::read_to_string(&path).unwrap_or_default();
         if current.replace("\r\n", "\n") != text {
-            return Err("registry.json is stale: run `cargo ely registry` in the repo".into());
+            return Err("registry.json is stale: run `cargo mok registry` in the repo".into());
         }
         println!("[ok] registry.json is current ({total} components)");
         return Ok(());
     }
     fs::write(&path, text).map_err(|e| e.to_string())?;
     println!(
-        "[ok] {total} components in {} chapters: {} copyable, {} in the ely-gpui crate, {} features of another component, {} native, blocked or host-provided, {} unmapped",
+        "[ok] {total} components in {} chapters: {} copyable, {} in the mok-gpui crate, {} features of another component, {} native, blocked or host-provided, {} unmapped",
         pages.len(),
         tally.0,
         tally.1,

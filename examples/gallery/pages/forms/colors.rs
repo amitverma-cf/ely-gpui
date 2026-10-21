@@ -1,8 +1,8 @@
-use ely_gpui::{
+use gpui::{App, Hsla, IntoElement, ParentElement, Styled, Window, div, px, rgb, rgba};
+use mok_gpui::{
     forms::{ColorPalette, ColorPicker, ColorSwatch, EyeDropper, GradientEditor, GradientStop},
     theme::{ActiveTheme, ControlSize},
 };
-use gpui::{App, Hsla, IntoElement, ParentElement, Styled, Window, div, px, rgb, rgba};
 
 use crate::{
     probe::probe,

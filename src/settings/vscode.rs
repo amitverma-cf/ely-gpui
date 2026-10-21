@@ -7,7 +7,7 @@ use crate::{
     theme::{Mode, Palette},
 };
 
-/// A VS Code color theme, read: its name and mode, the palette it gives, and the tokens it named and those kept from Ely's palette of that mode.
+/// A VS Code color theme, read: its name and mode, the palette it gives, and the tokens it named and those kept from Mok's palette of that mode.
 #[derive(Clone, Debug)]
 pub struct VsCodeTheme {
     pub name: Option<String>,
@@ -355,7 +355,7 @@ mod tests {
         assert_eq!(
             theme.colors.surface,
             Palette::dark(false).surface,
-            "what it leaves out keeps Ely's dark palette"
+            "what it leaves out keeps Mok's dark palette"
         );
     }
 

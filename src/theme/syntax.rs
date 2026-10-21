@@ -53,11 +53,11 @@ fn syntax(hex: [u32; 13]) -> Syntax {
     }
 }
 
-/// Ely's code colors, a quiet set that keeps to the text's own inks, and a warm paper set.
+/// Mok's code colors, a quiet set that keeps to the text's own inks, and a warm paper set.
 pub fn syntax_themes() -> [SyntaxTheme; 3] {
     [
         SyntaxTheme {
-            name: "Ely",
+            name: "Mok",
             light: Palette::light(false).syntax,
             dark: Palette::dark(false).syntax,
         },

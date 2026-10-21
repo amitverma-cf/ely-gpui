@@ -302,6 +302,6 @@ mod tests {
         assert_eq!(tone("ERROR: build failed", &colors), colors.danger);
         assert_eq!(tone("  warning: unused import", &colors), colors.warning);
         assert_eq!(tone("[debug] tick", &colors), colors.fg_subtle);
-        assert_eq!(tone("Compiling ely v0.1.0", &colors), colors.fg_muted);
+        assert_eq!(tone("Compiling mok v0.1.0", &colors), colors.fg_muted);
     }
 }

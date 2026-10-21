@@ -2,8 +2,8 @@ use std::borrow::Cow;
 
 use gpui::{App, AssetSource, Result, SharedString};
 
-include!(concat!(env!("OUT_DIR"), "/ely_fonts.rs"));
-include!(concat!(env!("OUT_DIR"), "/ely_media.rs"));
+include!(concat!(env!("OUT_DIR"), "/mok_fonts.rs"));
+include!(concat!(env!("OUT_DIR"), "/mok_media.rs"));
 
 /// Every path the build baked in: the icons the code uses, the configured fonts, images and files.
 fn paths() -> impl Iterator<Item = &'static str> {
@@ -14,7 +14,7 @@ fn paths() -> impl Iterator<Item = &'static str> {
         .chain(MEDIA_NAMES.iter().copied())
 }
 
-/// Icons, fonts and files baked in from `ely-gpui.toml`. Pass to `Application::with_assets`, alone or through `Assets::before`.
+/// Icons, fonts and files baked in from `mok-gpui.toml`. Pass to `Application::with_assets`, alone or through `Assets::before`.
 pub struct Assets;
 
 impl AssetSource for Assets {
@@ -45,11 +45,11 @@ pub(crate) fn load_fonts(cx: &App) -> Result<()> {
     cx.text_system().add_fonts(fonts)
 }
 
-/// Ely's files first, then another source's: one source for an app that runs both.
+/// Mok's files first, then another source's: one source for an app that runs both.
 pub struct Before<T>(T);
 
 impl Assets {
-    /// Serves Ely's files, and every other path from `other`, such as GPUI Kit's `Assets`.
+    /// Serves Mok's files, and every other path from `other`, such as GPUI Kit's `Assets`.
     pub fn before<T: AssetSource>(other: T) -> Before<T> {
         Before(other)
     }
@@ -72,7 +72,7 @@ impl<T: AssetSource> AssetSource for Before<T> {
     }
 }
 
-/// Ely's files the source cannot load, each with the reason.
+/// Mok's files the source cannot load, each with the reason.
 pub(crate) fn missing(source: &dyn AssetSource) -> Vec<String> {
     paths()
         .filter_map(|path| match source.load(path) {
@@ -113,12 +113,12 @@ mod tests {
     }
 
     #[test]
-    fn ely_s_own_source_holds_every_file() {
+    fn mok_s_own_source_holds_every_file() {
         assert_eq!(missing(&Assets), Vec::<String>::new());
     }
 
     #[test]
-    fn an_icons_only_source_lacks_ely_s_fonts() {
+    fn an_icons_only_source_lacks_mok_s_fonts() {
         let missing = missing(&IconsOnly);
         assert!(
             missing.iter().any(|line| line.starts_with(PLEX)),
@@ -127,7 +127,7 @@ mod tests {
     }
 
     #[test]
-    fn ely_s_files_come_first_then_the_other_s() {
+    fn mok_s_files_come_first_then_the_other_s() {
         let both = Assets::before(IconsOnly);
         assert_eq!(missing(&both), Vec::<String>::new());
         let plex = both.load(PLEX).unwrap().unwrap();

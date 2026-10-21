@@ -1,5 +1,5 @@
-use ely_gpui::misc::{IframeEmbed, WebSource, WebView};
 use gpui::{App, IntoElement, ParentElement, Styled, div, px};
+use mok_gpui::misc::{IframeEmbed, WebSource, WebView};
 
 use crate::probe::probe;
 use crate::ui::{blocked, section};

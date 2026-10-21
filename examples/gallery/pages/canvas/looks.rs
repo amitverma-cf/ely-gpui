@@ -1,4 +1,8 @@
-use ely_gpui::{
+use gpui::{
+    App, BoxShadow, FontWeight, Hsla, IntoElement, ParentElement, SharedString, Styled, TextAlign,
+    Window, div, point, prelude::*, px, rgb, rgba,
+};
+use mok_gpui::{
     canvas::{
         AutoLayout, AutoLayoutControls, Border, BorderEditor, ColorPanel, Constraints,
         ConstraintsEditor, Dash, ExportFormat, ExportPanel, ExportSetting, Flow, Frame, Pin, Place,
@@ -6,10 +10,6 @@ use ely_gpui::{
     },
     forms::{GradientEditor, GradientStop, TextInput},
     theme::{ActiveTheme, TextSize},
-};
-use gpui::{
-    App, BoxShadow, FontWeight, Hsla, IntoElement, ParentElement, SharedString, Styled, TextAlign,
-    Window, div, point, prelude::*, px, rgb, rgba,
 };
 
 use crate::ui::{change, keep, section};

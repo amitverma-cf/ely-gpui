@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     canvas::{
         FlowChart, Frame, Link, MindMap, Step, StepKind, Tool, ToolLayer, ToolPalette, Topic,
         Viewport,
     },
     theme::{ActiveTheme, Radius},
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

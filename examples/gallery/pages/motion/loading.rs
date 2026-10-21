@@ -1,6 +1,9 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{
+    App, Entity, FontWeight, IntoElement, ParentElement, SharedString, Styled, Window, div,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     motion::{
         Shimmer, Skeleton, SkeletonAvatar, SkeletonCard, SkeletonTable, SkeletonText, Spinner,
@@ -9,9 +12,6 @@ use ely_gpui::{
     navigation::LoadMore,
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::Caption,
-};
-use gpui::{
-    App, Entity, FontWeight, IntoElement, ParentElement, SharedString, Styled, Window, div,
 };
 
 use crate::{

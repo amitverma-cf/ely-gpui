@@ -48,7 +48,7 @@ impl Look {
 
 impl BlockEditor {
     pub(crate) fn id(cx: &Context<Self>) -> ElementId {
-        ("ely-blocks", cx.entity_id()).into()
+        ("mok-blocks", cx.entity_id()).into()
     }
 
     /// A slash pick: an emptied block becomes the kind; one with text gets the kind below it.

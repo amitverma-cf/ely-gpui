@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{AnyElement, App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{SignedDuration, Timestamp};
+use mok_gpui::{
     data_display::Presence,
     messaging::{
         ChannelHeader, ChannelItem, ChannelList, DirectMessageItem, PinnedMessage, PinnedMessages,
     },
 };
-use gpui::{AnyElement, App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{SignedDuration, Timestamp};
 
 mod calls;
 mod messages;

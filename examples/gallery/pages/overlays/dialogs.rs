@@ -1,4 +1,8 @@
-use ely_gpui::{
+use gpui::{
+    AnyElement, App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div,
+    prelude::*,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     forms::{Input, TextInput},
     overlays::{
@@ -7,10 +11,6 @@ use ely_gpui::{
     primitives::Severity,
     theme::ActiveTheme,
     typography::Caption,
-};
-use gpui::{
-    AnyElement, App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div,
-    prelude::*,
 };
 
 use crate::{
@@ -56,7 +56,7 @@ pub fn dialogs(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         let fields = window.use_keyed_state("overlay-fields", cx, |window, cx| {
             (
                 make(window, cx, "Ada Lovelace"),
-                make(window, cx, "ada@ely.dev"),
+                make(window, cx, "ada@mok.dev"),
                 make(window, cx, "Roadmap"),
             )
         });
@@ -140,7 +140,7 @@ pub fn dialogs(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                         .gap_3()
                         .max_w(
                             cx.theme()
-                                .container_width(ely_gpui::theme::ContainerSize::Sm),
+                                .container_width(mok_gpui::theme::ContainerSize::Sm),
                         )
                         .child(Caption::new("Menus nest, filter and follow their buttons."))
                         .child(Caption::new("Palettes pick on release, as buttons do."))

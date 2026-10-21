@@ -4,7 +4,7 @@ set -eu
 cargo fmt --check
 cargo clippy --all-targets --features test-support -- -D warnings
 cargo test --lib --features test-support --quiet
-# Ely beside the newest GPUI Kit: a release that moves Kit's gpui pin fails to resolve here.
+# Mok beside the newest GPUI Kit: a release that moves Kit's gpui pin fails to resolve here.
 kit="--manifest-path compat/kit/Cargo.toml"
 newest=$(cargo search gpui-kit --limit 1 --color never | sed -n 's/^gpui-kit = "\([^"]*\)".*/\1/p')
 [ -n "$newest" ] || { echo "crates.io named no gpui-kit release" >&2; exit 1; }
@@ -18,7 +18,7 @@ rustup target list --installed | grep -qx wasm32-unknown-unknown || {
   exit 1
 }
 # gpui_web's wasm_thread asks for an unstable feature, as in scripts/web.sh.
-RUSTC_BOOTSTRAP=1 ELY_GALLERY_ASSETS=https://example.invalid/ \
+RUSTC_BOOTSTRAP=1 MOK_GALLERY_ASSETS=https://example.invalid/ \
   cargo clippy --example gallery --target wasm32-unknown-unknown -- -D warnings
 python3 scripts/stories.py --check
 # The CLI beside the library: its own lints and tests, then the registry it feeds and the captures every entry needs.

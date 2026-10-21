@@ -1,9 +1,9 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::Button,
     misc::{ConsentDialog, CookieBanner, LicenseViewer, Package},
     theme::ActiveTheme,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::probe::probe;
 use crate::ui::section;
@@ -14,7 +14,7 @@ const TERMS: &str = "These terms cover the gallery's sample app. You may use it 
 fn packages() -> [Package; 4] {
     [
         Package::new(
-            "Ely GPUI Component",
+            "Mok GPUI Component",
             "0.1.0",
             "MIT",
             include_str!("../../../../LICENSE"),
@@ -76,7 +76,7 @@ pub fn render(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         .child(
             section(
                 "LicenseViewer",
-                "The packages a product ships, each with its license, beside the chosen one's text. These are Ely's own.",
+                "The packages a product ships, each with its license, beside the chosen one's text. These are Mok's own.",
                 cx,
             )
             .child(div().w(px(560.0)).child(LicenseViewer::new("licenses", packages()))),

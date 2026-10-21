@@ -1,8 +1,8 @@
-use ely_gpui::generative::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::generative::{
     Download, DownloadState, FineTuneJobCard, HardwareMonitor, ModelCard, ModelDownloadManager,
     ModelState, ModelStatus, Reading, TunePhase,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

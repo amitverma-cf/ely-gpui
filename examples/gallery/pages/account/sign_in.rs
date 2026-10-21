@@ -1,10 +1,10 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     account::{ForgotPassword, LoginForm, MagicLinkForm, OAuthButtons, SignupForm, TwoFactorInput},
     feedback::InlineMessage,
     layout::{Card, CardHeader},
     primitives::{Divider, Severity},
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,
@@ -54,7 +54,7 @@ pub fn sign_in(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         "account-login",
         div().w(px(380.)).child(
             Card::new()
-                .header(CardHeader::new("Sign in to Ely").description("Welcome back."))
+                .header(CardHeader::new("Sign in to Mok").description("Welcome back."))
                 .child(div().flex().flex_col().gap_5().child(providers).child(Divider::horizontal().label("or")).child(form)),
         ),
     ))

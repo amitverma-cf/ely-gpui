@@ -1,4 +1,8 @@
-use ely_gpui::{
+use gpui::{
+    App, Entity, InteractiveElement, IntoElement, ParentElement, ScrollHandle, SharedString,
+    StatefulInteractiveElement, Styled, Window, div, px,
+};
+use mok_gpui::{
     buttons::{ButtonVariant, IconButton},
     forms::{Choice, TextInput},
     layout::Sidebar,
@@ -9,10 +13,6 @@ use ely_gpui::{
     primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
     typography::{Heading, Paragraph},
-};
-use gpui::{
-    App, Entity, InteractiveElement, IntoElement, ParentElement, ScrollHandle, SharedString,
-    StatefulInteractiveElement, Styled, Window, div, px,
 };
 
 use crate::{
@@ -62,7 +62,7 @@ pub fn sidebar(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                             NavGroup::new("nav-projects", "Projects", shown)
                                 .folded(fold)
                                 .on_toggle(move |next, _, cx| set(&groups, next, cx))
-                                .child(item("ely", LucideIcon::Box, "Ely"))
+                                .child(item("mok", LucideIcon::Box, "Mok"))
                                 .child(item("website", LucideIcon::Globe, "Website"))
                                 .child(item("research", LucideIcon::BookOpen, "Research")),
                         ),

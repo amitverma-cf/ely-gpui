@@ -1,10 +1,3 @@
-use ely_gpui::{
-    Assets,
-    buttons::Button,
-    primitives::FocusScope,
-    theme::{ActiveTheme, Mode, Theme},
-    typography::{Heading, Paragraph},
-};
 use gpui_kit::{
     App, AppContext, Context, Entity, FocusHandle, IntoElement, ParentElement, Render, Styled,
     Window, WindowOptions,
@@ -15,6 +8,13 @@ use gpui_kit::{
         theme::{Theme as KitTheme, ThemeMode},
     },
     div, px,
+};
+use mok_gpui::{
+    Assets,
+    buttons::Button,
+    primitives::FocusScope,
+    theme::{ActiveTheme, Mode, Theme},
+    typography::{Heading, Paragraph},
 };
 
 struct Start {
@@ -41,7 +41,7 @@ fn column(dark: bool, name: &Entity<InputState>) -> impl IntoElement {
         .flex()
         .flex_col()
         .gap_4()
-        .child(Heading::h1("Ely and GPUI Kit"))
+        .child(Heading::h1("Mok and GPUI Kit"))
         .child(Paragraph::new(
             "One window, one focus order, one asset source.",
         ))
@@ -56,12 +56,12 @@ fn column(dark: bool, name: &Entity<InputState>) -> impl IntoElement {
         .child(
             Button::new("mode", if dark { "Light mode" } else { "Dark mode" }).on_click(
                 move |_, window, cx| {
-                    let (ely, kit) = if dark {
+                    let (mok, kit) = if dark {
                         (Mode::Light, ThemeMode::Light)
                     } else {
                         (Mode::Dark, ThemeMode::Dark)
                     };
-                    Theme::set_mode(ely, cx);
+                    Theme::set_mode(mok, cx);
                     KitTheme::change(kit, Some(window), cx);
                 },
             ),
@@ -73,7 +73,7 @@ fn main() {
         .with_assets(Assets::before(gpui_kit::assets::Assets))
         .run(|cx: &mut App| {
             gpui_kit::init(cx);
-            ely_gpui::init(cx).expect("Ely failed to start");
+            mok_gpui::init(cx).expect("Mok failed to start");
             gpui_kit::open_window(WindowOptions::default(), cx, |window, cx| {
                 cx.new(|cx| {
                     let focus = cx.focus_handle();

@@ -66,7 +66,7 @@ pub fn check_contrast(mode: &str, bg: u32, fg: u32) {
     let ratio = (lighter + 0.05) / (darker + 0.05);
     if ratio < 4.5 {
         println!(
-            "cargo:warning=ely: WCAG AA contrast ratio is {:.2}:1 (< 4.5:1) for {} mode (bg: 0x{:06x}, fg: 0x{:06x})",
+            "cargo:warning=mok: WCAG AA contrast ratio is {:.2}:1 (< 4.5:1) for {} mode (bg: 0x{:06x}, fg: 0x{:06x})",
             ratio, mode, bg, fg
         );
     }

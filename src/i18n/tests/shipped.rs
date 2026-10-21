@@ -1,6 +1,6 @@
-//! Components Ely ships say nothing in fixed English.
+//! Components Mok ships say nothing in fixed English.
 
-/// Sources of components the Ely apps draw.
+/// Sources of components the Mok apps draw.
 const SHIPPED: &[(&str, &str)] = &[
     ("editor/find.rs", include_str!("../../editor/find.rs")),
     ("editor/hints.rs", include_str!("../../editor/hints.rs")),

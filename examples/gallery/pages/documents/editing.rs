@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     documents::{
         BlockData, BlockEditor, BlockKind, Checklist, MarkdownEditor, MarkdownMode, Media,
         RichTextEditor, markdown_highlights,
     },
     forms::TextInput,
 };
-use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::{
     probe::probe,
@@ -16,7 +16,7 @@ const ATRIUM: &str = asset!("atrium.jpg");
 
 const PEOPLE: [&str; 4] = ["ada", "grace", "linus", "margaret"];
 
-const NOTES: &str = "## Release notes\n\nBlend every accent **toward white** by *lift*, clamped in gamma space. See [the palette docs](https://ely.dev/palette) or ask @ada.\n\n- Tokens stay in `src/theme`\n- ~~Raw pixels~~ never\n- [x] Light and dark";
+const NOTES: &str = "## Release notes\n\nBlend every accent **toward white** by *lift*, clamped in gamma space. See [the palette docs](https://mok.dev/palette) or ask @ada.\n\n- Tokens stay in `src/theme`\n- ~~Raw pixels~~ never\n- [x] Light and dark";
 
 const ESSAY: &str = "# Lift\n\nA lift blends a color toward white. **Half** a lift sits midway, and a *full* one is white.\n\n> Tokens live in one place; components only read them.\n\n| Token | Light | Dark |\n|:--|--:|--:|\n| accent | 0.50 | 0.62 |\n| focus | 0.40 | 0.55 |\n\n```rust\nfn lift(color: Color, by: f32) -> Color {\n    color.mix(WHITE, by)\n}\n```\n\n$$c' = c + (1 - c)\\,t$$";
 
@@ -139,7 +139,7 @@ fn kinds() -> Vec<BlockData> {
             &["Synced: edit either copy and both change."],
         ),
         block(
-            BlockKind::Embed(Media::new("https://ely.dev")),
+            BlockKind::Embed(Media::new("https://mok.dev")),
             &["The project site"],
         ),
     ]

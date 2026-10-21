@@ -1,12 +1,12 @@
-use ely_gpui::{
+use gpui::{App, ElementId, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::tz::TimeZone;
+use mok_gpui::{
     data_display::Presence,
     messaging::{
         ClearAfter, Member, MemberList, OnlineStatus, Status, StatusSetter, UserProfileCard,
     },
     theme::{ActiveTheme, Radius, TextSize},
 };
-use gpui::{App, ElementId, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::tz::TimeZone;
 
 use crate::{
     probe::probe,

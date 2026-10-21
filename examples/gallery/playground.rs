@@ -1,12 +1,12 @@
-use ely_gpui::{
+use gpui::{
+    Context, FontWeight, InteractiveElement, IntoElement, ParentElement, SharedString,
+    StatefulInteractiveElement, Styled, div, px,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::Switch,
     primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, Density, TextSize, Theme},
-};
-use gpui::{
-    Context, FontWeight, InteractiveElement, IntoElement, ParentElement, SharedString,
-    StatefulInteractiveElement, Styled, div, px,
 };
 
 use crate::shell::Gallery;
@@ -81,11 +81,11 @@ pub fn render_playground_drawer(_gallery: &Gallery, cx: &mut Context<Gallery>) -
                         )
                         .child(
                             div().flex().flex_wrap().gap_1p5().children(
-                                ["ely", "zinc", "slate", "nord", "catppuccin", "tokyo-night"]
+                                ["mok", "zinc", "slate", "nord", "catppuccin", "tokyo-night"]
                                     .iter()
                                     .map(|&preset| {
                                         let label = match preset {
-                                            "ely" => "Ely",
+                                            "mok" => "Mok",
                                             "zinc" => "Zinc",
                                             "slate" => "Slate",
                                             "nord" => "Nord",
@@ -292,7 +292,7 @@ pub fn render_playground_drawer(_gallery: &Gallery, cx: &mut Context<Gallery>) -
                             .variant(ButtonVariant::Ghost)
                             .size(ControlSize::Sm)
                             .on_click(|_, _, cx| {
-                                Theme::set_preset("ely", cx);
+                                Theme::set_preset("mok", cx);
                                 Theme::update(cx, |t| {
                                     t.radius_scale = 1.0;
                                     t.font_scale = 1.0;

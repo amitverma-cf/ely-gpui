@@ -1,8 +1,8 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     settings::{SyntaxThemePicker, ThemeImporter},
     theme::{ActiveTheme, Theme, syntax_themes},
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::ui::{change, keep, section, specimen, specimens};
 
@@ -10,11 +10,11 @@ use crate::ui::{change, keep, section, specimen, specimens};
 struct Chosen(SharedString);
 
 pub fn importing(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
-    let chosen = keep("theme-syntax", || Chosen("Ely".into()), window, cx);
+    let chosen = keep("theme-syntax", || Chosen("Mok".into()), window, cx);
     let name = chosen.read(cx).0.clone();
     section(
         "ThemeImporter · SyntaxThemes",
-        "A VS Code color theme dropped here reads into Ely's palette, the colors it leaves out kept from Ely's; Apply sets it on the whole gallery. Code palettes choose the colors of code for the mode shown.",
+        "A VS Code color theme dropped here reads into Mok's palette, the colors it leaves out kept from Mok's; Apply sets it on the whole gallery. Code palettes choose the colors of code for the mode shown.",
         cx,
     )
     .child(

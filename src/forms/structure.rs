@@ -15,7 +15,7 @@ use crate::{
 };
 
 /// The key context a form sets, so Cmd-Enter reaches it from any control inside.
-pub(crate) const FORM_CONTEXT: &str = "ElyForm";
+pub(crate) const FORM_CONTEXT: &str = "MokForm";
 
 /// Sections stacked with room between them. Cmd-Enter on any field or control inside submits the form.
 #[derive(IntoElement)]

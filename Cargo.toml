@@ -1,11 +1,11 @@
 [package]
-name = "ely-gpui"
+name = "mok-gpui"
 version = "0.1.1"
 edition = "2024"
 rust-version = "1.95"
 license = "MIT"
 description = "A restrained component library for GPUI, in light and dark."
-repository = "https://github.com/amitverma-cf/ely-gpui"
+repository = "https://github.com/amitverma-cf/mok-gpui"
 publish = false
 
 [features]

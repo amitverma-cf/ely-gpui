@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     mail::Label,
     project::{
         IssueCard, KanbanBoard, KanbanCard, KanbanColumn, LabelManager, Status, Task,
@@ -6,7 +7,6 @@ use ely_gpui::{
     },
     theme::{ActiveTheme, Radius},
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use super::{board, quiet, studio_labels, team};
 use crate::{

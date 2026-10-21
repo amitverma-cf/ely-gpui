@@ -1,6 +1,8 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px, rems};
+use jiff::{SignedDuration, Timestamp};
+use mok_gpui::{
     data_display::{DescriptionList, Tone},
     forms::TextInput,
     generative::{
@@ -8,8 +10,6 @@ use ely_gpui::{
     },
     tables::{Cell, Column, DataTable, Row},
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px, rems};
-use jiff::{SignedDuration, Timestamp};
 
 use crate::{
     probe::probe,

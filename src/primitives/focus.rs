@@ -6,10 +6,10 @@ use gpui::{
 
 use crate::theme::ActiveTheme;
 
-actions!(ely, [FocusNext, FocusPrev]);
+actions!(mok, [FocusNext, FocusPrev]);
 
 /// The key context of every `FocusScope`; Tab and Shift-Tab bind under it.
-pub const CONTEXT: &str = "ElyFocus";
+pub const CONTEXT: &str = "MokFocus";
 
 /// Focus-colored border while focused. Give the element a 1px border.
 pub trait FocusRing: InteractiveElement + Sized {

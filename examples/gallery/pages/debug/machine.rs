@@ -1,10 +1,10 @@
 use std::rc::Rc;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     debug::{Disassembly, HexViewer, Instruction},
     theme::{ActiveTheme, Radius},
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::ui::{keep, section, set};
 

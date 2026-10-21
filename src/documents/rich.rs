@@ -18,9 +18,9 @@ use crate::{
     theme::{ActiveTheme, Radius, TextSize},
 };
 
-actions!(ely_rich_text, [ToggleBold, ToggleItalic, EditLink]);
+actions!(mok_rich_text, [ToggleBold, ToggleItalic, EditLink]);
 
-const CONTEXT: &str = "ElyRichText";
+const CONTEXT: &str = "MokRichText";
 
 /// Binds the rich text keys. `init` calls it.
 pub(crate) fn bind_keys(cx: &mut App) {

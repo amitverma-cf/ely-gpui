@@ -1,6 +1,6 @@
 # Motion
 
-Ely's motion lives in `ely_gpui::motion`: four durations, a few easings, and components that move. Every one honors the theme's reduced motion.
+Mok's motion lives in `mok_gpui::motion`: four durations, a few easings, and components that move. Every one honors the theme's reduced motion.
 
 ## Durations and easings
 
@@ -17,13 +17,13 @@ GPUI hands an easing's value to the animator unclamped. Use `spring` inside the 
 
 ## Reduced motion
 
-The theme's `reduced_motion` field starts off. Ely does not read the system's setting; the app sets it:
+The theme's `reduced_motion` field starts off. Mok does not read the system's setting; the app sets it:
 
 ```rust
 Theme::update(cx, |theme| theme.reduced_motion = true);
 ```
 
-Under it, `duration` returns 1 ms, so a change lands at once. A motion that repeats, such as a spinner or a breathing dot, holds still instead: at 1 ms a turn it would flicker. Ely's spinner checks the flag itself; an app's own repeating animation checks it too, as the example's dot does.
+Under it, `duration` returns 1 ms, so a change lands at once. A motion that repeats, such as a spinner or a breathing dot, holds still instead: at 1 ms a turn it would flicker. Mok's spinner checks the flag itself; an app's own repeating animation checks it too, as the example's dot does.
 
 ## Components that move
 

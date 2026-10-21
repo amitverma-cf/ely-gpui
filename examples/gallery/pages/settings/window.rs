@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, Entity, Hsla, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     forms::TextInput,
     primitives::LucideIcon,
     settings::{
@@ -7,7 +8,6 @@ use ely_gpui::{
     },
     theme::{ActiveTheme, Density},
 };
-use gpui::{App, Entity, Hsla, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use super::pages;
 use crate::{

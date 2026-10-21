@@ -41,7 +41,7 @@ pub(super) fn press(key: &str, cx: &mut VisualTestContext) {
 
 /// A picture `w` by `h` written to a file named for its test, the same file each run.
 pub(super) fn picture(name: &str, w: u32, h: u32) -> PathBuf {
-    let path = std::env::temp_dir().join(format!("ely-media-{name}.png"));
+    let path = std::env::temp_dir().join(format!("mok-media-{name}.png"));
     image::RgbaImage::from_pixel(w, h, image::Rgba([90, 120, 150, 255]))
         .save(&path)
         .expect("the picture writes");

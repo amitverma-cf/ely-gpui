@@ -74,11 +74,11 @@ pub fn generate_fonts(
             in_root
         } else {
             panic!(
-                "ely: Font file '{}' declared in ely-gpui.toml was not found on disk.\n\
+                "mok: Font file '{}' declared in mok-gpui.toml was not found on disk.\n\
                  Searched locations:\n\
                    - {}\n\
                    - {}\n\
-                 Run `cargo mok init` to download the fonts, or update the [fonts] table of ely-gpui.toml.",
+                 Run `cargo mok init` to download the fonts, or update the [fonts] table of mok-gpui.toml.",
                 rel_path,
                 in_assets.display(),
                 in_root.display()
@@ -116,6 +116,6 @@ pub fn generate_fonts(
     code.push_str("    }\n");
     code.push_str("}\n");
 
-    let dest = out_dir.join("ely_fonts.rs");
-    fs::write(dest, code).expect("failed to write ely_fonts.rs");
+    let dest = out_dir.join("mok_fonts.rs");
+    fs::write(dest, code).expect("failed to write mok_fonts.rs");
 }

@@ -46,15 +46,15 @@ CI runs the same on every pull request. Fill in the pull request template: what 
 
 ## License
 
-Ely is MIT. Unless you say otherwise, what you contribute is licensed the same way.
+Mok is MIT. Unless you say otherwise, what you contribute is licensed the same way.
 
 ## Opening a pull request on GitHub
 
-1. Fork https://github.com/amitverma-cf/ely-gpui
+1. Fork https://github.com/amitverma-cf/mok-gpui
 2. Clone your fork, commit your changes, and create a topic branch:
 
    ```bash
-   git clone https://github.com/<your-username>/ely-gpui.git
+   git clone https://github.com/<your-username>/mok-gpui.git
    git checkout -b <feature-branch>
    ```
 

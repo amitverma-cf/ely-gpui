@@ -4,7 +4,7 @@ import { type RegistryComponent, getComponentImageSrc, getStoryUrl } from "./dat
 import { useMode } from "./theme";
 
 const STATUS: Record<string, string> = {
-  core: "in the ely-gpui crate",
+  core: "in the mok-gpui crate",
   native: "native to gpui",
   blocked: "blocked in gpui",
   host: "your app provides it",
@@ -22,7 +22,7 @@ export function ComponentCard({ item }: { item: RegistryComponent }) {
   const copyCommand = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    navigator.clipboard.writeText(`cargo ely add ${item.name.toLowerCase()}`);
+    navigator.clipboard.writeText(`cargo mok add ${item.name.toLowerCase()}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -56,8 +56,8 @@ export function ComponentCard({ item }: { item: RegistryComponent }) {
 
         <div className="comp-card-footer">
           {copyable ? (
-            <button type="button" className={`comp-copy-btn ${copied ? "copied" : ""}`} onClick={copyCommand} title={`Copy 'cargo ely add ${item.name}'`}>
-              {copied ? "✓ Copied command" : `cargo ely add ${item.name.toLowerCase()}`}
+            <button type="button" className={`comp-copy-btn ${copied ? "copied" : ""}`} onClick={copyCommand} title={`Copy 'cargo mok add ${item.name}'`}>
+              {copied ? "✓ Copied command" : `cargo mok add ${item.name.toLowerCase()}`}
             </button>
           ) : (
             <span className="comp-copy-btn note" title={item.description}>

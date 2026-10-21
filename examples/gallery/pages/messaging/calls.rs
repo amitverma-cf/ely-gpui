@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::Button,
     data_display::Avatar,
     messaging::{
@@ -7,7 +8,6 @@ use ely_gpui::{
     },
     theme::{ActiveTheme, TextSize},
 };
-use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 use web_time::Instant;
 
 use crate::{

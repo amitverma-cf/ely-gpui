@@ -57,12 +57,12 @@ pub fn init(cx: &mut App) -> anyhow::Result<()> {
     let missing = assets::missing(cx.asset_source().as_ref());
     if let Some(first) = missing.first() {
         anyhow::bail!(
-            "ely: the asset source lacks {} of Ely's files, first {first}; pass `ely_gpui::Assets`, or `Assets::before` your own, to `Application::with_assets`",
+            "mok: the asset source lacks {} of Mok's files, first {first}; pass `mok_gpui::Assets`, or `Assets::before` your own, to `Application::with_assets`",
             missing.len()
         );
     }
-    log::info!("assets: the app's source loads all of Ely's files");
-    assets::load_fonts(cx).context("ely: embedded fonts failed to register")?;
+    log::info!("assets: the app's source loads all of Mok's files");
+    assets::load_fonts(cx).context("mok: embedded fonts failed to register")?;
     setup(cx);
     Ok(())
 }

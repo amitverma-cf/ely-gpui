@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     canvas::{
         Artboard, Corner, Frame, Guide, InfiniteCanvas, MiniMap, Shape, ShapeKind, Viewport,
         ZoomControls,
     },
     theme::{ActiveTheme, Radius},
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

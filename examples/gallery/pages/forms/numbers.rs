@@ -1,5 +1,5 @@
-use ely_gpui::forms::{NumberInput, ScrubInput, UnitInput};
 use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::forms::{NumberInput, ScrubInput, UnitInput};
 
 use crate::{
     probe::probe,

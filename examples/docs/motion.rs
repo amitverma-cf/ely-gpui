@@ -1,13 +1,13 @@
-use ely_gpui::{
+use gpui::{
+    Animation, AnimationExt, App, AppContext, Context, FocusHandle, IntoElement, ParentElement,
+    Render, Styled, Window, WindowOptions, div,
+};
+use mok_gpui::{
     Assets,
     buttons::Button,
     motion::{self, Entrance, Flash, Spinner, Transition},
     primitives::FocusScope,
     theme::{ActiveTheme, Radius, Theme},
-};
-use gpui::{
-    Animation, AnimationExt, App, AppContext, Context, FocusHandle, IntoElement, ParentElement,
-    Render, Styled, Window, WindowOptions, div,
 };
 
 struct Moves {
@@ -104,7 +104,7 @@ fn main() {
     gpui_platform::application()
         .with_assets(Assets)
         .run(|cx: &mut App| {
-            ely_gpui::init(cx).expect("Ely failed to start");
+            mok_gpui::init(cx).expect("Mok failed to start");
             cx.open_window(WindowOptions::default(), |window, cx| {
                 cx.new(|cx| {
                     let focus = cx.focus_handle();

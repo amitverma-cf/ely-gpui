@@ -358,7 +358,7 @@ mod tests {
 
     #[test]
     fn drops_take_files_and_refuse_folders_extras_and_nothing() {
-        let dir = std::env::temp_dir().join(format!("ely-drop-{}", std::process::id()));
+        let dir = std::env::temp_dir().join(format!("mok-drop-{}", std::process::id()));
         fs::create_dir_all(dir.join("folder")).unwrap();
         let (one, two) = (dir.join("one.txt"), dir.join("two.txt"));
         fs::write(&one, "1").unwrap();
@@ -380,7 +380,7 @@ mod tests {
 
     #[test]
     fn a_zone_of_pictures_takes_pictures_in_any_case_and_refuses_the_rest() {
-        let dir = std::env::temp_dir().join(format!("ely-kinds-{}", std::process::id()));
+        let dir = std::env::temp_dir().join(format!("mok-kinds-{}", std::process::id()));
         fs::create_dir_all(&dir).unwrap();
         let [photo, loud, note] = ["dunes.jpg", "STAIR.PNG", "notes.txt"].map(|name| {
             let path = dir.join(name);

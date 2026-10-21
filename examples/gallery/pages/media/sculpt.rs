@@ -1,7 +1,7 @@
 use std::f32::consts::TAU;
 
-use ely_gpui::media::Orbit;
 use image::{Frame, RgbaImage};
+use mok_gpui::media::Orbit;
 
 type Vec3 = [f32; 3];
 

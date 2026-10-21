@@ -1,16 +1,16 @@
 # Testing
 
-Ely tests itself on GPUI's test platform: every chapter has tests, and `cargo test --lib --features test-support` runs them all. `scripts/check.sh` runs them with formatting, clippy and the house rules.
+Mok tests itself on GPUI's test platform: every chapter has tests, and `cargo test --lib --features test-support` runs them all. `scripts/check.sh` runs them with formatting, clippy and the house rules.
 
 ## The `test-support` feature
 
 `test-support` turns on GPUI's own `test-support`, which brings `TestAppContext`, `#[gpui::test]` and the simulated input. It stays off for the gallery and for apps: GPUI then tracks every entity handle for leaks and records every `debug_selector`'s bounds each frame.
 
-## Testing an app that uses Ely
+## Testing an app that uses Mok
 
-GPUI's `TestAppContext` serves no assets, so `ely_gpui::init` returns an error there. Call `ely_gpui::init_for_tests(cx)` instead, under the `test-support` feature: it sets the theme and key bindings without assets or fonts.
+GPUI's `TestAppContext` serves no assets, so `mok_gpui::init` returns an error there. Call `mok_gpui::init_for_tests(cx)` instead, under the `test-support` feature: it sets the theme and key bindings without assets or fonts.
 
-## Writing a test inside Ely
+## Writing a test inside Mok
 
 | Need | How |
 | --- | --- |
@@ -25,7 +25,7 @@ GPUI's `TestAppContext` serves no assets, so `ely_gpui::init` returns an error t
 
 ## Tests to read
 
-- [Layers](https://github.com/amitverma-cf/ely-gpui/blob/main/src/primitives/tests.rs): what is raised inside a raise lies over it, and keeps its state.
-- [Feedback](https://github.com/amitverma-cf/ely-gpui/blob/main/src/feedback/tests/mod.rs): toasts and alerts, and focus handed to the root when a focused toast leaves.
-- [Tables](https://github.com/amitverma-cf/ely-gpui/blob/main/src/tables/tests/mod.rs): clicks, double presses, Tab across a grid.
-- [Internationalization](https://github.com/amitverma-cf/ely-gpui/blob/main/src/i18n/tests/mod.rs): catalogs, locales and a mirrored row.
+- [Layers](https://github.com/amitverma-cf/mok-gpui/blob/main/src/primitives/tests.rs): what is raised inside a raise lies over it, and keeps its state.
+- [Feedback](https://github.com/amitverma-cf/mok-gpui/blob/main/src/feedback/tests/mod.rs): toasts and alerts, and focus handed to the root when a focused toast leaves.
+- [Tables](https://github.com/amitverma-cf/mok-gpui/blob/main/src/tables/tests/mod.rs): clicks, double presses, Tab across a grid.
+- [Internationalization](https://github.com/amitverma-cf/mok-gpui/blob/main/src/i18n/tests/mod.rs): catalogs, locales and a mirrored row.

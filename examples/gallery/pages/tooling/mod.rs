@@ -1,10 +1,10 @@
-use ely_gpui::{
+use gpui::{AnyElement, App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     motion::ProgressRing,
     theme::ControlSize,
     tooling::{Knob, Playground},
 };
-use gpui::{AnyElement, App, IntoElement, ParentElement, Styled, Window, div, px};
 
 mod catalogs;
 mod inspection;

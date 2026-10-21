@@ -1,14 +1,14 @@
 [package]
-name = "cargo-ely"
+name = "cargo-mok"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.95"
 license = "MIT"
 publish = false
-description = "Adds Ely GPUI components, icons and fonts to your project as source you own."
+description = "Adds Mok GPUI components, icons and fonts to your project as source you own."
 
 [[bin]]
-name = "cargo-ely"
+name = "cargo-mok"
 path = "src/main.rs"
 
 [dependencies]

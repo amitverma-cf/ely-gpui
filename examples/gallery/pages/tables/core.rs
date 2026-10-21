@@ -1,6 +1,9 @@
 use std::rc::Rc;
 
-use ely_gpui::{
+use gpui::{
+    App, ClipboardItem, IntoElement, ParentElement, SharedString, Styled, Window, div, px, rems,
+};
+use mok_gpui::{
     data_display::Tone,
     forms::TextInput,
     tables::{
@@ -9,9 +12,6 @@ use ely_gpui::{
     },
     theme::{ActiveTheme, Density, Radius},
     typography::Caption,
-};
-use gpui::{
-    App, ClipboardItem, IntoElement, ParentElement, SharedString, Styled, Window, div, px, rems,
 };
 
 use crate::{

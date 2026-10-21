@@ -15,7 +15,7 @@ const TEXT: f32 = 4.5;
 /// What a mark needs beside its surface, as WCAG 1.4.11 has it.
 const MARK: f32 = 3.0;
 
-/// The text colors Ely draws, each over the surfaces it sits on.
+/// The text colors Mok draws, each over the surfaces it sits on.
 const TEXT_PAIRS: &[(&str, &[&str])] = &[
     (
         "fg",
@@ -196,7 +196,7 @@ mod tests {
     use crate::theme::Palette;
 
     #[test]
-    fn every_ely_palette_passes_its_audit() {
+    fn every_mok_palette_passes_its_audit() {
         for high_contrast in [false, true] {
             for palette in [Palette::light(high_contrast), Palette::dark(high_contrast)] {
                 let failing: Vec<String> = audit(&palette)

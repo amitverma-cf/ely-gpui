@@ -1,4 +1,6 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{Timestamp, tz::TimeZone};
+use mok_gpui::{
     finance::{
         BidAskBar, DomLadder, Level2Quotes, OrderBook, PriceChangeBadge, PriceText, QuoteCard,
         Side, SpreadIndicator, TickerTape, TimeAndSales, Trade,
@@ -6,8 +8,6 @@ use ely_gpui::{
     theme::TextSize,
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{Timestamp, tz::TimeZone};
 
 use super::markets::day;
 use crate::ui::{keep, noise, row, section, set};
@@ -39,7 +39,7 @@ fn levels(seed: u64, middle: f64, tick: f64, count: usize) -> (Levels, Levels) {
 
 pub fn quotes(cx: &mut App) -> impl IntoElement + use<> {
     let tape = [
-        ("ELY", 187.24, 0.0124),
+        ("MOK", 187.24, 0.0124),
         ("NOVA", 62.10, -0.0081),
         ("ORBIT", 131.52, 0.0203),
         ("PINE", 27.33, -0.0152),
@@ -53,7 +53,7 @@ pub fn quotes(cx: &mut App) -> impl IntoElement + use<> {
         tape.quote(*symbol, *now, *share)
     });
     let cards = [
-        ("ELY", "Ely Systems", 41, 184.9),
+        ("MOK", "Mok Systems", 41, 184.9),
         ("NOVA", "Nova Energy", 43, 62.6),
         ("ORBIT", "Orbit Freight", 47, 128.9),
     ]

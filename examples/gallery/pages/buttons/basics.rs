@@ -1,9 +1,9 @@
-use ely_gpui::{
+use gpui::{AnyElement, App, ElementId, IntoElement, ParentElement, Styled, div};
+use mok_gpui::{
     buttons::{Button, ButtonGroup, ButtonVariant, IconButton},
     primitives::LucideIcon,
     theme::ControlSize,
 };
-use gpui::{AnyElement, App, ElementId, IntoElement, ParentElement, Styled, div};
 
 use crate::ui::{code, row, section, specimen, specimens};
 

@@ -1,10 +1,10 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     forms::Choice,
     navigation::{EditorTab, EditorTabs, TabPlacement, Tabs},
     primitives::LucideIcon,
     typography::Paragraph,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

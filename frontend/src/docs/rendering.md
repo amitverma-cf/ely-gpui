@@ -1,10 +1,10 @@
 # Rendering
 
-`ely_gpui::rendering::RenderSurface` shows pixels your app draws: a map's texture layer, a plot, a frame from a camera or another renderer. It runs wherever GPUI runs: macOS, Windows and Linux, on arm64 and x86_64, and in the browser.
+`mok_gpui::rendering::RenderSurface` shows pixels your app draws: a map's texture layer, a plot, a frame from a camera or another renderer. It runs wherever GPUI runs: macOS, Windows and Linux, on arm64 and x86_64, and in the browser.
 
 ## What GPUI can show
 
-GPUI at Ely's revision puts pixels on screen three ways:
+GPUI at Mok's revision puts pixels on screen three ways:
 
 | Way | Where | What it takes |
 | --- | --- | --- |

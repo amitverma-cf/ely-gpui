@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, Div, Entity, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{Button, SegmentedControl},
     editor::{
         CodeEditor, CodeLens, CursorShape, Diagnostic, DiffHunk, GhostText, GitMark, InlayHint,
@@ -9,7 +10,6 @@ use ely_gpui::{
     theme::{ActiveTheme, Radius},
     typography::Caption,
 };
-use gpui::{App, Div, Entity, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

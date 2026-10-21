@@ -1,16 +1,16 @@
 use std::{path::Path, time::Duration};
 
-use ely_gpui::{
+use gpui::{
+    App, FontWeight, InteractiveElement, IntoElement, ParentElement, Pixels, SharedString, Size,
+    StatefulInteractiveElement, Styled, Window, div, prelude::*, px,
+};
+use mok_gpui::{
     buttons::{Button, IconButton},
     primitives::{
         Backdrop, Divider, FocusRing, FocusScope, Icon, Image, IntersectionObserver, LucideIcon,
         Measure, Pressable, Tooltip, TooltipTrigger,
     },
     theme::{ActiveTheme, IconSize, Radius, TextSize},
-};
-use gpui::{
-    App, FontWeight, InteractiveElement, IntoElement, ParentElement, Pixels, SharedString, Size,
-    StatefulInteractiveElement, Styled, Window, div, prelude::*, px,
 };
 
 use crate::{
@@ -116,7 +116,7 @@ pub fn image(cx: &App) -> impl IntoElement + use<> {
             ))
             .child(specimen(
                 "failed",
-                tile(Image::new("img-missing", Path::new("/missing/ely.png")), cx),
+                tile(Image::new("img-missing", Path::new("/missing/mok.png")), cx),
                 cx,
             ))
             .child(specimen(
@@ -170,7 +170,7 @@ pub fn backdrop(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         .gap_3()
         .rounded(theme.radius(Radius::Xl))
         .bg(theme.colors.overlay)
-        .shadow(theme.elevation(ely_gpui::theme::Elevation::Modal))
+        .shadow(theme.elevation(mok_gpui::theme::Elevation::Modal))
         .child(div().font_weight(FontWeight::SEMIBOLD).child("Backdrop"))
         .child(
             div()
@@ -415,7 +415,7 @@ pub fn tooltip(cx: &App) -> impl IntoElement + use<> {
         .child("Move across me");
     section(
         "Tooltip Trigger",
-        "gpui's trigger with Ely's body, or Ely's own trigger for delay and tracking.",
+        "gpui's trigger with Mok's body, or Mok's own trigger for delay and tracking.",
         cx,
     )
     .child(
@@ -464,6 +464,6 @@ pub fn tooltip(cx: &App) -> impl IntoElement + use<> {
         div()
             .text_size(theme.text_size(TextSize::Xs))
             .text_color(theme.colors.fg_subtle)
-            .child("Ely's trigger waits 400ms by default; gpui's waits 500ms."),
+            .child("Mok's trigger waits 400ms by default; gpui's waits 500ms."),
     )
 }

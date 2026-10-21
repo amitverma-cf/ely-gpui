@@ -1,4 +1,6 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{Timestamp, tz::TimeZone};
+use mok_gpui::{
     finance::{
         Fill, GreeksTable, Leg, LeverageSlider, MarginIndicator, OptionChain, OptionQuote, Order,
         OrderConfirmDialog, OrderEntry, OrderKind, OrderTable, PayoffDiagram, PnLDisplay, Position,
@@ -6,8 +8,6 @@ use ely_gpui::{
     },
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{Timestamp, tz::TimeZone};
 
 use super::markets::WIDE;
 use crate::{
@@ -26,7 +26,7 @@ pub fn ticket(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let order = keep(
         "finance-order",
         || Order {
-            symbol: "ELY".into(),
+            symbol: "MOK".into(),
             side: Side::Buy,
             kind: OrderKind::Limit,
             quantity: 100.0,
@@ -61,8 +61,8 @@ pub fn ticket(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         .on_submit(move |_, _, cx| set(&ask, true, cx));
     let buttons = QuickTradeButtons::new("quick", 187.24, 187.26).on_trade(move |side, _, cx| {
         let words = match side {
-            Side::Buy => "Bought 100 ELY at 187.26.",
-            Side::Sell => "Sold 100 ELY at 187.24.",
+            Side::Buy => "Bought 100 MOK at 187.26.",
+            Side::Sell => "Sold 100 MOK at 187.24.",
         };
         set(&quick, Some(words.into()), cx)
     });
@@ -91,7 +91,7 @@ pub fn ticket(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
 
 pub fn blotter(cx: &mut App) -> impl IntoElement + use<> {
     let positions = [
-        ("ELY", 300.0, 171.40, LAST),
+        ("MOK", 300.0, 171.40, LAST),
         ("NOVA", -150.0, 64.80, 62.08),
         ("ORBIT", 80.0, 139.10, 131.52),
         ("PINE", 1_200.0, 25.90, 27.33),
@@ -112,7 +112,7 @@ pub fn blotter(cx: &mut App) -> impl IntoElement + use<> {
     let working = [
         (
             4,
-            order("ELY", Side::Buy, OrderKind::Limit, 200.0, 185.50),
+            order("MOK", Side::Buy, OrderKind::Limit, 200.0, 185.50),
             0.0,
         ),
         (
@@ -132,10 +132,10 @@ pub fn blotter(cx: &mut App) -> impl IntoElement + use<> {
         filled,
     });
     let fills = [
-        (2, "ELY", Side::Buy, 100.0, 186.92, 1.00),
+        (2, "MOK", Side::Buy, 100.0, 186.92, 1.00),
         (9, "PINE", Side::Buy, 400.0, 27.05, 1.60),
         (17, "ORBIT", Side::Sell, 40.0, 132.40, 1.00),
-        (31, "ELY", Side::Buy, 200.0, 187.18, 1.20),
+        (31, "MOK", Side::Buy, 200.0, 187.18, 1.20),
         (44, "NOVA", Side::Sell, 150.0, 62.31, 1.00),
     ]
     .map(|(minutes, symbol, side, quantity, price, fee)| Fill {

@@ -1,10 +1,10 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     forms::Choice,
     navigation::{Breadcrumb, Crumb, Pagination, Steps, Wizard},
     primitives::LucideIcon,
     typography::Paragraph,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,
@@ -12,7 +12,7 @@ use crate::{
 };
 
 pub fn breadcrumb(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
-    let project = keep("crumb-project", || SharedString::from("ely"), window, cx);
+    let project = keep("crumb-project", || SharedString::from("mok"), window, cx);
     let went = keep("crumb-went", || None::<String>, window, cx);
     let now = project.read(cx).clone();
     let caption = went
@@ -34,7 +34,7 @@ pub fn breadcrumb(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
                     Crumb::new("home", "Home").icon(LucideIcon::House),
                     Crumb::new("projects", "Projects"),
                     Crumb::new(now.clone(), now.clone()).siblings([
-                        Choice::new("ely", "ely"),
+                        Choice::new("mok", "mok"),
                         Choice::new("zed", "zed"),
                         Choice::new("helix", "helix"),
                     ]),

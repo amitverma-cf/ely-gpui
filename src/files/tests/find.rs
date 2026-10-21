@@ -82,7 +82,7 @@ impl Render for Looking {
 #[gpui::test]
 fn a_picture_keeps_the_hosts_shape(cx: &mut TestAppContext) {
     setup(cx);
-    let path = std::env::temp_dir().join("ely-files-preview.png");
+    let path = std::env::temp_dir().join("mok-files-preview.png");
     image::RgbaImage::from_pixel(40, 30, image::Rgba([90, 120, 150, 255]))
         .save(&path)
         .expect("the picture writes");

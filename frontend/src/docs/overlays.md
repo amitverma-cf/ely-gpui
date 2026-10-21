@@ -4,7 +4,7 @@ Dialogs, popovers, menus, tooltips and toasts draw over the page. Dialogs, popov
 
 ## Drawing over the page
 
-`primitives::raise(id, child)` draws `child` over the page. At the top of the tree it draws after everything else. Inside something raised, it lays out on its own and draws last there, so a list opened in a dialog lies over the dialog. Ely's overlays raise themselves; an app calls `raise` only for an overlay of its own.
+`primitives::raise(id, child)` draws `child` over the page. At the top of the tree it draws after everything else. Inside something raised, it lays out on its own and draws last there, so a list opened in a dialog lies over the dialog. Mok's overlays raise themselves; an app calls `raise` only for an overlay of its own.
 
 ## Dialogs
 

@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{App, Div, IntoElement, ParentElement, SharedString, Styled, Window, div};
+use mok_gpui::{
     buttons::{Button, ButtonVariant, IconButton},
     motion::{AnimatePresence, Entrance, Flip, Reorder, Stagger, Transition},
     primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, ControlSize, IconSize, Radius},
     typography::Caption,
 };
-use gpui::{App, Div, IntoElement, ParentElement, SharedString, Styled, Window, div};
 
 use crate::{
     probe::probe,

@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ely Gallery</title>
+    <title>Mok Gallery</title>
     <style>
       html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #fcfaf7; }
       html.dark, html.dark body { background: #131110; }
     </style>
     <script>
-      // Ely's ground under the canvas until the first frame.
+      // Mok's ground under the canvas until the first frame.
       if (new URLSearchParams(location.search).get("theme") === "dark") {
         document.documentElement.classList.add("dark");
       }
@@ -43,15 +43,15 @@
       };
       window.gallery = { setTheme };
       addEventListener("message", ({ data }) => {
-        if (data && data.ely === "theme") setTheme(data.theme);
+        if (data && data.mok === "theme") setTheme(data.theme);
       });
 
       // Accelerated wasm loader with in-memory parent sharing & CacheStorage persistence
       async function getWasmModule() {
         // 1. In-memory compiled module shared across same-origin iframe navigations
         try {
-          if (window.parent && window.parent !== window && window.parent.__ELY_WASM_MODULE__) {
-            return window.parent.__ELY_WASM_MODULE__;
+          if (window.parent && window.parent !== window && window.parent.__MOK_WASM_MODULE__) {
+            return window.parent.__MOK_WASM_MODULE__;
           }
         } catch (_) {}
 
@@ -60,7 +60,7 @@
         // 2. CacheStorage persistence so 20MB is never re-downloaded on page refresh/revisit
         if ("caches" in window) {
           try {
-            const cache = await caches.open("ely-gallery-wasm-v1");
+            const cache = await caches.open("mok-gallery-wasm-v1");
             const cached = await cache.match(wasmUrl);
             if (cached) {
               const module = await WebAssembly.compileStreaming(cached.clone()).catch(async () => {
@@ -70,7 +70,7 @@
               if (module) {
                 try {
                   if (window.parent && window.parent !== window) {
-                    window.parent.__ELY_WASM_MODULE__ = module;
+                    window.parent.__MOK_WASM_MODULE__ = module;
                   }
                 } catch (_) {}
                 return module;
@@ -86,7 +86,7 @@
           const resp = await fetch(wasmUrl);
           if (resp.ok) {
             if ("caches" in window) {
-              caches.open("ely-gallery-wasm-v1").then((cache) => {
+              caches.open("mok-gallery-wasm-v1").then((cache) => {
                 cache.put(wasmUrl, resp.clone()).catch(() => {});
               });
             }
@@ -97,7 +97,7 @@
             if (module) {
               try {
                 if (window.parent && window.parent !== window) {
-                  window.parent.__ELY_WASM_MODULE__ = module;
+                  window.parent.__MOK_WASM_MODULE__ = module;
                 }
               } catch (_) {}
               return module;
@@ -122,7 +122,7 @@
         } catch (error) {
           console.warn(`gallery: start failed, try ${attempt}`, error);
           if (attempt === 3) {
-            window.parent.postMessage({ ely: "failed", error: String(error) }, "*");
+            window.parent.postMessage({ mok: "failed", error: String(error) }, "*");
             throw error;
           }
           await new Promise((wake) => setTimeout(wake, 1000 * attempt));
@@ -131,7 +131,7 @@
       apply = set_theme;
       if (early) set_theme(early);
       // Tells the host that a mode it sends now lands.
-      window.parent.postMessage({ ely: "ready" }, "*");
+      window.parent.postMessage({ mok: "ready" }, "*");
     </script>
   </head>
   <body></body>

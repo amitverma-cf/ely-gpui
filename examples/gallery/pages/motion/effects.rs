@@ -1,4 +1,7 @@
-use ely_gpui::{
+use gpui::{
+    App, FontWeight, IntoElement, ParentElement, Styled, Window, div, prelude::FluentBuilder,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     feedback::InlineMessage,
     motion::{
@@ -8,9 +11,6 @@ use ely_gpui::{
     primitives::Severity,
     theme::{ActiveTheme, Radius, TextSize},
     typography::tabular,
-};
-use gpui::{
-    App, FontWeight, IntoElement, ParentElement, Styled, Window, div, prelude::FluentBuilder,
 };
 
 use crate::{

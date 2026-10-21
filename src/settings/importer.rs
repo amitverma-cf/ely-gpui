@@ -42,7 +42,7 @@ fn read(path: &Path) -> Read {
 
 pub(super) type OnTheme = Rc<dyn Fn(&VsCodeTheme, &mut Window, &mut App)>;
 
-/// A VS Code color theme taken in, dropped or browsed for: its name and mode, how many colors it names, and Apply, the rest kept from Ely's palette of that mode. A file that does not read says why.
+/// A VS Code color theme taken in, dropped or browsed for: its name and mode, how many colors it names, and Apply, the rest kept from Mok's palette of that mode. A file that does not read says why.
 #[derive(IntoElement)]
 pub struct ThemeImporter {
     id: ElementId,
@@ -143,7 +143,7 @@ pub(super) fn read_row(
                         .text_size(theme.text_size(TextSize::Sm))
                         .text_color(theme.colors.fg_muted)
                         .child(format!(
-                            "Names {named} of {all} colors; the rest keep Ely's."
+                            "Names {named} of {all} colors; the rest keep Mok's."
                         )),
                 ),
         )
@@ -165,7 +165,7 @@ mod tests {
     #[test]
     fn a_file_reads_as_a_theme_or_says_why() {
         let dir = std::env::temp_dir();
-        let path = dir.join(format!("ely-theme-{}.json", std::process::id()));
+        let path = dir.join(format!("mok-theme-{}.json", std::process::id()));
         std::fs::write(
             &path,
             r##"{"name": "Mist", "type": "light", "colors": {"editor.background": "#fafafa"}}"##,
@@ -180,7 +180,7 @@ mod tests {
             }
             Read::Fault(why) => panic!("{why}"),
         }
-        match read(&dir.join("ely-no-such-theme.json")) {
+        match read(&dir.join("mok-no-such-theme.json")) {
             Read::Fault(why) => assert!(why.contains("did not open"), "{why}"),
             Read::Theme(..) => panic!("a missing file read"),
         }

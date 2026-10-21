@@ -119,7 +119,7 @@ mod tests {
 
     #[test]
     fn a_note_gives_its_prose_its_target_and_its_siblings() {
-        let dir = std::env::temp_dir().join(format!("ely-notes-{}", std::process::id()));
+        let dir = std::env::temp_dir().join(format!("mok-notes-{}", std::process::id()));
         std::fs::create_dir_all(dir.join("tasks")).unwrap();
         std::fs::write(
             dir.join("tasks/ch01.md"),

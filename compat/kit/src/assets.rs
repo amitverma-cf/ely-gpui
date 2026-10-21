@@ -1,25 +1,25 @@
-use ely_gpui::Assets;
 use gpui_kit::AssetSource;
+use mok_gpui::Assets;
 
 #[test]
 fn one_source_serves_both_libraries() {
     let kit = gpui_kit::assets::Assets;
     let both = Assets::before(gpui_kit::assets::Assets);
-    let ely = Assets.list("").unwrap();
+    let mok = Assets.list("").unwrap();
     assert!(
-        ely.iter().any(|path| path.starts_with("fonts/")),
-        "Ely serves its fonts"
+        mok.iter().any(|path| path.starts_with("fonts/")),
+        "Mok serves its fonts"
     );
     assert!(
-        ely.iter().any(|path| path.starts_with("icons/")),
-        "Ely serves the icons its code names"
+        mok.iter().any(|path| path.starts_with("icons/")),
+        "Mok serves the icons its code names"
     );
-    for path in &ely {
-        let served = both.load(path).unwrap().expect("Ely's file loads");
+    for path in &mok {
+        let served = both.load(path).unwrap().expect("Mok's file loads");
         assert_eq!(
             served,
             Assets.load(path).unwrap().unwrap(),
-            "{path} is Ely's"
+            "{path} is Mok's"
         );
     }
     let icons = kit.list("icons/").unwrap();

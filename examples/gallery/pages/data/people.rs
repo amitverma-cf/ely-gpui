@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     data_display::{
         Avatar, AvatarGroup, Badge, CountBadge, DotBadge, KpiCard, Presence, Statistic, Tag, Tone,
@@ -11,7 +12,6 @@ use ely_gpui::{
     theme::{ActiveTheme, AvatarSize, IconSize, TextSize},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div};
 
 use crate::{
     probe::probe,

@@ -1,13 +1,13 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     chat::{
         AudioMessage, CodeBlock, FileMessage, ImageGrid, ImageMessage, LinkPreviewCard,
         VideoMessage,
     },
     documents::MarkdownRenderer,
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::ui::{keep, noise, section, set};
 

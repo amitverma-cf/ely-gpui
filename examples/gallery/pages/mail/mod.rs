@@ -1,4 +1,6 @@
-use ely_gpui::{
+use gpui::{AnyElement, App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{SignedDuration, Timestamp, tz::TimeZone};
+use mok_gpui::{
     buttons::Button,
     feedback::EmptyState,
     mail::{Mail, MailList, Mailbox, MailboxList},
@@ -6,8 +8,6 @@ use ely_gpui::{
     theme::{ActiveTheme, Radius, TextSize},
     typography::format,
 };
-use gpui::{AnyElement, App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{SignedDuration, Timestamp, tz::TimeZone};
 
 mod read;
 mod sort;

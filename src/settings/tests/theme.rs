@@ -154,7 +154,7 @@ fn the_thumb_covers_the_chosen_segment(cx: &mut TestAppContext) {
 }
 
 fn syntax(_: &mut Window, _: &mut App, owner: Entity<Desk>) -> AnyElement {
-    SyntaxThemePicker::new("syntax", syntax_themes(), "Ely", move |name, _, cx| {
+    SyntaxThemePicker::new("syntax", syntax_themes(), "Mok", move |name, _, cx| {
         say(&owner, name.to_string(), cx)
     })
     .into_any_element()

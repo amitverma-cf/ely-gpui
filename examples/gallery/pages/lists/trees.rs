@@ -1,12 +1,12 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     lists::{DropAt, Outline, Tree, TreeNode, TreeSelect},
     primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
     typography::Caption,
 };
-use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,
@@ -37,7 +37,7 @@ fn project() -> Vec<Item> {
     let mut assets = item("assets", "assets", Some("app"), true);
     assets.pending = true;
     vec![
-        item("app", "ely-notes", None, true),
+        item("app", "mok-notes", None, true),
         item("src", "src", Some("app"), true),
         item("main", "main.rs", Some("src"), false),
         item("ui", "ui", Some("src"), true),

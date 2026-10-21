@@ -1,6 +1,10 @@
 use std::rc::Rc;
 
-use ely_gpui::{
+use gpui::{
+    App, AppContext as _, IntoElement, ParentElement, SharedString, Styled, Window, div, px,
+};
+use jiff::Timestamp;
+use mok_gpui::{
     devtools::{
         Outcome, PlanStep, QueryHistory, QueryPlanViewer, QueryRun, RedisKey, RedisKeyBrowser,
         RedisValue,
@@ -10,10 +14,6 @@ use ely_gpui::{
     tables::DataGrid,
     theme::{ActiveTheme, Radius},
 };
-use gpui::{
-    App, AppContext as _, IntoElement, ParentElement, SharedString, Styled, Window, div, px,
-};
-use jiff::Timestamp;
 
 use crate::ui::{change, keep, section};
 

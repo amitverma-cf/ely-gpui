@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     canvas::Viewport,
     devtools::{
         Connection, ConnectionForm, ConnectionManager, ConnectionState, DbTable, ERDiagram, Engine,
@@ -6,7 +7,6 @@ use ely_gpui::{
     },
     theme::{ActiveTheme, Radius},
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::ui::{change, keep, section};
 

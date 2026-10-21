@@ -1,10 +1,10 @@
-use ely_gpui::{
+use gpui::{AnyElement, App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{Timestamp, ToSpan};
+use mok_gpui::{
     files::{FileGrid, FileIcon, FileItem},
     lists::{DirEntry, DirectoryListing, SelectableList},
     theme::{ActiveTheme, IconSize, TextSize},
 };
-use gpui::{AnyElement, App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{Timestamp, ToSpan};
 
 mod actions;
 mod explorer;

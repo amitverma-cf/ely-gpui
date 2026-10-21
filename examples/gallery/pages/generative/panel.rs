@@ -1,12 +1,12 @@
 use std::{rc::Rc, time::Duration};
 
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     forms::{Form, FormField, TagInput, TextInput},
     generative::{AspectRatioPicker, PromptEnhancer, SeedInput, StylePreset, StylePresetPicker},
     typography::Caption,
 };
-use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

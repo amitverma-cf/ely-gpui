@@ -6,8 +6,8 @@ mod history;
 mod talk;
 mod welcome;
 
-use ely_gpui::feedback::{ToastViewport, Toaster};
 use gpui::{AnyElement, App, IntoElement, ParentElement, Window, div};
+use mok_gpui::feedback::{ToastViewport, Toaster};
 
 use super::Page;
 use crate::{step::Step, ui::keep};

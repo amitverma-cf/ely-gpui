@@ -291,11 +291,11 @@ mod tests {
         use Mark::*;
         assert_eq!(found("`x`"), [("`x`", Code), ("`", Syntax), ("`", Syntax)]);
         assert_eq!(
-            found("see [the docs](https://ely.dev)"),
+            found("see [the docs](https://mok.dev)"),
             [
-                ("[the docs](https://ely.dev)", Link),
+                ("[the docs](https://mok.dev)", Link),
                 ("[", Syntax),
-                ("](https://ely.dev)", Syntax)
+                ("](https://mok.dev)", Syntax)
             ]
         );
         assert_eq!(found("## Lift"), [("## Lift", Heading(2)), ("## ", Syntax)]);
@@ -304,7 +304,7 @@ mod tests {
     #[test]
     fn reference_links_mark_their_syntax() {
         use Mark::*;
-        let defined = "\n\n[site]: https://ely.dev\n";
+        let defined = "\n\n[site]: https://mok.dev\n";
         for (link, open, close) in [
             ("[the site][site]", "[", "][site]"),
             ("[site][]", "[", "][]"),
@@ -321,10 +321,10 @@ mod tests {
 
     #[test]
     fn a_link_gives_its_range_text_and_address() {
-        let text = "see [the docs](https://ely.dev) or <https://x.dev>";
+        let text = "see [the docs](https://mok.dev) or <https://x.dev>";
         assert_eq!(
             link_at(text, 6),
-            Some((4..31, "the docs".to_string(), "https://ely.dev".to_string()))
+            Some((4..31, "the docs".to_string(), "https://mok.dev".to_string()))
         );
         assert_eq!(link_at(text, 1), None);
         assert_eq!(link_at(text, 40), None, "an autolink has no text to edit");

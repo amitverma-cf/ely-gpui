@@ -1,14 +1,14 @@
 use std::f32::consts::TAU;
 
-use ely_gpui::{
-    buttons::{Button, ButtonVariant},
-    primitives::{FocusRing, Icon, LucideIcon},
-    theme::{ActiveTheme, Radius, TextSize},
-};
 use gpui::{
     AnyElement, App, ClipboardItem, FontWeight, HighlightStyle, InteractiveElement, IntoElement,
     ParentElement, PathBuilder, SharedString, StatefulInteractiveElement, Styled, StyledText,
     Transformation, Window, anchored, canvas, deferred, div, point, prelude::*, px, radians, svg,
+};
+use mok_gpui::{
+    buttons::{Button, ButtonVariant},
+    primitives::{FocusRing, Icon, LucideIcon},
+    theme::{ActiveTheme, Radius, TextSize},
 };
 
 use crate::{
@@ -20,7 +20,7 @@ pub fn boxes(cx: &App) -> impl IntoElement + use<> {
     let colors = &cx.theme().colors;
     section(
         "Box / View",
-        "gpui's div() is the box. Ely adds nothing.",
+        "gpui's div() is the box. Mok adds nothing.",
         cx,
     )
     .child(
@@ -148,7 +148,7 @@ pub fn portal(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         .bg(theme.colors.overlay)
         .border_1()
         .border_color(theme.colors.border)
-        .shadow(theme.elevation(ely_gpui::theme::Elevation::Floating))
+        .shadow(theme.elevation(mok_gpui::theme::Elevation::Floating))
         .text_size(theme.text_size(TextSize::Sm))
         .child("Painted last, above the clipped box.");
     section(
@@ -451,10 +451,10 @@ pub fn clipboard(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
         row()
             .gap_3()
             .child(
-                Button::new("clip-copy", "Copy “Ely”")
+                Button::new("clip-copy", "Copy “Mok”")
                     .icon(LucideIcon::Copy)
                     .on_click(|_, _, cx| {
-                        cx.write_to_clipboard(ClipboardItem::new_string("Ely".into()))
+                        cx.write_to_clipboard(ClipboardItem::new_string("Mok".into()))
                     }),
             )
             .child(

@@ -387,9 +387,9 @@ mod tests {
 
     #[test]
     fn a_tag_reads_its_name_and_attributes() {
-        let link = tag("<A HREF=\"https://ely.dev\" title='x' hidden>").expect("a tag");
+        let link = tag("<A HREF=\"https://mok.dev\" title='x' hidden>").expect("a tag");
         assert_eq!((link.name.as_str(), link.closing), ("a", false));
-        assert_eq!(link.attribute("href"), Some("https://ely.dev"));
+        assert_eq!(link.attribute("href"), Some("https://mok.dev"));
         assert_eq!(link.attribute("title"), Some("x"));
         assert_eq!(link.attribute("hidden"), Some(""));
         assert_eq!(

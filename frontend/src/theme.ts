@@ -11,7 +11,7 @@ export function mode(): Mode {
 export function setMode(next: Mode): void {
   document.documentElement.classList.toggle("dark", next === "dark");
   try {
-    localStorage.setItem("ely-theme", next);
+    localStorage.setItem("mok-theme", next);
   } catch (error) {
     console.warn("theme: could not keep the mode", error);
   }

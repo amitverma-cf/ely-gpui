@@ -32,7 +32,7 @@ struct IconsConfig {
     minify: Option<bool>,
 }
 
-/// The modules `cargo ely add` never copies; keep in step with the CLI's `CORE`.
+/// The modules `cargo mok add` never copies; keep in step with the CLI's `CORE`.
 const CORE_MODULES: &[&str] = &[
     "i18n",
     "layout",
@@ -42,21 +42,21 @@ const CORE_MODULES: &[&str] = &[
     "typography",
 ];
 
-/// The project's `ely-gpui.toml`, named by `ELY_CONFIG_PATH`, which `cargo ely init` sets.
+/// The project's `mok-gpui.toml`, named by `MOK_CONFIG_PATH`, which `cargo mok init` sets.
 fn find_config_file() -> PathBuf {
-    let Some(path) = env::var_os("ELY_CONFIG_PATH") else {
+    let Some(path) = env::var_os("MOK_CONFIG_PATH") else {
         panic!(
-            "ely: ELY_CONFIG_PATH is not set, so there is no ely-gpui.toml to bake fonts, icons and tokens from.
-             Run `cargo ely init` in your project, or add to .cargo/config.toml:
+            "mok: MOK_CONFIG_PATH is not set, so there is no mok-gpui.toml to bake fonts, icons and tokens from.
+             Run `cargo mok init` in your project, or add to .cargo/config.toml:
              
     [env]
-    ELY_CONFIG_PATH = {{ value = \"ely-gpui.toml\", relative = true }}"
+    MOK_CONFIG_PATH = {{ value = \"mok-gpui.toml\", relative = true }}"
         );
     };
     let path = PathBuf::from(path);
     if !path.is_file() {
         panic!(
-            "ely: ELY_CONFIG_PATH names {}, which is not a file",
+            "mok: MOK_CONFIG_PATH names {}, which is not a file",
             path.display()
         );
     }
@@ -64,15 +64,15 @@ fn find_config_file() -> PathBuf {
 }
 
 fn main() {
-    println!("cargo:rerun-if-env-changed=ELY_CONFIG_PATH");
+    println!("cargo:rerun-if-env-changed=MOK_CONFIG_PATH");
 
     let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
     let config_path = find_config_file();
     println!("cargo:rerun-if-changed={}", config_path.display());
-    let content = fs::read_to_string(&config_path).expect("failed to read ely-gpui.toml");
-    let config: Config = toml::from_str(&content).expect("failed to parse ely-gpui.toml");
+    let content = fs::read_to_string(&config_path).expect("failed to read mok-gpui.toml");
+    let config: Config = toml::from_str(&content).expect("failed to parse mok-gpui.toml");
 
-    let root_dir = config_path.parent().expect("ely-gpui.toml has a folder");
+    let root_dir = config_path.parent().expect("mok-gpui.toml has a folder");
 
     let assets_dir = config
         .paths

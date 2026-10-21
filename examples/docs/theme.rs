@@ -1,13 +1,13 @@
-use ely_gpui::{
+use gpui::{
+    App, AppContext, Context, FocusHandle, IntoElement, ParentElement, Render, Styled, Window,
+    WindowOptions, div, rgb,
+};
+use mok_gpui::{
     Assets,
     buttons::Button,
     primitives::FocusScope,
     theme::{ActiveTheme, Density, Elevation, Mode, Radius, TextSize, Theme},
     typography::Paragraph,
-};
-use gpui::{
-    App, AppContext, Context, FocusHandle, IntoElement, ParentElement, Render, Styled, Window,
-    WindowOptions, div, rgb,
 };
 
 struct Tokens {
@@ -100,7 +100,7 @@ fn main() {
     gpui_platform::application()
         .with_assets(Assets)
         .run(|cx: &mut App| {
-            ely_gpui::init(cx).expect("Ely failed to start");
+            mok_gpui::init(cx).expect("Mok failed to start");
             cx.open_window(WindowOptions::default(), |window, cx| {
                 cx.new(|cx| {
                     let focus = cx.focus_handle();

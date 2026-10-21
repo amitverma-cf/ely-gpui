@@ -1456,61 +1456,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "252afb9ae5eaa683babdc6a068b3f5726eb19e05070c731f9b2a23a7c3e8ed34"
 
 [[package]]
-name = "ely-gpui"
-version = "0.1.1"
-dependencies = [
- "alacritty_terminal",
- "anyhow",
- "barcoders",
- "base64",
- "block",
- "cocoa 0.26.0",
- "core-foundation 0.10.0",
- "core-graphics 0.24.0",
- "emojis",
- "env_logger",
- "futures",
- "gpui-pre",
- "gpui-pre-platform",
- "gpui-pre-web",
- "image",
- "iso_currency",
- "isocountry",
- "isolang",
- "jiff",
- "js-sys",
- "log",
- "markdown",
- "mermaid-rs-renderer",
- "objc",
- "pulldown-cmark",
- "qrcode",
- "ratex-layout",
- "ratex-parser",
- "ratex-svg",
- "ratex-types",
- "raw-window-handle",
- "regex",
- "rqrr",
- "rustix",
- "serde",
- "serde_json",
- "similar",
- "smallvec",
- "toml 0.8.23",
- "unicode-segmentation",
- "unicode-width",
- "usvg",
- "vte",
- "walkdir",
- "wasm-bindgen",
- "web-sys",
- "web-time",
- "windows-sys 0.59.0",
- "wry",
-]
-
-[[package]]
 name = "embed-resource"
 version = "3.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3507,6 +3452,61 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "536bfad37a309d62069485248eeaba1e8d9853aaf951caaeaed0585a95346f08"
 dependencies = [
  "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "mok-gpui"
+version = "0.1.1"
+dependencies = [
+ "alacritty_terminal",
+ "anyhow",
+ "barcoders",
+ "base64",
+ "block",
+ "cocoa 0.26.0",
+ "core-foundation 0.10.0",
+ "core-graphics 0.24.0",
+ "emojis",
+ "env_logger",
+ "futures",
+ "gpui-pre",
+ "gpui-pre-platform",
+ "gpui-pre-web",
+ "image",
+ "iso_currency",
+ "isocountry",
+ "isolang",
+ "jiff",
+ "js-sys",
+ "log",
+ "markdown",
+ "mermaid-rs-renderer",
+ "objc",
+ "pulldown-cmark",
+ "qrcode",
+ "ratex-layout",
+ "ratex-parser",
+ "ratex-svg",
+ "ratex-types",
+ "raw-window-handle",
+ "regex",
+ "rqrr",
+ "rustix",
+ "serde",
+ "serde_json",
+ "similar",
+ "smallvec",
+ "toml 0.8.23",
+ "unicode-segmentation",
+ "unicode-width",
+ "usvg",
+ "vte",
+ "walkdir",
+ "wasm-bindgen",
+ "web-sys",
+ "web-time",
+ "windows-sys 0.59.0",
+ "wry",
 ]
 
 [[package]]

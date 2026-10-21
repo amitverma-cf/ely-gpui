@@ -1,12 +1,12 @@
 use std::time::Duration;
 
-use ely_gpui::{
-    motion,
-    theme::{ActiveTheme, Elevation, Radius, TextSize},
-};
 use gpui::{
     Animation, AnimationExt, AnyElement, App, FontStyle, FontWeight, HighlightStyle, Hsla,
     IntoElement, ParentElement, SharedString, Styled, StyledText, Window, div, px,
+};
+use mok_gpui::{
+    motion,
+    theme::{ActiveTheme, Elevation, Radius, TextSize},
 };
 
 mod editing;

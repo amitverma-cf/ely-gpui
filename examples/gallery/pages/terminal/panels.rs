@@ -1,22 +1,22 @@
 use std::rc::Rc;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     forms::{Input, TextInput},
     terminal::{LogLevel, LogLine, LogViewer, Process, ProcessList},
     theme::{ActiveTheme, Radius},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::ui::{keep, section, set};
 
 /// Two hundred lines of a service's day, the same each time.
 fn log() -> Rc<Vec<LogLine>> {
     let targets = [
-        "ely::shell",
-        "ely::pty",
+        "mok::shell",
+        "mok::pty",
         "gpui::window",
-        "ely::store",
+        "mok::store",
         "net::http",
     ];
     let messages = [
@@ -109,16 +109,16 @@ fn processes() -> Vec<Process> {
         memory: memory_mb * 1024 * 1024,
     };
     vec![
-        process(4821, "zsh", "ely", 0.2, 6),
+        process(4821, "zsh", "mok", 0.2, 6),
         process(512, "WindowServer", "_windowserver", 14.6, 412),
-        process(9001, "gallery", "ely", 23.4, 188),
-        process(733, "rust-analyzer", "ely", 41.8, 1_240),
+        process(9001, "gallery", "mok", 23.4, 188),
+        process(733, "rust-analyzer", "mok", 41.8, 1_240),
         process(88, "launchd", "root", 0.1, 12),
-        process(2210, "cargo", "ely", 6.3, 96),
-        process(3302, "Safari", "ely", 8.9, 734),
-        process(3303, "Safari Networking", "ely", 1.4, 88),
+        process(2210, "cargo", "mok", 6.3, 96),
+        process(3302, "Safari", "mok", 8.9, 734),
+        process(3303, "Safari Networking", "mok", 1.4, 88),
         process(401, "mds_stores", "root", 3.2, 140),
-        process(6120, "codex", "ely", 2.7, 310),
+        process(6120, "codex", "mok", 2.7, 310),
     ]
 }
 

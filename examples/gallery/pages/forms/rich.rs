@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, Keystroke, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     forms::{
         ExpressionInput, HotkeyInput, KeyValueInput, ListInput, MentionInput, PathInput,
         RegexInput, TagInput, expression_highlights, mention_highlights, regex_highlights,
     },
     typography::Caption,
 };
-use gpui::{App, IntoElement, Keystroke, ParentElement, SharedString, Styled, Window, div, px};
 
 use super::text::field;
 use crate::{
@@ -82,7 +82,7 @@ pub fn rows(cx: &App) -> impl IntoElement + use<> {
             )
             .child(
                 div().w(px(240.0)).child(
-                    ListInput::new("hosts", ["ely.dev".to_string()])
+                    ListInput::new("hosts", ["mok.dev".to_string()])
                         .placeholder("Host")
                         .on_change(|items, _, _| log::info!("gallery: {} hosts", items.len())),
                 ),

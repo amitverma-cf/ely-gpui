@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     debug::{
         Breakpoint, BreakpointList, CallStack, DebugCommand, DebugState, DebugToolbar, StackFrame,
         Thread, ThreadList, ThreadState, ValueKind, Variable, VariablesPanel, Watch, WatchPanel,
@@ -6,7 +7,6 @@ use ely_gpui::{
     forms::{InputEvent, TextInput},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::ui::{keep, row, section, set};
 

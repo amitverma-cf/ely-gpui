@@ -3,7 +3,7 @@ use gpui::{App, Context, InteractiveElement, KeyBinding, Window, actions};
 use super::{buffer::Buffer, cursor::Motion, state::CodeEditor};
 
 actions!(
-    ely_editor,
+    mok_editor,
     [
         Left,
         Right,
@@ -50,7 +50,7 @@ actions!(
     ]
 );
 
-pub(crate) const CONTEXT: &str = "ElyEditor";
+pub(crate) const CONTEXT: &str = "MokEditor";
 
 /// Binds the editor's keys. `init` calls it.
 pub(crate) fn bind_keys(cx: &mut App) {

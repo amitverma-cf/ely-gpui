@@ -1,9 +1,9 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     settings::{ThemeDraft, ThemeEditor},
     theme::{ActiveTheme, Density, Mode, Theme},
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::ui::section;
 
@@ -24,7 +24,7 @@ fn apply(draft: &ThemeDraft, cx: &mut App) {
     }
 }
 
-/// Ely's own theme again, in both modes.
+/// Mok's own theme again, in both modes.
 fn restore(cx: &mut App) {
     Theme::update(cx, |theme| {
         theme.density = Density::Standard;
@@ -52,7 +52,7 @@ pub fn editor(_: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             .child(ThemeEditor::new("theme-editor", draft, |draft, _, cx| apply(draft, cx)))
             .child(
                 div().flex().child(
-                    Button::new("theme-restore", "Back to Ely's theme")
+                    Button::new("theme-restore", "Back to Mok's theme")
                         .variant(ButtonVariant::Secondary)
                         .on_click(|_, _, cx| restore(cx)),
                 ),

@@ -3,7 +3,7 @@ use super::*;
 #[test]
 fn blocks_nest_as_written() {
     let nodes = parse(
-        "# Lift\n\nBlend **toward** [white](https://ely.dev).\n\n- [x] clamp\n- [ ] gamma\n\n> quoted\n\n```rust\nfn main() {}\n```\n\n---\n",
+        "# Lift\n\nBlend **toward** [white](https://mok.dev).\n\n- [x] clamp\n- [ ] gamma\n\n> quoted\n\n```rust\nfn main() {}\n```\n\n---\n",
     );
     assert!(matches!(&nodes[0], Node::Heading(1, text) if text.text == "Lift"));
     let Node::Paragraph(line) = &nodes[1] else {
@@ -11,7 +11,7 @@ fn blocks_nest_as_written() {
     };
     assert_eq!(line.text, "Blend toward white.");
     assert_eq!(line.styles, [(6..12, Style::Strong), (13..18, Style::Link)]);
-    assert_eq!(line.links, [(13..18, "https://ely.dev".to_string())]);
+    assert_eq!(line.links, [(13..18, "https://mok.dev".to_string())]);
     let Node::List { start: None, items } = &nodes[2] else {
         panic!("a list, not {:?}", nodes[2])
     };
@@ -48,7 +48,7 @@ fn an_image_inside_an_image_is_the_outer_one() {
 
 #[test]
 fn an_image_splits_its_paragraph_and_references_resolve() {
-    let nodes = parse("Before ![a][pic] after [site].\n\n[pic]: a.png\n[site]: https://ely.dev\n");
+    let nodes = parse("Before ![a][pic] after [site].\n\n[pic]: a.png\n[site]: https://mok.dev\n");
     assert!(matches!(&nodes[0], Node::Paragraph(text) if text.text == "Before "));
     assert_eq!(
         nodes[1],
@@ -63,7 +63,7 @@ fn an_image_splits_its_paragraph_and_references_resolve() {
         panic!("a paragraph, not {:?}", nodes[2])
     };
     assert_eq!(after.text, " after site.");
-    assert_eq!(after.links, [(7..11, "https://ely.dev".to_string())]);
+    assert_eq!(after.links, [(7..11, "https://mok.dev".to_string())]);
     assert_eq!(nodes.len(), 3, "definitions draw nothing: {nodes:?}");
 }
 
@@ -96,14 +96,14 @@ fn a_heading_title_reads_on_one_line() {
 #[test]
 fn definitions_nested_in_quotes_and_lists_resolve() {
     for source in [
-        "[site] ![pic]\n\n> [site]: https://ely.dev\n> [pic]: a.png\n",
-        "[site] ![pic]\n\n- [site]: https://ely.dev\n- [pic]: a.png\n",
+        "[site] ![pic]\n\n> [site]: https://mok.dev\n> [pic]: a.png\n",
+        "[site] ![pic]\n\n- [site]: https://mok.dev\n- [pic]: a.png\n",
     ] {
         let nodes = parse(source);
         let Node::Paragraph(text) = &nodes[0] else {
             panic!("a paragraph, not {:?}", nodes[0])
         };
-        assert_eq!(text.links, [(0..4, "https://ely.dev".to_string())]);
+        assert_eq!(text.links, [(0..4, "https://mok.dev".to_string())]);
         assert_eq!(
             nodes[1],
             Node::Image {
@@ -118,7 +118,7 @@ fn definitions_nested_in_quotes_and_lists_resolve() {
 
 #[test]
 fn an_image_inside_styles_and_links_stays_an_image() {
-    let nodes = parse("*a ![x](x.png) b* [![y](y.png)](https://ely.dev)");
+    let nodes = parse("*a ![x](x.png) b* [![y](y.png)](https://mok.dev)");
     let Node::Paragraph(before) = &nodes[0] else {
         panic!("a paragraph, not {:?}", nodes[0])
     };
@@ -147,7 +147,7 @@ fn an_image_inside_styles_and_links_stays_an_image() {
         Node::Image {
             alt: "y".into(),
             url: "y.png".into(),
-            link: Some("https://ely.dev".into()),
+            link: Some("https://mok.dev".into()),
             at: 19
         }
     );
@@ -226,7 +226,7 @@ fn line(source: &str) -> Inline {
 #[test]
 fn inline_html_shows_as_typora_shows_it() {
     let text = line(
-        "a <u>un</u> <b>bo</b> <kbd>K</kbd> <mark>hi</mark> <a href=\"https://ely.dev\">x</a><br>end <span>sp</span> <a name=\"n\">no</a>",
+        "a <u>un</u> <b>bo</b> <kbd>K</kbd> <mark>hi</mark> <a href=\"https://mok.dev\">x</a><br>end <span>sp</span> <a name=\"n\">no</a>",
     );
     assert_eq!(text.text, "a un bo K hi x\nend sp no");
     assert_eq!(
@@ -239,7 +239,7 @@ fn inline_html_shows_as_typora_shows_it() {
             (13..14, Style::Link)
         ]
     );
-    assert_eq!(text.links, [(13..14, "https://ely.dev".to_string())]);
+    assert_eq!(text.links, [(13..14, "https://mok.dev".to_string())]);
 }
 
 /// Where `style` holds, touching stretches joined.

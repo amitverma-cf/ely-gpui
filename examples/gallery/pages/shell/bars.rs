@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{Button, IconButton},
     primitives::LucideIcon,
     shell::{
@@ -8,7 +9,6 @@ use ely_gpui::{
     theme::{ActiveTheme, ControlSize, TextSize},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use super::chrome::window_frame;
 use crate::{probe::probe, ui::section};

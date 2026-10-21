@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     data_display::UsageBar,
     files::{
         DownloadManager, FileOperation, FileOperationProgress, Transfer, TransferQueue,
@@ -6,7 +7,6 @@ use ely_gpui::{
     },
     typography::format,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

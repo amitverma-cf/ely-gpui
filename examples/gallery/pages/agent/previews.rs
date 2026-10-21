@@ -1,4 +1,7 @@
-use ely_gpui::{
+use gpui::{
+    App, ClipboardItem, FontWeight, IntoElement, ParentElement, Styled, Window, div, point, px,
+};
+use mok_gpui::{
     agent::{ArtifactPanel, BrowserPreview, ComputerUseViewer, LivePreview},
     buttons::{Button, ButtonVariant},
     chat::CodeBlock,
@@ -6,9 +9,6 @@ use ely_gpui::{
     primitives::LucideIcon,
     theme::{ActiveTheme, TextSize},
     typography::format::plural,
-};
-use gpui::{
-    App, ClipboardItem, FontWeight, IntoElement, ParentElement, Styled, Window, div, point, px,
 };
 
 use crate::{

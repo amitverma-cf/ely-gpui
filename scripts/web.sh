@@ -1,8 +1,8 @@
 #!/bin/sh
-# Builds the browser gallery; ELY_GALLERY_ASSETS addresses <out>/assets/.
+# Builds the browser gallery; MOK_GALLERY_ASSETS addresses <out>/assets/.
 set -eu
 out=$(mkdir -p "${1:?usage: scripts/web.sh <out dir>}" && cd "$1" && pwd)
-: "${ELY_GALLERY_ASSETS:?set ELY_GALLERY_ASSETS to the address of <out>/assets/, ending in /}"
+: "${MOK_GALLERY_ASSETS:?set MOK_GALLERY_ASSETS to the address of <out>/assets/, ending in /}"
 cd "$(dirname "$0")/.."
 version=$(sed -n '/^name = "wasm-bindgen"$/{n;s/^version = "\(.*\)"$/\1/p;}' Cargo.lock)
 wasm-bindgen --version | grep -qx "wasm-bindgen $version" || {

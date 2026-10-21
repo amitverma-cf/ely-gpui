@@ -114,13 +114,13 @@ fn a_caption_keeps_its_marks_and_a_toggle_its_nested_details() {
 
 #[test]
 fn reference_definitions_stay_with_the_document() {
-    let source = "See [the site][id].\n\n[id]: https://ely.dev \"Ely\"\n";
+    let source = "See [the site][id].\n\n[id]: https://mok.dev \"Mok\"\n";
     let blocks = BlockData::from_markdown(source);
     assert_eq!(
         blocks,
         vec![
             block(BlockKind::Paragraph, &["See [the site][id]."]),
-            block(BlockKind::Paragraph, &["[id]: https://ely.dev \"Ely\""]),
+            block(BlockKind::Paragraph, &["[id]: https://mok.dev \"Mok\""]),
         ]
     );
     assert_eq!(
@@ -230,7 +230,7 @@ fn toggle_tags_read_as_html_reads_them() {
 
 #[test]
 fn an_unquoted_value_runs_to_a_space() {
-    let source = "<details data-url=https://ely.dev/open>\n\nBody\n\n</details>\n";
+    let source = "<details data-url=https://mok.dev/open>\n\nBody\n\n</details>\n";
     assert_eq!(
         BlockData::from_markdown(source),
         vec![block(BlockKind::Toggle(false), &["", "Body"])]

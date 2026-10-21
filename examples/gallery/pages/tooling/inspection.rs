@@ -1,12 +1,12 @@
-use ely_gpui::{
+use gpui::{
+    AnyElement, AnyView, App, Context, IntoElement, ParentElement, Render, StyleRefinement, Styled,
+    Window, div, px,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     forms::{Switch, TextInput},
     theme::{ActiveTheme, Radius},
     tooling::{EventLogger, FpsMeter, RenderCounter},
-};
-use gpui::{
-    AnyElement, AnyView, App, Context, IntoElement, ParentElement, Render, StyleRefinement, Styled,
-    Window, div, px,
 };
 
 use crate::probe::probe;
@@ -63,7 +63,7 @@ pub fn sections(window: &mut Window, cx: &mut App) -> Vec<AnyElement> {
     vec![
         section(
             "InspectorOverlay",
-            "gpui's inspector, which debug builds have, drawn in Ely's look. Inspect opens it at the window's right: hovering picks a box and shows its margin, border, padding and size over the page, the wheel steps out to the boxes around it, and a press holds it.",
+            "gpui's inspector, which debug builds have, drawn in Mok's look. Inspect opens it at the window's right: hovering picks a box and shows its margin, border, padding and size over the page, the wheel steps out to the boxes around it, and a press holds it.",
             cx,
         )
         .child(

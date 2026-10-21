@@ -1,9 +1,9 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Window};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     shell::{TrayIcon, TrayItem, dock_badge, set_dock_badge},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Window};
 
 use crate::{
     probe::probe,

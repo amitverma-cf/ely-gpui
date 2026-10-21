@@ -61,7 +61,7 @@ struct Handles {
 }
 
 #[gpui_kit::test]
-fn enter_on_an_ely_button_opens_a_kit_dialog_that_hands_focus_back(cx: &mut TestAppContext) {
+fn enter_on_an_mok_button_opens_a_kit_dialog_that_hands_focus_back(cx: &mut TestAppContext) {
     kit_dialog_round_trip(
         cx,
         |cx, handles| {
@@ -73,12 +73,12 @@ fn enter_on_an_ely_button_opens_a_kit_dialog_that_hands_focus_back(cx: &mut Test
 }
 
 #[gpui_kit::test]
-fn a_press_on_an_ely_button_leaves_focus_for_the_kit_dialog_to_return(cx: &mut TestAppContext) {
+fn a_press_on_an_mok_button_leaves_focus_for_the_kit_dialog_to_return(cx: &mut TestAppContext) {
     kit_dialog_round_trip(
         cx,
         |cx, handles| {
             cx.update(|window, cx| window.focus(&handles.line, cx));
-            let bounds = cx.debug_bounds("ely-open").expect("Ely's button drew");
+            let bounds = cx.debug_bounds("mok-open").expect("Mok's button drew");
             cx.simulate_click(bounds.center(), Modifiers::none());
         },
         |handles| handles.line.clone(),
@@ -86,7 +86,7 @@ fn a_press_on_an_ely_button_leaves_focus_for_the_kit_dialog_to_return(cx: &mut T
 }
 
 #[gpui_kit::test]
-fn an_ely_dialog_over_kit_fields_traps_tab_and_hands_focus_back(cx: &mut TestAppContext) {
+fn an_mok_dialog_over_kit_fields_traps_tab_and_hands_focus_back(cx: &mut TestAppContext) {
     let (desk, mut cx) = open(cx, true);
     let (button, line, code) = cx.update(|_, cx| {
         let desk = desk.read(cx);
@@ -98,20 +98,20 @@ fn an_ely_dialog_over_kit_fields_traps_tab_and_hands_focus_back(cx: &mut TestApp
     });
     cx.update(|window, cx| window.focus(&line, cx));
     desk.update(&mut cx, |desk, cx| {
-        desk.ely_dialog = true;
+        desk.mok_dialog = true;
         cx.notify();
     });
     settle(&mut cx, |cx| !focused(cx, &line));
     for _ in 0..3 {
         cx.simulate_keystrokes("tab");
         for handle in [&button, &line, &code] {
-            assert!(!focused(&mut cx, handle), "Tab stays in Ely's dialog");
+            assert!(!focused(&mut cx, handle), "Tab stays in Mok's dialog");
         }
     }
     cx.simulate_keystrokes("escape");
     settle(&mut cx, |cx| focused(cx, &line));
     assert!(
-        !desk.read_with(&cx, |desk, _| desk.ely_dialog),
+        !desk.read_with(&cx, |desk, _| desk.mok_dialog),
         "Escape closed it"
     );
 }

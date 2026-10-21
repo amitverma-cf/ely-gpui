@@ -1,6 +1,6 @@
 # WebAssembly
 
-Ely builds for `wasm32-unknown-unknown` through `gpui_web`, Zed's browser platform for GPUI. The components page runs Ely's own gallery that way, in a canvas inside the page.
+Mok builds for `wasm32-unknown-unknown` through `gpui_web`, Zed's browser platform for GPUI. The components page runs Mok's own gallery that way, in a canvas inside the page.
 
 ## Check the build
 
@@ -13,7 +13,7 @@ RUSTC_BOOTSTRAP=1 cargo check --lib --target wasm32-unknown-unknown
 
 ## Start an app in the browser
 
-The gallery's [web entry](https://github.com/amitverma-cf/ely-gpui/blob/main/examples/gallery/web.rs) shows the steps:
+The gallery's [web entry](https://github.com/amitverma-cf/mok-gpui/blob/main/examples/gallery/web.rs) shows the steps:
 
 | Step | Why |
 | --- | --- |
@@ -24,7 +24,7 @@ The gallery's [web entry](https://github.com/amitverma-cf/ely-gpui/blob/main/exa
 
 ## Build the gallery
 
-`ELY_GALLERY_ASSETS=<address>/ scripts/web.sh <out>` builds the gallery with the `web` profile, runs `wasm-bindgen` and `wasm-opt -Oz`, and copies its page beside it and its pictures into `<out>/assets/`. It needs the `wasm-bindgen` CLI at the version in `Cargo.lock` and binaryen's `wasm-opt`, and it fails when the wasm passes Cloudflare's 25 MiB. `ELY_GALLERY_ASSETS` is the address `<out>/assets/` is served from, ending in `/`: GPUI reads no files in a browser.
+`MOK_GALLERY_ASSETS=<address>/ scripts/web.sh <out>` builds the gallery with the `web` profile, runs `wasm-bindgen` and `wasm-opt -Oz`, and copies its page beside it and its pictures into `<out>/assets/`. It needs the `wasm-bindgen` CLI at the version in `Cargo.lock` and binaryen's `wasm-opt`, and it fails when the wasm passes Cloudflare's 25 MiB. `MOK_GALLERY_ASSETS` is the address `<out>/assets/` is served from, ending in `/`: GPUI reads no files in a browser.
 
 The gallery opens at `?page=<slug>&story=<title or slug>&theme=light|dark`. A story needs its page.
 
@@ -32,9 +32,9 @@ The gallery opens at `?page=<slug>&story=<title or slug>&theme=light|dark`. A st
 
 | Message | Direction |
 | --- | --- |
-| `gallery.setTheme(mode)`, or `postMessage({ ely: "theme", theme })` | From the host, before the wasm runs or after. |
-| `{ ely: "ready" }` | To the parent, once the gallery runs. |
-| `{ ely: "failed", error }` | To the parent, after a start that failed three times. |
+| `gallery.setTheme(mode)`, or `postMessage({ mok: "theme", theme })` | From the host, before the wasm runs or after. |
+| `{ mok: "ready" }` | To the parent, once the gallery runs. |
+| `{ mok: "failed", error }` | To the parent, after a start that failed three times. |
 
 Until a press or a key reaches it, the embedded gallery keeps GPUI's hidden text field from taking focus, so a starting frame leaves the host page's focus alone. Tab inside GPUI cycles within its window; a host gives a way past the frame, as the components page does.
 

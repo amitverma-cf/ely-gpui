@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{AnyElement, App, Entity, IntoElement, ParentElement, Styled, div, px};
+use mok_gpui::{
     forms::{Choice, Combobox, FontPicker},
     settings::{
         AccentColorPicker, Changed, DensitySelector, DeveloperModeToggle, FeatureFlags,
@@ -8,7 +9,6 @@ use ely_gpui::{
     },
     theme::{ActiveTheme, HUE_NAMES},
 };
-use gpui::{AnyElement, App, Entity, IntoElement, ParentElement, Styled, div, px};
 
 use super::window::{Fields, Prefs, SIZE};
 use crate::ui::change;

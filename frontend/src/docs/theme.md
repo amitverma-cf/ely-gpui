@@ -23,32 +23,32 @@ Sizes come back as `Rems`, so they follow the window's rem size.
 | --- | --- |
 | `Theme::set_mode(mode, cx)` | Cross-fades the palette to `Mode::Light` or `Mode::Dark`. |
 | `Theme::set_mode_now(mode, cx)` | Switches at once. Call it before a window opens to set its first frame. |
-| `Theme::set_preset(name, cx)` | Switches to a built-in preset (`zinc`, `slate`, `nord`, `catppuccin`, `tokyo-night`, `ely`). |
-| `Theme::set_high_contrast(on, cx)` | Muted text and borders move further from the page, and glass turns opaque, in Ely's palettes. |
+| `Theme::set_preset(name, cx)` | Switches to a built-in preset (`zinc`, `slate`, `nord`, `catppuccin`, `tokyo-night`, `mok`). |
+| `Theme::set_high_contrast(on, cx)` | Muted text and borders move further from the page, and glass turns opaque, in Mok's palettes. |
 | `Theme::set_color_blind_safe(on, cx)` | Chart hues that stay apart under protanopia, deuteranopia and tritanopia. |
-| `Theme::set_palette(mode, palette, cx)` | An owner's palette for one mode; `None` brings Ely's back. |
+| `Theme::set_palette(mode, palette, cx)` | An owner's palette for one mode; `None` brings Mok's back. |
 | `Theme::update(cx, edit)` | Edits the other fields: `density`, `font_scale`, `radius_scale`, `font_family`, `mono_family`, `reduced_motion`, `platform`. |
 
 The color calls log at the `info` level, so a theme change shows in the app's log.
 
 ## Theme presets
 
-Ely bundles six WCAG AA compliant theme presets with light and dark palettes:
+Mok bundles six WCAG AA compliant theme presets with light and dark palettes:
 
 | Preset | Aesthetic |
 | --- | --- |
-| `ely` | Warm paper and ink (default). |
+| `mok` | Warm paper and ink (default). |
 | `zinc` | Neutral modern technical gray. |
 | `slate` | Cool slate blue-gray. |
 | `nord` | Arctic oceanic frost palette. |
 | `catppuccin` | Latte (light) and Macchiato (dark) pastel hues. |
 | `tokyo-night` | Day (light) and Storm (dark) neon indigo palette. |
 
-Set a default preset in `ely-gpui.toml` under `[theme] preset = "nord"`, or call `Theme::set_preset("nord", cx)` at run time.
+Set a default preset in `mok-gpui.toml` under `[theme] preset = "nord"`, or call `Theme::set_preset("nord", cx)` at run time.
 
 ## An owner's palette
 
-`cx.theme().palette()` returns the palette the shown mode fades to. Change a color by its field's name with `token_mut`, then hand the palette back for that mode. A name the palette lacks panics, naming it. High contrast and color-blind safe charts change Ely's own palettes, never an owner's.
+`cx.theme().palette()` returns the palette the shown mode fades to. Change a color by its field's name with `token_mut`, then hand the palette back for that mode. A name the palette lacks panics, naming it. High contrast and color-blind safe charts change Mok's own palettes, never an owner's.
 
 ## Chart hues
 

@@ -281,7 +281,7 @@ mod tests {
 
     #[test]
     fn code_128_spends_eleven_modules_a_character() {
-        let code = Barcode::code128("ELY-2419").expect("printable ASCII");
+        let code = Barcode::code128("MOK-2419").expect("printable ASCII");
         assert_eq!(
             code.modules,
             11 + 8 * 11 + 11 + 13,

@@ -1,6 +1,10 @@
 use std::rc::Rc;
 
-use ely_gpui::{
+use gpui::{
+    App, AppContext as _, IntoElement, ParentElement, SharedString, Styled, Window, div, px,
+};
+use jiff::Timestamp;
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     finance::{
         Arrangement, Candle, CandlestickChart, ChartKind, ChartSync, ChartTypeSwitcher, DepthChart,
@@ -9,10 +13,6 @@ use ely_gpui::{
     },
     theme::ActiveTheme,
 };
-use gpui::{
-    App, AppContext as _, IntoElement, ParentElement, SharedString, Styled, Window, div, px,
-};
-use jiff::Timestamp;
 
 use crate::{
     probe::probe,
@@ -115,7 +115,7 @@ pub fn market(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         div().w(px(WIDE)).child(
             CandlestickChart::new("market", candles)
                 .kind(now_kind)
-                .title(format!("ELY · {now_interval}"))
+                .title(format!("MOK · {now_interval}"))
                 .volume()
                 .overlay(Overlay::Sma(20))
                 .overlay(Overlay::Ema(50))
@@ -140,7 +140,7 @@ pub fn indicators(window: &mut Window, cx: &mut App) -> impl IntoElement + use<>
     let candles = walk(11, 160, 92.0, 86_400);
     let peer = walk(19, 160, 61.0, 86_400);
     let chart = CandlestickChart::new("studies", candles)
-        .title("ELY · 1D")
+        .title("MOK · 1D")
         .compare("PEER", peer);
     let chart = overlays
         .iter()
@@ -182,7 +182,7 @@ pub fn drawings(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         "drawings",
         div().w(px(WIDE)).child(
             CandlestickChart::new("drawn", walk(23, 140, 120.0, 86_400))
-                .title("ELY · 1D")
+                .title("MOK · 1D")
                 .drawings(now_marks)
                 .tool(now_tool)
                 .on_draw(move |drawing, _, cx| {
@@ -223,7 +223,7 @@ pub fn profile(cx: &mut App) -> impl IntoElement + use<> {
         "How much traded at each price in view, as bars from the right edge; the busiest price is the darkest.",
         cx,
     )
-    .child(div().w_full().child(CandlestickChart::new("profile", walk(31, 120, 54.0, 86_400)).title("ELY · 1D").profile()))
+    .child(div().w_full().child(CandlestickChart::new("profile", walk(31, 120, 54.0, 86_400)).title("MOK · 1D").profile()))
 }
 
 pub fn bricks(cx: &mut App) -> impl IntoElement + use<> {
@@ -258,7 +258,7 @@ pub fn together(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let now = *arrangement.read(cx);
     let pick = arrangement.clone();
     let names = [
-        ("ELY", 3, 184.0),
+        ("MOK", 3, 184.0),
         ("NOVA", 5, 62.0),
         ("ORBIT", 8, 131.0),
         ("PINE", 13, 27.0),

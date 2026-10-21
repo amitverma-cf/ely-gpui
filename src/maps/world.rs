@@ -13,7 +13,7 @@ pub(crate) static COUNTRIES: LazyLock<Arc<[Feature]>> = LazyLock::new(|| {
     let file = Assets
         .load("maps/countries.geojson")
         .expect("the world's countries read")
-        .expect("the world's countries are declared under [media.files] in ely-gpui.toml");
+        .expect("the world's countries are declared under [media.files] in mok-gpui.toml");
     let text = std::str::from_utf8(&file).expect("the countries are UTF-8");
     read_geojson(text)
         .expect("the bundled countries read")
@@ -156,8 +156,8 @@ mod tests {
         let source = |map: MapView| sourced(map).attribution.map(|text| text.to_string());
         assert_eq!(source(map()), Some("Countries: Natural Earth".into()));
         assert_eq!(
-            source(map().attribution("Tiles: Ely")),
-            Some("Tiles: Ely".into())
+            source(map().attribution("Tiles: Mok")),
+            Some("Tiles: Mok".into())
         );
     }
 }

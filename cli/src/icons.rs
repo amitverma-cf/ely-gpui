@@ -26,7 +26,7 @@ pub fn download_icon_pack(pack: &str, dest_dir: &Path) -> Result<usize, String> 
 }
 
 fn from_git(url: &str, inside: &[&str], dest: &Path) -> Result<usize, String> {
-    let temp = std::env::temp_dir().join(format!("ely_icons_{}", std::process::id()));
+    let temp = std::env::temp_dir().join(format!("mok_icons_{}", std::process::id()));
     let _ = fs::remove_dir_all(&temp);
     let status = Command::new("git")
         .args(["clone", "--depth", "1", "--quiet", url])

@@ -89,7 +89,7 @@ mod tests {
 
     #[test]
     fn every_block_is_shown_definitions_as_written() {
-        let text = "---\ntitle: a\n---\n\n# Lift\n\n[site]: https://ely.dev\n\n<div>x</div>\n\n> ## Quoted\n";
+        let text = "---\ntitle: a\n---\n\n# Lift\n\n[site]: https://mok.dev\n\n<div>x</div>\n\n> ## Quoted\n";
         let found = parsed(text);
         let shown: Vec<(&str, bool)> = found
             .blocks
@@ -101,7 +101,7 @@ mod tests {
             [
                 ("---\ntitle: a\n---", true),
                 ("# Lift", true),
-                ("[site]: https://ely.dev", false),
+                ("[site]: https://mok.dev", false),
                 ("<div>x</div>", true),
                 ("> ## Quoted", true),
             ]
@@ -182,13 +182,13 @@ x
 
     #[test]
     fn a_reference_resolves_across_blocks() {
-        let found = parsed("[site]\n\n[site]: https://ely.dev\n");
+        let found = parsed("[site]\n\n[site]: https://mok.dev\n");
         let Some(nodes) = &found.blocks[0].nodes else {
             panic!("the paragraph draws")
         };
         let Node::Paragraph(text) = &nodes[0] else {
             panic!("a paragraph, not {nodes:?}")
         };
-        assert_eq!(text.links, [(0..4, "https://ely.dev".to_string())]);
+        assert_eq!(text.links, [(0..4, "https://mok.dev".to_string())]);
     }
 }

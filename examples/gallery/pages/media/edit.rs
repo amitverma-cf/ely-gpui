@@ -1,11 +1,11 @@
 use std::path::PathBuf;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::SegmentedControl,
     media::{Crop, ImageAnnotator, ImageCropper, ImageUpload, Mark},
     theme::ActiveTheme,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,
@@ -88,7 +88,7 @@ pub fn cropper(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                         }),
                 ),
             ))
-            .child(div().text_size(cx.theme().text_size(ely_gpui::theme::TextSize::Sm)).text_color(cx.theme().colors.fg_muted).child(readout)),
+            .child(div().text_size(cx.theme().text_size(mok_gpui::theme::TextSize::Sm)).text_color(cx.theme().colors.fg_muted).child(readout)),
     )
 }
 
@@ -160,5 +160,5 @@ pub fn annotator(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> 
                 .on_change(move |marks, _, cx| set(&changed, marks.to_vec(), cx)),
         ),
     ))
-    .child(div().text_size(cx.theme().text_size(ely_gpui::theme::TextSize::Sm)).text_color(cx.theme().colors.fg_muted).child(count))
+    .child(div().text_size(cx.theme().text_size(mok_gpui::theme::TextSize::Sm)).text_color(cx.theme().colors.fg_muted).child(count))
 }

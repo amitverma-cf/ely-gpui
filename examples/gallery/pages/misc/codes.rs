@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
-use ely_gpui::misc::{Captcha, CaptchaState, QrCodeScanner};
 use gpui::{App, IntoElement, ParentElement, RenderImage, Styled, Window, div, px};
+use mok_gpui::misc::{Captcha, CaptchaState, QrCodeScanner};
 
 use crate::probe::probe;
 use crate::ui::{picture, section};
@@ -11,7 +11,7 @@ const PICTURES: &str = asset!("captcha");
 
 /// The frame a camera would hand in: a QR code on a card over a dim scene, in gpui's BGRA pixels.
 fn scene() -> Arc<RenderImage> {
-    let code = qrcode::QrCode::new("https://example.com/ely").expect("the link fits a QR code");
+    let code = qrcode::QrCode::new("https://example.com/mok").expect("the link fits a QR code");
     let (modules, scale, quiet) = (code.width() as u32, 4, 4);
     let (width, height, side) = (360, 240, (modules + quiet * 2) * scale);
     let (left, top) = ((width - side) / 2, (height - side) / 2);

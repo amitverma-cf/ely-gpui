@@ -7,7 +7,11 @@ use std::{
 };
 
 use anyhow::anyhow;
-use ely_gpui::{
+use gpui::{
+    App, Entity, InteractiveElement, IntoElement, ParentElement, SharedString,
+    StatefulInteractiveElement, Styled, Window, div, px,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     feedback::AsyncView,
     forms::{Upload, UploadList, UploadState},
@@ -17,10 +21,6 @@ use ely_gpui::{
     },
     theme::{ActiveTheme, Radius, TextSize},
     typography::Caption,
-};
-use gpui::{
-    App, Entity, InteractiveElement, IntoElement, ParentElement, SharedString,
-    StatefulInteractiveElement, Styled, Window, div, px,
 };
 
 use super::loading::later;

@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{AnyElement, App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     documents::Checklist,
     forms::DatePicker,
     project::{
@@ -7,7 +8,6 @@ use ely_gpui::{
     },
     theme::{ActiveTheme, TextSize},
 };
-use gpui::{AnyElement, App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use super::{board, quiet, team};
 use crate::{
@@ -70,7 +70,7 @@ pub fn fields(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
         .find(|task| task.key.as_ref() == "brief")
         .cloned()
         .expect("the brief is listed");
-    let edit = move |cx: &mut App, apply: &dyn Fn(&mut ely_gpui::project::Task)| {
+    let edit = move |cx: &mut App, apply: &dyn Fn(&mut mok_gpui::project::Task)| {
         change(&tasks, cx, |tasks| {
             let brief = tasks
                 .iter_mut()

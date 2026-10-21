@@ -1,12 +1,12 @@
-use ely_gpui::{
+use gpui::{AnyElement, App, IntoElement, ParentElement, Styled, Window, div, px};
+use jiff::{Timestamp, tz::TimeZone};
+use mok_gpui::{
     forms::{Choice, Select},
     i18n::{I18n, LOCALES},
     primitives::{Icon, LucideIcon},
     theme::{ActiveTheme, Radius},
     typography::Ellipsis,
 };
-use gpui::{AnyElement, App, IntoElement, ParentElement, Styled, Window, div, px};
-use jiff::{Timestamp, tz::TimeZone};
 
 mod a11y;
 
@@ -226,7 +226,7 @@ fn mirrored(cx: &App) -> impl IntoElement + use<> {
     };
     section(
         "RTL layout",
-        "A right-to-left locale starts its stacks and sets its text at the right; pick עברית above. Ely's other components stay left to right.",
+        "A right-to-left locale starts its stacks and sets its text at the right; pick עברית above. Mok's other components stay left to right.",
         cx,
     )
     .child(

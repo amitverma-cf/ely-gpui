@@ -1,9 +1,9 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     data_display::{Barcode, Comparison, Gauge, Meter, QrCode, Stars, UsageBar},
     theme::{ActiveTheme, IconSize, TextSize},
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::{
     probe::probe,
@@ -11,9 +11,9 @@ use crate::{
 };
 
 pub fn codes(cx: &mut App) -> impl IntoElement + use<> {
-    let qr = QrCode::new("https://github.com/amitverma-cf/ely-gpui")
+    let qr = QrCode::new("https://github.com/amitverma-cf/mok-gpui")
         .expect("a short link fits a QR code");
-    let label = Barcode::code128("ELY-2419").expect("printable ASCII");
+    let label = Barcode::code128("MOK-2419").expect("printable ASCII");
     let retail = Barcode::ean13("400638133393").expect("twelve digits");
     section(
         "QRCode / Barcode",

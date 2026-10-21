@@ -120,7 +120,7 @@ test("a live story that opens a window shows that window natively", async ({ pag
 
 test("the header leads with the mark, and the home link keeps its name", async ({ page }) => {
   await page.goto("/components/");
-  const home = page.getByRole("link", { name: "Ely", exact: true });
+  const home = page.getByRole("link", { name: "Mok", exact: true });
   await expect(home.locator("svg.mark polygon")).toHaveCount(12);
   await expect(home.locator("svg.mark .accent")).toHaveCount(3);
   await home.click();

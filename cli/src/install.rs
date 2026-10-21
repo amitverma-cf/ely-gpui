@@ -17,7 +17,7 @@ pub struct Options {
     pub force: bool,
 }
 
-pub const DEFAULT_SOURCE: &str = "https://github.com/amitverma-cf/ely-gpui";
+pub const DEFAULT_SOURCE: &str = "https://github.com/amitverma-cf/mok-gpui";
 
 /// Where the library's source is: a given checkout, the current one, or a fresh shallow clone.
 pub fn source_root(from: Option<&Path>) -> Result<PathBuf, String> {
@@ -28,10 +28,10 @@ pub fn source_root(from: Option<&Path>) -> Result<PathBuf, String> {
     if here.join("registry.json").is_file() && here.join("src/lib.rs").is_file() {
         return Ok(here.to_path_buf());
     }
-    let url = std::env::var("ELY_SOURCE_URL").unwrap_or_else(|_| DEFAULT_SOURCE.into());
-    let cache = std::env::temp_dir().join(format!("ely-source-{}", std::process::id()));
+    let url = std::env::var("MOK_SOURCE_URL").unwrap_or_else(|_| DEFAULT_SOURCE.into());
+    let cache = std::env::temp_dir().join(format!("mok-source-{}", std::process::id()));
     let _ = fs::remove_dir_all(&cache);
-    println!("[ely] Fetching the library source from {url}");
+    println!("[mok] Fetching the library source from {url}");
     let status = Command::new("git")
         .args(["clone", "--depth", "1", "--quiet", &url])
         .arg(&cache)
@@ -61,7 +61,7 @@ struct Lock {
 
 impl Lock {
     fn read(root: &Path) -> Lock {
-        let path = root.join("ely.lock");
+        let path = root.join("mok.lock");
         let mut files = BTreeMap::new();
         if let Ok(text) = fs::read_to_string(&path)
             && let Ok(value) = text.parse::<toml::Value>()
@@ -77,7 +77,7 @@ impl Lock {
 
     fn write(&self) -> Result<(), String> {
         let mut out = String::from(
-            "# Written by `cargo ely`. Records what was copied, so edits are kept on update.\n",
+            "# Written by `cargo mok`. Records what was copied, so edits are kept on update.\n",
         );
         for (path, (unit, hash, src)) in &self.files {
             out.push_str(&format!(
@@ -102,7 +102,7 @@ fn load(root: &Path) -> Result<Registry, String> {
     let value: Value = serde_json::from_str(&text).map_err(|e| e.to_string())?;
     let units = value["units"]
         .as_object()
-        .ok_or("registry.json has no file graph; run `cargo ely registry` in the library")?;
+        .ok_or("registry.json has no file graph; run `cargo mok registry` in the library")?;
     let mut out = BTreeMap::new();
     let mut crates_of = BTreeMap::new();
     let mut assets_of = BTreeMap::new();
@@ -233,7 +233,7 @@ pub fn install(root: &Path, units: &[String], opts: &Options) -> Result<(), Stri
         "[ok] {wrote} files written, {same} already current, {kept} kept (edited); {} new units",
         all.len().saturating_sub(before)
     );
-    println!("\nIn your crate: `mod ui;` then, once after ely_gpui::init, `ui::init(cx);`");
+    println!("\nIn your crate: `mod ui;` then, once after mok_gpui::init, `ui::init(cx);`");
     Ok(())
 }
 
@@ -256,7 +256,7 @@ fn write_index(
         .filter(|c| chapters.contains(*c))
         .collect();
     let mut out = String::from(
-        "//! Managed by `cargo ely`; the components live in the folders beside this file.\n#![allow(dead_code, unused_imports)]\n\n",
+        "//! Managed by `cargo mok`; the components live in the folders beside this file.\n#![allow(dead_code, unused_imports)]\n\n",
     );
     let mut binds = vec![];
     for chapter in &present {

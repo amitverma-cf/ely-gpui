@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     forms::TextInput,
     git::{
         Blame, BlameView, DiffStat, FileHistory, GitStatusBadge, PullRequest, PullRequestCard,
@@ -7,7 +8,6 @@ use ely_gpui::{
     lists::GitStatus,
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use super::work::history;
 use crate::ui::{keep, row, section, set};

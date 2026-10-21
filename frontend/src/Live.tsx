@@ -31,18 +31,18 @@ export function Live({ page, story, title }: { page: string; story: string; titl
     }, GIVE_UP);
     const ready = (event: MessageEvent) => {
       if (event.source !== frame.current?.contentWindow) return;
-      if (event.data?.ely === "failed") {
+      if (event.data?.mok === "failed") {
         clearTimeout(slow);
         clearTimeout(failed);
         setState("failed");
         console.error(`live: ${page}/${story} failed to start: ${event.data.error}`);
         return;
       }
-      if (event.data?.ely !== "ready") return;
+      if (event.data?.mok !== "ready") return;
       clearTimeout(slow);
       clearTimeout(failed);
       setState("ready");
-      frame.current?.contentWindow?.postMessage({ ely: "theme", theme: mode() }, location.origin);
+      frame.current?.contentWindow?.postMessage({ mok: "theme", theme: mode() }, location.origin);
     };
     addEventListener("message", ready);
     return () => {
@@ -53,7 +53,7 @@ export function Live({ page, story, title }: { page: string; story: string; titl
   }, [page, story, run]);
 
   useEffect(() => {
-    frame.current?.contentWindow?.postMessage({ ely: "theme", theme }, location.origin);
+    frame.current?.contentWindow?.postMessage({ mok: "theme", theme }, location.origin);
   }, [theme]);
 
   // Before paint, so no glide frame lands after the press.

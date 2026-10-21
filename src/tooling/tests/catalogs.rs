@@ -118,7 +118,7 @@ impl Render for Audit {
     }
 }
 
-/// Ely's palette passes; a color moved under its need fails, counted, and lists first.
+/// Mok's palette passes; a color moved under its need fails, counted, and lists first.
 #[gpui::test]
 fn the_checker_counts_failures_first(cx: &mut TestAppContext) {
     cx.update(Theme::init);

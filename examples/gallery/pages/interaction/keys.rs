@@ -1,4 +1,8 @@
-use ely_gpui::{
+use gpui::{
+    App, Axis, Context, Focusable, InteractiveElement, IntoElement, KeyBinding, ParentElement,
+    SharedString, Styled, Subscription, Window, actions, div, prelude::*, px, uniform_list,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant, IconButton},
     forms::{History, Input, TextInput},
     interaction::{RovingFocus, ScrollSync},
@@ -6,10 +10,6 @@ use ely_gpui::{
     primitives::{FocusRing, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize, Radius, TextSize},
     typography::{KbdCombo, format::plural},
-};
-use gpui::{
-    App, Axis, Context, Focusable, InteractiveElement, IntoElement, KeyBinding, ParentElement,
-    SharedString, Styled, Subscription, Window, actions, div, prelude::*, px, uniform_list,
 };
 
 use crate::{
@@ -64,7 +64,7 @@ pub fn keys(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let [shout, save] = [(); 2].map(|_| state.clone());
     section(
         "Hotkeys / KeyBinding · KeyChord",
-        "gpui's own bindings: actions! names them, bind_keys ties keys to them under a key context, and a binding of two strokes waits for the second while the first shows. Focus the box and try them. Ely adds nothing.",
+        "gpui's own bindings: actions! names them, bind_keys ties keys to them under a key context, and a binding of two strokes waits for the second while the first shows. Focus the box and try them. Mok adds nothing.",
         cx,
     )
     .child(

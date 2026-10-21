@@ -93,7 +93,7 @@ mod tests {
     #[test]
     fn urls_drop_the_punctuation_that_ends_their_sentence() {
         let found =
-            links("see https://ely.dev/docs. or (https://a.b/c) or https://w.org/Rust_(language)");
+            links("see https://mok.dev/docs. or (https://a.b/c) or https://w.org/Rust_(language)");
         let urls: Vec<_> = found
             .iter()
             .map(|(_, target)| match target {
@@ -104,7 +104,7 @@ mod tests {
         assert_eq!(
             urls,
             [
-                "https://ely.dev/docs",
+                "https://mok.dev/docs",
                 "https://a.b/c",
                 "https://w.org/Rust_(language)"
             ]

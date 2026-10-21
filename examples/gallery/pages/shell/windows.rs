@@ -1,4 +1,8 @@
-use ely_gpui::{
+use gpui::{
+    App, AppContext, Context, IntoElement, ObjectFit, ParentElement, Render, SharedString, Styled,
+    Window, div, prelude::*, px, size,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant, IconButton},
     primitives::{Image, LucideIcon},
     shell::{
@@ -6,10 +10,6 @@ use ely_gpui::{
     },
     theme::{ActiveTheme, ControlSize, Radius, TextSize},
     typography::{Caption, Label, Title},
-};
-use gpui::{
-    App, AppContext, Context, IntoElement, ObjectFit, ParentElement, Render, SharedString, Styled,
-    Window, div, prelude::*, px, size,
 };
 
 use super::chrome::window_frame;
@@ -22,18 +22,18 @@ const DUNES: &str = asset!("dunes.jpg");
 const ATRIUM: &str = asset!("atrium.jpg");
 
 fn about() -> AboutDialog {
-    AboutDialog::new("Ely", "0.1.0 (2026.09)")
+    AboutDialog::new("Mok", "0.1.0 (2026.09)")
         .description("A component library for GPUI, in light and dark.")
-        .link("Website", "https://github.com/amitverma-cf/ely-gpui")
+        .link("Website", "https://github.com/amitverma-cf/mok-gpui")
         .link(
             "License",
-            "https://github.com/amitverma-cf/ely-gpui#license",
+            "https://github.com/amitverma-cf/mok-gpui#license",
         )
-        .copyright("© 2026 Ely contributors")
+        .copyright("© 2026 Mok contributors")
 }
 
 fn splash() -> SplashScreen {
-    SplashScreen::new("Ely")
+    SplashScreen::new("Mok")
         .tagline("Components for GPUI")
         .status("Loading workspace…")
 }

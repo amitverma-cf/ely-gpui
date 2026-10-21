@@ -258,8 +258,8 @@ mod tests {
 
     #[test]
     fn a_request_goes_by_the_last_part_of_its_path() {
-        assert_eq!(name("https://api.ely.dev/v1/quotes?symbol=ELY"), "quotes");
-        assert_eq!(name("https://ely.dev/"), "ely.dev");
+        assert_eq!(name("https://api.mok.dev/v1/quotes?symbol=MOK"), "quotes");
+        assert_eq!(name("https://mok.dev/"), "mok.dev");
         assert_eq!(name("/static/app.js#top"), "app.js");
     }
 }

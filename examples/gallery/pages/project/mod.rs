@@ -1,12 +1,12 @@
-use ely_gpui::{
-    mail::Label,
-    project::{IssueId, Person, Priority, Status, Task},
-    theme::{ActiveTheme, TextSize},
-};
 use gpui::{
     AnyElement, App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div,
 };
 use jiff::{Timestamp, ToSpan, civil::Date, tz::TimeZone};
+use mok_gpui::{
+    mail::Label,
+    project::{IssueId, Person, Priority, Status, Task},
+    theme::{ActiveTheme, TextSize},
+};
 
 mod boards;
 mod plans;

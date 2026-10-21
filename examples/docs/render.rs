@@ -1,11 +1,11 @@
-use ely_gpui::{
-    Assets, buttons::Button, primitives::FocusScope, rendering::RenderSurface, theme::ActiveTheme,
-};
 use gpui::{
     App, AppContext, Context, DevicePixels, FocusHandle, IntoElement, ParentElement, Render,
     RenderImage, Size, Styled, Window, WindowOptions,
 };
 use image::{Frame, RgbaImage};
+use mok_gpui::{
+    Assets, buttons::Button, primitives::FocusScope, rendering::RenderSurface, theme::ActiveTheme,
+};
 
 struct Stripes {
     focus: FocusHandle,
@@ -56,7 +56,7 @@ fn main() {
     gpui_platform::application()
         .with_assets(Assets)
         .run(|cx: &mut App| {
-            ely_gpui::init(cx).expect("Ely failed to start");
+            mok_gpui::init(cx).expect("Mok failed to start");
             cx.open_window(WindowOptions::default(), |window, cx| {
                 cx.new(|cx| {
                     let focus = cx.focus_handle();

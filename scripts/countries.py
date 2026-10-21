@@ -1,4 +1,4 @@
-"""Writes assets/maps/countries.geojson, Ely's world, from Natural Earth's 110m countries.
+"""Writes assets/maps/countries.geojson, Mok's world, from Natural Earth's 110m countries.
 
 Usage: python3 scripts/countries.py <ne_110m_admin_0_countries.geojson>
 Keeps each country's ISO 3166 alpha-2 code and name; positions round to 0.01 degrees.

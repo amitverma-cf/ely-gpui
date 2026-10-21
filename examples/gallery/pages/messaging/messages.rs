@@ -1,4 +1,6 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, px};
+use jiff::{SignedDuration, Timestamp, civil::date, tz::TimeZone};
+use mok_gpui::{
     buttons::Button,
     chat::DateSeparator,
     collab::{Reaction, Reactions, toggled},
@@ -8,8 +10,6 @@ use ely_gpui::{
     motion::TypingIndicator,
     theme::{ActiveTheme, Radius},
 };
-use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, px};
-use jiff::{SignedDuration, Timestamp, civil::date, tz::TimeZone};
 
 use crate::{
     probe::probe,
@@ -134,7 +134,7 @@ pub fn conversation(window: &mut Window, cx: &mut App) -> impl IntoElement + use
 pub fn thread(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let open = thread_open(window, cx);
     let reply = window.use_keyed_state("messaging-thread-reply", cx, |window, cx| {
-        ely_gpui::forms::TextInput::new(window, cx).placeholder("Reply…")
+        mok_gpui::forms::TextInput::new(window, cx).placeholder("Reply…")
     });
     let shown = *open.read(cx);
     let theme = cx.theme();

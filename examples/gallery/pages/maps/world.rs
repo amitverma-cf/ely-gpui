@@ -1,7 +1,7 @@
-use ely_gpui::maps::{
+use gpui::{App, IntoElement, ParentElement, Styled, div, px};
+use mok_gpui::maps::{
     ChoroplethLayer, ChoroplethMap, LatLon, MapView, MapViewport, WorldMap, read_geojson,
 };
-use gpui::{App, IntoElement, ParentElement, Styled, div, px};
 
 use super::{ATTRIBUTION, tile};
 use crate::ui::section;

@@ -1,4 +1,4 @@
-use ely_gpui::{
+use mok_gpui::{
     buttons::Button,
     forms::TextInput,
     git::{

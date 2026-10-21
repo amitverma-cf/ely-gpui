@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, div, px};
+use mok_gpui::{
     theme::{ActiveTheme, Radius},
     typography::{
         Blockquote, Caption, Code, Ellipsis, EllipsisTooltip, ExternalLink, Heading, Highlight,
         Kbd, KbdCombo, Label, Link, MiddleEllipsis, Overline, Paragraph, Subtitle, Title,
     },
 };
-use gpui::{App, IntoElement, ParentElement, Styled, div, px};
 
 use crate::{
     probe::probe,

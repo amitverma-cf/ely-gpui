@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{AnyElement, App, FontWeight, IntoElement, ParentElement, Styled, Window, div};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     forms::Switch,
     overlays::{HoverCard, Popover},
     primitives::LucideIcon,
     theme::{ActiveTheme, TextSize},
 };
-use gpui::{AnyElement, App, FontWeight, IntoElement, ParentElement, Styled, Window, div};
 
 use crate::{
     probe::probe,

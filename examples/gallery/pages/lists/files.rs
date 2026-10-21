@@ -1,10 +1,10 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{Timestamp, ToSpan};
+use mok_gpui::{
     lists::{DirEntry, DirectoryListing, FileTree, GitStatus},
     theme::{ActiveTheme, Radius},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{Timestamp, ToSpan};
 
 use crate::{
     probe::probe,
@@ -65,7 +65,7 @@ fn listing(path: &[&str], now: Timestamp) -> Vec<DirEntry> {
     let ago = |hours: i64| now.checked_sub(hours.hours()).expect("a time in range");
     match path.last().copied() {
         Some("Projects") => vec![
-            DirEntry::folder("Ely", ago(2)),
+            DirEntry::folder("Mok", ago(2)),
             DirEntry::file("Roadmap.key", 18_400_000, ago(30)),
             DirEntry::file("Sketches.fig", 6_200_000, ago(90)),
         ],

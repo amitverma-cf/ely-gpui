@@ -1,15 +1,15 @@
 use std::sync::Arc;
 
-use ely_gpui::{
+use gpui::{
+    App, ImageSource, IntoElement, ParentElement, RenderImage, SharedString, Styled, Window, div,
+    px,
+};
+use mok_gpui::{
     media::{
         CameraPreview, Device, DeviceKind, DeviceSelector, MicLevelMeter, ModelViewer, Orbit,
         Recording, ScreenRecorderControls,
     },
     theme::{ActiveTheme, TextSize},
-};
-use gpui::{
-    App, ImageSource, IntoElement, ParentElement, RenderImage, SharedString, Styled, Window, div,
-    px,
 };
 
 use super::sculpt;

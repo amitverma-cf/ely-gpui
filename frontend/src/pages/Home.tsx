@@ -88,7 +88,7 @@ function Count({ to }: { to: number }) {
 
 export function Home() {
   useEffect(() => {
-    document.title = "Ely · GPUI components";
+    document.title = "Mok · GPUI components";
   }, []);
   return (
     <>
@@ -128,8 +128,8 @@ export function Home() {
       </section>
       <City />
       <section className="close">
-        <h2 className="rise">Build with Ely.</h2>
-        <code className="rise">ely-gpui = {`{ git = "${REPO}" }`}</code>
+        <h2 className="rise">Build with Mok.</h2>
+        <code className="rise">mok-gpui = {`{ git = "${REPO}" }`}</code>
         <Link to="/components/" className="button rise">
           Browse
         </Link>

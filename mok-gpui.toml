@@ -10,7 +10,7 @@ color_blind_safe = false
 density = "standard"
 radius_scale = 1.0
 font_scale = 1.0
-preset = "ely"
+preset = "mok"
 
 [theme.palette.light]
 bg = 0xfcfaf7

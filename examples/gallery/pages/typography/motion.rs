@@ -1,11 +1,11 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Task, Window, div};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     theme::{ActiveTheme, TextSize},
     typography::{AnimatedNumber, GradientText, ShimmerText, Typewriter},
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Task, Window, div};
 
 use crate::ui::{live, row, section, specimen, specimens};
 

@@ -1,6 +1,7 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     agent::{AgentPlan, AgentProgress, AgentState, AgentStatus, AgentStep, AgentStepList},
     buttons::{Button, ButtonVariant},
     chat::StepState,
@@ -8,7 +9,6 @@ use ely_gpui::{
     lists::{Tree, TreeNode},
     primitives::LucideIcon,
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

@@ -72,9 +72,9 @@ fn a_broken_icon_shows_a_broken_picture_in_danger(cx: &mut TestAppContext) {
 }
 
 #[gpui::test]
-fn init_without_ely_assets_returns_an_error(cx: &mut TestAppContext) {
+fn init_without_mok_assets_returns_an_error(cx: &mut TestAppContext) {
     let error = cx
         .update(crate::init)
-        .expect_err("the test source holds no Ely assets");
-    assert!(format!("{error:#}").contains("pass `ely_gpui::Assets`"));
+        .expect_err("the test source holds no Mok assets");
+    assert!(format!("{error:#}").contains("pass `mok_gpui::Assets`"));
 }

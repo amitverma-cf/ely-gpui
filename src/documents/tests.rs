@@ -325,7 +325,7 @@ const SHOT: &str = "Before
 /// A 200×100 picture in `source`, drawn in a `width` column.
 fn drawn_picture(source: &'static str, width: f32, cx: &mut TestAppContext) -> gpui::Size<Pixels> {
     let named = format!(
-        "ely-picture-{}-{width}-{}",
+        "mok-picture-{}-{width}-{}",
         std::process::id(),
         source.len()
     );

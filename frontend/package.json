@@ -1,5 +1,5 @@
 {
-  "name": "ely-site",
+  "name": "mok-site",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build && node scripts/postbuild.mjs",
     "preview": "vite preview",
-    "local": "ELY_GALLERY_ASSETS=http://localhost:4173/gallery/assets/ pnpm gallery && pnpm build && vite preview --port 4173 --strictPort",
+    "local": "MOK_GALLERY_ASSETS=http://localhost:4173/gallery/assets/ pnpm gallery && pnpm build && vite preview --port 4173 --strictPort",
     "deploy": "wrangler deploy",
     "e2e": "playwright test",
     "test": "node --test src/iso/engine.test.ts src/iso/mark.test.ts"

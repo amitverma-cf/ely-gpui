@@ -1,12 +1,12 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::Timestamp;
+use mok_gpui::{
     files::{FileGrid, FileIcon, FileItem},
     forms::{DropZone, InlineEdit},
     lists::{DirEntry, SelectableList},
     menus::{ContextMenu, Menu, MenuItem},
     primitives::LucideIcon,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::Timestamp;
 
 use crate::{
     probe::probe,

@@ -1,4 +1,6 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
+use jiff::{SignedDuration, Timestamp, civil::date};
+use mok_gpui::{
     dashboard::{
         AlertList, AlertState, Check, EventStream, Health, HealthCheck, Incident, IncidentCard,
         IncidentPhase, IncidentUpdate, MonitorAlert, Service, ServiceStatus, StreamEvent,
@@ -7,8 +9,6 @@ use ely_gpui::{
     data_display::Tone,
     primitives::Severity,
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
-use jiff::{SignedDuration, Timestamp, civil::date};
 
 use crate::ui::{change, keep, section};
 

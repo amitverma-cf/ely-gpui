@@ -1,13 +1,13 @@
-use ely_gpui::{
+use gpui::{
+    App, AppContext, Bounds, Context, FocusHandle, IntoElement, ParentElement, Render, Styled,
+    TitlebarOptions, Window, WindowBounds, WindowOptions, px, size,
+};
+use mok_gpui::{
     Assets,
     buttons::Button,
     primitives::FocusScope,
     theme::{ActiveTheme, Mode, Theme},
     typography::{Heading, Paragraph},
-};
-use gpui::{
-    App, AppContext, Bounds, Context, FocusHandle, IntoElement, ParentElement, Render, Styled,
-    TitlebarOptions, Window, WindowBounds, WindowOptions, px, size,
 };
 
 struct Start {
@@ -32,7 +32,7 @@ impl Render for Start {
             .bg(theme.colors.bg)
             .child(Heading::h1("Start"))
             .child(Paragraph::new(
-                "Every Ely component reads the theme, so one call turns them all.",
+                "Every Mok component reads the theme, so one call turns them all.",
             ))
             .child(
                 Button::new("mode", format!("{next:?} mode"))
@@ -45,7 +45,7 @@ fn main() {
     gpui_platform::application()
         .with_assets(Assets)
         .run(|cx: &mut App| {
-            ely_gpui::init(cx).expect("Ely failed to start");
+            mok_gpui::init(cx).expect("Mok failed to start");
             Theme::set_mode_now(Mode::Dark, cx);
             let bounds = Bounds::centered(None, size(px(640.0), px(400.0)), cx);
             let options = WindowOptions {

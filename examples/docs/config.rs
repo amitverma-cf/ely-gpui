@@ -1,12 +1,12 @@
-use ely_gpui::{
+use gpui::{
+    App, AppContext, Context, FocusHandle, FontWeight, IntoElement, ParentElement, Render, Styled,
+    Window, WindowOptions, div,
+};
+use mok_gpui::{
     Assets,
     assets::Image,
     primitives::{FocusScope, Icon, LucideIcon},
     theme::{ActiveTheme, IconSize},
-};
-use gpui::{
-    App, AppContext, Context, FocusHandle, FontWeight, IntoElement, ParentElement, Render, Styled,
-    Window, WindowOptions, div,
 };
 
 struct ConfigDemo {
@@ -34,7 +34,7 @@ impl Render for ConfigDemo {
                         div()
                             .font_weight(FontWeight::BOLD)
                             .text_lg()
-                            .child("Ely Root Configuration & Providers"),
+                            .child("Mok Root Configuration & Providers"),
                     )
                     .child(div().text_color(theme.colors.fg_muted).child(
                         "Compile-time baked tokens, multi-pack icons, and type-safe assets.",
@@ -116,7 +116,7 @@ fn main() {
     gpui_platform::application()
         .with_assets(Assets)
         .run(|cx: &mut App| {
-            ely_gpui::init(cx).expect("Ely failed to start");
+            mok_gpui::init(cx).expect("Mok failed to start");
             cx.open_window(WindowOptions::default(), |window, cx| {
                 cx.new(|cx| {
                     let focus = cx.focus_handle();

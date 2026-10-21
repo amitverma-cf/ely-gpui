@@ -1,8 +1,8 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{SegmentedControl, ToggleButton, ToggleGroup, ToggleItem},
     primitives::LucideIcon,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

@@ -244,7 +244,7 @@ fn a_scroll_pans_an_overhanging_picture_and_passes_on_otherwise(cx: &mut TestApp
 
 #[gpui::test]
 fn a_picture_that_cannot_open_says_so(cx: &mut TestAppContext) {
-    let cx = viewing(std::env::temp_dir().join("ely-media-missing.png"), cx);
+    let cx = viewing(std::env::temp_dir().join("mok-media-missing.png"), cx);
     assert!(cx.debug_bounds("image-viewer-failed").is_some());
     assert!(cx.debug_bounds("image-viewer-picture").is_none());
     cx.update(|window, cx| window.focus_next(cx));

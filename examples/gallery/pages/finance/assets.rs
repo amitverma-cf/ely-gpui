@@ -1,6 +1,8 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{Timestamp, civil::date, tz::TimeZone};
+use mok_gpui::{
     charts::PieChart,
     data_display::Gauge,
     feedback::Countdown,
@@ -11,14 +13,12 @@ use ely_gpui::{
     theme::TextSize,
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{Timestamp, civil::date, tz::TimeZone};
 use web_time::Instant;
 
 use crate::ui::{keep, noise, row, section, set};
 
 const HOLDINGS: [(&str, f64); 5] = [
-    ("ELY", 48_210.0),
+    ("MOK", 48_210.0),
     ("SOLACE", 31_050.0),
     ("Bonds", 26_400.0),
     ("NOVA", 12_480.0),

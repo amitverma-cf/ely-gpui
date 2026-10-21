@@ -260,7 +260,7 @@ const SCRIPT: &[Step] = &[
     Step::Type("let total = price(3) * 1.2; // tax"),
     Step::Click("json"),
     Step::Key("secondary-a"),
-    Step::Type("{\"name\": \"Ely\", \"size\": 3,"),
+    Step::Type("{\"name\": \"Mok\", \"size\": 3,"),
     Step::Wait(300),
     Step::Shot("code-json"),
     Step::DownAt("font", 100.0, 14.0),

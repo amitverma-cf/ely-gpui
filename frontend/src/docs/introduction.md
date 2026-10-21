@@ -1,10 +1,10 @@
 # Introduction
 
-Ely is a component library for [GPUI](https://www.gpui.rs), the Rust UI framework behind Zed. It holds 44 chapters, from primitives and forms to charts, a code editor, maps, a terminal and render surfaces. Every component draws in light and dark, and every one shows on the [components page](/components/): live, or as a native capture where a browser cannot run it.
+Mok is a component library for [GPUI](https://www.gpui.rs), the Rust UI framework behind Zed. It holds 44 chapters, from primitives and forms to charts, a code editor, maps, a terminal and render surfaces. Every component draws in light and dark, and every one shows on the [components page](/components/): live, or as a native capture where a browser cannot run it.
 
 The guides run in the order of the rail, each building on the one before.
 
-## What Ely gives an app
+## What Mok gives an app
 
 - One theme for every component: light and dark palettes, high contrast, color-blind safe charts, and tokens for color, size, radius and shadow. Components read the theme, never literals.
 - Keyboard first: `init` binds Tab and Shift-Tab, a root `FocusScope` keeps focus in the window, and every control that takes a press is a Tab stop with a focus ring.
@@ -13,7 +13,7 @@ The guides run in the order of the rail, each building on the one before.
 
 ## What is stable
 
-Ely is early. The library builds against GPUI from Zed's repository at one pinned revision, so its API moves when GPUI's does. It is not on crates.io; an app depends on it by git.
+Mok is early. The library builds against GPUI from Zed's repository at one pinned revision, so its API moves when GPUI's does. It is not on crates.io; an app depends on it by git.
 
 | Area | State |
 | --- | --- |

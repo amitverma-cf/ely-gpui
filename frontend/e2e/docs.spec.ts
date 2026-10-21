@@ -39,7 +39,7 @@ test("every guide loads with its title, list and no errors", async ({ page }) =>
   for (const [slug, title] of GUIDES) {
     await page.goto(path(slug));
     await expect(page.locator(".doc h1")).toHaveText(title);
-    await expect(page).toHaveTitle(`${title} · Docs · Ely`);
+    await expect(page).toHaveTitle(`${title} · Docs · Mok`);
     await expect(page.locator(".prose h2").first()).toBeVisible();
   }
   expect(errors).toEqual([]);

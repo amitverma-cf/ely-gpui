@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
-use ely_gpui::forms::{DropZone, FileInput};
 use gpui::{App, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::forms::{DropZone, FileInput};
 
 use crate::{
     probe::probe,

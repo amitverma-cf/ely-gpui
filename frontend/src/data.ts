@@ -51,11 +51,11 @@ export interface RegistryComponent {
   export_type: string;
   description: string;
   dependencies: string[];
-  /** `component` and `feature` copy with `cargo ely add`; the rest say where else they live. */
+  /** `component` and `feature` copy with `cargo mok add`; the rest say where else they live. */
   status: "component" | "feature" | "core" | "native" | "blocked" | "host" | "unmapped";
   unit?: string;
   import?: string;
-  /** Files `cargo ely add` copies for it. */
+  /** Files `cargo mok add` copies for it. */
   files?: number;
 }
 
@@ -99,7 +99,7 @@ export function getComponentImageSrc(page: string, story: string, mode: string):
   return `${prefix}components/${key}-${mode}.webp`;
 }
 
-export const REPO = "https://github.com/amitverma-cf/ely-gpui";
+export const REPO = "https://github.com/amitverma-cf/mok-gpui";
 export const ORIGINAL_REPO = "https://git.zacharyzhang.com/ZacharyZhang-NY/Ely-GPUI-Components";
 
 export const pad = (n: number) => String(n).padStart(2, "0");

@@ -1,6 +1,10 @@
 use std::rc::Rc;
 
-use ely_gpui::{
+use gpui::{
+    App, Bounds, Entity, InteractiveElement, IntoElement, ParentElement, ScrollHandle,
+    StatefulInteractiveElement, Styled, Window, div, point, px, size,
+};
+use mok_gpui::{
     documents::{
         Chapter, Diagram, DocPage, DocumentViewer, EpubReader, Footnote, Glossary,
         MarkdownRenderer, PageHit, PageNote, PrintPreview, PrintSettings, ReadingProgress,
@@ -10,10 +14,6 @@ use ely_gpui::{
     forms::TextInput,
     navigation::{Sections, TableOfContents},
     theme::{ActiveTheme, Radius},
-};
-use gpui::{
-    App, Bounds, Entity, InteractiveElement, IntoElement, ParentElement, ScrollHandle,
-    StatefulInteractiveElement, Styled, Window, div, point, px, size,
 };
 use serde::Deserialize;
 
@@ -276,7 +276,7 @@ pub fn reading(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                             })
                             .chrome(
                                 div().p_2().flex().child(
-                                    ely_gpui::buttons::Button::new("read-zen-on", "Focus on the text")
+                                    mok_gpui::buttons::Button::new("read-zen-on", "Focus on the text")
                                         .on_click(move |_, _, cx| set(&zen, true, cx)),
                                 ),
                             )

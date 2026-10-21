@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, prelude::*, px};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     layout::{AppShell, Drawer, MasterDetail, Page, Sheet, Sidebar, h_stack},
     primitives::{Icon, LucideIcon, Place},
     theme::{ActiveTheme, ControlSize, IconSize, Radius, TextSize},
     typography::{Caption, Paragraph},
 };
-use gpui::{App, Entity, IntoElement, ParentElement, Styled, Window, div, prelude::*, px};
 
 use super::basics::tile;
 use crate::{
@@ -182,7 +182,7 @@ pub fn app_shell(cx: &App) -> impl IntoElement + use<> {
         frame(640.0, 260.0, cx).child(
             AppShell::new()
                 .title_bar(
-                    bar("Ely — Projects", cx)
+                    bar("Mok — Projects", cx)
                         .border_b_1()
                         .border_color(theme.colors.border),
                 )
@@ -216,9 +216,9 @@ pub fn app_layout(cx: &App) -> impl IntoElement + use<> {
     )
     .child(
         frame(640.0, 260.0, cx).child(
-            ely_gpui::layout::AppLayout::new()
+            mok_gpui::layout::AppLayout::new()
                 .header(
-                    bar("ely-gpui — Desktop Shell")
+                    bar("mok-gpui — Desktop Shell")
                         .border_b_1()
                         .border_color(theme.colors.border),
                 )

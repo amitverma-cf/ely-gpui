@@ -1,6 +1,8 @@
 use std::rc::Rc;
 
-use ely_gpui::{
+use gpui::{App, FontWeight, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{Timestamp, ToSpan};
+use mok_gpui::{
     charts::NetworkGraph,
     data_display::{PropertyGrid, PropertyGroup},
     documents::{
@@ -11,8 +13,6 @@ use ely_gpui::{
     lists::{Tree, TreeNode},
     theme::{ActiveTheme, Radius, TextSize},
 };
-use gpui::{App, FontWeight, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{Timestamp, ToSpan};
 
 use crate::{
     probe::probe,

@@ -69,7 +69,7 @@ fn editing_mode(mode: MarkdownMode) -> bool {
 /// Undo and redo; Tab shifts an open block's lines.
 pub(crate) fn bind_keys(cx: &mut App) {
     let context = Some(CONTEXT);
-    let block = Some("MarkdownDocument > ElyInput");
+    let block = Some("MarkdownDocument > MokInput");
     let mut bindings = vec![
         KeyBinding::new("secondary-z", Undo, context),
         KeyBinding::new("secondary-shift-z", Redo, context),

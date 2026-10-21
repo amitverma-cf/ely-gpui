@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     editor::{
         ConsoleEntry, DebugConsole, Extension, ExtensionAction, ExtensionState, ExtensionsPanel,
         OutputPanel, Problem, ProblemsPanel,
@@ -7,7 +8,6 @@ use ely_gpui::{
     primitives::Severity,
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::ui::{keep, section, set};
 
@@ -78,7 +78,7 @@ pub fn problems_and_output(window: &mut Window, cx: &mut App) -> impl IntoElemen
         Vec::new()
     } else if now_channel.as_ref() == "Build" {
         vec![
-            "   Compiling ely-gpui v0.1.0",
+            "   Compiling mok-gpui v0.1.0",
             "warning: unused variable: `spare`",
             "error[E0308]: mismatched types",
             "   --> src/main.rs:46:22",
@@ -188,7 +188,7 @@ pub fn console_and_extensions(window: &mut Window, cx: &mut App) -> impl IntoEle
             0,
             "rust",
             "Rust",
-            "Ely Tools",
+            "Mok Tools",
             "Syntax, completions and checks for Rust.",
             "1.4.2",
             2_410_000,

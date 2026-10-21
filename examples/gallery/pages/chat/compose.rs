@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::SegmentedControl,
     chat::{
         Attachment, AttachmentButton, AttachmentChip, ContextChips, CostEstimator, InputHint,
@@ -10,7 +11,6 @@ use ely_gpui::{
     menus::{DropdownMenu, Menu, MenuItem},
     primitives::LucideIcon,
 };
-use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 use web_time::Instant;
 
 use crate::{
@@ -232,8 +232,8 @@ pub fn pickers(
                     Select::new(
                         "chat-model",
                         [
-                            Choice { note: Some("Best for hard problems".into()), ..Choice::new("large", "Ely Large") },
-                            Choice { note: Some("Fast for everyday work".into()), ..Choice::new("small", "Ely Small") },
+                            Choice { note: Some("Best for hard problems".into()), ..Choice::new("large", "Mok Large") },
+                            Choice { note: Some("Fast for everyday work".into()), ..Choice::new("small", "Mok Small") },
                         ],
                     )
                     .selected(now_model)

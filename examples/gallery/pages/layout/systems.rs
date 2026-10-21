@@ -1,13 +1,13 @@
-use ely_gpui::{
+use gpui::{
+    AnyElement, App, Axis, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div,
+    point, prelude::*, px,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     layout::{Dock, DockPanel, DockSide, FloatingPanel, PaneGroup, Transform, Viewport, Workspace},
     primitives::LucideIcon,
     theme::{ActiveTheme, Radius, TextSize},
     typography::{Caption, Paragraph},
-};
-use gpui::{
-    AnyElement, App, Axis, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div,
-    point, prelude::*, px,
 };
 
 use super::{basics::tile, shells::frame};

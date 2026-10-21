@@ -105,7 +105,7 @@ fn red_and_green_run_together_for_deuteranopia() {
     assert!(nearest(&pair, Some(&DICHROMACY[1].1)) < 5.0);
 }
 
-/// Color-blind safe charts change Ely's chart hues alone: every pair stays apart for each dichromacy, and each hue is 3:1 on its page.
+/// Color-blind safe charts change Mok's chart hues alone: every pair stays apart for each dichromacy, and each hue is 3:1 on its page.
 #[gpui::test]
 fn color_blind_safe_hues_stay_apart(cx: &mut TestAppContext) {
     cx.update(Theme::init);

@@ -1,14 +1,14 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{Timestamp, ToSpan};
+use mok_gpui::{
     agent::{
         Checkpoint, CheckpointList, McpServer, McpServerList, Memory, MemoryPanel, RegisteredTool,
         SandboxState, SandboxStatus, ServerState, ToolAccess, ToolRegistry,
     },
     forms::{SearchInput, TextInput},
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{Timestamp, ToSpan};
 
 use crate::{
     probe::probe,
@@ -48,7 +48,7 @@ fn servers() -> Vec<McpServer> {
         (
             "files",
             "Filesystem",
-            "npx @modelcontextprotocol/server-filesystem ~/ely",
+            "npx @modelcontextprotocol/server-filesystem ~/mok",
             ServerState::Connected,
             11,
         ),

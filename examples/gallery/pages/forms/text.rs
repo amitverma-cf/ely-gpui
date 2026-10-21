@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::IconButton,
     forms::{Input, InputAddon, InputGroup, PasswordInput, SearchInput, TextInput},
     primitives::LucideIcon,
     theme::ControlSize,
     typography::Caption,
 };
-use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,
@@ -132,7 +132,7 @@ pub fn search(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
 
 pub fn group(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
     let site = field("input-site", window, cx, |input| {
-        input.placeholder("ely.dev")
+        input.placeholder("mok.dev")
     });
     let share = field("input-share", window, cx, |input| input.placeholder("0"));
     section(

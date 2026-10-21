@@ -1,6 +1,7 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, ClipboardItem, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     charts::{
         AreaChart, BarChart, ChartTooltip, LineChart, Points, RealtimeChart, ScatterChart, Series,
@@ -8,7 +9,6 @@ use ely_gpui::{
     theme::ActiveTheme,
     typography::Caption,
 };
-use gpui::{App, ClipboardItem, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

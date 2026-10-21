@@ -156,11 +156,11 @@ fn a_right_press_after_typed_pipes_finds_the_link(cx: &mut TestAppContext) {
     let heard = heard(&document, cx);
     press_cell(1, 1, cx);
     cx.simulate_keystrokes("backspace");
-    cx.simulate_input("||[go](https://ely.dev)");
+    cx.simulate_input("||[go](https://mok.dev)");
     let x = x_of(&document, 3, cx);
     press_field(x, MouseButton::Right, cx);
     let target = heard.borrow().last().cloned().expect("heard");
-    assert_eq!(target.link.as_deref(), Some("https://ely.dev"));
+    assert_eq!(target.link.as_deref(), Some("https://mok.dev"));
 }
 
 #[gpui::test]

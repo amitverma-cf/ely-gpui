@@ -1,4 +1,8 @@
-use ely_gpui::{
+use gpui::{
+    App, Entity, FontWeight, IntoElement, ParentElement, SharedString, Styled, Window, div,
+    prelude::*, px,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     data_display::{Change, Release},
     feedback::EmptyState,
@@ -10,10 +14,6 @@ use ely_gpui::{
     primitives::{HelpTooltip, LucideIcon},
     settings::Shortcut,
     theme::{ActiveTheme, ControlSize, TextSize},
-};
-use gpui::{
-    App, Entity, FontWeight, IntoElement, ParentElement, SharedString, Styled, Window, div,
-    prelude::*, px,
 };
 
 use crate::{

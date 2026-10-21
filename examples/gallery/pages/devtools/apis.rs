@@ -1,4 +1,8 @@
-use ely_gpui::{
+use gpui::{
+    App, AppContext as _, IntoElement, ParentElement, SharedString, Styled, Window, div, px,
+};
+use jiff::Timestamp;
+use mok_gpui::{
     devtools::{
         ApiRequest, ApiRequestBuilder, ApiResponse, Auth, CollectionTree, Direction, Environment,
         EnvironmentSelector, GraphQLExplorer, Method, ResponseViewer, Saved, SchemaType,
@@ -8,10 +12,6 @@ use ely_gpui::{
     forms::TextInput,
     theme::{ActiveTheme, Radius},
 };
-use gpui::{
-    App, AppContext as _, IntoElement, ParentElement, SharedString, Styled, Window, div, px,
-};
-use jiff::Timestamp;
 
 use crate::ui::{change, keep, section};
 

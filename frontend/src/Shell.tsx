@@ -16,7 +16,7 @@ function Header() {
     <header className="bar">
       <Link to="/" className="brand">
         <Mark />
-        <span>Ely</span>
+        <span>Mok</span>
       </Link>
       <nav aria-label="Site">
         <Link to="/components/" className="link" activeProps={{ "aria-current": "page" }}>
@@ -33,7 +33,7 @@ function Header() {
         <button className="tool" aria-label={dark ? "Light mode" : "Dark mode"} onClick={() => setMode(dark ? "light" : "dark")}>
           <Icon name={dark ? "Sun" : "Moon"} />
         </button>
-        <a className="tool" href={REPO} rel="noopener" aria-label="Ely on GitHub">
+        <a className="tool" href={REPO} rel="noopener" aria-label="Mok on GitHub">
           <Icon name="GitHub" />
         </a>
       </div>
@@ -52,7 +52,7 @@ function Footer() {
         Built on <a href="https://github.com/zed-industries/zed/tree/main/crates/gpui" rel="noopener">GPUI</a>
       </span>
       <span>
-        Forked from <a href={ORIGINAL_REPO} rel="noopener">Ely GPUI Components</a> by Zachary Zhang
+        Forked from <a href={ORIGINAL_REPO} rel="noopener">Mok GPUI Components</a> by Zachary Zhang
       </span>
       <span>Geist and Geist Mono, OFL</span>
       <span>

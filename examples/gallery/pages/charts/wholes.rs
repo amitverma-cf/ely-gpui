@@ -1,8 +1,8 @@
-use ely_gpui::charts::{
-    CalendarHeatmap, HeatmapChart, PieChart, RadarChart, Series, Slice, Sunburst, Treemap,
-};
 use gpui::{App, IntoElement, ParentElement, Styled, div, px};
 use jiff::civil::date;
+use mok_gpui::charts::{
+    CalendarHeatmap, HeatmapChart, PieChart, RadarChart, Series, Slice, Sunburst, Treemap,
+};
 
 use crate::{
     probe::probe,
@@ -52,7 +52,7 @@ pub fn radar(cx: &mut App) -> impl IntoElement + use<> {
         "radar",
         div().w(px(480.)).child(
             RadarChart::new("compare", axes)
-                .series(Series::new("Ely", [86.0, 92.0, 70.0, 81.0, 88.0, 64.0]))
+                .series(Series::new("Mok", [86.0, 92.0, 70.0, 81.0, 88.0, 64.0]))
                 .series(Series::new("Others", [72.0, 68.0, 84.0, 60.0, 55.0, 79.0])),
         ),
     ))

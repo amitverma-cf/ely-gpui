@@ -1,4 +1,6 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::Timestamp;
+use mok_gpui::{
     charts::{LineChart, Series},
     dashboard::{
         DashboardCard, DashboardFilter, DashboardFilterBar, DashboardGrid, RefreshIntervalSelector,
@@ -7,8 +9,6 @@ use ely_gpui::{
     data_display::{Gauge, Statistic, TrendIndicator},
     forms::Choice,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::Timestamp;
 
 use crate::ui::{change, keep, section};
 

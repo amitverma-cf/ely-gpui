@@ -27,8 +27,8 @@ export function Chapters() {
 
   useEffect(() => {
     document.title = activeChapter !== null
-      ? `${registryChapters.find((c) => Number(c.number) === Number(activeChapter))?.title} · Components · Ely`
-      : `Components (${registryComponents.length.toLocaleString("en-US")}) · Ely`;
+      ? `${registryChapters.find((c) => Number(c.number) === Number(activeChapter))?.title} · Components · Mok`
+      : `Components (${registryComponents.length.toLocaleString("en-US")}) · Mok`;
   }, [activeChapter]);
 
   // Filter components by search query or chapter
@@ -215,7 +215,7 @@ function ChapterSection({
               <span className="list-col-name">{item.display_name}</span>
               <span className="list-col-desc">{item.description}</span>
               <code className="list-col-type">{item.export_type}</code>
-              <code className="list-col-cli">cargo ely add {item.name}</code>
+              <code className="list-col-cli">cargo mok add {item.name}</code>
             </div>
           ))}
         </div>

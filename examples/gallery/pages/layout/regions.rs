@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, Axis, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{Button, ButtonVariant, IconButton},
     layout::{
         Accordion, AccordionItem, Card, CardHeader, Collapsible, Fieldset, Frame, Panel, Section,
@@ -8,7 +9,6 @@ use ely_gpui::{
     theme::{ActiveTheme, ControlSize, Radius},
     typography::{Caption, Label, Paragraph},
 };
-use gpui::{App, Axis, IntoElement, ParentElement, Styled, Window, div, px};
 
 use super::basics::tile;
 use crate::{
@@ -141,7 +141,7 @@ pub fn accordion(cx: &App) -> impl IntoElement + use<> {
             Accordion::new("faq")
                 .first_open()
                 .item(
-                    AccordionItem::new("What is Ely?")
+                    AccordionItem::new("What is Mok?")
                         .child("A component library for gpui, in light and dark."),
                 )
                 .item(

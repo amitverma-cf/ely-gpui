@@ -19,7 +19,7 @@ use super::{
 };
 
 actions!(
-    ely_terminal,
+    mok_terminal,
     [
         SendTab,
         SendBackTab,
@@ -32,7 +32,7 @@ actions!(
     ]
 );
 
-pub(crate) const CONTEXT: &str = "ElyTerminal";
+pub(crate) const CONTEXT: &str = "MokTerminal";
 
 /// Tab and Shift-Tab go to the program here, ahead of focus moves; the rest are the app's own.
 pub(crate) fn bind_keys(cx: &mut App) {

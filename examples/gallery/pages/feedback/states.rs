@@ -1,7 +1,8 @@
 use std::time::Duration;
 
 use anyhow::anyhow;
-use ely_gpui::{
+use gpui::{App, Div, IntoElement, ParentElement, Styled, Window, div, prelude::FluentBuilder};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     feedback::{
         ConfirmationCard, ConnectionStatus, Countdown, ErrorBoundary, ErrorView, InlineMessage,
@@ -12,7 +13,6 @@ use ely_gpui::{
     theme::{ActiveTheme, Radius, TextSize},
     typography::Caption,
 };
-use gpui::{App, Div, IntoElement, ParentElement, Styled, Window, div, prelude::FluentBuilder};
 use web_time::Instant;
 
 use crate::{

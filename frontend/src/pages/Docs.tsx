@@ -25,7 +25,7 @@ export function Docs() {
   const at = guides.findIndex((g) => g.slug === (page ?? ""));
   const guide = guides[at];
   useEffect(() => {
-    if (guide) document.title = `${guide.title} · Docs · Ely`;
+    if (guide) document.title = `${guide.title} · Docs · Mok`;
   }, [guide]);
   if (!guide) return <NotFound what={`No guide at ${page}.`} />;
   const [prev, next] = [guides[at - 1], guides[at + 1]];

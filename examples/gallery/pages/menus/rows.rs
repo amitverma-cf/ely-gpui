@@ -1,10 +1,10 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::ButtonVariant,
     menus::{ContextMenu, DropdownMenu, Menu, MenuItem, OverflowMenu, SplitButton},
     primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
 };
-use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

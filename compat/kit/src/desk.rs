@@ -1,4 +1,3 @@
-use ely_gpui::{buttons::Button, overlays::Dialog, primitives::FocusScope};
 use gpui_kit::{
     AppContext, Bounds, Context, Entity, FocusHandle, IntoElement, KeyUpEvent, Keystroke,
     ParentElement, Render, Styled, TestAppContext, VisualTestContext, Window, WindowBounds,
@@ -11,16 +10,17 @@ use gpui_kit::{
     prelude::*,
     px, size,
 };
+use mok_gpui::{buttons::Button, overlays::Dialog, primitives::FocusScope};
 
 pub const CODE: &str = "fn main() {}";
 
-/// Ely's root scope inside Kit's `Root`.
+/// Mok's root scope inside Kit's `Root`.
 pub struct Desk {
     pub root: FocusHandle,
     pub open: FocusHandle,
     pub line: Entity<InputState>,
     pub code: Entity<EditorState>,
-    pub ely_dialog: bool,
+    pub mok_dialog: bool,
 }
 
 impl Render for Desk {
@@ -34,8 +34,8 @@ impl Render for Desk {
             .flex_col()
             .gap_4()
             .child(
-                div().debug_selector(|| "ely-open".into()).child(
-                    Button::new("ely-open", "Open")
+                div().debug_selector(|| "mok-open".into()).child(
+                    Button::new("mok-open", "Open")
                         .focus_handle(&self.open)
                         .on_click(|_, window, cx| {
                             window.open_dialog(cx, |dialog, _, _| dialog.title("Kit dialog"));
@@ -44,29 +44,29 @@ impl Render for Desk {
             )
             .child(Input::new(&self.line))
             .child(div().h(px(120.)).child(Editor::new(&self.code).size_full()))
-            .when(self.ely_dialog, |desk| {
+            .when(self.mok_dialog, |desk| {
                 desk.child(
-                    Dialog::new("ely-dialog", "Ely dialog", move |_, cx| {
+                    Dialog::new("mok-dialog", "Mok dialog", move |_, cx| {
                         view.update(cx, |desk, cx| {
-                            desk.ely_dialog = false;
+                            desk.mok_dialog = false;
                             cx.notify();
                         })
                     })
-                    .action(|_| Button::new("ely-first", "First"))
-                    .action(|_| Button::new("ely-second", "Second")),
+                    .action(|_| Button::new("mok-first", "First"))
+                    .action(|_| Button::new("mok-second", "Second")),
                 )
             })
     }
 }
 
 /// Starts both libraries in order; Kit opens the window.
-pub fn open(cx: &mut TestAppContext, ely_last: bool) -> (Entity<Desk>, VisualTestContext) {
+pub fn open(cx: &mut TestAppContext, mok_last: bool) -> (Entity<Desk>, VisualTestContext) {
     cx.update(|cx| {
-        if ely_last {
+        if mok_last {
             gpui_kit::init(cx);
-            ely_gpui::init_for_tests(cx);
+            mok_gpui::init_for_tests(cx);
         } else {
-            ely_gpui::init_for_tests(cx);
+            mok_gpui::init_for_tests(cx);
             gpui_kit::init(cx);
         }
     });
@@ -88,7 +88,7 @@ pub fn open(cx: &mut TestAppContext, ely_last: bool) -> (Entity<Desk>, VisualTes
                         .language("rust")
                         .default_value(CODE)
                 }),
-                ely_dialog: false,
+                mok_dialog: false,
             })
         })
         .expect("Kit opens the window")

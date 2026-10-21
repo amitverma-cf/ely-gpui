@@ -53,7 +53,7 @@ fn tag(c: &RegistryComponent) -> String {
     match c.status.as_str() {
         "component" => c.files.map_or_else(String::new, |n| format!("{n} files")),
         "feature" => format!("part of {}", c.export_type),
-        "core" => "in ely-gpui".into(),
+        "core" => "in mok-gpui".into(),
         "native" => "native to gpui".into(),
         "blocked" => "blocked in gpui".into(),
         "host" => "host provides".into(),
@@ -74,7 +74,7 @@ pub fn list_components(filter: Option<&str>, as_json: bool) -> Result<(), String
     let total = registry.total_components;
     match filter {
         None => {
-            println!("Ely GPUI Component Registry");
+            println!("Mok GPUI Component Registry");
             println!(
                 "Total: {total} components across {} chapters\n",
                 registry.total_chapters
@@ -87,13 +87,13 @@ pub fn list_components(filter: Option<&str>, as_json: bool) -> Result<(), String
                 );
             }
             println!("\nUsage:");
-            println!("  cargo ely list <chapter>        List a chapter (e.g. 'forms', 'charts')");
-            println!("  cargo ely list search <query>   Search all {total} components");
-            println!("  cargo ely list --all            List all {total}, grouped by chapter");
-            println!("  cargo ely add <component>       Copy a component into src/ui as source\n");
+            println!("  cargo mok list <chapter>        List a chapter (e.g. 'forms', 'charts')");
+            println!("  cargo mok list search <query>   Search all {total} components");
+            println!("  cargo mok list --all            List all {total}, grouped by chapter");
+            println!("  cargo mok add <component>       Copy a component into src/ui as source\n");
         }
         Some("--all") => {
-            println!("Ely GPUI Component Registry (all {total} components)\n");
+            println!("Mok GPUI Component Registry (all {total} components)\n");
             for ch in &registry.chapters {
                 println!(
                     "== {:02}. {} ({}) ==",
@@ -135,7 +135,7 @@ pub fn list_components(filter: Option<&str>, as_json: bool) -> Result<(), String
                         .iter()
                         .filter(|c| c.chapter == ch.number)
                         .for_each(line);
-                    println!("\nCopy any of these with: cargo ely add <component>\n");
+                    println!("\nCopy any of these with: cargo mok add <component>\n");
                 }
                 None => search(&registry, &clean),
             }
@@ -157,7 +157,7 @@ fn search(registry: &Registry, term: &str) {
         .collect();
     println!("Search results for '{term}' ({} found):\n", hits.len());
     hits.into_iter().for_each(line);
-    println!("\nCopy with: cargo ely add <component>\n");
+    println!("\nCopy with: cargo mok add <component>\n");
 }
 
 fn find<'a>(registry: &'a Registry, name: &str) -> Option<&'a RegistryComponent> {
@@ -182,25 +182,25 @@ pub fn scaffold_components(
     let mut units = vec![];
     for name in names {
         let entry = find(&registry, name).ok_or_else(|| {
-            format!("Unknown component '{name}'. Try 'cargo ely list search {name}'.")
+            format!("Unknown component '{name}'. Try 'cargo mok list search {name}'.")
         })?;
         match (entry.status.as_str(), &entry.unit) {
             ("component" | "feature", Some(unit)) => {
                 if entry.status == "feature" {
                     println!(
-                        "[ely] '{}' is part of {}; copying that.",
+                        "[mok] '{}' is part of {}; copying that.",
                         entry.display_name, entry.export_type
                     );
                 }
                 units.push(unit.clone());
             }
             ("core", _) => println!(
-                "[ely] '{}' ships in the ely-gpui crate: use {}",
+                "[mok] '{}' ships in the mok-gpui crate: use {}",
                 entry.display_name,
                 entry.import.as_deref().unwrap_or(&entry.export_type)
             ),
             ("native" | "blocked" | "host", _) => println!(
-                "[ely] '{}' has nothing to copy ({}): {}",
+                "[mok] '{}' has nothing to copy ({}): {}",
                 entry.display_name, entry.status, entry.description
             ),
             _ => {

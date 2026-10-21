@@ -139,7 +139,7 @@ impl Render for LongTitle {
     fn render(&mut self, _: &mut Window, _: &mut Context<Self>) -> impl IntoElement {
         div().w(px(280.0)).flex().flex_col().child(
             super::TitleBar::new("bar")
-                .title("Ely — Projects at a narrow width, and more besides")
+                .title("Mok — Projects at a narrow width, and more besides")
                 .platform(crate::theme::Platform::Windows),
         )
     }
@@ -227,7 +227,7 @@ fn an_untitled_windows_bar_keeps_its_buttons_at_the_end(cx: &mut TestAppContext)
 #[gpui::test]
 fn a_long_centered_title_ends_before_the_buttons(cx: &mut TestAppContext) {
     cx.update(Theme::init);
-    let long = "Ely — Projects at a narrow width, and more besides";
+    let long = "Mok — Projects at a narrow width, and more besides";
     let (_, cx) = cx.add_window_view(|_, _| Bar(Some(long), crate::theme::Platform::Linux));
     settle(cx);
     let title = cx.debug_bounds("titlebar-title").expect("the title");
@@ -270,7 +270,7 @@ impl Render for Splash {
     fn render(&mut self, _: &mut Window, _: &mut Context<Self>) -> impl IntoElement {
         div()
             .size_full()
-            .child(super::SplashScreen::new("Ely").progress(Some(0.5)))
+            .child(super::SplashScreen::new("Mok").progress(Some(0.5)))
     }
 }
 
@@ -403,7 +403,7 @@ impl Render for Unforced {
     }
 }
 
-/// Unforced, macOS leaves the first header room for the system's lights; elsewhere Ely draws the theme's controls.
+/// Unforced, macOS leaves the first header room for the system's lights; elsewhere Mok draws the theme's controls.
 #[gpui::test]
 fn an_unforced_shell_follows_the_system(cx: &mut TestAppContext) {
     cx.update(Theme::init);

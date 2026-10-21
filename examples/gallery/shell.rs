@@ -1,14 +1,14 @@
-use ely_gpui::{
+use gpui::{
+    AnyElement, App, Context, FocusHandle, FontWeight, InteractiveElement, IntoElement,
+    ParentElement, Pixels, Render, ScrollHandle, SharedString, StatefulInteractiveElement, Styled,
+    Subscription, Window, div, point, prelude::*, px,
+};
+use mok_gpui::{
     buttons::{ButtonVariant, IconButton},
     feedback::Alert,
     layout::on_axis,
     primitives::{FocusScope, LucideIcon, Severity},
     theme::{ActiveTheme, ControlSize, Mode, Radius, TextSize, Theme},
-};
-use gpui::{
-    AnyElement, App, Context, FocusHandle, FontWeight, InteractiveElement, IntoElement,
-    ParentElement, Pixels, Render, ScrollHandle, SharedString, StatefulInteractiveElement, Styled,
-    Subscription, Window, div, point, prelude::*, px,
 };
 
 use crate::{Start, pages, ui::Story};
@@ -146,7 +146,7 @@ impl Gallery {
                             .text_size(theme.text_size(TextSize::Lg))
                             .font_weight(FontWeight::SEMIBOLD)
                             .text_color(colors.fg)
-                            .child("Ely"),
+                            .child("Mok"),
                     )
                     .child(
                         div()
@@ -263,7 +263,7 @@ impl Gallery {
         }
     }
 
-    /// The window's root: the focus scope over Ely's ground.
+    /// The window's root: the focus scope over Mok's ground.
     fn root(&self, cx: &App) -> FocusScope {
         let theme = cx.theme();
         FocusScope::new(&self.focus)

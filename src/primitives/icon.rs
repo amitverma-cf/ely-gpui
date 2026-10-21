@@ -7,7 +7,7 @@ use gpui::{
 
 use crate::theme::{ActiveTheme, IconSize};
 
-include!(concat!(env!("OUT_DIR"), "/ely_icons.rs"));
+include!(concat!(env!("OUT_DIR"), "/mok_icons.rs"));
 
 pub fn embedded_icon(path: &str) -> Option<&'static [u8]> {
     EMBEDDED_ICONS
@@ -97,11 +97,11 @@ fn found(source: &dyn AssetSource, path: &str) -> bool {
     match source.load(path) {
         Ok(Some(_)) => true,
         Ok(None) => {
-            log::error!("ely: icon {path} is not in the app's asset source");
+            log::error!("mok: icon {path} is not in the app's asset source");
             false
         }
         Err(error) => {
-            log::error!("ely: icon {path} failed to load: {error:#}");
+            log::error!("mok: icon {path} failed to load: {error:#}");
             false
         }
     }

@@ -142,9 +142,9 @@ mod tests {
         assert!(is_email("ada@example.com"));
         assert!(!is_email("ada@example"));
         assert!(!is_email("ada example.com"));
-        assert!(is_url("https://ely.dev/docs?x=1"));
+        assert!(is_url("https://mok.dev/docs?x=1"));
         assert!(is_url("http://localhost.test"));
-        assert!(!is_url("ely.dev"));
+        assert!(!is_url("mok.dev"));
         assert!(!is_url("https://nodot"));
     }
 }

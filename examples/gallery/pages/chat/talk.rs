@@ -1,6 +1,8 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, ElementId, IntoElement, ParentElement, Styled, Task, Window, div, px};
+use jiff::{Timestamp, ToSpan, civil::Date, tz::TimeZone};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     chat::{
         ChatContainer, DateSeparator, MessageActions, MessageAvatar, MessageBubble, MessageFooter,
@@ -9,8 +11,6 @@ use ely_gpui::{
     primitives::LucideIcon,
     theme::{ActiveTheme, Radius},
 };
-use gpui::{App, ElementId, IntoElement, ParentElement, Styled, Task, Window, div, px};
-use jiff::{Timestamp, ToSpan, civil::Date, tz::TimeZone};
 
 use crate::{
     probe::probe,
@@ -86,7 +86,7 @@ fn row(ix: usize, row: &Row, today: Date, now: Timestamp) -> gpui::AnyElement {
         } => {
             let header = MessageHeader::new(key("header"), *name).at(now - minutes_ago.minutes());
             let header = if *role == Role::Assistant {
-                header.model("Ely Large")
+                header.model("Mok Large")
             } else {
                 header
             };

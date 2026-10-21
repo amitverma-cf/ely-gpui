@@ -1,4 +1,6 @@
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use jiff::{Timestamp, ToSpan};
+use mok_gpui::{
     collab::{
         AnnotatedText, Annotation, Comment, CommentMarker, CommentSidebar, CommentThread, Decision,
         EditMode, Reaction, Suggestion, SuggestionMode, Thread, TrackChanges, accept, suggested,
@@ -7,8 +9,6 @@ use ely_gpui::{
     forms::{Input, TextInput},
     theme::ActiveTheme,
 };
-use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
-use jiff::{Timestamp, ToSpan};
 
 use super::people::{peers, you};
 use crate::{
@@ -210,7 +210,7 @@ pub fn comments(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
                 div()
                     .w(px(400.))
                     .h(px(560.))
-                    .rounded(theme.radius(ely_gpui::theme::Radius::Lg))
+                    .rounded(theme.radius(mok_gpui::theme::Radius::Lg))
                     .border_1()
                     .border_color(theme.colors.border)
                     .bg(theme.colors.sunken)

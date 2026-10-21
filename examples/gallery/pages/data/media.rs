@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ObjectFit, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     data_display::{BeforeAfter, Carousel, Gallery, Watermark},
     overlays::Slide,
@@ -6,7 +7,6 @@ use ely_gpui::{
     theme::{ActiveTheme, Radius, TextSize},
     typography::{Caption, Paragraph, Title},
 };
-use gpui::{App, IntoElement, ObjectFit, ParentElement, Styled, Window, div, px};
 
 use crate::{
     probe::probe,

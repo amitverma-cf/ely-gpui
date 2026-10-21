@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{App, Div, IntoElement, ParentElement, Styled, Window, div, px};
+use mok_gpui::{
     buttons::IconButton,
     primitives::LucideIcon,
     shell::{TitleBar, WindowControls, drag_region},
     theme::{ActiveTheme, ControlSize, Elevation, Platform, Radius, TextSize},
     typography::Caption,
 };
-use gpui::{App, Div, IntoElement, ParentElement, Styled, Window, div, px};
 
 use crate::ui::{code, row, section, specimen, specimens};
 
@@ -28,7 +28,7 @@ pub fn window_frame(width: f32, height: f32, cx: &App) -> Div {
 fn demo_bar(id: &'static str, style: Platform) -> TitleBar {
     TitleBar::new(id)
         .platform(style)
-        .title("Ely — Projects")
+        .title("Mok — Projects")
         .on_close(|_, _| log::info!("gallery: demo close refused"))
         .child(IconButton::new((id, 1usize), LucideIcon::PanelLeft).size(ControlSize::Sm))
         .action(IconButton::new((id, 2usize), LucideIcon::Search).size(ControlSize::Sm))
@@ -164,7 +164,7 @@ pub fn menus(cx: &App) -> impl IntoElement + use<> {
     )
     .child(
         row()
-            .child(Caption::new("Look up: Ely and View come from"))
+            .child(Caption::new("Look up: Mok and View come from"))
             .child(code("cx.set_menus(menus)", cx)),
     )
     .child(

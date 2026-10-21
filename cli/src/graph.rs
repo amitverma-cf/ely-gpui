@@ -8,7 +8,7 @@ use quote::ToTokens;
 use syn::visit::Visit;
 use syn::{Attribute, Item, UseTree};
 
-/// Modules that stay in the `ely-gpui` crate; everything else is copied as source.
+/// Modules that stay in the `mok-gpui` crate; everything else is copied as source.
 pub const CORE: &[&str] = &[
     "assets",
     "i18n",

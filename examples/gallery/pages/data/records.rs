@@ -1,4 +1,8 @@
-use ely_gpui::{
+use gpui::{
+    App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, prelude::*, px,
+};
+use jiff::{Timestamp, ToSpan};
+use mok_gpui::{
     buttons::{Button, ButtonVariant, SegmentedControl},
     data_display::{
         Activity, ActivityFeed, Badge, Change, Changelog, DescriptionList, PropertyGrid,
@@ -9,10 +13,6 @@ use ely_gpui::{
     theme::{ActiveTheme, ControlSize, Radius},
     typography::Code,
 };
-use gpui::{
-    App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, prelude::*, px,
-};
-use jiff::{Timestamp, ToSpan};
 
 use crate::{
     probe::probe,

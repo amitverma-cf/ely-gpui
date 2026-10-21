@@ -1,12 +1,12 @@
-use ely_gpui::{
+use gpui::{
+    App, AppContext, Context, FocusHandle, InteractiveElement, IntoElement, ParentElement, Render,
+    StatefulInteractiveElement, Styled, Window, WindowOptions, div, transparent_black,
+};
+use mok_gpui::{
     Assets,
     buttons::Button,
     primitives::{FocusRing, FocusScope},
     theme::{ActiveTheme, Radius},
-};
-use gpui::{
-    App, AppContext, Context, FocusHandle, InteractiveElement, IntoElement, ParentElement, Render,
-    StatefulInteractiveElement, Styled, Window, WindowOptions, div, transparent_black,
 };
 
 struct Panel {
@@ -54,7 +54,7 @@ fn main() {
     gpui_platform::application()
         .with_assets(Assets)
         .run(|cx: &mut App| {
-            ely_gpui::init(cx).expect("Ely failed to start");
+            mok_gpui::init(cx).expect("Mok failed to start");
             cx.open_window(WindowOptions::default(), |window, cx| {
                 cx.new(|cx| {
                     let root = cx.focus_handle();

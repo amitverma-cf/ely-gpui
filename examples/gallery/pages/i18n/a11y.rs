@@ -1,12 +1,12 @@
-use ely_gpui::{
+use gpui::{
+    App, ElementId, InteractiveElement, IntoElement, ParentElement, SharedString, Styled, Window,
+    div, px,
+};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     forms::Switch,
     i18n::SkipLink,
     theme::{ActiveTheme, HUE_NAMES, Radius, Theme},
-};
-use gpui::{
-    App, ElementId, InteractiveElement, IntoElement, ParentElement, SharedString, Styled, Window,
-    div, px,
 };
 
 use crate::probe::probe;
@@ -88,7 +88,7 @@ pub fn color_blind(cx: &App) -> impl IntoElement + use<> {
         });
     section(
         "ColorBlindSafe Palette",
-        "Ely's chart hues share one lightness, so protanopia, deuteranopia and tritanopia run some together. The safe hues differ in lightness too: every pair stays apart for each, and each is 3:1 on its page.",
+        "Mok's chart hues share one lightness, so protanopia, deuteranopia and tritanopia run some together. The safe hues differ in lightness too: every pair stays apart for each, and each is 3:1 on its page.",
         cx,
     )
     .child(probe(

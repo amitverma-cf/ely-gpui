@@ -1,4 +1,4 @@
-# Builds the browser gallery on Windows; ELY_GALLERY_ASSETS addresses <out>/assets/.
+# Builds the browser gallery on Windows; MOK_GALLERY_ASSETS addresses <out>/assets/.
 param (
     [Parameter(Mandatory=$true)]
     [string]$OutDir
@@ -6,8 +6,8 @@ param (
 
 $ErrorActionPreference = "Stop"
 
-if (-not $env:ELY_GALLERY_ASSETS) {
-    $env:ELY_GALLERY_ASSETS = "/gallery/assets/"
+if (-not $env:MOK_GALLERY_ASSETS) {
+    $env:MOK_GALLERY_ASSETS = "/gallery/assets/"
 }
 
 $Root = Resolve-Path "$PSScriptRoot\.."

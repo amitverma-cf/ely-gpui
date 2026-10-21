@@ -53,7 +53,7 @@ impl Order {
             }
     }
 
-    /// The order in a line, such as "Buy 100 ELY at the market".
+    /// The order in a line, such as "Buy 100 MOK at the market".
     pub fn words(&self, places: usize) -> String {
         let side = if self.side == Side::Buy {
             "Buy"

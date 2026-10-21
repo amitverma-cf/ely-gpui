@@ -8,7 +8,7 @@ const GUIDES = "\0virtual:guides";
 function docs(): Plugin {
   let files: string[] = [];
   return {
-    name: "ely-docs",
+    name: "mok-docs",
     resolveId: (id) => (id === "virtual:guides" ? GUIDES : undefined),
     load(id) {
       if (id !== GUIDES) return;
@@ -29,7 +29,7 @@ function docs(): Plugin {
 
 function gallery(): Plugin {
   return {
-    name: "ely-gallery",
+    name: "mok-gallery",
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         if (req.url) {

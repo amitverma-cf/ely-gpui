@@ -19,7 +19,7 @@ mod tokens;
 mod tooling;
 
 pub mod baked {
-    include!(concat!(env!("OUT_DIR"), "/ely_baked.rs"));
+    include!(concat!(env!("OUT_DIR"), "/mok_baked.rs"));
 }
 
 #[cfg(all(test, feature = "test-support"))]
@@ -170,21 +170,21 @@ impl Theme {
         Self::fade_to_target(cx);
     }
 
-    /// Chart hues that stay apart for color-blind eyes, in Ely's own palettes.
+    /// Chart hues that stay apart for color-blind eyes, in Mok's own palettes.
     pub fn set_color_blind_safe(on: bool, cx: &mut App) {
         log::info!("theme: color-blind safe charts -> {on}");
         cx.global_mut::<Theme>().color_blind_safe = on;
         Self::fade_to_target(cx);
     }
 
-    /// The owner's palette for `mode`, as an edited or imported theme gives, or none to bring Ely's back. The colors fade to it when `mode` shows. High contrast and color-blind safe charts change Ely's own palettes alone.
+    /// The owner's palette for `mode`, as an edited or imported theme gives, or none to bring Mok's back. The colors fade to it when `mode` shows. High contrast and color-blind safe charts change Mok's own palettes alone.
     pub fn set_palette(mode: Mode, palette: Option<Palette>, cx: &mut App) {
         log::info!(
             "theme: {mode:?} palette -> {}",
             if palette.is_some() {
                 "the owner's"
             } else {
-                "Ely's"
+                "Mok's"
             }
         );
         cx.global_mut::<Theme>().custom[mode as usize] = palette;
@@ -203,7 +203,7 @@ impl Theme {
 
     pub const PRESET_NAMES: &'static [&'static str] = baked::BAKED_PRESET_NAMES;
 
-    /// The palette the shown mode fades to: the owner's, or Ely's.
+    /// The palette the shown mode fades to: the owner's, or Mok's.
     pub fn palette(&self) -> Palette {
         self.target()
     }

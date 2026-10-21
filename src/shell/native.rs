@@ -91,8 +91,8 @@ mod mac {
 
     use super::{OnPick, TrayItem};
 
-    const TARGET: &str = "ElyTrayTarget";
-    const ROUTE: &str = "elyRoute";
+    const TARGET: &str = "MokTrayTarget";
+    const ROUTE: &str = "mokRoute";
 
     struct Route {
         app: AsyncApp,
@@ -125,7 +125,7 @@ mod mac {
                 .unwrap_or_else(|| panic!("objc class {TARGET} already exists"));
             decl.add_ivar::<*const std::ffi::c_void>(ROUTE);
             unsafe {
-                decl.add_method(sel!(elyPicked:), picked as extern "C" fn(&Object, Sel, id));
+                decl.add_method(sel!(mokPicked:), picked as extern "C" fn(&Object, Sel, id));
             }
             decl.register();
         });
@@ -169,7 +169,7 @@ mod mac {
                             let entry = NSMenuItem::alloc(nil)
                                 .initWithTitle_action_keyEquivalent_(
                                     string(label),
-                                    sel!(elyPicked:),
+                                    sel!(mokPicked:),
                                     string(""),
                                 )
                                 .autorelease();

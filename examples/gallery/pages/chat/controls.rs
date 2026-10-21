@@ -1,6 +1,7 @@
 use std::time::Duration;
 
-use ely_gpui::{
+use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     chat::{
         BranchNavigator, ErrorMessage, FeedbackForm, MessageActions, MessageAvatar, MessageBubble,
@@ -10,7 +11,6 @@ use ely_gpui::{
     forms::TextInput,
     primitives::LucideIcon,
 };
-use gpui::{App, Entity, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 use web_time::Instant;
 
 use crate::{

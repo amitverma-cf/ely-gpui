@@ -1,11 +1,11 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     editor::{
         KeySource, Keybinding, KeybindingsEditor, Setting, SettingValue, SettingsEditor,
         settings_json,
     },
     forms::{TextInput, json_highlights},
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::ui::{keep, section, set};
 

@@ -1,13 +1,13 @@
 # Getting started
 
-An Ely app is a GPUI app with four more parts: Ely's assets, one call to `init`, a root `FocusScope` around each window's content, and colors from the theme.
+An Mok app is a GPUI app with four more parts: Mok's assets, one call to `init`, a root `FocusScope` around each window's content, and colors from the theme.
 
 ## Four parts
 
 | Part | Why |
 | --- | --- |
-| `gpui_platform::application().with_assets(Assets)` | Ely embeds its icons and fonts. `init` returns an error when the source cannot load one of them. |
-| `ely_gpui::init(cx)?` | Call once, before any window. It returns an error if the asset source fails. It registers the fonts, sets the theme, and binds Tab, Shift-Tab and the keys of text fields, the code editor, documents and, natively, the terminal. |
+| `gpui_platform::application().with_assets(Assets)` | Mok embeds its icons and fonts. `init` returns an error when the source cannot load one of them. |
+| `mok_gpui::init(cx)?` | Call once, before any window. It returns an error if the asset source fails. It registers the fonts, sets the theme, and binds Tab, Shift-Tab and the keys of text fields, the code editor, documents and, natively, the terminal. |
 | A root `FocusScope` | `FocusScope::new(&handle).root()` owns Tab for the window and takes focus back when the focused element leaves the tree. Focus its handle when the window opens. |
 | `cx.theme()` | Colors, sizes and radii come from the theme. Components read it; an app's own boxes read it too. |
 
@@ -29,7 +29,7 @@ The example opens a titled window in dark mode. Its button cross-fades every com
 For full desktop applications with structured window regions, use `AppLayout`:
 
 ```rust
-use ely_gpui::layout::AppLayout;
+use mok_gpui::layout::AppLayout;
 
 AppLayout::new()
     .header(title_bar)

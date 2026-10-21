@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 
-use ely_gpui::primitives::Measure;
 use gpui::{
     AnyWindowHandle, App, Bounds, Div, Global, IntoElement, ParentElement, Pixels, Styled, div,
 };
+use mok_gpui::primitives::Measure;
 
 /// Window bounds of named demo elements, for scripted capture.
 #[derive(Default)]

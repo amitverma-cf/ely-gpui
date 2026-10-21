@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
+use mok_gpui::{
     account::{
         Account, AccountSwitcher, ApiKey, ApiKeyManager, Profile, ProfileCard, ProfileEditor,
         Session, SessionList, UserMenu, Workspace, WorkspaceSwitcher,
@@ -8,7 +9,6 @@ use ely_gpui::{
     menus::MenuItem,
     primitives::LucideIcon,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px};
 
 use crate::{
     probe::probe,
@@ -162,7 +162,7 @@ fn security() -> Security {
                 "phone",
                 LucideIcon::Smartphone,
                 "iPhone 17",
-                "Ely for iOS",
+                "Mok for iOS",
                 "Lisbon, Portugal",
                 "2 hours ago",
                 false,
@@ -171,7 +171,7 @@ fn security() -> Security {
                 "mac",
                 LucideIcon::Monitor,
                 "MacBook Pro",
-                "Ely 4.2",
+                "Mok 4.2",
                 "Lisbon, Portugal",
                 "Active now",
                 true,
@@ -190,14 +190,14 @@ fn security() -> Security {
             ApiKey {
                 key: "ci".into(),
                 name: "CI".into(),
-                hint: "ely_live_…4f2a".into(),
+                hint: "mok_live_…4f2a".into(),
                 created: "Made 3 Sep 2026".into(),
                 used: "Last used today".into(),
             },
             ApiKey {
                 key: "backup".into(),
                 name: "Backups".into(),
-                hint: "ely_live_…91c0".into(),
+                hint: "mok_live_…91c0".into(),
                 created: "Made 12 Aug 2026".into(),
                 used: "Never used".into(),
             },
@@ -225,12 +225,12 @@ pub fn security_page(window: &mut Window, cx: &mut App) -> impl IntoElement + us
                     ApiKey {
                         key,
                         name,
-                        hint: "ely_live_…7d3e".into(),
+                        hint: "mok_live_…7d3e".into(),
                         created: "Made today".into(),
                         used: "Never used".into(),
                     },
                 );
-                security.secret = Some("ely_live_5f1c0a9e2b7d4c8a3e6f7d3e".into());
+                security.secret = Some("mok_live_5f1c0a9e2b7d4c8a3e6f7d3e".into());
             })
         },
         move |key, _, cx| {

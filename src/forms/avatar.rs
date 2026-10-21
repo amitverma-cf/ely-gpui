@@ -152,7 +152,7 @@ mod tests {
 
     #[test]
     fn an_avatar_takes_one_picture_file() {
-        let dir = std::env::temp_dir().join("ely-avatar-picture");
+        let dir = std::env::temp_dir().join("mok-avatar-picture");
         fs::create_dir_all(&dir).expect("a temp dir");
         let (face, notes) = (dir.join("face.PNG"), dir.join("notes.txt"));
         fs::write(&face, b"png").expect("a picture");

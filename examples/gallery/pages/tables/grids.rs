@@ -1,10 +1,10 @@
 use std::{collections::HashMap, rc::Rc};
 
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px, rems};
+use mok_gpui::{
     tables::{Aggregate, Cell, Column, DataGrid, PivotTable, Spreadsheet, TreeRow, TreeTable},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, SharedString, Styled, Window, div, px, rems};
 
 use crate::{
     probe::probe,

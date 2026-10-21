@@ -1,4 +1,5 @@
-use ely_gpui::{
+use gpui::{App, IntoElement, ParentElement, Styled, Window, div, prelude::FluentBuilder};
+use mok_gpui::{
     buttons::{Button, ButtonVariant},
     feedback::{
         Alert, Banner, Callout, EmptyState, InlineMessage, Notification, NotificationCenter,
@@ -9,7 +10,6 @@ use ely_gpui::{
     theme::{ActiveTheme, Radius},
     typography::Caption,
 };
-use gpui::{App, IntoElement, ParentElement, Styled, Window, div, prelude::FluentBuilder};
 
 use crate::{
     probe::probe,
@@ -202,7 +202,7 @@ pub fn alerts(window: &mut Window, cx: &mut App) -> impl IntoElement + use<> {
             )
             .child(
                 Alert::new("alert-success", Severity::Success, "Domain verified")
-                    .body("ely.design now points to this workspace."),
+                    .body("mok.design now points to this workspace."),
             )
             .child(
                 Alert::new(
