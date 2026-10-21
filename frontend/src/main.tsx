@@ -8,8 +8,6 @@ import { Chapters } from "./pages/Chapters";
 import { Docs } from "./pages/Docs";
 import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
-import { Showcase } from "./pages/Showcase";
-import { ShowcaseApp } from "./pages/ShowcaseApp";
 import { Story } from "./pages/Story";
 import "./styles.css";
 
@@ -36,13 +34,11 @@ const chapter = createRoute({
 const story = createRoute({ getParentRoute: () => root, path: "/components/$page/$story", component: Story });
 const docs = createRoute({ getParentRoute: () => root, path: "/docs", component: Docs });
 const doc = createRoute({ getParentRoute: () => root, path: "/docs/$page", component: Docs });
-const showcase = createRoute({ getParentRoute: () => root, path: "/showcase", component: Showcase });
-const showcaseApp = createRoute({ getParentRoute: () => root, path: "/showcase/$app", component: ShowcaseApp });
 
 const basepath = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
 
 const router = createRouter({
-  routeTree: root.addChildren([home, index, chapter, story, docs, doc, showcase, showcaseApp]),
+  routeTree: root.addChildren([home, index, chapter, story, docs, doc]),
   basepath,
   trailingSlash: "always",
   scrollRestoration: true,

@@ -185,7 +185,6 @@ Per-component lines live in `tasks/`. Tags there:
 - [x] T50e Rendering · Platforms: CI builds and tests the crate on Linux, macOS and Windows, arm64 and x86_64
 - [x] T50f Rendering · Docs: a guide with an example `scripts/check.sh` compiles; AGENTS.md
 - [x] T50g Rendering · Acceptance: the checklist, item by item
-- [x] T51 Showcase · an apps page fed by a public repo — `tasks/showcase.md`
 - [x] T52 Logo · an isometric mark for the header, favicon and OG image — `tasks/logo.md`
 - [x] T53 Panics · handlers move into `new`, live states log and show, asserts audited — `tasks/panics.md`
 - [x] T54 GPUI Kit · Ely and Kit share one app and one window — `tasks/kit.md`

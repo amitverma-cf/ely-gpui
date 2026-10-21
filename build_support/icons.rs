@@ -163,6 +163,12 @@ pub fn generate_icons(
     let mut table = String::new();
     for pack in &packs {
         let icons = read_pack(&pack.dir);
+        if icons.is_empty() && pack.enum_name == "LucideIcon" {
+            panic!(
+                "ely: no Lucide icons in {}. Run `cargo mok init` to download them.",
+                pack.dir.display()
+            );
+        }
         provider(&mut code, pack, &icons);
         for (variant, stem, path) in &icons {
             if mode != "all" && !used.contains(variant) {

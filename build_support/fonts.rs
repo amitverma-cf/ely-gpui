@@ -78,7 +78,7 @@ pub fn generate_fonts(
                  Searched locations:\n\
                    - {}\n\
                    - {}\n\
-                 Please verify the file exists or update your ely-gpui.toml [fonts] configuration.",
+                 Run `cargo mok init` to download the fonts, or update the [fonts] table of ely-gpui.toml.",
                 rel_path,
                 in_assets.display(),
                 in_root.display()

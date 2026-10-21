@@ -6,3 +6,7 @@ node_modules/
 /compat/kit/target/
 /docs/
 /cli/target/
+
+# Fetched by `cargo mok init`, never committed.
+/assets/fonts/
+/assets/icons/
